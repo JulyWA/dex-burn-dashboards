@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T04:36:08.989Z",
+  "generatedAt": "2026-06-23T04:48:50.272Z",
   "lastWeek": "2026-06-15",
   "weeklyVolume": [
     {
@@ -1641,7 +1641,7 @@
     "rev": 934894,
     "fees": 8354760,
     "burn7d": 366000,
-    "protoRatio": 0.11189956384145086
+    "burnPctOfFees": 0.13010786665326113
   },
   "now": {
     "effective": 893770420.0329479,
