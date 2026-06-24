@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T08:44:55.156Z",
+  "generatedAt": "2026-06-24T01:27:58.323Z",
   "lastWeek": "2026-06-15",
   "hasSupplyCurve": true,
   "weeklyVolume": [
@@ -1467,24 +1467,24 @@
     }
   ],
   "kpi": {
-    "vol7d": 4355666125,
-    "fees7d": 1619419,
-    "rev7d": 560781,
-    "burnBudget7d": 367301,
-    "netDeflationRate": 0.07672928178606181,
+    "vol7d": 4238851364,
+    "fees7d": 1544439,
+    "rev7d": 538561,
+    "burnBudget7d": 350966,
+    "netDeflationRate": 0.07672924839996186,
     "netChange4w": -1904946,
     "streakMonths": 32,
     "streakAsOf": "2026-04-30",
-    "burnBudgetCake": 278258.3333333333,
-    "burnShareOfFees": 0.22681035605979674
+    "burnBudgetCake": 263884.2105263158,
+    "burnShareOfFees": 0.22724497374127434
   },
   "now": {
     "net": 341932466.4756727,
-    "circulating": 323635660.4373323,
+    "circulating": 323635801.2562864,
     "maxSupply": 400000000,
     "headroom": 58067533.52432728,
-    "price": 1.32,
-    "marketCap": 426729140
+    "price": 1.33,
+    "marketCap": 431831253
   },
   "target": {
     "annualPct": 0.04,
