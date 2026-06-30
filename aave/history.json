@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T07:20:56.125Z",
+  "generatedAt": "2026-06-30T08:30:35.687Z",
   "lastWeek": "2026-06-22",
   "weeklyIncome": [
     {
@@ -476,26 +476,27 @@
   "kpi": {
     "fees": 7428302,
     "rev": 974120,
-    "tvl": 12115555560.636654,
-    "borrowed": 19474592774.72734,
-    "gho": 597688545.9542788,
+    "tvl": 12149336426.161741,
+    "borrowed": 19508927672.38138,
+    "gho": 597858269.2470248,
     "annualBuyback": 50000000,
     "weeklyBuyback": 961538.4615384615,
-    "reserveUsd": 53553475.782165684,
+    "reserveUsd": 52657352.32394066,
     "takeRate": 0.13113629467407223,
     "buybackRatio": 0.9870842006513176,
-    "buybackYield": 0.03626081112004203,
-    "buybackPayback": 27.5779821,
+    "buybackYield": 0.0368848494650913,
+    "buybackPayback": 27.1114025,
     "daoOpex": 20000000,
     "daoNet": 42347426.33333333,
-    "buybackCoverage": 1.1807092975717164
+    "buybackCoverage": 1.1807092975717164,
+    "buybackCoverageProposed": 0.7084255785430298
   },
   "now": {
-    "price": 90.84,
-    "marketCap": 1378899105,
+    "price": 89.32,
+    "marketCap": 1355570125,
     "total": 16000000,
     "circulating": 15179911.874935383,
-    "reserve": 589536.2811775174,
+    "reserve": 589535.9642178757,
     "nonCirculating": 820088.125064617
   },
   "plan": {
