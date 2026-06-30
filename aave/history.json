@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T08:30:35.687Z",
+  "generatedAt": "2026-06-30T09:15:59.931Z",
   "lastWeek": "2026-06-22",
   "weeklyIncome": [
     {
@@ -481,24 +481,25 @@
     "gho": 597858269.2470248,
     "annualBuyback": 50000000,
     "weeklyBuyback": 961538.4615384615,
-    "reserveUsd": 52657352.32394066,
+    "reserveUsd": 52722004.49428348,
     "takeRate": 0.13113629467407223,
     "buybackRatio": 0.9870842006513176,
-    "buybackYield": 0.0368848494650913,
-    "buybackPayback": 27.1114025,
+    "buybackYield": 0.036825889308419325,
+    "buybackPayback": 27.15480926,
     "daoOpex": 20000000,
     "daoNet": 42347426.33333333,
     "buybackCoverage": 1.1807092975717164,
     "buybackCoverageProposed": 0.7084255785430298
   },
   "now": {
-    "price": 89.32,
-    "marketCap": 1355570125,
+    "price": 89.43,
+    "marketCap": 1357740463,
     "total": 16000000,
     "circulating": 15179911.874935383,
-    "reserve": 589535.9642178757,
+    "reserve": 589533.7637737166,
     "nonCirculating": 820088.125064617
   },
+  "dataStale": "2026-06-22",
   "plan": {
     "annualUsd": 50000000,
     "weekly": 961538.4615384615,
