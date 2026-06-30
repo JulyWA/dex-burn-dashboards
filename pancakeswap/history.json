@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T04:49:44.243Z",
+  "generatedAt": "2026-06-30T04:52:30.222Z",
   "lastWeek": "2026-06-22",
   "hasSupplyCurve": true,
   "weeklyVolume": [
@@ -1525,9 +1525,12 @@
   ],
   "kpi": {
     "vol7d": 4807247687,
+    "vol30d": 23957782327,
     "fees7d": 1755803,
+    "fees30d": 10079631,
     "rev7d": 608982,
     "burnBudget7d": 386503,
+    "burnBudget30d": 2232875,
     "netDeflationRate": 0.0682403491078575,
     "netChange4w": -1904945.9999999986,
     "netWeek": -468113.0000000005,
@@ -1544,7 +1547,7 @@
     "maxSupply": 400000000,
     "headroom": 64205616.436053276,
     "price": 1.32,
-    "marketCap": 427009659,
+    "marketCap": 426811875,
     "rawTotalSupply": 4677241871.751051,
     "rawDead": 4335516079.161436
   },
