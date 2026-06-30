@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T04:52:30.222Z",
+  "generatedAt": "2026-06-30T06:16:02.662Z",
   "lastWeek": "2026-06-22",
   "hasSupplyCurve": true,
   "weeklyVolume": [
@@ -1547,7 +1547,7 @@
     "maxSupply": 400000000,
     "headroom": 64205616.436053276,
     "price": 1.32,
-    "marketCap": 426811875,
+    "marketCap": 425790676,
     "rawTotalSupply": 4677241871.751051,
     "rawDead": 4335516079.161436
   },
