@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-01T01:52:40.951Z",
+  "generatedAt": "2026-07-01T02:04:49.518Z",
   "lastWeek": "2026-06-22",
   "weeklyIncome": [
     {
@@ -479,34 +479,34 @@
     "tvl": 11871445494.779068,
     "borrowed": 19383989444.315468,
     "gho": 597690736.7327166,
-    "annualBuyback": 50000000,
-    "weeklyBuyback": 961538.4615384615,
-    "reserveUsd": 50727247.79651003,
+    "annualBuyback": 30000000,
+    "weeklyBuyback": 576923.0769230769,
+    "reserveUsd": 50744930.435333334,
     "takeRate": 0.13300818834895572,
-    "buybackRatio": 1.0198991295283317,
-    "buybackYield": 0.03826422782284314,
-    "buybackPayback": 26.13406978,
+    "buybackRatio": 0.611939477716999,
+    "buybackYield": 0.022961833633083743,
+    "buybackPayback": 43.55052893333333,
     "daoOpex": 20000000,
     "daoNet": 42157151.83333333,
-    "buybackCoverage": 1.1860383784386828,
-    "buybackCoverageProposed": 0.7116230270632096,
+    "buybackCoverage": 0.7116230270632096,
+    "buybackCoveragePreCut": 1.1860383784386828,
     "aaveLockedPct": 0.13515469311315767,
-    "aaveLockedUsd": 186102606.22909358,
-    "ghoStaked": 50641198.54737072
+    "aaveLockedUsd": 186167480.48178792,
+    "ghoStaked": 50640502.22744354
   },
   "now": {
-    "price": 86.06,
-    "marketCap": 1306703489,
+    "price": 86.09,
+    "marketCap": 1306515868,
     "total": 16000000,
     "circulating": 15179911.874935383,
-    "reserve": 589440.481019173,
+    "reserve": 589440.4743330623,
     "nonCirculating": 820088.125064617
   },
   "dataStale": null,
   "plan": {
-    "annualUsd": 50000000,
-    "weekly": 961538.4615384615,
-    "pendingNote": "Aavenomics 3.0(2026-03)拟将年预算 50M→30M,待确认是否已生效",
-    "asOf": "2026-06"
+    "annualUsd": 30000000,
+    "weekly": 576923.0769230769,
+    "pendingNote": "",
+    "asOf": "2026-07"
   }
 }
