@@ -40,6 +40,10 @@
   .pending .val { font-size: 14px; color: var(--pending); font-weight: 500; }
   footer { color: var(--muted); font-size: 12px; margin-top: 40px; text-align: center; }
   a { color: var(--accent); }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin-top: 12px; }
+  .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 14px 8px; height: 300px; position: relative; }
+  .chart-box h3 { margin: 0 0 10px; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .chart-box .cv { position: relative; height: 240px; }
 </style>
 </head>
 <body>
@@ -53,12 +57,20 @@
 
   <h2>规模</h2>
   <div class="grid" id="scale"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>净 TVL 趋势（周）</h3><div class="cv"><canvas id="tvlChart"></canvas></div></div>
+    <div class="chart-box"><h3>手续费趋势（周，用户端）</h3><div class="cv"><canvas id="feesChart"></canvas></div></div>
+  </div>
 
   <h2>价值捕获</h2>
   <div class="grid" id="value"></div>
 
   <h2>代币</h2>
   <div class="grid" id="token"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>代币分配结构（当前占流通）</h3><div class="cv"><canvas id="allocChart"></canvas></div></div>
+    <div class="chart-box"><h3>供给构成（流通 vs 未解锁）</h3><div class="cv"><canvas id="supplyChart"></canvas></div></div>
+  </div>
 
   <h2>团队收益（团队 = Contributors + Founders + Strategic Partners）</h2>
   <div class="callout" id="teamCallout">—</div>
@@ -66,6 +78,7 @@
 
   <h2>解锁抛压</h2>
   <div class="grid" id="unlocks"></div>
+  <div class="chart-box" style="height:320px;margin-top:12px"><h3>累计解锁时间线（含团队 insiders，虚线=现在）</h3><div class="cv" style="height:260px"><canvas id="unlockChart"></canvas></div></div>
   <ul class="checks" id="unlockEvents"></ul>
 
   <h2>风险</h2>
@@ -79,7 +92,12 @@
   <footer>数据源：DefiLlama · CoinGecko ｜ 口径见 PLAN.md ｜ 面板由 run-weekly 生成</footer>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+if (window.Chart) { Chart.defaults.color = "#8b949e"; Chart.defaults.borderColor = "#30363d"; Chart.defaults.font.family = "-apple-system, PingFang SC, sans-serif"; }
+const CHART_COLORS = ["#58a6ff", "#3fb950", "#d29922", "#f85149", "#a371f7", "#39c5cf", "#db61a2"];
+const fmtDate = (ts) => new Date(ts * 1000).toISOString().slice(0, 10);
+const fmtMonth = (ts) => new Date(ts * 1000).toISOString().slice(0, 7);
 const fmtUsd = (n) => {
   if (n == null || isNaN(n)) return "n/a";
   const a = Math.abs(n);
@@ -160,6 +178,68 @@ fetch("./data.json").then(r => r.json()).then(d => {
 
   document.getElementById("checks").innerHTML = (checks || [])
     .map(c => `<li><span class="tag ${c.level}">${c.level}</span><span>${c.msg}</span></li>`).join("");
+
+  // ---- 图表 ----
+  const ch = d.charts;
+  if (window.Chart && ch) {
+    const usdTick = (v) => fmtUsd(v);
+    const lineOpts = (fmt) => ({
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => fmt(c.parsed.y) } } },
+      scales: { x: { ticks: { maxTicksLimit: 8 } }, y: { ticks: { callback: fmt } } },
+    });
+
+    if (ch.tvlWeekly?.length) new Chart(document.getElementById("tvlChart"), {
+      type: "line",
+      data: { labels: ch.tvlWeekly.map(p => fmtDate(p.t)),
+        datasets: [{ data: ch.tvlWeekly.map(p => p.v), borderColor: "#58a6ff", backgroundColor: "rgba(88,166,255,.12)", fill: true, tension: .25, pointRadius: 0, borderWidth: 2 }] },
+      options: lineOpts(usdTick),
+    });
+
+    if (ch.feesWeekly?.length) new Chart(document.getElementById("feesChart"), {
+      type: "bar",
+      data: { labels: ch.feesWeekly.map(p => fmtDate(p.t)),
+        datasets: [{ data: ch.feesWeekly.map(p => p.v), backgroundColor: "#3fb950" }] },
+      options: lineOpts(usdTick),
+    });
+
+    if (ch.allocation?.length) new Chart(document.getElementById("allocChart"), {
+      type: "doughnut",
+      data: { labels: ch.allocation.map(a => a.label),
+        datasets: [{ data: ch.allocation.map(a => a.pct), backgroundColor: CHART_COLORS, borderColor: "#0d1117", borderWidth: 2 }] },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: "right", labels: { boxWidth: 12, font: { size: 11 } } },
+          tooltip: { callbacks: { label: (c) => `${c.label}: ${c.parsed}%` } } } },
+    });
+
+    if (ch.supplyBreakdown) {
+      const sb = ch.supplyBreakdown;
+      new Chart(document.getElementById("supplyChart"), {
+        type: "bar",
+        data: { labels: ["供给"], datasets: [
+          { label: "流通", data: [sb.circulating], backgroundColor: "#58a6ff" },
+          { label: "未解锁", data: [sb.locked], backgroundColor: "#6e7681" } ] },
+        options: { indexAxis: "y", responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: "bottom" }, tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${(c.parsed.x/1e6).toFixed(0)}M (${(c.parsed.x/sb.total*100).toFixed(1)}%)` } } },
+          scales: { x: { stacked: true, ticks: { callback: (v) => (v/1e6)+"M" } }, y: { stacked: true } } },
+      });
+    }
+
+    if (ch.unlockTimeline?.length) {
+      const nowIdx = ch.unlockTimeline.findIndex(p => p.t >= ch.nowSec);
+      new Chart(document.getElementById("unlockChart"), {
+        type: "line",
+        data: { labels: ch.unlockTimeline.map(p => fmtMonth(p.t)), datasets: [
+          { label: "累计总解锁", data: ch.unlockTimeline.map(p => p.total), borderColor: "#58a6ff", backgroundColor: "rgba(88,166,255,.10)", fill: true, tension: .2, pointRadius: 0, borderWidth: 2 },
+          { label: "团队(insiders)累计", data: ch.unlockTimeline.map(p => p.team), borderColor: "#d29922", backgroundColor: "rgba(210,153,34,.10)", fill: true, tension: .2, pointRadius: 0, borderWidth: 2 } ] },
+        options: { responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: "bottom" },
+            tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${(c.parsed.y/1e6).toFixed(1)}M` } } },
+          scales: { x: { ticks: { maxTicksLimit: 10, callback: function(v){ return v===nowIdx ? "▼现在" : this.getLabelForValue(v); } } },
+            y: { ticks: { callback: (v) => (v/1e6).toFixed(0)+"M" } } } },
+      });
+    }
+  }
 }).catch(e => {
   document.getElementById("callout").textContent = "加载 data.json 失败：" + e.message;
 });
