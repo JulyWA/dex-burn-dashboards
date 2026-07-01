@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Morpho 监控面板</title>
+<style>
+  :root {
+    --bg: #0d1117; --card: #161b22; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+    --warn: #d29922; --alert: #f85149; --ok: #3fb950; --pending: #6e7681;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, "Segoe UI", "PingFang SC", Roboto, sans-serif; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 32px 20px 60px; }
+  header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  h1 { font-size: 22px; margin: 0; }
+  .ts { color: var(--muted); font-size: 13px; }
+  h2 { font-size: 14px; color: var(--muted); text-transform: uppercase;
+    letter-spacing: .04em; margin: 32px 0 12px; font-weight: 600; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .card .label { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+  .card .val { font-size: 24px; font-weight: 700; }
+  .card .sub { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .card.highlight { border-color: var(--alert); }
+  .card.highlight .val { color: var(--alert); }
+  .callout { background: var(--card); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 16px; margin-top: 12px;
+    color: var(--text); font-size: 14px; line-height: 1.6; }
+  .checks { list-style: none; padding: 0; margin: 0; }
+  .checks li { padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
+    margin-bottom: 8px; font-size: 13px; display: flex; gap: 8px; align-items: flex-start; }
+  .tag { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; flex-shrink: 0; }
+  .tag.OK { background: rgba(63,185,80,.15); color: var(--ok); }
+  .tag.WARN { background: rgba(210,153,34,.15); color: var(--warn); }
+  .tag.ALERT { background: rgba(248,81,73,.15); color: var(--alert); }
+  .pending .card { opacity: .5; border-style: dashed; }
+  .pending .val { font-size: 14px; color: var(--pending); font-weight: 500; }
+  footer { color: var(--muted); font-size: 12px; margin-top: 40px; text-align: center; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Morpho 监控面板</h1>
+    <span class="ts" id="ts">加载中…</span>
+  </header>
+
+  <div class="callout" id="callout">—</div>
+
+  <h2>规模</h2>
+  <div class="grid" id="scale"></div>
+
+  <h2>价值捕获</h2>
+  <div class="grid" id="value"></div>
+
+  <h2>代币</h2>
+  <div class="grid" id="token"></div>
+
+  <h2>团队收益（团队 = Contributors + Founders + Strategic Partners）</h2>
+  <div class="callout" id="teamCallout">—</div>
+  <div class="grid" id="team"></div>
+
+  <h2>解锁抛压</h2>
+  <div class="grid" id="unlocks"></div>
+  <ul class="checks" id="unlockEvents"></ul>
+
+  <h2>风险</h2>
+  <div class="callout" id="riskCallout">—</div>
+  <div class="grid" id="risk"></div>
+  <ul class="checks" id="distressed"></ul>
+
+  <h2>数据核对</h2>
+  <ul class="checks" id="checks"></ul>
+
+  <footer>数据源：DefiLlama · CoinGecko ｜ 口径见 PLAN.md ｜ 面板由 run-weekly 生成</footer>
+</div>
+
+<script>
+const fmtUsd = (n) => {
+  if (n == null || isNaN(n)) return "n/a";
+  const a = Math.abs(n);
+  if (a >= 1e9) return "$" + (n/1e9).toFixed(2) + "B";
+  if (a >= 1e6) return "$" + (n/1e6).toFixed(2) + "M";
+  if (a >= 1e3) return "$" + (n/1e3).toFixed(2) + "K";
+  return "$" + n.toFixed(2);
+};
+const fmtPct = (x) => x == null || isNaN(x) ? "n/a" : (x*100).toFixed(1) + "%";
+const fmtNum = (n) => n == null || isNaN(n) ? "n/a" : Math.round(n).toLocaleString("en-US");
+
+function card(label, val, sub, cls = "") {
+  return `<div class="card ${cls}"><div class="label">${label}</div>` +
+    `<div class="val">${val}</div>${sub ? `<div class="sub">${sub}</div>` : ""}</div>`;
+}
+
+fetch("./data.json").then(r => r.json()).then(d => {
+  const { scale, valueCapture: vc, token, checks, pending } = d;
+  document.getElementById("ts").textContent = "更新于 " + d.generatedAt.replace("T", " ").slice(0, 16) + " UTC";
+
+  document.getElementById("callout").innerHTML =
+    `<b>${fmtUsd(scale.tvl)}</b> 净 TVL，但持币人分红（协议 revenue）仍为 ` +
+    `<b style="color:var(--alert)">${fmtUsd(vc.protocolRevenue1y)}</b> —— fee switch 未开启，代币零价值捕获。`;
+
+  document.getElementById("scale").innerHTML =
+    card("净 TVL", fmtUsd(scale.tvl)) +
+    card("总供给", fmtUsd(scale.supplied)) +
+    card("总借款", fmtUsd(scale.borrowed), "利用率 " + fmtPct(scale.utilization)) +
+    card("fees 年化", fmtUsd(scale.fees.total1y), "30d " + fmtUsd(scale.fees.total30d));
+
+  document.getElementById("value").innerHTML =
+    card("协议 revenue 年化", fmtUsd(vc.protocolRevenue1y), "持币人分红 · fee switch 关", "highlight") +
+    card("潜在收入（理论）", fmtUsd(vc.potentialFeeSwitchRevenue1y), "若开启 = fees × 25%");
+
+  document.getElementById("token").innerHTML =
+    card("MORPHO 价格", token.priceUsd != null ? "$" + token.priceUsd : "n/a") +
+    card("市值", fmtUsd(token.marketCapUsd), "FDV " + fmtUsd(token.fdvUsd)) +
+    card("流通率", fmtPct(token.circulatingRate), fmtNum(token.circulatingSupply) + " / " + fmtNum(token.totalSupply));
+
+  // 团队收益
+  const t = d.teamRevenue;
+  if (t && t.status === "ok") {
+    document.getElementById("teamCallout").innerHTML =
+      `团队年释放价值 <b style="color:var(--accent)">${fmtUsd(t.teamAnnualReleaseUsd)}</b>/年` +
+      `（${fmtNum(t.teamAnnualReleaseTokens)} MORPHO，可变现估算）＋融资 ` +
+      t.funding.map(f => `${f.date} ${f.detail}`).join("；") +
+      `。协议手续费贡献≈0（revenue $0）。`;
+    document.getElementById("team").innerHTML = t.byLabel.map(b =>
+      card(b.label, fmtUsd(b.future12mUsd),
+        `未来12月释放 · 已解锁 ${fmtPct((b.progressPct ?? 0) / 100)} · 占总量 ${(b.finalAllocationPct ?? 0)}%`)).join("");
+  }
+
+  // 解锁抛压
+  const u = d.unlocks;
+  if (u && u.status === "ok") {
+    document.getElementById("unlocks").innerHTML =
+      card("未来12月全类别解锁", fmtUsd(u.future12mUsd), fmtNum(u.future12mTokens) + " MORPHO") +
+      u.byCategory.slice(0, 3).map(c => card(c.label, fmtUsd(c.usd), fmtNum(c.tokens) + " MORPHO")).join("");
+    document.getElementById("unlockEvents").innerHTML = (u.nextEvents || []).map(e =>
+      `<li><span class="tag WARN">${e.date}</span><span>${e.category} · ${e.type} · ${fmtNum(e.tokens)} MORPHO（${fmtUsd(e.usd)}）</span></li>`).join("")
+      || `<li><span class="tag OK">—</span><span>近期无离散 cliff 事件（解锁以 linear 连续为主）</span></li>`;
+  }
+
+  // 风险
+  const rk = d.risk;
+  if (rk && rk.status === "ok") {
+    document.getElementById("riskCallout").innerHTML =
+      `已实现坏账（真实社会化损失）仅 <b style="color:var(--ok)">${fmtUsd(rk.realizedBadDebtUsd)}</b>；` +
+      `名义坏账 <b style="color:var(--warn)">${fmtUsd(rk.nominalBadDebtUsd)}</b> 集中于抵押品脱锚的 exotic 市场，属未实现、非系统性损失。`;
+    document.getElementById("risk").innerHTML =
+      card("已实现坏账", fmtUsd(rk.realizedBadDebtUsd), "真实损失") +
+      card("名义坏账", fmtUsd(rk.nominalBadDebtUsd), "含脱锚市场 · 非真实损失", "highlight") +
+      card("市场总数", fmtNum(rk.marketCount), "permissionless") +
+      card("最大市场集中度", fmtPct(rk.top1Share), rk.top1Pair + " · top5 " + fmtPct(rk.top5Share));
+    document.getElementById("distressed").innerHTML = (rk.distressedMarkets || []).map(m =>
+      `<li><span class="tag ALERT">脱锚</span><span>${m.pair} · 名义坏账 ${fmtUsd(m.nominalBadDebtUsd)}（占该市场供给 ${m.ratioPct.toFixed(0)}%）· 已实现 ${fmtUsd(m.realizedBadDebtUsd)}</span></li>`).join("");
+  }
+
+  document.getElementById("checks").innerHTML = (checks || [])
+    .map(c => `<li><span class="tag ${c.level}">${c.level}</span><span>${c.msg}</span></li>`).join("");
+}).catch(e => {
+  document.getElementById("callout").textContent = "加载 data.json 失败：" + e.message;
+});
+</script>
+</body>
+</html>

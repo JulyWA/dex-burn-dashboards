@@ -1,0 +1,196 @@
+{
+  "generatedAt": "2026-07-01T08:51:16.958Z",
+  "scale": {
+    "tvl": 6520800945.8987,
+    "borrowed": 3609231191,
+    "supplied": 10130032136.8987,
+    "utilization": 0.35629020147461865,
+    "fees": {
+      "total24h": 1307317,
+      "total7d": 5189405,
+      "total30d": 21196899,
+      "total1y": 209114780,
+      "totalAllTime": 307316762
+    },
+    "revenue": {
+      "total24h": 0,
+      "total7d": 0,
+      "total30d": 0,
+      "total1y": 0,
+      "totalAllTime": 0
+    }
+  },
+  "valueCapture": {
+    "protocolRevenue1y": 0,
+    "potentialFeeSwitchRevenue1y": 52278695,
+    "note": "revenue=$0 是 Morpho 真实口径(fee switch 关)；potential=fees×25% 为未激活理论值"
+  },
+  "token": {
+    "priceUsd": 1.93,
+    "marketCapUsd": 1255749094,
+    "fdvUsd": 1933837658,
+    "circulatingSupply": 649356003.9732339,
+    "totalSupply": 1000000000,
+    "circulatingRate": 0.6493560039732339
+  },
+  "unlocks": {
+    "status": "ok",
+    "horizonDays": 365,
+    "future12mTokens": 105644624.81407486,
+    "future12mUsd": 203894125.89116448,
+    "byCategory": [
+      {
+        "label": "Users & Distributors",
+        "tokens": 65572554.86119676,
+        "usd": 126555030.88210973
+      },
+      {
+        "label": "Strategic Partners",
+        "tokens": 31122366.62106645,
+        "usd": 60066167.578658246
+      },
+      {
+        "label": "Contributors",
+        "tokens": 7949703.331811652,
+        "usd": 15342927.430396488
+      },
+      {
+        "label": "Market Makers",
+        "tokens": 1000000,
+        "usd": 1930000
+      }
+    ],
+    "nextEvents": [
+      {
+        "date": "2026-11-20",
+        "category": "liquidity",
+        "type": "cliff",
+        "tokens": 1000000,
+        "usd": 1930000
+      }
+    ]
+  },
+  "teamRevenue": {
+    "status": "ok",
+    "teamLabels": [
+      "Contributors",
+      "Founders",
+      "Strategic Partners"
+    ],
+    "teamAnnualReleaseTokens": 39072069.9528781,
+    "teamAnnualReleaseUsd": 75409095.00905474,
+    "teamCumulativeUnlocked": 427778179.1385107,
+    "byLabel": [
+      {
+        "label": "Contributors",
+        "cumulativeUnlocked": 44108425.37654045,
+        "future12mTokens": 7949703.331811652,
+        "future12mUsd": 15342927.430396488,
+        "progressPct": 55.8,
+        "finalAllocationPct": 7.9
+      },
+      {
+        "label": "Founders",
+        "cumulativeUnlocked": 152000000.00000018,
+        "future12mTokens": 0,
+        "future12mUsd": 0,
+        "progressPct": 100,
+        "finalAllocationPct": 15.2
+      },
+      {
+        "label": "Strategic Partners",
+        "cumulativeUnlocked": 231669753.7619701,
+        "future12mTokens": 31122366.62106645,
+        "future12mUsd": 60066167.578658246,
+        "progressPct": 84.3,
+        "finalAllocationPct": 27.5
+      }
+    ],
+    "funding": [
+      {
+        "date": "2026-02-13",
+        "type": "commitment",
+        "party": "Apollo Global",
+        "detail": "承诺48个月增持至多 90,000,000 MORPHO (9%)",
+        "usdRange": [
+          107000000,
+          115000000
+        ],
+        "tokens": 90000000,
+        "durationMonths": 48
+      },
+      {
+        "date": "2026-06",
+        "type": "raise",
+        "party": "Paradigm/a16z/Ribbit/VanEck/Apollo",
+        "detail": "融资 $175M",
+        "usd": 175000000
+      }
+    ],
+    "note": "团队年释放价值=未来12月insiders解锁×现价(可变现估算)；协议手续费贡献≈0；融资为离散事件另计"
+  },
+  "risk": {
+    "status": "ok",
+    "marketCount": 6354,
+    "realizedBadDebtUsd": 1224171.0043922283,
+    "nominalBadDebtUsd": 1412552159.0330622,
+    "distressedMarkets": [
+      {
+        "pair": "K/USDC",
+        "nominalBadDebtUsd": 1308022167.8138542,
+        "realizedBadDebtUsd": 0,
+        "supplyUsd": 1741670949.4431856,
+        "ratioPct": 75.10156658650307
+      },
+      {
+        "pair": "xUSD/USDC",
+        "nominalBadDebtUsd": 49808218.057275556,
+        "realizedBadDebtUsd": 0,
+        "supplyUsd": 50812770.67623367,
+        "ratioPct": 98.02303120733393
+      },
+      {
+        "pair": "wstUSR/USDC",
+        "nominalBadDebtUsd": 27927929.48562267,
+        "realizedBadDebtUsd": 0,
+        "supplyUsd": 34949673.471306175,
+        "ratioPct": 79.9089854403121
+      },
+      {
+        "pair": "sdeUSD/USDC",
+        "nominalBadDebtUsd": 10476575.969553577,
+        "realizedBadDebtUsd": 0,
+        "supplyUsd": 10767621.7615757,
+        "ratioPct": 97.29702808599089
+      },
+      {
+        "pair": "RLP/USDC",
+        "nominalBadDebtUsd": 9089031.638400454,
+        "realizedBadDebtUsd": 1180772.9733194113,
+        "supplyUsd": 11046122.937249951,
+        "ratioPct": 82.28255008596948
+      }
+    ],
+    "top1Pair": "BONDUSD/USR",
+    "top1Share": 0.2631571655846783,
+    "top5Share": 0.7292049467910116,
+    "warnedCount": 54,
+    "coverage": "按供给 top 200/6354 市场（覆盖 $12.88B 供给）；尾部微小市场 realized 损失可忽略",
+    "note": "realized=真实社会化损失(headline)；nominal=名义坏账含抵押品脱锚未实现，勿当系统性损失"
+  },
+  "emissionsStatus": "ok",
+  "checks": [
+    {
+      "level": "OK",
+      "msg": "revenue=0，与 fee switch 关闭一致"
+    },
+    {
+      "level": "OK",
+      "msg": "解锁数据 3 个团队类别就绪，maxSupply 一致"
+    },
+    {
+      "level": "WARN",
+      "msg": "名义坏账 $1413M 远超已实现 $1.22M —— 集中于脱锚 exotic 市场(K/USDC)，非真实系统性损失"
+    }
+  ]
+}
