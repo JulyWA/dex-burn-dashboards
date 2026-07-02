@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-02T04:10:34.391Z",
+  "generatedAt": "2026-07-02T04:19:28.735Z",
   "lastWeek": "2026-06-22",
   "weeklyIncome": [
     {
@@ -1178,25 +1178,25 @@
   "kpi": {
     "fees": 7011917,
     "rev": 929925,
-    "tvl": 12195620112.05863,
-    "borrowed": 19775442349.06694,
+    "tvl": 12194582293.867575,
+    "borrowed": 19766650218.20362,
     "gho": 597770641.6976136,
     "annualBuyback": 30000000,
     "weeklyBuyback": 576923.0769230769,
-    "reserveUsd": 50149935.93109746,
+    "reserveUsd": 50026471.84498339,
     "takeRate": 0.13262065138534868,
     "buybackRatio": 0.6203974265914745,
-    "utilization": 0.6185419196847901,
-    "avgBorrowRate": 0.024754737434386526,
-    "avgSupplyRate": 0.013366687318767993,
-    "netMargin": 0.011388050115618532,
-    "ghoRevenue": 3631280.5339767933,
+    "utilization": 0.6184570701626761,
+    "avgBorrowRate": 0.02476574824747866,
+    "avgSupplyRate": 0.013370798357205563,
+    "netMargin": 0.011394949890273096,
+    "ghoRevenue": 3631282.865707337,
     "ghoBorrowRate": 0.0375,
-    "topChainPct": 0.8104626302847033,
-    "onchainNetTvl": 9867024690.146017,
+    "topChainPct": 0.8106313649488869,
+    "onchainNetTvl": 9867506682.187723,
     "onchainReserveCount": 67,
-    "onchainRevenue": 32999588.634879623,
-    "onchainTakeRate": 0.13380251058844525,
+    "onchainRevenue": 32952668.56483258,
+    "onchainTakeRate": 0.1338681189107807,
     "coreTeamTotalStable": 25000000,
     "coreTeamTotalAave": 75000,
     "coreTeamStableDisbursed": 10360828.040951177,
@@ -1207,19 +1207,19 @@
     "actualBuybackLast": "2026-04-19",
     "umbrellaUsd": 53448418.146951,
     "umbrellaCount": 1,
-    "buybackYield": 0.023154652479411803,
-    "buybackPayback": 43.187864766666664,
+    "buybackYield": 0.02322368722273022,
+    "buybackPayback": 43.0594845,
     "daoOpex": 20000000,
     "daoNet": 42188748.666666664,
     "buybackCoverage": 0.7110900642498317,
     "buybackCoveragePreCut": 1.1851501070830528,
     "aaveLockedPct": 0.13946507882273207,
-    "aaveLockedUsd": 190341939.5772647,
+    "aaveLockedUsd": 189873336.91242033,
     "ghoStaked": 50378074.98093232
   },
   "now": {
-    "price": 85.3,
-    "marketCap": 1295635943,
+    "price": 85.09,
+    "marketCap": 1291784535,
     "total": 16000000,
     "circulating": 15179911.874935383,
     "reserve": 587924.2195908261,
@@ -1229,33 +1229,33 @@
   "chains": [
     {
       "chain": "Ethereum",
-      "tvl": 9684096513.81682,
-      "borrowed": 7446894596.14091
+      "tvl": 9686953987.00949,
+      "borrowed": 7442229819.57096
     },
     {
       "chain": "Plasma",
-      "tvl": 654632352.55213,
-      "borrowed": 874036934.01881
+      "tvl": 654644586.07684,
+      "borrowed": 873950655.44995
     },
     {
       "chain": "Arbitrum",
-      "tvl": 379385699.91792,
-      "borrowed": 295779397.3783
+      "tvl": 378696480.57678,
+      "borrowed": 295519877.07262
     },
     {
       "chain": "Base",
-      "tvl": 375655588.43189,
-      "borrowed": 281548328.15889
+      "tvl": 375028436.65153,
+      "borrowed": 281371291.68902
     },
     {
       "chain": "Avalanche",
-      "tvl": 255705789.67033,
-      "borrowed": 165207424.55659
+      "tvl": 255342459.50329,
+      "borrowed": 165227909.99874
     },
     {
       "chain": "Binance",
-      "tvl": 143263232.14152,
-      "borrowed": 66834691.91597
+      "tvl": 143148755.80934,
+      "borrowed": 66814097.41356
     }
   ],
   "plan": {
