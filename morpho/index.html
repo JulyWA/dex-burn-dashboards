@@ -103,6 +103,7 @@
   <ul class="checks" id="distressed"></ul>
 
   <h2>数据核对</h2>
+  <div class="grid" id="crosscheck"></div>
   <ul class="checks" id="checks"></ul>
 
   <h2>口径与数据源说明</h2>
@@ -132,7 +133,7 @@
     <details>
       <summary>已知限制与数据严谨性</summary>
       <ul>
-        <li><b>多为单源</b>：目前仅总供应量做了三方互核（CoinGecko / emissions / 配置）；TVL、价格、fees 等<b>单源，多源互核待补</b>。</li>
+        <li><b>多源互核</b>：价格（CoinGecko ↔ DefiLlama）、净 TVL（DefiLlama ↔ Morpho 官方）、总供应量（CoinGecko ↔ emissions ↔ 配置）已双/三源互核，见"数据核对"。<b>fees、坏账、解锁仍单源</b>，待补。借款因两源口径不同（Morpho totalBorrowUsd 含跨市场计价差异）未纳入互核。</li>
         <li>Association 金库运营开销未完全上链，未纳入团队收益。</li>
         <li>gross 交易量（借款+还款总额）未做，需交易级数据（Dune）。</li>
         <li>fee switch 状态目前靠 revenue≠0 自动侦测 + Snapshot 提案追踪。</li>
@@ -226,6 +227,21 @@ fetch("./data.json").then(r => r.json()).then(d => {
       card("最大市场集中度", fmtPct(rk.top1Share), rk.top1Pair + " · top5 " + fmtPct(rk.top5Share));
     document.getElementById("distressed").innerHTML = (rk.distressedMarkets || []).map(m =>
       `<li><span class="tag ALERT">脱锚</span><span>${m.pair} · 名义坏账 ${fmtUsd(m.nominalBadDebtUsd)}（占该市场供给 ${m.ratioPct.toFixed(0)}%）· 已实现 ${fmtUsd(m.realizedBadDebtUsd)}</span></li>`).join("");
+  }
+
+  // 多源互核卡片
+  const xc = d.crossCheck;
+  if (xc?.length) {
+    const fmtVal = (m, v) => v == null ? "n/a" : (m === "价格" ? "$" + v.toFixed(4) : fmtUsd(v));
+    document.getElementById("crosscheck").innerHTML = xc.map(x => {
+      const ok = x.status === "ok";
+      const badge = x.status === "missing" ? "缺源" : (ok ? "✓ 一致" : "⚠ 偏差");
+      return `<div class="card ${ok ? "" : "highlight"}">
+        <div class="label">${x.metric} 互核 · ${x.sourceA} ↔ ${x.sourceB}</div>
+        <div class="val" style="font-size:18px;color:${ok ? "var(--ok)" : "var(--alert)"}">${badge}${x.deviation != null ? " " + (x.deviation * 100).toFixed(2) + "%" : ""}</div>
+        <div class="sub">${fmtVal(x.metric, x.valueA)} vs ${fmtVal(x.metric, x.valueB)}</div>
+      </div>`;
+    }).join("");
   }
 
   document.getElementById("checks").innerHTML = (checks || [])
