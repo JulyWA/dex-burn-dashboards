@@ -62,8 +62,16 @@
     <div class="chart-box"><h3>手续费趋势（周，用户端）</h3><div class="cv"><canvas id="feesChart"></canvas></div></div>
   </div>
 
+  <h2>利率 & 周期</h2>
+  <div class="grid" id="rates"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>净借款流量（周，绿增红减）</h3><div class="cv"><canvas id="borrowFlowChart"></canvas></div></div>
+    <div class="chart-box"><h3>存款净流入（周）</h3><div class="cv"><canvas id="depositFlowChart"></canvas></div></div>
+  </div>
+
   <h2>价值捕获</h2>
   <div class="grid" id="value"></div>
+  <ul class="checks" id="gov"></ul>
 
   <h2>代币</h2>
   <div class="grid" id="token"></div>
@@ -179,6 +187,26 @@ fetch("./data.json").then(r => r.json()).then(d => {
   document.getElementById("checks").innerHTML = (checks || [])
     .map(c => `<li><span class="tag ${c.level}">${c.level}</span><span>${c.msg}</span></li>`).join("");
 
+  // 利率 & 周期三档 + 环比
+  const wowBadge = (x) => x == null ? "n/a" :
+    `<span style="color:${x >= 0 ? 'var(--ok)' : 'var(--alert)'}">${x >= 0 ? '▲' : '▼'}${(Math.abs(x) * 100).toFixed(2)}%</span>`;
+  const pr = d.periods, ap = d.apy;
+  if (pr) document.getElementById("rates").innerHTML =
+    (ap?.status === "ok"
+      ? card("供给 APY", fmtPct(ap.supplyApy), `${ap.marketsCounted} 市场加权`) +
+        card("借款 APY", fmtPct(ap.borrowApy), `剔除 >${ap.capPct}% 异常市场`)
+      : "") +
+    card("本周手续费", fmtUsd(pr.fees.week), "WoW " + wowBadge(pr.wow.fees)) +
+    card("本月手续费", fmtUsd(pr.fees.month), "近30天") +
+    card("本年手续费", fmtUsd(pr.fees.year), "年化") +
+    card("TVL / 借款环比", wowBadge(pr.wow.tvl) + " / " + wowBadge(pr.wow.borrowed), "vs 上周");
+
+  // 治理提案（fee switch 追踪）
+  const gov = d.governance;
+  if (gov?.status === "ok") document.getElementById("gov").innerHTML =
+    `<li><span class="tag ${gov.activeCount ? 'WARN' : 'OK'}">治理</span><span>Snapshot morpho.eth · 活跃提案 ${gov.activeCount} 个 · fee switch 相关 ${gov.feeSwitchProposals.length} 个${gov.feeSwitchProposals.length ? '（持币人分红信号）' : '（暂无，revenue 仍 $0）'}</span></li>` +
+    gov.proposals.map(p => `<li><span class="tag ${p.state === 'active' ? 'WARN' : 'OK'}">${p.state}</span><span><a href="${p.link}" target="_blank" rel="noopener">${p.title}</a>${p.feeRelated ? ' 💰' : ''}</span></li>`).join("");
+
   // ---- 图表 ----
   const ch = d.charts;
   if (window.Chart && ch) {
@@ -202,6 +230,16 @@ fetch("./data.json").then(r => r.json()).then(d => {
         datasets: [{ data: ch.feesWeekly.map(p => p.v), backgroundColor: "#3fb950" }] },
       options: lineOpts(usdTick),
     });
+
+    // 流量：净借款 / 存款净流入（绿增红减）
+    const flowChart = (id, series) => series?.length && new Chart(document.getElementById(id), {
+      type: "bar",
+      data: { labels: series.map(p => fmtDate(p.t)),
+        datasets: [{ data: series.map(p => p.v), backgroundColor: series.map(p => p.v >= 0 ? "#3fb950" : "#f85149") }] },
+      options: lineOpts((v) => (v / 1e6).toFixed(0) + "M"),
+    });
+    flowChart("borrowFlowChart", ch.borrowFlowWeekly);
+    flowChart("depositFlowChart", ch.depositFlowWeekly);
 
     if (ch.allocation?.length) new Chart(document.getElementById("allocChart"), {
       type: "doughnut",
