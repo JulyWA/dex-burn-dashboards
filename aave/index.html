@@ -112,10 +112,10 @@ document.getElementById('gen').textContent=new Date(D.generatedAt).toISOString()
 if(D.dataStale){const s=document.querySelector('.sub');if(s)s.innerHTML+=' · <span style="color:#d29922">⚠️ 图表为 '+D.dataStale+' 快照(DefiLlama 本次取数延迟)</span>';}
 if(D.kpi.onchainNetTvl){const e=document.getElementById('ocTvl');if(e)e.textContent=' · 链上独立核主网 '+(D.kpi.onchainNetTvl/1e9).toFixed(2)+'B('+D.kpi.onchainReserveCount+'个reserve)';}
 if(D.kpi.onchainRevenue){const e=document.getElementById('ocRev');if(e)e.textContent=' · 链上独立核(主网 run-rate)$'+(D.kpi.onchainRevenue/1e6).toFixed(1)+'M · 抽成'+(D.kpi.onchainTakeRate*100).toFixed(1)+'%';}
-if(D.kpi.coreTeamStableDisbursed!=null){const e=document.getElementById('ctDisbursed');if(e)e.textContent='稳定币已发 '+fM(D.kpi.coreTeamStableDisbursed)+' / '+fM(D.kpi.coreTeamTotalStable)+'('+(D.kpi.coreTeamStablePct*100).toFixed(0)+'%),AAVE 已 vest '+Math.round(D.kpi.coreTeamAaveVested).toLocaleString()+' / '+(D.kpi.coreTeamTotalAave/1e3)+'k';}
 const $=id=>document.getElementById(id);
 const fM=n=>n==null?'—':n>=1e9?'$'+(n/1e9).toFixed(2)+'B':n>=1e6?'$'+(n/1e6).toFixed(2)+'M':'$'+(n/1e3).toFixed(0)+'k';
 const fA=n=>n>=1e6?(n/1e6).toFixed(2)+'M':(n/1e3).toFixed(0)+'k';
+if(D.kpi.coreTeamStableDisbursed!=null){const e=document.getElementById('ctDisbursed');if(e)e.textContent='稳定币已发 '+fM(D.kpi.coreTeamStableDisbursed)+' / '+fM(D.kpi.coreTeamTotalStable)+'('+(D.kpi.coreTeamStablePct*100).toFixed(0)+'%),AAVE 已 vest '+Math.round(D.kpi.coreTeamAaveVested).toLocaleString()+' / '+(D.kpi.coreTeamTotalAave/1e3)+'k';}
 const K=D.kpi,N=D.now;
 const rp=x=>x==null?'—':(x*100).toFixed(2)+'%', r1=x=>x==null?'—':(x*100).toFixed(1);
 $('kpis').innerHTML=[
