@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-01T09:16:27.240Z",
+  "generatedAt": "2026-07-02T03:17:11.096Z",
   "lastWeek": "2026-06-22",
   "weeklyIncome": [
     {
@@ -1176,86 +1176,86 @@
     }
   ],
   "kpi": {
-    "fees": 7074474,
-    "rev": 939088,
-    "tvl": 11948168504.351267,
-    "borrowed": 19394891349.281548,
-    "gho": 597744517.931142,
+    "fees": 7012875,
+    "rev": 930736,
+    "tvl": 12195065052.526691,
+    "borrowed": 19766650218.20362,
+    "gho": 597770641.6976136,
     "annualBuyback": 30000000,
     "weeklyBuyback": 576923.0769230769,
-    "reserveUsd": 51227734.56431824,
-    "takeRate": 0.13274315518015897,
-    "buybackRatio": 0.6143439985635818,
-    "utilization": 0.6187938076196982,
-    "avgBorrowRate": 0.02518908061244508,
-    "avgSupplyRate": 0.013605158520727781,
-    "netMargin": 0.011583922091717299,
-    "ghoRevenue": 3576123.8762520324,
+    "reserveUsd": 49979437.90741613,
+    "takeRate": 0.1327181790635082,
+    "buybackRatio": 0.6198568411698665,
+    "utilization": 0.6184477288146483,
+    "avgBorrowRate": 0.02476633791070121,
+    "avgSupplyRate": 0.013370652739175364,
+    "netMargin": 0.011395685171525845,
+    "ghoRevenue": 3631266.699073032,
     "ghoBorrowRate": 0.0375,
-    "topChainPct": 0.8086605242144554,
-    "onchainNetTvl": 9608137574.898512,
+    "topChainPct": 0.8106313649488869,
+    "onchainNetTvl": 9790138276.542963,
     "onchainReserveCount": 67,
-    "onchainRevenue": 40884127.56054947,
-    "onchainTakeRate": 0.12938722969841884,
+    "onchainRevenue": 33374786.10492711,
+    "onchainTakeRate": 0.13317178766163704,
     "coreTeamTotalStable": 25000000,
     "coreTeamTotalAave": 75000,
-    "coreTeamStableDisbursed": 9410267.887475785,
-    "coreTeamStablePct": 0.3764107154990314,
-    "coreTeamAaveVested": 2506.8635844748815,
+    "coreTeamStableDisbursed": 10360828.040951177,
+    "coreTeamStablePct": 0.4144331216380471,
+    "coreTeamAaveVested": 3997.7311643835546,
     "actualBuyback30dUsd": 0,
     "actualBuybackPaused": true,
     "actualBuybackLast": "2026-04-19",
-    "umbrellaUsd": 51935129.35766,
+    "umbrellaUsd": 53441542.127466,
     "umbrellaCount": 1,
-    "buybackYield": 0.02273670965028742,
-    "buybackPayback": 43.9817377,
+    "buybackYield": 0.02324768645417522,
+    "buybackPayback": 43.015033,
     "daoOpex": 20000000,
-    "daoNet": 42112256.83333333,
-    "buybackCoverage": 0.7123816735524359,
-    "buybackCoveragePreCut": 1.1873027892540597,
-    "aaveLockedPct": 0.13515090991109402,
-    "aaveLockedUsd": 187935449.2859709,
-    "ghoStaked": 50613496.7482868
+    "daoNet": 42198615.83333333,
+    "buybackCoverage": 0.7109237923463486,
+    "buybackCoveragePreCut": 1.1848729872439143,
+    "aaveLockedPct": 0.13946507882273207,
+    "aaveLockedUsd": 189694821.61152723,
+    "ghoStaked": 50452281.463261224
   },
   "now": {
-    "price": 86.91,
-    "marketCap": 1319452131,
+    "price": 85.01,
+    "marketCap": 1290450990,
     "total": 16000000,
     "circulating": 15179911.874935383,
-    "reserve": 589434.2948373978,
+    "reserve": 587924.2195908261,
     "nonCirculating": 820088.125064617
   },
   "dataStale": null,
   "chains": [
     {
       "chain": "Ethereum",
-      "tvl": 9467201493.19956,
-      "borrowed": 7260960531.45688
+      "tvl": 9686953987.00949,
+      "borrowed": 7442229819.57096
     },
     {
       "chain": "Plasma",
-      "tvl": 656118295.47175,
-      "borrowed": 874377148.40103
+      "tvl": 654644586.07684,
+      "borrowed": 873950655.44995
     },
     {
       "chain": "Arbitrum",
-      "tvl": 375008381.68614,
-      "borrowed": 292380525.51118
+      "tvl": 378696480.57678,
+      "borrowed": 295519877.07262
     },
     {
       "chain": "Base",
-      "tvl": 363860737.23886,
-      "borrowed": 276367218.69016
+      "tvl": 375028436.65153,
+      "borrowed": 281371291.68902
     },
     {
       "chain": "Avalanche",
-      "tvl": 255453427.87159,
-      "borrowed": 169786083.4426
+      "tvl": 255342459.50329,
+      "borrowed": 165227909.99874
     },
     {
       "chain": "Binance",
-      "tvl": 140983764.56102,
-      "borrowed": 66460768.22833
+      "tvl": 143148755.80934,
+      "borrowed": 66814097.41356
     }
   ],
   "plan": {
