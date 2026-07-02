@@ -52,6 +52,11 @@
   .notes li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 6px; }
   .notes li b { color: var(--text); font-weight: 600; }
   .notes .disclaimer { font-size: 12px; color: var(--pending); margin: 12px 0 4px; }
+  .notes .links { list-style: none; padding: 0; margin: 6px 0; }
+  .notes .links li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+  .notes .links li b { color: var(--text); }
+  .notes .links a { margin: 0 12px 0 4px; white-space: nowrap; }
+  h2 .sub-h { font-size: 13px; color: var(--muted); font-weight: 400; }
 </style>
 </head>
 <body>
@@ -77,7 +82,7 @@
     <div class="chart-box"><h3>存款净流入（周）</h3><div class="cv"><canvas id="depositFlowChart"></canvas></div></div>
   </div>
 
-  <h2>价值捕获</h2>
+  <h2>价值捕获 <span class="sub-h">· fee switch 关闭，持币人零分红（revenue 真 $0）</span></h2>
   <div class="grid" id="value"></div>
   <ul class="checks" id="gov"></ul>
 
@@ -97,7 +102,7 @@
   <div class="chart-box" style="height:320px;margin-top:12px"><h3>累计解锁时间线（含团队 insiders，虚线=现在）</h3><div class="cv" style="height:260px"><canvas id="unlockChart"></canvas></div></div>
   <ul class="checks" id="unlockEvents"></ul>
 
-  <h2>风险</h2>
+  <h2>风险 <span class="sub-h">· 看已实现坏账（真实损失），非名义坏账（含脱锚市场）</span></h2>
   <div class="callout" id="riskCallout">—</div>
   <div class="grid" id="risk"></div>
   <ul class="checks" id="distressed"></ul>
@@ -133,13 +138,33 @@
     <details>
       <summary>已知限制与数据严谨性</summary>
       <ul>
-        <li><b>多源互核</b>：价格（CoinGecko ↔ DefiLlama）、净 TVL（DefiLlama ↔ Morpho 官方）、总供应量（CoinGecko ↔ emissions ↔ 配置）已双/三源互核，见"数据核对"。<b>fees、坏账、解锁仍单源</b>，待补。借款因两源口径不同（Morpho totalBorrowUsd 含跨市场计价差异）未纳入互核。</li>
+        <li><b>多源互核</b>：价格（CoinGecko ↔ DefiLlama，精确）、净 TVL（DefiLlama ↔ Morpho 官方，精确）、总供应量（三源）已互核；手续费为<b>量级互核</b>（DefiLlama ↔ Morpho 市场推算，~25% 口径近似）。<b>坏账、解锁仍单源</b>：坏账 Morpho 官方为链上直读权威源，无免费独立第二源（Dune 需自建 query，见验证链接）。借款因两源口径不同（Morpho totalBorrowUsd 含跨市场计价差异）未纳入互核。</li>
         <li>Association 金库运营开销未完全上链，未纳入团队收益。</li>
         <li>gross 交易量（借款+还款总额）未做，需交易级数据（Dune）。</li>
         <li>fee switch 状态目前靠 revenue≠0 自动侦测 + Snapshot 提案追踪。</li>
       </ul>
     </details>
     <p class="disclaimer">仅供参考，非投资建议。数据可能因源口径调整而变化。</p>
+  </div>
+
+  <h2>🔗 验证数据链接（点进去核对各项来源）</h2>
+  <div class="notes">
+    <ul class="links">
+      <li><b>规模 / 收入 · DefiLlama</b>：
+        <a href="https://defillama.com/protocol/morpho" target="_blank" rel="noopener">TVL / 借款 ↗</a>
+        <a href="https://defillama.com/fees/morpho" target="_blank" rel="noopener">手续费 / revenue ↗</a>
+        <a href="https://defillama.com/unlocks/morpho" target="_blank" rel="noopener">解锁 ↗</a></li>
+      <li><b>行情 / 供应 · CoinGecko</b>：
+        <a href="https://www.coingecko.com/en/coins/morpho" target="_blank" rel="noopener">MORPHO 行情页 ↗</a></li>
+      <li><b>坏账 / APY / 市场 · Morpho 官方</b>：
+        <a href="https://app.morpho.org" target="_blank" rel="noopener">Morpho App ↗</a>
+        <a href="https://blue-api.morpho.org/graphql" target="_blank" rel="noopener">GraphQL API ↗</a></li>
+      <li><b>治理 · Snapshot</b>：
+        <a href="https://snapshot.org/#/morpho.eth" target="_blank" rel="noopener">morpho.eth 提案 ↗</a></li>
+      <li><b>坏账人工核（无免费独立源）· Dune</b>：
+        <a href="https://dune.com/browse/dashboards?q=morpho" target="_blank" rel="noopener">Morpho 看板搜索 ↗</a>（Morpho 官方 API 为链上直读权威源，第三方核对需自建 Dune query）</li>
+    </ul>
+    <p class="disclaimer"><b>交叉强度（核对可信度）</b>：价格 CoinGecko ⟷ DefiLlama 独立双源（偏差 0.13%）；净 TVL DefiLlama ⟷ Morpho 官方独立双源（0.08%）；手续费为量级互核（DefiLlama ⟷ Morpho 市场推算，~25% 口径近似）；坏账 / 解锁为单源（Morpho 官方 / DefiLlama）。</p>
   </div>
 
   <footer>数据源：DefiLlama · CoinGecko · Morpho GraphQL · Snapshot ｜ 口径见上方说明 ｜ 面板由 run-weekly 生成</footer>
@@ -235,10 +260,12 @@ fetch("./data.json").then(r => r.json()).then(d => {
     const fmtVal = (m, v) => v == null ? "n/a" : (m === "价格" ? "$" + v.toFixed(4) : fmtUsd(v));
     document.getElementById("crosscheck").innerHTML = xc.map(x => {
       const ok = x.status === "ok";
-      const badge = x.status === "missing" ? "缺源" : (ok ? "✓ 一致" : "⚠ 偏差");
+      // 精确双源 ok=绿；量级近似 ok=琥珀(提示非精确)；偏差/缺源=红
+      const color = x.status === "missing" ? "var(--alert)" : (ok ? (x.approx ? "var(--warn)" : "var(--ok)") : "var(--alert)");
+      const badge = x.status === "missing" ? "缺源" : (x.approx ? (ok ? "≈ 量级一致" : "≈ 量级偏差") : (ok ? "✓ 一致" : "⚠ 偏差"));
       return `<div class="card ${ok ? "" : "highlight"}">
-        <div class="label">${x.metric} 互核 · ${x.sourceA} ↔ ${x.sourceB}</div>
-        <div class="val" style="font-size:18px;color:${ok ? "var(--ok)" : "var(--alert)"}">${badge}${x.deviation != null ? " " + (x.deviation * 100).toFixed(2) + "%" : ""}</div>
+        <div class="label">${x.metric} 互核 · ${x.sourceA} ↔ ${x.sourceB}${x.approx ? "（口径近似）" : ""}</div>
+        <div class="val" style="font-size:18px;color:${color}">${badge}${x.deviation != null ? " " + (x.deviation * 100).toFixed(2) + "%" : ""}</div>
         <div class="sub">${fmtVal(x.metric, x.valueA)} vs ${fmtVal(x.metric, x.valueB)}</div>
       </div>`;
     }).join("");
