@@ -44,6 +44,14 @@
   .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 14px 8px; height: 300px; position: relative; }
   .chart-box h3 { margin: 0 0 10px; font-size: 13px; color: var(--muted); font-weight: 600; }
   .chart-box .cv { position: relative; height: 240px; }
+  .notes { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 16px; }
+  .notes details { border-bottom: 1px solid var(--border); padding: 10px 0; }
+  .notes details:last-of-type { border-bottom: none; }
+  .notes summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--text); }
+  .notes ul { margin: 10px 0 4px; padding-left: 20px; }
+  .notes li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 6px; }
+  .notes li b { color: var(--text); font-weight: 600; }
+  .notes .disclaimer { font-size: 12px; color: var(--pending); margin: 12px 0 4px; }
 </style>
 </head>
 <body>
@@ -97,7 +105,43 @@
   <h2>数据核对</h2>
   <ul class="checks" id="checks"></ul>
 
-  <footer>数据源：DefiLlama · CoinGecko ｜ 口径见 PLAN.md ｜ 面板由 run-weekly 生成</footer>
+  <h2>口径与数据源说明</h2>
+  <div class="notes">
+    <details open>
+      <summary>关键口径（Morpho 反直觉，务必先读）</summary>
+      <ul>
+        <li><b>协议 revenue = $0</b>：Morpho 的 fee switch 未开启，全部借款利息归存款人 / curator，持币人零分红。<b>$0 是真实口径，不是数据缺失</b>。若某日 revenue≠0 = fee switch 已激活。</li>
+        <li><b>潜在 fee switch 收入</b> = 年化 fees × 25%（治理上限）。<b>理论值，当前未激活</b>。</li>
+        <li><b>团队年释放价值</b> = 未来 12 个月团队（Contributors + Founders + Strategic Partners）解锁量 × 当前币价。<b>可变现估算，非实际到手</b>；随币价波动。Founders 已 100% 解锁完，未来释放主要来自 Strategic Partners。</li>
+        <li><b>坏账：已实现 vs 名义</b>。已实现坏账 = 真实社会化损失（headline）；名义坏账含抵押品脱锚但未实现清算的部分，会被单个 exotic 死市场（如 K/USDC）灌到 $B 级，<b>不是系统性损失</b>。</li>
+        <li><b>APY</b>：剔除 supply/borrow APY &gt; 50% 的异常（脱锚）市场后，按各自资产规模加权。Morpho 有 6000+ permissionless 市场，不过滤会被极端值污染。</li>
+        <li><b>"交易量" = 净流量</b>：借贷协议无 DEX swap volume；净借款 / 存款流量 = 借款存量 / 净 TVL 的<b>周度差分</b>，非 gross（借款+还款总额）。</li>
+        <li><b>解锁 USD</b> 按当前币价估算，价格敏感。</li>
+      </ul>
+    </details>
+    <details>
+      <summary>数据源</summary>
+      <ul>
+        <li>DefiLlama — TVL / 借款 / fees / revenue / 解锁与分配（emissions datasets）</li>
+        <li>CoinGecko — 价格 / 市值 / 流通与总供应</li>
+        <li>Morpho 官方 GraphQL（blue-api.morpho.org）— 坏账 / APY / 市场 / 集中度</li>
+        <li>Snapshot（morpho.eth）— 治理提案</li>
+        <li>更新：每周快照；数据时间见页面顶部。</li>
+      </ul>
+    </details>
+    <details>
+      <summary>已知限制与数据严谨性</summary>
+      <ul>
+        <li><b>多为单源</b>：目前仅总供应量做了三方互核（CoinGecko / emissions / 配置）；TVL、价格、fees 等<b>单源，多源互核待补</b>。</li>
+        <li>Association 金库运营开销未完全上链，未纳入团队收益。</li>
+        <li>gross 交易量（借款+还款总额）未做，需交易级数据（Dune）。</li>
+        <li>fee switch 状态目前靠 revenue≠0 自动侦测 + Snapshot 提案追踪。</li>
+      </ul>
+    </details>
+    <p class="disclaimer">仅供参考，非投资建议。数据可能因源口径调整而变化。</p>
+  </div>
+
+  <footer>数据源：DefiLlama · CoinGecko · Morpho GraphQL · Snapshot ｜ 口径见上方说明 ｜ 面板由 run-weekly 生成</footer>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
