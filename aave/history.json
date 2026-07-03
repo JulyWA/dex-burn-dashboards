@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T04:37:54.525Z",
+  "generatedAt": "2026-07-03T04:59:38.721Z",
   "lastWeek": "2026-06-22",
   "weeklyIncome": [
     {
@@ -1183,20 +1183,20 @@
     "gho": 597759037.8921323,
     "annualBuyback": 30000000,
     "weeklyBuyback": 576923.0769230769,
-    "reserveUsd": 50682832.22704824,
+    "reserveUsd": 50676956.63787283,
     "takeRate": 0.13380033170034236,
     "buybackRatio": 0.24469067921246893,
     "utilization": 0.6122367805410632,
     "avgBorrowRate": 0.023948280729653305,
     "avgSupplyRate": 0.01281399998277073,
     "netMargin": 0.011134280746882575,
-    "ghoRevenue": 3603340.0082472204,
+    "ghoRevenue": 3603345.6127615804,
     "ghoBorrowRate": 0.0375,
     "topChainPct": 0.8133448933249502,
-    "onchainNetTvl": 10233875635.236027,
+    "onchainNetTvl": 10229733552.368649,
     "onchainReserveCount": 67,
-    "onchainRevenue": 31526225.68046912,
-    "onchainTakeRate": 0.13740971255417447,
+    "onchainRevenue": 31504096.373522982,
+    "onchainTakeRate": 0.13736219453426807,
     "coreTeamTotalStable": 25000000,
     "coreTeamTotalAave": 75000,
     "coreTeamStableDisbursed": 10360828.040951177,
@@ -1205,12 +1205,12 @@
     "actualBuyback30dUsd": 0,
     "actualBuybackPaused": true,
     "actualBuybackLast": "2026-04-19",
-    "umbrellaUsd": 53687253.60357,
+    "umbrellaUsd": 53688952.131097,
     "umbrellaCount": 1,
-    "buybackYield": 0.022914477883695633,
-    "buybackPayback": 43.64053176666667,
-    "earningsYield": 0.04626502630158525,
-    "earningsPayback": 21.614599189490473,
+    "buybackYield": 0.022913545951502145,
+    "buybackPayback": 43.6423067,
+    "earningsYield": 0.04626314470220246,
+    "earningsPayback": 21.615478291349113,
     "daoOpex": 54105130,
     "approvedAnnualSpend": 103132394,
     "daoNet": -42561483.5,
@@ -1223,12 +1223,12 @@
     "bbCumPnlPct": -0.5256644693892014,
     "bbCumStart": "2025-04-09",
     "aaveLockedPct": 0.13933105577205057,
-    "aaveLockedUsd": 192299149.93435332,
+    "aaveLockedUsd": 192276856.96542978,
     "ghoStaked": 49562839.62520359
   },
   "now": {
-    "price": 86.26,
-    "marketCap": 1309215953,
+    "price": 86.25,
+    "marketCap": 1309269201,
     "total": 16000000,
     "circulating": 15179911.874935383,
     "reserve": 587558.9175405545,
@@ -1276,7 +1276,7 @@
   "spend": {
     "live": true,
     "stale": false,
-    "fetchedAt": "2026-07-03T04:37:53.444Z",
+    "fetchedAt": "2026-07-03T04:59:37.566Z",
     "revenue2025": 150595268.93599832,
     "ytdRevenue": 63650003.47290999,
     "approvedAnnual": 103132394,
@@ -1298,6 +1298,44 @@
     },
     "outflowYtd": 117693616.92765164,
     "outflow30d": 18553773.559318837,
+    "yearly": [
+      {
+        "year": 2020,
+        "revenue": 550961.85123284,
+        "outflow": null
+      },
+      {
+        "year": 2021,
+        "revenue": 14578902.878708191,
+        "outflow": 3174517.42
+      },
+      {
+        "year": 2022,
+        "revenue": 22938920.406936347,
+        "outflow": 26132452.436973237
+      },
+      {
+        "year": 2023,
+        "revenue": 22624385.65071007,
+        "outflow": 13834585.621560551
+      },
+      {
+        "year": 2024,
+        "revenue": 90286958.09295426,
+        "outflow": 54352349.72519526
+      },
+      {
+        "year": 2025,
+        "revenue": 150595268.93599823,
+        "outflow": 87157016.01271603
+      },
+      {
+        "year": 2026,
+        "revenue": 63650003.472910054,
+        "outflow": 117694020.46549779
+      }
+    ],
+    "curYear": 2026,
     "coreTeamAnnual": 6250000,
     "coreTeamAaveAnnual": 18750,
     "brandRevLow": 10000000,
