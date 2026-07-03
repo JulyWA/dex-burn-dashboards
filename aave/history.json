@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T03:41:14.846Z",
+  "generatedAt": "2026-07-03T04:37:54.525Z",
   "lastWeek": "2026-06-22",
   "weeklyIncome": [
     {
@@ -1176,27 +1176,27 @@
     }
   ],
   "kpi": {
-    "fees": 6585486,
-    "rev": 881162,
-    "tvl": 12709484082.122112,
-    "borrowed": 20084978793.47326,
-    "gho": 597753262.7164233,
+    "fees": 6585462,
+    "rev": 881137,
+    "tvl": 12709392540.583017,
+    "borrowed": 20066775756.959473,
+    "gho": 597759037.8921323,
     "annualBuyback": 30000000,
     "weeklyBuyback": 576923.0769230769,
-    "reserveUsd": 50624076.33529418,
-    "takeRate": 0.13380364030839942,
-    "buybackRatio": 0.24469062931787203,
-    "utilization": 0.6124503050915916,
-    "avgBorrowRate": 0.02392659091693088,
-    "avgSupplyRate": 0.01280685124883932,
-    "netMargin": 0.01111973966809156,
-    "ghoRevenue": 3603325.405700292,
+    "reserveUsd": 50682832.22704824,
+    "takeRate": 0.13380033170034236,
+    "buybackRatio": 0.24469067921246893,
+    "utilization": 0.6122367805410632,
+    "avgBorrowRate": 0.023948280729653305,
+    "avgSupplyRate": 0.01281399998277073,
+    "netMargin": 0.011134280746882575,
+    "ghoRevenue": 3603340.0082472204,
     "ghoBorrowRate": 0.0375,
-    "topChainPct": 0.8141225461381754,
-    "onchainNetTvl": 10256827606.01666,
+    "topChainPct": 0.8133448933249502,
+    "onchainNetTvl": 10233875635.236027,
     "onchainReserveCount": 67,
-    "onchainRevenue": 31519612.333961338,
-    "onchainTakeRate": 0.13747511048350322,
+    "onchainRevenue": 31526225.68046912,
+    "onchainTakeRate": 0.13740971255417447,
     "coreTeamTotalStable": 25000000,
     "coreTeamTotalAave": 75000,
     "coreTeamStableDisbursed": 10360828.040951177,
@@ -1207,21 +1207,28 @@
     "actualBuybackLast": "2026-04-19",
     "umbrellaUsd": 53687253.60357,
     "umbrellaCount": 1,
-    "buybackYield": 0.02293587920532365,
-    "buybackPayback": 43.59981106666667,
-    "earningsYield": 0.046308468763813164,
-    "earningsPayback": 21.594322306364624,
-    "daoOpex": 20000000,
-    "daoNet": 40571214.666666664,
-    "buybackCoverage": 0.7394405182709015,
-    "buybackCoveragePreCut": 1.2324008637848358,
+    "buybackYield": 0.022914477883695633,
+    "buybackPayback": 43.64053176666667,
+    "earningsYield": 0.04626502630158525,
+    "earningsPayback": 21.614599189490473,
+    "daoOpex": 54105130,
+    "approvedAnnualSpend": 103132394,
+    "daoNet": -42561483.5,
+    "buybackCoverage": null,
+    "buybackCoveragePreCut": null,
+    "bbCumAave": 249555.20895770573,
+    "bbCumCost": 45296948.98126689,
+    "bbCumAvgPrice": 181.5107333181082,
+    "bbCumValue": 21485952.330079503,
+    "bbCumPnlPct": -0.5256644693892014,
+    "bbCumStart": "2025-04-09",
     "aaveLockedPct": 0.13933105577205057,
-    "aaveLockedUsd": 192076220.24511802,
+    "aaveLockedUsd": 192299149.93435332,
     "ghoStaked": 49562839.62520359
   },
   "now": {
-    "price": 86.16,
-    "marketCap": 1307994332,
+    "price": 86.26,
+    "marketCap": 1309215953,
     "total": 16000000,
     "circulating": 15179911.874935383,
     "reserve": 587558.9175405545,
@@ -1231,33 +1238,33 @@
   "chains": [
     {
       "chain": "Ethereum",
-      "tvl": 10140774382.79807,
-      "borrowed": 7582141926.66546
+      "tvl": 10117896479.59938,
+      "borrowed": 7586041375.60171
     },
     {
       "chain": "Plasma",
-      "tvl": 630667108.5498,
-      "borrowed": 855814737.58077
+      "tvl": 629747287.51102,
+      "borrowed": 842241651.43549
     },
     {
       "chain": "Arbitrum",
-      "tvl": 392946260.4204,
-      "borrowed": 300211768.41985
+      "tvl": 393267723.03088,
+      "borrowed": 300557098.11762
     },
     {
       "chain": "Base",
-      "tvl": 388347356.89092,
-      "borrowed": 288542892.15539
+      "tvl": 388649108.79471,
+      "borrowed": 288397050.07995
     },
     {
       "chain": "Avalanche",
-      "tvl": 261171565.56757,
-      "borrowed": 166631015.42797
+      "tvl": 261968878.69721,
+      "borrowed": 167242911.54847
     },
     {
       "chain": "Binance",
-      "tvl": 144865316.74934,
-      "borrowed": 67109136.88995
+      "tvl": 144935410.77207,
+      "borrowed": 67053646.73382
     }
   ],
   "plan": {
@@ -1267,13 +1274,32 @@
     "asOf": "2026-07"
   },
   "spend": {
-    "outflows": 190000000,
-    "buyback": 30000000,
-    "serviceProviders": 20000000,
+    "live": true,
+    "stale": false,
+    "fetchedAt": "2026-07-03T04:37:53.444Z",
+    "revenue2025": 150595268.93599832,
+    "ytdRevenue": 63650003.47290999,
+    "approvedAnnual": 103132394,
+    "serviceProviders": 54105130,
+    "daoInitiatives": 49027264,
+    "initiatives": {
+      "gho": 18000000,
+      "growth": 13920000,
+      "umbrella": 8574944,
+      "safetyModule": 7824600,
+      "security": 479000,
+      "governance": 180000,
+      "operations": 48720
+    },
+    "byForm": {
+      "stable": 75278392,
+      "aave": 16510282,
+      "eth": 11335800
+    },
+    "outflowYtd": 117693616.92765164,
+    "outflow30d": 18553773.559318837,
     "coreTeamAnnual": 6250000,
     "coreTeamAaveAnnual": 18750,
-    "others": 133750000,
-    "revenue2025": 142000000,
     "brandRevLow": 10000000,
     "brandRevHigh": 20000000
   }
