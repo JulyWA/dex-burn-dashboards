@@ -68,14 +68,14 @@
 
   <div class="callout" id="callout">—</div>
 
-  <h2>规模</h2>
+  <h2>规模 <span class="sub-h">· 借贷体量（净 TVL = DefiLlama 净口径；供给 = 净TVL + 借款）</span></h2>
   <div class="grid" id="scale"></div>
   <div class="grid2">
     <div class="chart-box"><h3>净 TVL 趋势（周）</h3><div class="cv"><canvas id="tvlChart"></canvas></div></div>
     <div class="chart-box"><h3>手续费趋势（周，用户端）</h3><div class="cv"><canvas id="feesChart"></canvas></div></div>
   </div>
 
-  <h2>利率 & 周期</h2>
+  <h2>利率 & 周期 <span class="sub-h">· 加权 APY（剔除极端市场）+ 周/月/年手续费与环比</span></h2>
   <div class="grid" id="rates"></div>
   <div class="grid2">
     <div class="chart-box"><h3>净借款流量（周，绿增红减）</h3><div class="cv"><canvas id="borrowFlowChart"></canvas></div></div>
@@ -86,18 +86,18 @@
   <div class="grid" id="value"></div>
   <ul class="checks" id="gov"></ul>
 
-  <h2>代币</h2>
+  <h2>代币 <span class="sub-h">· 总量 10 亿，无销毁无通缩，只有解锁增发</span></h2>
   <div class="grid" id="token"></div>
   <div class="grid2">
     <div class="chart-box"><h3>代币分配结构（当前占流通）</h3><div class="cv"><canvas id="allocChart"></canvas></div></div>
     <div class="chart-box"><h3>供给构成（流通 vs 未解锁）</h3><div class="cv"><canvas id="supplyChart"></canvas></div></div>
   </div>
 
-  <h2>团队收益（团队 = Contributors + Founders + Strategic Partners）</h2>
+  <h2>团队收益 <span class="sub-h">· 团队 = Contributors + Founders + Strategic Partners；收益 = 解锁 + 融资，非手续费</span></h2>
   <div class="callout" id="teamCallout">—</div>
   <div class="grid" id="team"></div>
 
-  <h2>解锁抛压</h2>
+  <h2>解锁抛压 <span class="sub-h">· 未来释放 = 增发抛压（非通缩）；解锁 USD 按现价估算</span></h2>
   <div class="grid" id="unlocks"></div>
   <div class="chart-box" style="height:320px;margin-top:12px"><h3>累计解锁时间线（含团队 insiders，虚线=现在）</h3><div class="cv" style="height:260px"><canvas id="unlockChart"></canvas></div></div>
   <ul class="checks" id="unlockEvents"></ul>
@@ -203,8 +203,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
   document.getElementById("scale").innerHTML =
     card("净 TVL", fmtUsd(scale.tvl)) +
     card("总供给", fmtUsd(scale.supplied)) +
-    card("总借款", fmtUsd(scale.borrowed), "利用率 " + fmtPct(scale.utilization)) +
-    card("fees 年化", fmtUsd(scale.fees.total1y), "30d " + fmtUsd(scale.fees.total30d));
+    card("总借款", fmtUsd(scale.borrowed), "利用率 " + fmtPct(scale.utilization));
 
   document.getElementById("value").innerHTML =
     card("协议 revenue 年化", fmtUsd(vc.protocolRevenue1y), "持币人分红 · fee switch 关", "highlight") +
