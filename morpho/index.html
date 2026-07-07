@@ -17,8 +17,16 @@
   header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
   h1 { font-size: 22px; margin: 0; }
   .ts { color: var(--muted); font-size: 13px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
   h2 { font-size: 14px; color: var(--muted); text-transform: uppercase;
-    letter-spacing: .04em; margin: 32px 0 12px; font-weight: 600; }
+    letter-spacing: .04em; margin: 44px 0 12px; padding-top: 22px;
+    border-top: 1px solid var(--border); font-weight: 600; }
+  .toc { position: sticky; top: 0; z-index: 10; background: rgba(13,17,23,.94);
+    backdrop-filter: blur(6px); display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 10px 0; margin: 18px 0 2px; border-bottom: 1px solid var(--border); }
+  .toc a { font-size: 12px; color: var(--muted); text-decoration: none;
+    padding: 4px 11px; border: 1px solid var(--border); border-radius: 999px; white-space: nowrap; }
+  .toc a:hover { color: var(--accent); border-color: var(--accent); }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
   .card .label { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
@@ -51,12 +59,19 @@
   .notes ul { margin: 10px 0 4px; padding-left: 20px; }
   .notes li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 6px; }
   .notes li b { color: var(--text); font-weight: 600; }
+  .notes li ul { margin: 6px 0 2px; }
+  .notes li ul li { margin-bottom: 5px; }
   .notes .disclaimer { font-size: 12px; color: var(--pending); margin: 12px 0 4px; }
   .notes .links { list-style: none; padding: 0; margin: 6px 0; }
   .notes .links li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
   .notes .links li b { color: var(--text); }
   .notes .links a { margin: 0 12px 0 4px; white-space: nowrap; }
   h2 .sub-h { font-size: 13px; color: var(--muted); font-weight: 400; }
+  details.fold { margin-top: 10px; }
+  details.fold > summary { cursor: pointer; font-size: 13px; color: var(--muted);
+    padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; user-select: none; }
+  details.fold > summary:hover { color: var(--text); }
+  details.fold[open] > summary { margin-bottom: 8px; }
 </style>
 </head>
 <body>
@@ -66,108 +81,166 @@
     <span class="ts" id="ts">加载中…</span>
   </header>
 
-  <div class="callout" id="callout">—</div>
+  <nav class="toc">
+    <a href="#sec1">📊 规模与活动</a>
+    <a href="#sec2">💵 收入与利率</a>
+    <a href="#sec3">🔁 价值捕获与估值</a>
+    <a href="#sec4">🪙 代币与解锁</a>
+    <a href="#sec5">👥 团队收益</a>
+    <a href="#sec6">⚠️ 风险</a>
+    <a href="#appendix">🔗 附录</a>
+  </nav>
 
-  <h2>规模 <span class="sub-h">· 借贷体量（净 TVL = DefiLlama 净口径；供给 = 净TVL + 借款）</span></h2>
+  <h2 id="sec1">📊 规模与活动 <span class="sub-h">· 生意多大：存量（TVL / 供给 / 借款）+ 流量（交易量 / 环比）</span></h2>
   <div class="grid" id="scale"></div>
+  <div class="grid" id="volume"></div>
   <div class="grid2">
     <div class="chart-box"><h3>净 TVL 趋势（周）</h3><div class="cv"><canvas id="tvlChart"></canvas></div></div>
-    <div class="chart-box"><h3>手续费趋势（周，用户端）</h3><div class="cv"><canvas id="feesChart"></canvas></div></div>
-  </div>
-
-  <h2>利率 & 周期 <span class="sub-h">· 加权 APY（剔除极端市场）+ 周/月/年手续费与环比</span></h2>
-  <div class="grid" id="rates"></div>
-  <div class="grid2">
     <div class="chart-box"><h3>净借款流量（周，绿增红减）</h3><div class="cv"><canvas id="borrowFlowChart"></canvas></div></div>
     <div class="chart-box"><h3>存款净流入（周）</h3><div class="cv"><canvas id="depositFlowChart"></canvas></div></div>
   </div>
 
-  <h2>价值捕获 <span class="sub-h">· fee switch 关闭，持币人零分红（revenue 真 $0）</span></h2>
-  <div class="grid" id="value"></div>
-  <ul class="checks" id="gov"></ul>
-
-  <h2>代币 <span class="sub-h">· 总量 10 亿，无销毁无通缩，只有解锁增发</span></h2>
-  <div class="grid" id="token"></div>
+  <h2 id="sec2">💵 收入与利率 <span class="sub-h">· 钱从哪来：资金价格（APY / 利差）+ 用户付的手续费（近7天/30天/1年滚动窗口）</span></h2>
+  <div class="grid" id="rates"></div>
+  <div class="grid" id="feesPeriods"></div>
   <div class="grid2">
-    <div class="chart-box"><h3>代币分配结构（当前占流通）</h3><div class="cv"><canvas id="allocChart"></canvas></div></div>
-    <div class="chart-box"><h3>供给构成（流通 vs 未解锁）</h3><div class="cv"><canvas id="supplyChart"></canvas></div></div>
+    <div class="chart-box"><h3>手续费趋势（周，用户端）</h3><div class="cv"><canvas id="feesChart"></canvas></div></div>
   </div>
 
-  <h2>团队收益 <span class="sub-h">· 团队 = Contributors + Founders + Strategic Partners；收益 = 解锁 + 融资，非手续费</span></h2>
+  <h2 id="sec3">🔁 价值捕获与估值 <span class="sub-h">· 谁分到钱、值多少：fee switch 关 → revenue $0 → 传统 PE 不适用</span></h2>
+  <div class="grid" id="value"></div>
+  <div class="grid" id="valuation"></div>
+  <ul class="checks" id="govHeadline"></ul>
+  <details class="fold"><summary>治理提案解读（关键提案人工精选 + 最新动态，点开查看）</summary>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 6px"><b style="color:var(--text)">关键提案解读</b>（决定"钱怎么分"的历史提案）：</p>
+    <ul class="checks">
+      <li><span class="tag WARN">收入改道</span><span><b><a href="https://forum.morpho.org/t/mip-94-berachain-license-fee-usage-clarification/1509" target="_blank" rel="noopener">MIP 94</a></b>（2025-02）：把 Berachain 许可费<b>从 DAO 改道给 Association</b>，理由"避免持币人跨辖区税务风险"。实际效果 = 商业收入绕开持币人。</span></li>
+      <li><span class="tag OK">预算</span><span><b><a href="https://forum.morpho.org/t/mip-131-allocation-of-a-grant-for-the-morpho-association-s-strategic-support-program-2026-2030/2246" target="_blank" rel="noopener">MIP 131</a></b>（2026-04）：批 <b>150M MORPHO</b> 给 Association 作 2026–2030 运营（R&D/生态/机构BD）。社区要年度细分，官方未给。</span></li>
+      <li><span class="tag OK">许可</span><span><b><a href="https://forum.morpho.org/t/mip-83-morpho-blue-license/1084" target="_blank" rel="noopener">MIP 83</a></b>：Berachain 采用 Morpho Blue，主动付许可费（低 7 位数 USDC+BERA）——Morpho 的 <b>B2B 授权收入模式</b>雏形。</span></li>
+      <li><span class="tag OK">员工</span><span><b><a href="https://forum.morpho.org/t/mip-129-approve-review-of-2025-contributor-grants/2205" target="_blank" rel="noopener">MIP 129</a></b>（2026-03）：年度审批贡献者 grants（Morpho Labs 员工工资，占 7.9% 供应）。</span></li>
+      <li><span class="tag WARN">关注</span><span><b>fee switch</b>：目前<b>无激活提案</b>——持币人分红的唯一开关仍关着，是核心监控信号。</span></li>
+    </ul>
+    <p style="font-size:13px;color:var(--muted);margin:14px 0 6px"><b style="color:var(--text)">最新动态提案</b>（Snapshot 实时拉取）：</p>
+    <ul class="checks" id="gov"></ul>
+  </details>
+
+  <h2 id="sec4">🪙 代币与解锁 <span class="sub-h">· 供给稀释压力：总量 10 亿，无销毁无通缩，只有解锁增发</span></h2>
+  <div class="grid" id="token"></div>
+  <div class="grid" id="unlocks"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>代币分配结构（当前占流通，悬停看最终占比）</h3><div class="cv"><canvas id="allocChart"></canvas></div></div>
+    <div class="chart-box"><h3>供给构成（流通 vs 未解锁）</h3><div class="cv"><canvas id="supplyChart"></canvas></div></div>
+  </div>
+  <ul class="checks" id="allocNote"></ul>
+  <div class="chart-box" style="height:320px;margin-top:12px"><h3>累计解锁时间线（含团队/内部人，解锁 USD 按现价估算）</h3><div class="cv" style="height:260px"><canvas id="unlockChart"></canvas></div></div>
+  <details class="fold"><summary>近期一次性解锁事件（某日集中释放一批代币，非日常线性解锁，点开查看）</summary>
+    <ul class="checks" id="unlockEvents"></ul>
+  </details>
+
+  <h2 id="sec5">👥 团队收益 <span class="sub-h">· 谁在赚钱：商业收入进 Association（法国非营利）不进 DAO；持币人零分红</span></h2>
   <div class="callout" id="teamCallout">—</div>
   <div class="grid" id="team"></div>
+  <ul class="checks" id="teamSources"></ul>
+  <div class="grid" id="association"></div>
 
-  <h2>解锁抛压 <span class="sub-h">· 未来释放 = 增发抛压（非通缩）；解锁 USD 按现价估算</span></h2>
-  <div class="grid" id="unlocks"></div>
-  <div class="chart-box" style="height:320px;margin-top:12px"><h3>累计解锁时间线（含团队 insiders，虚线=现在）</h3><div class="cv" style="height:260px"><canvas id="unlockChart"></canvas></div></div>
-  <ul class="checks" id="unlockEvents"></ul>
-
-  <h2>风险 <span class="sub-h">· 看已实现坏账（真实损失），非名义坏账（含脱锚市场）</span></h2>
+  <h2 id="sec6">⚠️ 风险 <span class="sub-h">· 看已实现坏账（真实损失），非名义坏账（含脱锚市场）</span></h2>
   <div class="callout" id="riskCallout">—</div>
   <div class="grid" id="risk"></div>
-  <ul class="checks" id="distressed"></ul>
+  <details class="fold"><summary>脱锚异常市场明细（名义坏账构成，点开查看）</summary>
+    <ul class="checks" id="distressed"></ul>
+  </details>
 
-  <h2>数据核对</h2>
-  <div class="grid" id="crosscheck"></div>
-  <ul class="checks" id="checks"></ul>
-
-  <h2>口径与数据源说明</h2>
+  <h2 id="appendix">🔗 口径 · 数据源 · 核对 <span class="sub-h">· 关键口径建议先读；数据核对结果与原始来源需要时点开</span></h2>
   <div class="notes">
-    <details open>
+    <details>
       <summary>关键口径（Morpho 反直觉，务必先读）</summary>
       <ul>
         <li><b>协议 revenue = $0</b>：Morpho 的 fee switch 未开启，全部借款利息归存款人 / curator，持币人零分红。<b>$0 是真实口径，不是数据缺失</b>。若某日 revenue≠0 = fee switch 已激活。</li>
         <li><b>潜在 fee switch 收入</b> = 年化 fees × 25%（治理上限）。<b>理论值，当前未激活</b>。</li>
-        <li><b>团队年释放价值</b> = 未来 12 个月团队（Contributors + Founders + Strategic Partners）解锁量 × 当前币价。<b>可变现估算，非实际到手</b>；随币价波动。Founders 已 100% 解锁完，未来释放主要来自 Strategic Partners。</li>
+        <li><b>团队年释放价值（= 团队锁仓一年解锁额）</b>：未来 12 个月团队（贡献者 + 创始人 + 战略伙伴）解锁的代币量 × 当前币价。通俗说 = 团队手里锁着的币，一年内有多少会"松绑、能卖了"，按现价折算。<b>是既有持仓的解锁变现（潜在抛压），不是团队新赚的钱</b>；随币价波动。创始人已 100% 解锁完，未来释放主要来自战略伙伴。</li>
         <li><b>坏账：已实现 vs 名义</b>。已实现坏账 = 真实社会化损失（headline）；名义坏账含抵押品脱锚但未实现清算的部分，会被单个 exotic 死市场（如 K/USDC）灌到 $B 级，<b>不是系统性损失</b>。</li>
         <li><b>APY</b>：剔除 supply/borrow APY &gt; 50% 的异常（脱锚）市场后，按各自资产规模加权。Morpho 有 6000+ permissionless 市场，不过滤会被极端值污染。</li>
-        <li><b>"交易量" = 净流量</b>：借贷协议无 DEX swap volume；净借款 / 存款流量 = 借款存量 / 净 TVL 的<b>周度差分</b>，非 gross（借款+还款总额）。</li>
+        <li><b>"交易量" = 净流量</b>：借贷协议无 DEX swap volume；净借款 / 存款流量 = 借款存量 / 净 TVL 的<b>周度差分</b>，非总额 gross（借款+还款总额）。</li>
+        <li><b>供给 / 借款 / 利用率用 Morpho 官方口径</b>（morphoBlues 聚合），非 DefiLlama——DefiLlama 的 borrowed 对 Morpho 低估约 2.7x（$3.68B vs 官方 $9.79B），会把真实 92.9% 的资金利用率错算成 34%。净 TVL 仍用 DefiLlama（已与官方互核）。资产负债表：存款人供给 = 已借出 + 未借出；净 TVL = 未借出供给 + 抵押品。</li>
         <li><b>解锁 USD</b> 按当前币价估算，价格敏感。</li>
+        <li><b>颜色约定</b>：<span style="color:var(--alert)">红色</span> = 需警示/注意的异常或负面（revenue $0 零价值捕获、名义坏账勿当真损失、互核偏差）；<span style="color:var(--ok)">绿色</span> = 正向/健康（利用率、环比上涨、核对通过）；<span style="color:var(--warn)">琥珀</span> = 近似/待留意。中性指标（PS/PE/估值倍数）不着色。</li>
+        <li><b>单位约定</b>：金额 = $ + B/M/K；代币量 = M/B MORPHO 缩写；利率类一律用 %（APY、借贷利差同维度，利差 = 借款 − 供给 APY）；倍数 = x（PS / PE / 市值/TVL）；百分比小数位：水平类 1 位（APY 3.8%）、变化率/利差类 2 位（环比 ▲7.78%、利差 0.62%）。</li>
       </ul>
     </details>
     <details>
-      <summary>数据源</summary>
+      <summary>名词解释与关键结论</summary>
       <ul>
-        <li>DefiLlama — TVL / 借款 / fees / revenue / 解锁与分配（emissions datasets）</li>
-        <li>CoinGecko — 价格 / 市值 / 流通与总供应</li>
-        <li>Morpho 官方 GraphQL（blue-api.morpho.org）— 坏账 / APY / 市场 / 集中度</li>
-        <li>Snapshot（morpho.eth）— 治理提案</li>
-        <li>更新：每周快照；数据时间见页面顶部。</li>
+        <li><b>fee switch（收费开关）</b>：Morpho 合约内置的协议抽成开关，上限 = 借款利息的 25%，治理可激活。<b>当前 = 关</b>，协议/DAO/持币人收入都是 $0。官方文档提了它（技术存在、治理可开），但<b>无任何激活时间表或承诺</b>；MORPHO 代币官方文档甚至只字不提收入，只定位为治理权。既不是"永远不开"（合约留了口子），也不是"计划要开"（无路线图）——是<b>"开放但零承诺"</b>。持币人的全部价值捕获都悬于这个官方拒绝承诺的开关，是投 MORPHO 最大的结构性不确定性。</li>
+        <li><b>curator（金库管理人）= Morpho 商业模式的关键</b>：Morpho 分两层——底层 <b>Morpho Blue</b>（无许可借贷市场，"裸"的，存款人得自己挑市场扛风险）；上层 <b>Vault 金库</b>，由 curator 打理。<b>curator = 第三方专业机构（Steakhouse、Gauntlet、Re7），本质是"链上基金经理"</b>，决定 vault 的钱投哪些市场、风险参数、再平衡，从存款人收益里抽 <b>performance fee（实测加权 ~8.5%，最高 25%）</b>。
+          <ul>
+            <li><b>价值链分配</b>：借款人付息 → 存款人赚息（被 curator 抽 8.5%）→ curator 拿 fee；<b>协议 / MORPHO 持币人 = $0</b>（fee switch 关）。</li>
+            <li><b>vs Aave（本质区别）</b>：Aave 协议自己抽成进 DAO / 回购、持币人间接受益；Morpho <b>把收费权让给了 curator</b>，持币人一分借贷现金流都不分享。</li>
+            <li><b>对持币人的含义</b>：买 MORPHO ≠ 买 Morpho 借贷生意的现金流（那流向 curator + 存款人）；<b>Steakhouse / Gauntlet 这些 curator 才是放量的直接受益者</b>。持币人押的是"未来 fee switch 开、从 curator 这块分一部分给协议" + B2B licensing 增长。</li>
+          </ul>
+        </li>
+        <li><b>Morpho Association 是什么（核心实体）</b>：<b>法国非营利</b>，使命=发展 Morpho 网络；持有开源代码 IP、托管前端(app.morpho.org)、维护文档、<b>资助贡献者(给团队发钱)</b>。2025 restructure 把营利的 <b>Morpho Labs（开发公司）并入为全资子公司</b>，官方称为"对齐团队与持币人价值到 MORPHO 一个资产"。<br><b>钱：流入</b>=代币分配(MIP 131 150M)+商业收入(licensing/机构，MIP 94 全进协会)+融资($175M)；<b>流出</b>=Labs 员工工资+研发+前端文档+生态BD+再投资。（协议费 $257M 累计不进这里，是给存款人/curator 的）</li>
+        <li><b>Association 结构的关键含义</b>：作为法国非营利，<b>法律上禁止分配利润</b>——所以商业收入进 Association = <b>制度性地不会分给持币人</b>；创始人明说"收入回投不分配"。所谓"对齐"= 团队和持币人一起不拿现金分红、都押代币升值（而升值又依赖那个不开的 fee switch）。<b>投 MORPHO = 接受"价值只靠代币升值兑现、无现金流分红"的设定。</b></li>
+        <li><b>为什么面板没有"传统 PE"</b>：PE = 市值 / 协议净利润，而 Morpho revenue = $0 → 市值/0 数学上无穷、无意义，故不设此卡。估值只看 PS（市销率）和 Forward PE（假设 fee switch 开）。</li>
+        <li><b>团队赚不赚钱——不透明本身是信号</b>：Association 是法国非营利，<b>不公开详细财报</b>；Berachain 许可费具体金额官方多次拒绝披露；MIP 131 的 150M 预算无年度细分。精确的"赚 X 花 Y"在官方层面就是查不到——<b>这种不透明本身就是个信号</b>。能确定的只有：协议费 $0、商业收入进协会、运营靠代币+融资烧。</li>
+        <li><b>revenue $0 是刻意设计，非缺陷</b>：创始人 Paul Frambot 公开表态"所有收入回投增长、不分配给持币人"。持币人当前价值捕获 = 0，全押 fee switch 何时开。</li>
+        <li><b>增持 ≠ 回购（别混淆）</b>：Apollo 增持 90M（9%）是<b>外部机构用自有资金</b>公开市场/OTC 买入（建仓 + 合作），是需求侧买盘利好；但<b>不是回购</b>——回购是<b>协议用自己的收入</b>买回代币（价值捕获）。Morpho 协议收入 $0、无回购机制，Apollo 增持不改变"零价值捕获"的事实，别据此高估代币价值捕获。<b>它也 ≠ 融资</b>：融资($175M)的钱进 Association，Apollo 增持的钱在二级市场给卖方、不进团队。</li>
+        <li><b>价值投资关注清单</b>：Morpho 现<b>不是传统价值股（有现金流/分红），而是"价值捕获期权"</b>——生意好（$209M fees、92.9% 利用率）但价值当前不流向持币人（revenue $0 + 收入进协会 + 无分红）。买 MORPHO = 押 fee switch 会开、且开了收入给持币人。按权重盯：
+          <ul>
+            <li><b>① 催化剂（权重最高，决定成败）</b>：fee switch 激活提案（治理区）｜协议 revenue（现 $0，≠0 即开关开了）｜<b>收入归属 DAO 还是 Association</b>（MIP 94 先例进协会=对持币人无用，最大陷阱）。</li>
+            <li><b>② 内在价值基数（开关开了值多少）</b>：年化 fees + 增长（决定潜在 $52M 协议收入）｜TVL / 利用率 / 市场份额（护城河）｜Forward PE。</li>
+            <li><b>③ 价格（现在贵不贵）</b>：PS 6.3x、市值/TVL 0.18——对 revenue=$0 的项目是纯预期定价，不便宜。</li>
+            <li><b>④ 下行风险</b>：解锁抛压（用户与分发最终 45%、才解锁 35%，线性砸到 2031，最大长期抛压）｜VC 占比 + 内部人变现｜坏账（现健康）。</li>
+            <li><b>买卖锚点</b>：<b>买点</b>=fee switch 提案出现且明确收入给 DAO；<b>警惕</b>=收入又进 Association（MIP 94 重演）、解锁洪峰、增长停滞。一句话：等治理把"好生意"变成"股东回报"的转折点——在此之前是成长/期权逻辑，非价值股逻辑。</li>
+          </ul>
+        </li>
       </ul>
     </details>
     <details>
       <summary>已知限制与数据严谨性</summary>
       <ul>
         <li><b>多源互核</b>：价格（CoinGecko ↔ DefiLlama，精确）、净 TVL（DefiLlama ↔ Morpho 官方，精确）、总供应量（三源）已互核；手续费为<b>量级互核</b>（DefiLlama ↔ Morpho 市场推算，~25% 口径近似）。<b>坏账、解锁仍单源</b>：坏账 Morpho 官方为链上直读权威源，无免费独立第二源（Dune 需自建 query，见验证链接）。借款因两源口径不同（Morpho totalBorrowUsd 含跨市场计价差异）未纳入互核。</li>
-        <li>Association 金库运营开销未完全上链，未纳入团队收益。</li>
+        <li>Association 运营预算用官方 MIP 131（150M MORPHO / 2026–2030）；商业收入(licensing)经 MIP 94 导向协会不进 DAO。Association 是法国非营利，不公开详细财报，licensing 具体金额与年度预算细分官方未披露。</li>
         <li>gross 交易量（借款+还款总额）未做，需交易级数据（Dune）。</li>
         <li>fee switch 状态目前靠 revenue≠0 自动侦测 + Snapshot 提案追踪。</li>
       </ul>
     </details>
+    <details>
+      <summary>数据核对结果（多源互核 + 一致性检查，每次数据刷新自动执行）</summary>
+      <div class="grid" id="crosscheck" style="margin:10px 0"></div>
+      <ul class="checks" id="checks"></ul>
+      <p style="font-size:13px;color:var(--muted);margin:14px 0 6px"><b style="color:var(--text)">核对覆盖矩阵</b>（每个指标的核对强度，单源=下次可能出错的盲区）：</p>
+      <ul class="checks" id="coverage"></ul>
+    </details>
+    <details>
+      <summary>验证数据链接（各项数据原始来源 + 第三方统计站）</summary>
+      <ul class="links">
+        <li><b>规模 / 收入 · DefiLlama</b>：
+          <a href="https://defillama.com/protocol/morpho" target="_blank" rel="noopener">TVL / 借款 ↗</a>
+          <a href="https://defillama.com/fees/morpho" target="_blank" rel="noopener">手续费 / revenue ↗</a>
+          <a href="https://defillama.com/unlocks/morpho" target="_blank" rel="noopener">解锁 ↗</a></li>
+        <li><b>行情 / 供应 · CoinGecko</b>：
+          <a href="https://www.coingecko.com/en/coins/morpho" target="_blank" rel="noopener">MORPHO 行情页 ↗</a></li>
+        <li><b>坏账 / APY / 市场 · Morpho 官方</b>：
+          <a href="https://app.morpho.org" target="_blank" rel="noopener">Morpho App ↗</a>
+          <a href="https://blue-api.morpho.org/graphql" target="_blank" rel="noopener">GraphQL API ↗</a></li>
+        <li><b>官方 Dune 看板（docs 指定，替代已下线的 analytics 页）</b>：
+          <a href="https://dune.com/morpho/multichain-activity" target="_blank" rel="noopener">多链活动 ↗</a>
+          <a href="https://dune.com/morpho/morpho-credit-risk" target="_blank" rel="noopener">信用风险（核坏账）↗</a>
+          <a href="https://dune.com/morpho/morpho-liquidation" target="_blank" rel="noopener">清算 ↗</a></li>
+        <li><b>第三方统计站（供横向核对）</b>：
+          <a href="https://morpho.blockanalitica.com/" target="_blank" rel="noopener">BlockAnalitica ↗</a>
+          <a href="https://tokenterminal.com/explorer/projects/morpho" target="_blank" rel="noopener">Token Terminal ↗</a></li>
+        <li><b>治理 · Snapshot</b>：
+          <a href="https://snapshot.org/#/morpho.eth" target="_blank" rel="noopener">morpho.eth 提案 ↗</a></li>
+        <li><b>坏账人工核（无免费独立源）· Dune</b>：
+          <a href="https://dune.com/browse/dashboards?q=morpho" target="_blank" rel="noopener">Morpho 看板搜索 ↗</a>（Morpho 官方 API 为链上直读权威源，第三方核对需自建 Dune query）</li>
+      </ul>
+      <p class="disclaimer"><b>交叉强度（核对可信度）</b>：价格 CoinGecko ↔ DefiLlama 独立双源；净 TVL DefiLlama ↔ Morpho 官方独立双源；手续费为量级互核（口径近似）；坏账 / 解锁为单源（Morpho 官方 / DefiLlama）。</p>
+    </details>
     <p class="disclaimer">仅供参考，非投资建议。数据可能因源口径调整而变化。</p>
   </div>
 
-  <h2>🔗 验证数据链接（点进去核对各项来源）</h2>
-  <div class="notes">
-    <ul class="links">
-      <li><b>规模 / 收入 · DefiLlama</b>：
-        <a href="https://defillama.com/protocol/morpho" target="_blank" rel="noopener">TVL / 借款 ↗</a>
-        <a href="https://defillama.com/fees/morpho" target="_blank" rel="noopener">手续费 / revenue ↗</a>
-        <a href="https://defillama.com/unlocks/morpho" target="_blank" rel="noopener">解锁 ↗</a></li>
-      <li><b>行情 / 供应 · CoinGecko</b>：
-        <a href="https://www.coingecko.com/en/coins/morpho" target="_blank" rel="noopener">MORPHO 行情页 ↗</a></li>
-      <li><b>坏账 / APY / 市场 · Morpho 官方</b>：
-        <a href="https://app.morpho.org" target="_blank" rel="noopener">Morpho App ↗</a>
-        <a href="https://blue-api.morpho.org/graphql" target="_blank" rel="noopener">GraphQL API ↗</a></li>
-      <li><b>治理 · Snapshot</b>：
-        <a href="https://snapshot.org/#/morpho.eth" target="_blank" rel="noopener">morpho.eth 提案 ↗</a></li>
-      <li><b>坏账人工核（无免费独立源）· Dune</b>：
-        <a href="https://dune.com/browse/dashboards?q=morpho" target="_blank" rel="noopener">Morpho 看板搜索 ↗</a>（Morpho 官方 API 为链上直读权威源，第三方核对需自建 Dune query）</li>
-    </ul>
-    <p class="disclaimer"><b>交叉强度（核对可信度）</b>：价格 CoinGecko ⟷ DefiLlama 独立双源（偏差 0.13%）；净 TVL DefiLlama ⟷ Morpho 官方独立双源（0.08%）；手续费为量级互核（DefiLlama ⟷ Morpho 市场推算，~25% 口径近似）；坏账 / 解锁为单源（Morpho 官方 / DefiLlama）。</p>
-  </div>
-
-  <footer>数据源：DefiLlama · CoinGecko · Morpho GraphQL · Snapshot ｜ 口径见上方说明 ｜ 面板由 run-weekly 生成</footer>
+  <footer>数据源：DefiLlama · CoinGecko · Morpho GraphQL · Snapshot | 口径见上方说明 | 面板由 run-weekly 生成</footer>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -186,6 +259,18 @@ const fmtUsd = (n) => {
 };
 const fmtPct = (x) => x == null || isNaN(x) ? "n/a" : (x*100).toFixed(1) + "%";
 const fmtNum = (n) => n == null || isNaN(n) ? "n/a" : Math.round(n).toLocaleString("en-US");
+// Morpho 官方分配类别 → 中文（提升可读性，图例/卡片统一用）
+const CAT_ZH = { "Rewards": "激励", "Contributors": "贡献者", "Founders": "创始人",
+  "Strategic Partners": "战略伙伴", "Market Makers": "做市商", "Users & Distributors": "用户与分发" };
+const catZh = (l) => CAT_ZH[l] || l;
+// 代币数量统一缩写: 105.6M MORPHO / 1B MORPHO（与 USD 的 B/M 规则一致）
+const fmtTok = (n) => {
+  if (n == null || isNaN(n)) return "n/a";
+  const a = Math.abs(n);
+  if (a >= 1e9) return (n/1e9).toFixed(a % 1e9 < 1e7 ? 0 : 2) + "B MORPHO";
+  if (a >= 1e6) return (n/1e6).toFixed(1) + "M MORPHO";
+  return fmtNum(n) + " MORPHO";
+};
 
 function card(label, val, sub, cls = "") {
   return `<div class="card ${cls}"><div class="label">${label}</div>` +
@@ -194,36 +279,40 @@ function card(label, val, sub, cls = "") {
 
 fetch("./data.json").then(r => r.json()).then(d => {
   const { scale, valueCapture: vc, token, checks, pending } = d;
-  document.getElementById("ts").textContent = "更新于 " + d.generatedAt.replace("T", " ").slice(0, 16) + " UTC";
+  const bjTime = new Date(new Date(d.generatedAt).getTime() + 8 * 3600 * 1000);
+  document.getElementById("ts").textContent = "更新于 " + bjTime.toISOString().replace("T", " ").slice(0, 16) + " (UTC+8)";
 
-  document.getElementById("callout").innerHTML =
-    `<b>${fmtUsd(scale.tvl)}</b> 净 TVL，但持币人分红（协议 revenue）仍为 ` +
-    `<b style="color:var(--alert)">${fmtUsd(vc.protocolRevenue1y)}</b> —— fee switch 未开启，代币零价值捕获。`;
-
+  const wowInline = (x) => x == null ? "" : ` · 环比上周 <span style="color:${x >= 0 ? 'var(--ok)' : 'var(--alert)'}">${x >= 0 ? '▲' : '▼'}${(Math.abs(x) * 100).toFixed(2)}%</span>`;
+  const w = d.periods?.wow || {};
+  const src = scale.officialSource ? "Morpho 官方口径" : "DefiLlama";
   document.getElementById("scale").innerHTML =
-    card("净 TVL", fmtUsd(scale.tvl)) +
-    card("总供给", fmtUsd(scale.supplied)) +
-    card("总借款", fmtUsd(scale.borrowed), "利用率 " + fmtPct(scale.utilization));
+    card("存款人供给", fmtUsd(scale.supplied), "可借出的存款总额 · " + src) +
+    card("总借款", fmtUsd(scale.borrowed), `已借出 · 资金利用率 <b style="color:var(--ok)">${fmtPct(scale.utilization)}</b>`) +
+    card("抵押品", scale.collateral != null ? fmtUsd(scale.collateral) : "n/a", "借款人存入的抵押 · " + src) +
+    card("净 TVL", fmtUsd(scale.tvl), "= 未借出供给 + 抵押品 · DefiLlama 净口径" + wowInline(w.tvl));
 
   document.getElementById("value").innerHTML =
-    card("协议 revenue 年化", fmtUsd(vc.protocolRevenue1y), "持币人分红 · fee switch 关", "highlight") +
-    card("潜在收入（理论）", fmtUsd(vc.potentialFeeSwitchRevenue1y), "若开启 = fees × 25%");
+    card("协议抽成率", vc.takeRate != null ? fmtPct(vc.takeRate) : "n/a", "revenue / fees · fee switch 关") +
+    card("协议 revenue 年化", fmtUsd(vc.protocolRevenue1y), "= fees × 抽成率 · 持币人零分红（价值捕获缺失）", "highlight") +
+    card("潜在收入（假设）", fmtUsd(vc.potentialFeeSwitchRevenue1y), `假设 fee switch 开 = fees × 上限 ${fmtPct(vc.takeRateCap)}（当前未激活）`);
 
   document.getElementById("token").innerHTML =
-    card("MORPHO 价格", token.priceUsd != null ? "$" + token.priceUsd : "n/a") +
-    card("市值", fmtUsd(token.marketCapUsd), "FDV " + fmtUsd(token.fdvUsd)) +
-    card("流通率", fmtPct(token.circulatingRate), fmtNum(token.circulatingSupply) + " / " + fmtNum(token.totalSupply));
+    card("MORPHO 价格", token.priceUsd != null ? "$" + token.priceUsd : "n/a", "CoinGecko 现价 · 已与 DefiLlama 互核") +
+    card("流通率", fmtPct(token.circulatingRate), fmtTok(token.circulatingSupply).replace(" MORPHO","") + " / " + fmtTok(token.totalSupply)) +
+    card("市值", fmtUsd(token.marketCapUsd), "= 价格 × 流通量 · FDV " + fmtUsd(token.fdvUsd) + " = 价格 × 总量");
 
   // 团队收益
   const t = d.teamRevenue;
   if (t && t.status === "ok") {
     document.getElementById("teamCallout").innerHTML =
-      `团队年释放价值 <b style="color:var(--accent)">${fmtUsd(t.teamAnnualReleaseUsd)}</b>/年` +
-      `（${fmtNum(t.teamAnnualReleaseTokens)} MORPHO，可变现估算）＋融资 ` +
-      t.funding.map(f => `${f.date} ${f.detail}`).join("；") +
-      `。协议手续费贡献≈0（revenue $0）。`;
+      `团队锁仓代币未来一年解锁 <b style="color:var(--accent)">${fmtUsd(t.teamAnnualReleaseUsd)}</b>（${fmtTok(t.teamAnnualReleaseTokens)}，按现价）` +
+      `——即团队一年内变得<b>可自由卖出</b>的代币，反映潜在抛压/变现能力，<b>非协议赚的钱</b>。真·融资入账（钱进 Association）：` +
+      t.funding.filter(f => f.type === "raise").map(f => `${f.date} ${f.detail}`).join("；") +
+      `。另有 ` +
+      t.funding.filter(f => f.type !== "raise").map(f => `${f.party} ${f.detail}`).join("；") +
+      `——是<b>二级市场买盘承诺，钱给卖方、不进团队</b>，非融资。协议手续费给团队 ≈ $0（revenue $0）。`;
     document.getElementById("team").innerHTML = t.byLabel.map(b =>
-      card(b.label, fmtUsd(b.future12mUsd),
+      card(catZh(b.label), fmtUsd(b.future12mUsd),
         `未来12月释放 · 已解锁 ${fmtPct((b.progressPct ?? 0) / 100)} · 占总量 ${(b.finalAllocationPct ?? 0)}%`)).join("");
   }
 
@@ -231,11 +320,16 @@ fetch("./data.json").then(r => r.json()).then(d => {
   const u = d.unlocks;
   if (u && u.status === "ok") {
     document.getElementById("unlocks").innerHTML =
-      card("未来12月全类别解锁", fmtUsd(u.future12mUsd), fmtNum(u.future12mTokens) + " MORPHO") +
-      u.byCategory.slice(0, 3).map(c => card(c.label, fmtUsd(c.usd), fmtNum(c.tokens) + " MORPHO")).join("");
-    document.getElementById("unlockEvents").innerHTML = (u.nextEvents || []).map(e =>
-      `<li><span class="tag WARN">${e.date}</span><span>${e.category} · ${e.type} · ${fmtNum(e.tokens)} MORPHO（${fmtUsd(e.usd)}）</span></li>`).join("")
-      || `<li><span class="tag OK">—</span><span>近期无离散 cliff 事件（解锁以 linear 连续为主）</span></li>`;
+      card("未来12月全类别解锁", fmtUsd(u.future12mUsd), fmtTok(u.future12mTokens)) +
+      u.byCategory.slice(0, 3).map(c => card(catZh(c.label), fmtUsd(c.usd), fmtTok(c.tokens))).join("");
+    const GRP_ZH = { insiders: "内部人", liquidity: "做市商", ecosystem: "生态/用户", farming: "激励" };
+    const TYPE_ZH = { cliff: "一次性解锁", linear: "线性持续解锁" };
+    document.getElementById("unlockEvents").innerHTML = (u.nextEvents || []).map(e => {
+      const grp = GRP_ZH[e.category] || e.category;
+      const typ = TYPE_ZH[e.type] || e.type;
+      return `<li><span class="tag WARN">${e.date}</span><span><b>${grp}</b>类 ${typ} <b>${fmtTok(e.tokens)}</b>（约 ${fmtUsd(e.usd)}）—— 该日一次性释放进流通</span></li>`;
+    }).join("")
+      || `<li><span class="tag OK">—</span><span>近期无一次性(cliff)解锁事件，代币以线性持续解锁为主</span></li>`;
   }
 
   // 风险
@@ -273,25 +367,72 @@ fetch("./data.json").then(r => r.json()).then(d => {
   document.getElementById("checks").innerHTML = (checks || [])
     .map(c => `<li><span class="tag ${c.level}">${c.level}</span><span>${c.msg}</span></li>`).join("");
 
+  // 核对覆盖矩阵
+  if (d.coverage) document.getElementById("coverage").innerHTML = d.coverage.map(c => {
+    const single = c.level === "单源";
+    return `<li><span class="tag ${single ? "WARN" : "OK"}">${c.level}</span><span><b>${c.metric}</b> · ${c.detail}</span></li>`;
+  }).join("");
+
   // 利率 & 周期三档 + 环比
   const wowBadge = (x) => x == null ? "n/a" :
     `<span style="color:${x >= 0 ? 'var(--ok)' : 'var(--alert)'}">${x >= 0 ? '▲' : '▼'}${(Math.abs(x) * 100).toFixed(2)}%</span>`;
   const pr = d.periods, ap = d.apy;
-  if (pr) document.getElementById("rates").innerHTML =
-    (ap?.status === "ok"
-      ? card("供给 APY", fmtPct(ap.supplyApy), `${ap.marketsCounted} 市场加权`) +
-        card("借款 APY", fmtPct(ap.borrowApy), `剔除 >${ap.capPct}% 异常市场`)
-      : "") +
-    card("本周手续费", fmtUsd(pr.fees.week), "WoW " + wowBadge(pr.wow.fees)) +
-    card("本月手续费", fmtUsd(pr.fees.month), "近30天") +
-    card("本年手续费", fmtUsd(pr.fees.year), "年化") +
-    card("TVL / 借款环比", wowBadge(pr.wow.tvl) + " / " + wowBadge(pr.wow.borrowed), "vs 上周");
+  // 利率一行（APY / 利差）
+  if (ap?.status === "ok") document.getElementById("rates").innerHTML =
+    card("借款 APY", fmtPct(ap.borrowApy), `借款人付的利率 · ${ap.marketsCounted} 市场加权，剔除 >${ap.capPct}% 异常`) +
+    card("供给 APY", fmtPct(ap.supplyApy), "存款人赚的利率") +
+    card("借贷利差", ap.spread != null ? (ap.spread * 100).toFixed(2) + "%" : "n/a",
+      `= 借款 ${fmtPct(ap.borrowApy)} − 供给 ${fmtPct(ap.supplyApy)}（占借款 ${fmtPct(ap.spreadRatio)}）· 协议抽 0，去向 = 利用率结构 + curator 费${ap.curatorFee != null ? `（加权 ${fmtPct(ap.curatorFee)}）` : ""}`);
+  // 手续费一行（近 7天 / 30天 / 1年 滚动窗口，非自然周期）
+  if (pr) document.getElementById("feesPeriods").innerHTML =
+    card("近 7 天手续费", fmtUsd(pr.fees.week), "滚动窗口 · 环比前 7 天 " + wowBadge(pr.feesChange?.week)) +
+    card("近 30 天手续费", fmtUsd(pr.fees.month), "滚动窗口 · 环比前 30 天 " + wowBadge(pr.feesChange?.month)) +
+    card("近 1 年手续费", fmtUsd(pr.fees.year), "滚动窗口 · 环比前 1 年 " + wowBadge(pr.feesChange?.year));
 
-  // 治理提案（fee switch 追踪）
+  // ①区流量：交易量三档 + 规模环比（跟存量放一起）
+  const vol = d.volume;
+  if (vol) document.getElementById("volume").innerHTML =
+    card("净借款流量（年）", fmtUsd(vol.borrow.year), `周 ${fmtUsd(vol.borrow.week)} · 月 ${fmtUsd(vol.borrow.month)} · 净流量，非总额`) +
+    card("存款净流入（年）", fmtUsd(vol.deposit.year), `周 ${fmtUsd(vol.deposit.week)} · 月 ${fmtUsd(vol.deposit.month)}`);
+
+  // Association 运营预算 + 收入结构（官方 MIP 口径）
+  const asc = t?.association;
+  if (asc) document.getElementById("association").innerHTML =
+    card("Association 运营预算", `${(asc.budgetTokens / 1e6).toFixed(0)}M MORPHO`,
+      `${asc.budgetPeriod} · 约 ${(asc.budgetPerYearTokens / 1e6).toFixed(0)}M/年（≈${fmtUsd(asc.budgetPerYearUsd)}/年）· MIP 131`) +
+    card("贡献者(员工)分配", `${(asc.contributorPct * 100).toFixed(1)}%`, `占总供应 · 付 Morpho Labs 员工 · MIP 80/129`) +
+    card("商业收入去向", "Association", "许可费/机构合作 → 协会（非DAO）· MIP 94 避税改道 · 持币人 $0", "highlight");
+
+  // 估值指标
+  const vn = d.valuation;
+  if (vn) {
+    const r = (x) => x == null ? "n/a" : x.toFixed(1) + "x";
+    document.getElementById("valuation").innerHTML =
+      card("PS 市销率", r(vn.ps), `市值/fees · FDV口径 ${r(vn.psFdv)}`) +
+      card("Forward PE", r(vn.fwdPe), `假设 fee switch 开 · FDV口径 ${r(vn.fwdPeFdv)}`) +
+      card("市值 / TVL", vn.mcapToTvl != null ? vn.mcapToTvl.toFixed(2) + "x" : "n/a", "每 $1 TVL 对应的市值");
+  }
+
+  // 团队收入来源明细
+  if (t?.status === "ok") {
+    const src = [
+      `<b>① 代币解锁变现（年）</b>：${t.byLabel.map(b => `${catZh(b.label)} ${fmtUsd(b.future12mUsd)}`).join(" · ")}`,
+      `<b>② 融资入账（进 Association）</b>：${t.funding.filter(f => f.type === "raise").map(f => f.detail).join(" · ")}（Apollo 增持 90M 是二级市场买盘，钱不进团队，不计入此项）`,
+      `<b>③ 商业收入（licensing/机构）</b>：Berachain 许可费低7位数 USDC+BERA 等 → 全进 Association（MIP 94 改道，不进 DAO）`,
+      `<b>④ 运营预算（花钱）</b>：${t.association ? "MIP 131 批 " + (t.association.budgetTokens / 1e6).toFixed(0) + "M MORPHO / " + t.association.budgetPeriod + "（≈" + fmtUsd(t.association.budgetPerYearUsd) + "/年）" : "n/a"}`,
+      `<b>⑤ 协议手续费分成</b>：$0（fee switch 关，持币人/DAO 均零分红）`,
+    ];
+    document.getElementById("teamSources").innerHTML = src.map(s => `<li><span class="tag OK">来源</span><span>${s}</span></li>`).join("");
+  }
+
+  // 治理提案（fee switch 追踪）：头条留正文，明细进折叠
   const gov = d.governance;
-  if (gov?.status === "ok") document.getElementById("gov").innerHTML =
-    `<li><span class="tag ${gov.activeCount ? 'WARN' : 'OK'}">治理</span><span>Snapshot morpho.eth · 活跃提案 ${gov.activeCount} 个 · fee switch 相关 ${gov.feeSwitchProposals.length} 个${gov.feeSwitchProposals.length ? '（持币人分红信号）' : '（暂无，revenue 仍 $0）'}</span></li>` +
-    gov.proposals.map(p => `<li><span class="tag ${p.state === 'active' ? 'WARN' : 'OK'}">${p.state}</span><span><a href="${p.link}" target="_blank" rel="noopener">${p.title}</a>${p.feeRelated ? ' 💰' : ''}</span></li>`).join("");
+  if (gov?.status === "ok") {
+    document.getElementById("govHeadline").innerHTML =
+      `<li><span class="tag ${gov.activeCount ? 'WARN' : 'OK'}">治理</span><span>Snapshot morpho.eth · 活跃提案 ${gov.activeCount} 个 · fee switch 相关 ${gov.feeSwitchProposals.length} 个${gov.feeSwitchProposals.length ? '（持币人分红信号）' : '（暂无，revenue 仍 $0）'}</span></li>`;
+    document.getElementById("gov").innerHTML =
+      gov.proposals.map(p => `<li><span class="tag ${p.state === 'active' ? 'WARN' : 'OK'}">${p.state}</span><span><a href="${p.link}" target="_blank" rel="noopener">${p.title}</a></span></li>`).join("");
+  }
 
   // ---- 图表 ----
   const ch = d.charts;
@@ -329,23 +470,39 @@ fetch("./data.json").then(r => r.json()).then(d => {
 
     if (ch.allocation?.length) new Chart(document.getElementById("allocChart"), {
       type: "doughnut",
-      data: { labels: ch.allocation.map(a => a.label),
+      data: { labels: ch.allocation.map(a => catZh(a.label)),
         datasets: [{ data: ch.allocation.map(a => a.pct), backgroundColor: CHART_COLORS, borderColor: "#0d1117", borderWidth: 2 }] },
       options: { responsive: true, maintainAspectRatio: false,
         plugins: { legend: { position: "right", labels: { boxWidth: 12, font: { size: 11 } } },
-          tooltip: { callbacks: { label: (c) => `${c.label}: ${c.parsed}%` } } } },
+          tooltip: { callbacks: { label: (c) => {
+            const fp = ch.allocation[c.dataIndex]?.finalPct;
+            return `${c.label}: 当前占流通 ${c.parsed}%` + (fp != null ? ` → 最终占总量 ${fp}%` : "");
+          } } } } },
     });
+
+    // 分配集中度关键结论（当前 vs 最终，避免误读"内部人永远占一半"）
+    const ins = (key) => ch.allocation.filter(a => /Founders|Strategic Partners|Contributors/.test(a.label));
+    const insCur = ch.allocation.filter(a => /Founders|Strategic Partners|Contributors/.test(a.label)).reduce((s, a) => s + a.pct, 0);
+    const insFin = ch.allocation.filter(a => /Founders|Strategic Partners|Contributors/.test(a.label)).reduce((s, a) => s + (a.finalPct || 0), 0);
+    const fdV = ch.allocation.find(a => a.label === "Founders")?.finalPct;
+    const spV = ch.allocation.find(a => a.label === "Strategic Partners")?.finalPct;
+    const noteEl = document.getElementById("allocNote");
+    if (noteEl) noteEl.innerHTML =
+      `<li><span class="tag WARN">解锁节奏</span><span>当前流通里<b>内部人（创始人+战略伙伴+贡献者）占 ${insCur.toFixed(0)}%</b>——是内部人先解锁完造成的<b>暂时集中</b>，非永久。生态/用户那块最终占最大头，等它解锁上来内部人会稀释到 <b>${insFin.toFixed(0)}%</b>。</span></li>` +
+      `<li><span class="tag WARN">代币经济</span><span>最终占总量：创始人 ${fdV}% + 战略伙伴 ${spV}%。<b>战略伙伴(VC) ${spV}% 偏高</b>——代币经济向早期投资人倾斜（呼应多轮 VC 融资），偏"VC 重仓币"而非社区型分发。</span></li>` +
+      (() => { const ud = ch.allocation.find(a => a.label === "Users & Distributors"); return ud ?
+        `<li><span class="tag WARN">未来抛压</span><span><b>真正的未来解锁抛压主力是「用户与分发」（含初始用户空投 / launch pool）</b>，不是团队：当前占流通仅 ${ud.pct.toFixed(0)}%、最终 ${ud.finalPct}%（全项目最大头），说明绝大部分还锁着待解锁；而团队大多已解锁完。<b>但它没有未来的大额单点(cliff)节点</b>——初始空投的一次性大额已在 2024-11 TGE 解锁完，之后是每月数百万级的<b>线性持续释放到 2031</b>，是"温水"式渐进抛压、非某日突然砸盘（所以"近期解锁事件"里看不到它，它体现在解锁时间线的斜率上）。</span></li>` : ""; })();
 
     if (ch.supplyBreakdown) {
       const sb = ch.supplyBreakdown;
+      // 与左侧分配结构图同型（doughnut + 右图例），两图都是"10亿总量"的不同拆法
       new Chart(document.getElementById("supplyChart"), {
-        type: "bar",
-        data: { labels: ["供给"], datasets: [
-          { label: "流通", data: [sb.circulating], backgroundColor: "#58a6ff" },
-          { label: "未解锁", data: [sb.locked], backgroundColor: "#6e7681" } ] },
-        options: { indexAxis: "y", responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { position: "bottom" }, tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${(c.parsed.x/1e6).toFixed(0)}M (${(c.parsed.x/sb.total*100).toFixed(1)}%)` } } },
-          scales: { x: { stacked: true, ticks: { callback: (v) => (v/1e6)+"M" } }, y: { stacked: true } } },
+        type: "doughnut",
+        data: { labels: ["流通", "未解锁"],
+          datasets: [{ data: [sb.circulating, sb.locked], backgroundColor: ["#58a6ff", "#6e7681"], borderColor: "#0d1117", borderWidth: 2 }] },
+        options: { responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: "right", labels: { boxWidth: 12, font: { size: 11 } } },
+            tooltip: { callbacks: { label: (c) => `${c.label}: ${(c.parsed/1e6).toFixed(0)}M MORPHO (${(c.parsed/sb.total*100).toFixed(1)}%)` } } } },
       });
     }
 
@@ -355,7 +512,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
         type: "line",
         data: { labels: ch.unlockTimeline.map(p => fmtMonth(p.t)), datasets: [
           { label: "累计总解锁", data: ch.unlockTimeline.map(p => p.total), borderColor: "#58a6ff", backgroundColor: "rgba(88,166,255,.10)", fill: true, tension: .2, pointRadius: 0, borderWidth: 2 },
-          { label: "团队(insiders)累计", data: ch.unlockTimeline.map(p => p.team), borderColor: "#d29922", backgroundColor: "rgba(210,153,34,.10)", fill: true, tension: .2, pointRadius: 0, borderWidth: 2 } ] },
+          { label: "团队(内部人)累计", data: ch.unlockTimeline.map(p => p.team), borderColor: "#d29922", backgroundColor: "rgba(210,153,34,.10)", fill: true, tension: .2, pointRadius: 0, borderWidth: 2 } ] },
         options: { responsive: true, maintainAspectRatio: false,
           plugins: { legend: { position: "bottom" },
             tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${(c.parsed.y/1e6).toFixed(1)}M` } } },
@@ -365,7 +522,8 @@ fetch("./data.json").then(r => r.json()).then(d => {
     }
   }
 }).catch(e => {
-  document.getElementById("callout").textContent = "加载 data.json 失败：" + e.message;
+  const ts = document.getElementById("ts"); if (ts) ts.textContent = "加载 data.json 失败：" + e.message;
+  console.error(e);
 });
 </script>
 </body>
