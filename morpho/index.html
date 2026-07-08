@@ -34,6 +34,8 @@
   .card .sub { color: var(--muted); font-size: 12px; margin-top: 4px; }
   .card.highlight { border-color: var(--alert); }
   .card.highlight .val { color: var(--alert); }
+  .card.caution { border-color: var(--warn); }
+  .card.caution .val { color: var(--warn); }
   .callout { background: var(--card); border: 1px solid var(--border);
     border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 16px; margin-top: 12px;
     color: var(--text); font-size: 14px; line-height: 1.6; }
@@ -172,7 +174,7 @@
         <li><b>"交易量" = 净流量</b>：借贷协议无 DEX swap volume；净借款 / 存款流量 = 借款存量 / 净 TVL 的<b>周度差分</b>，非总额 gross（借款+还款总额）。</li>
         <li><b>供给 / 借款 / 利用率用 Morpho 官方口径</b>（morphoBlues 聚合），非 DefiLlama——DefiLlama 的 borrowed 对 Morpho 低估约 2.7x（$3.68B vs 官方 $9.79B），会把真实 92.9% 的资金利用率错算成 34%。净 TVL 仍用 DefiLlama（已与官方互核）。资产负债表：存款人供给 = 已借出 + 未借出；净 TVL = 未借出供给 + 抵押品。</li>
         <li><b>解锁 USD</b> 按当前币价估算，价格敏感。</li>
-        <li><b>颜色约定</b>：<span style="color:var(--alert)">红色</span> = 需警示/注意的异常或负面（revenue $0 零价值捕获、名义坏账勿当真损失、互核偏差）；<span style="color:var(--ok)">绿色</span> = 正向/健康（利用率、环比上涨、核对通过）；<span style="color:var(--warn)">琥珀</span> = 近似/待留意。中性指标（PS/PE/估值倍数）不着色。</li>
+        <li><b>颜色约定</b>：<span style="color:var(--alert)">红色</span> = 需警示/注意的异常或真负面（revenue $0 零价值捕获、坏账对币价的传导、互核偏差）；<span style="color:var(--ok)">绿色</span> = 正向/健康（利用率、环比上涨、核对通过）；<span style="color:var(--warn)">琥珀</span> = 近似/待留意（名义坏账账面虚高·别误读、手续费量级互核）。中性指标（PS/PE/估值倍数）不着色。</li>
         <li><b>单位约定</b>：金额 = $ + B/M/K；代币量 = M/B MORPHO 缩写；利率类一律用 %（APY、借贷利差同维度，利差 = 借款 − 供给 APY）；倍数 = x（PS / PE / 市值/TVL）；百分比小数位：水平类 1 位（APY 3.8%）、变化率/利差类 2 位（环比 ▲7.78%、利差 0.62%）。</li>
       </ul>
     </details>
@@ -349,7 +351,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
       `名义坏账 <b style="color:var(--warn)">${fmtUsd(rk.nominalBadDebtUsd)}</b> 集中于抵押品脱锚的 exotic 市场，属未实现、非系统性损失。`;
     document.getElementById("risk").innerHTML =
       card("已实现坏账", fmtUsd(rk.realizedBadDebtUsd), "真实损失") +
-      card("名义坏账", fmtUsd(rk.nominalBadDebtUsd), "含脱锚市场 · 非真实损失", "highlight") +
+      card("名义坏账", fmtUsd(rk.nominalBadDebtUsd), "含脱锚市场 · 非真实损失（别当真坏账）", "caution") +
       card("市场总数", fmtNum(rk.marketCount), "permissionless") +
       card("最大市场集中度", fmtPct(rk.top1Share), rk.top1Pair + " · top5 " + fmtPct(rk.top5Share));
     document.getElementById("distressed").innerHTML = (rk.distressedMarkets || []).map(m =>
