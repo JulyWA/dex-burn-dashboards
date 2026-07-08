@@ -155,6 +155,7 @@
       <li><span class="tag OK">处理</span><span>Morpho <b>下架问题市场</b>（sdeUSD/USDC 等）；坏账<b>由该市场 curator/存款人承担、协议完全不兜底</b>（Blue 完全隔离，无协议级保险基金）——受损的是 MEV Capital/TelosC/Varlamore 等 curator 的 vault，<b>Morpho 协议本身毫发无损</b>。</span></li>
       <li><span class="tag OK">互证</span><span>面板 realized <b>$1.22M</b>（链上已社会化）vs 媒体 $25.4M(MEV敞口)/sdeUSD 致 USDC vault 3.6% 坏账——口径不同但方向一致，真实损失非协议系统性。名义 $1.6B 里 K/USDC $1.49B 是预言机异常(realized=0)。<b>坏账数据由 Morpho API + 事件/媒体互证</b>。来源：官方风险文档、BlockEden/Cryptopolitan/Coinfomania 事件报道。</span></li>
       <li><span class="tag WARN">架构含义</span><span><b>Morpho 坏账 = 个别 curator vault 的坏账，不是"协议的坏账"</b>。隔离设计让协议毫发无损，但 curator 选长尾高风险抵押品追高收益，爆雷时其存款人承担——这是 Morpho（隔离+无兜底）vs Aave（pooled+安全模块）的核心风险差异。</span></li>
+      <li><span class="tag ALERT">对币价的传导（别误判）</span><span>"坏账不影响协议"<b>≠</b>"不影响币价"。协议不崩，但传导路径是<b>信任 → 增长 → 估值</b>：① 存款人真亏钱→质疑安全→资金流出；② <b>打中"机构级基础设施"叙事的软肋</b>（Apollo/Coinbase 最怕这种 CeDeFi 连环爆雷）；③ curator 频繁爆雷→存款人不敢交给 curator→vault 层萎缩→增长放缓→潜在 fee switch 收入基数缩小。<b>MORPHO 押的是增长，坏账损的正是"增长预期"</b>——对 revenue=$0、全靠增长定价的币，这才是真影响。</span></li>
     </ul>
   </details>
 
