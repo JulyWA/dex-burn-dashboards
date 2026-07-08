@@ -149,6 +149,14 @@
   <details class="fold"><summary>脱锚异常市场明细（名义坏账构成，点开查看）</summary>
     <ul class="checks" id="distressed"></ul>
   </details>
+  <details class="fold"><summary>坏账事件解读与处理机制（多源互证，点开查看）</summary>
+    <ul class="checks">
+      <li><span class="tag WARN">原因</span><span><b>2025-11 CeDeFi 连环爆雷</b>：Stream Finance 外部基金亏 $9300万→xUSD 从 $1 崩到 $0.07；连环引爆 Elixir deUSD（跌 98%）——Elixir 把 65% 抵押品($6800万)通过 Morpho 私有市场借给 Stream（循环嵌套）。面板脱锚市场 xUSD/sdeUSD/wstUSR 正是此事件的直接体现。</span></li>
+      <li><span class="tag OK">处理</span><span>Morpho <b>下架问题市场</b>（sdeUSD/USDC 等）；坏账<b>由该市场 curator/存款人承担、协议完全不兜底</b>（Blue 完全隔离，无协议级保险基金）——受损的是 MEV Capital/TelosC/Varlamore 等 curator 的 vault，<b>Morpho 协议本身毫发无损</b>。</span></li>
+      <li><span class="tag OK">互证</span><span>面板 realized <b>$1.22M</b>（链上已社会化）vs 媒体 $25.4M(MEV敞口)/sdeUSD 致 USDC vault 3.6% 坏账——口径不同但方向一致，真实损失非协议系统性。名义 $1.6B 里 K/USDC $1.49B 是预言机异常(realized=0)。<b>坏账数据由 Morpho API + 事件/媒体互证</b>。来源：官方风险文档、BlockEden/Cryptopolitan/Coinfomania 事件报道。</span></li>
+      <li><span class="tag WARN">架构含义</span><span><b>Morpho 坏账 = 个别 curator vault 的坏账，不是"协议的坏账"</b>。隔离设计让协议毫发无损，但 curator 选长尾高风险抵押品追高收益，爆雷时其存款人承担——这是 Morpho（隔离+无兜底）vs Aave（pooled+安全模块）的核心风险差异。</span></li>
+    </ul>
+  </details>
 
   <h2 id="appendix">🔗 口径 · 数据源 · 核对 <span class="sub-h">· 关键口径建议先读；数据核对结果与原始来源需要时点开</span></h2>
   <div class="notes">
