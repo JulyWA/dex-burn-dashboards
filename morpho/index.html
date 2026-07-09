@@ -178,7 +178,7 @@
         <li><b>坏账：已实现 vs 名义</b>。已实现坏账 = 真实社会化损失（headline）；名义坏账含抵押品脱锚但未实现清算的部分，会被单个 exotic 死市场（如 K/USDC）灌到 $B 级，<b>不是系统性损失</b>。</li>
         <li><b>APY</b>：剔除 supply/borrow APY &gt; 50% 的异常（脱锚）市场后，按各自资产规模加权。Morpho 有 6000+ permissionless 市场，不过滤会被极端值污染。</li>
         <li><b>"交易量" = 净流量</b>：借贷协议无 DEX swap volume；净借款 / 存款流量 = 借款存量 / 净 TVL 的<b>周度差分</b>，非总额 gross（借款+还款总额）。</li>
-        <li><b>供给 / 借款 / 利用率用 Morpho 官方口径</b>（morphoBlues 聚合），非 DefiLlama——DefiLlama 的 borrowed 对 Morpho 偏低（<span id="dlCompare">…</span>），用它算会低估资金利用率。净 TVL 仍用 DefiLlama（已与官方互核）；<b>净 TVL 与官方供给/抵押品不同源，不能直接加减对平</b>。官方口径资产负债恒等：存款人供给 = 已借出 + 未借出。</li>
+        <li><b>供给 / 借款 / 利用率 = 官方 API 市场级聚合·剔除幽灵市场</b>。幽灵市场 = 无抵押把供给借空的预言机异常死市场（抵押&lt;1%供给·利用率&gt;98%，如 BONDUSD/USR、K/USDC、PAXG/USDC），资金不真实存在（<span id="ghostInfo">…</span>）。官方 morphoBlues.state 聚合<b>不剔幽灵</b>（供给会虚高一倍以上）且主网 state 有故障史，故弃用。剔除后与 DefiLlama 双源互核通过：借款一致（<span id="dlCompare">…</span>）、<b>净恒等成立：未借出 + 抵押品 ≈ DefiLlama 净 TVL</b>（互核结果见脚注）。</li>
         <li><b>解锁 USD</b> 按当前币价估算，价格敏感。</li>
         <li><b>颜色约定</b>：<span style="color:var(--alert)">红色</span> = 需警示/注意的异常或真负面（revenue $0 零价值捕获、坏账对币价的传导、互核偏差）；<span style="color:var(--ok)">绿色</span> = 正向/健康（利用率、环比上涨、核对通过）；<span style="color:var(--warn)">琥珀</span> = 近似/待留意（名义坏账账面虚高·别误读、手续费量级互核）。中性指标（PS/PE/估值倍数）不着色。</li>
         <li><b>单位约定</b>：金额 = $ + B/M/K；代币量 = M/B MORPHO 缩写；利率类一律用 %（APY、借贷利差同维度，利差 = 借款 − 供给 APY）；倍数 = x（PS / PE / 市值/TVL）；百分比小数位：水平类 1 位（APY 3.8%）、变化率/利差类 2 位（环比 ▲7.78%、利差 0.62%）。</li>
@@ -303,17 +303,20 @@ fetch("./data.json").then(r => r.json()).then(d => {
   const w = d.periods?.wow || {};
   // officialAsOf 非空 = 官方 API 部分链故障，沿用该日完整官方快照（stale），如实标注
   const staleTag = scale.officialAsOf ? ` · <span style="color:var(--warn)">⚠️沿用 ${scale.officialAsOf} 官方快照（API 缺链${scale.officialMissingChains ? "：" + scale.officialMissingChains.join("/") : ""}）</span>` : "";
-  const src = (scale.officialSource ? "Morpho 官方口径" : "DefiLlama") + staleTag;
+  const src = (scale.officialSource ? "官方市场级聚合·剔幽灵" : "DefiLlama") + staleTag;
   document.getElementById("scale").innerHTML =
     card("存款人供给", fmtUsd(scale.supplied), "可借出的存款总额 · " + src) +
     card("总借款", fmtUsd(scale.borrowed), `已借出 · 资金利用率 <b style="color:var(--ok)">${fmtPct(scale.utilization)}</b>` + staleTag) +
     card("抵押品", scale.collateral != null ? fmtUsd(scale.collateral) : "n/a", "借款人存入的抵押 · " + src) +
-    card("净 TVL", fmtUsd(scale.tvl), "DefiLlama 净口径 · 与官方互核（与官方供给/借款口径不同源，不作加减）" + wowInline(w.tvl));
+    card("净 TVL", fmtUsd(scale.tvl), "DefiLlama 净口径 · 净恒等互核通过：≈ 未借出供给 + 抵押品（剔幽灵后成立）" + wowInline(w.tvl));
 
   // 口径栏动态数字：DefiLlama vs 官方 borrowed（避免硬编码过期）
   const dlc = document.getElementById("dlCompare");
   if (dlc && scale.dlBorrowed != null) dlc.innerHTML =
-    `DefiLlama ${fmtUsd(scale.dlBorrowed)} vs 官方 ${fmtUsd(scale.borrowed)}${scale.officialAsOf ? `（${scale.officialAsOf} 快照）` : ""}，官方口径利用率 ${fmtPct(scale.utilization)}`;
+    `本站 ${fmtUsd(scale.borrowed)}${scale.officialAsOf ? `（${scale.officialAsOf} 快照）` : ""} vs DefiLlama ${fmtUsd(scale.dlBorrowed)}`;
+  const gh = document.getElementById("ghostInfo");
+  if (gh && scale.ghost) gh.innerHTML =
+    `本次剔除 ${scale.ghost.count} 个，虚供给 ${fmtUsd(scale.ghost.supplyUsd)}，top: ${scale.ghost.top.slice(0, 3).map((g) => g.pair).join("、")}`;
 
   document.getElementById("value").innerHTML =
     card("协议抽成率", vc.takeRate != null ? fmtPct(vc.takeRate) : "n/a", "revenue / fees · fee switch 关") +
