@@ -332,8 +332,9 @@ fetch("./data.json").then(r => r.json()).then(d => {
   // 团队收益
   const t = d.teamRevenue;
   if (t && t.status === "ok") {
+    const _fd = t.byLabel.find((b) => b.label === "Founders"), _ct = t.byLabel.find((b) => b.label === "Contributors");
     document.getElementById("teamCallout").innerHTML =
-      `<b>团队（创始人+贡献者）</b>未来一年解锁 <b style="color:var(--accent)">${fmtUsd(t.teamCoreReleaseUsd)}</b>，另有工资走 Association 预算（≈${t.association ? fmtUsd(t.association.budgetPerYearUsd) : "n/a"}/年当量）——这才是"团队赚多少"；` +
+      `<b>团队</b>未来一年解锁：创始人 <b>${fmtUsd(_fd?.future12mUsd)}</b>（已解锁 ${fmtPct((_fd?.progressPct ?? 0) / 100)}）+ 贡献者 <b style="color:var(--accent)">${fmtUsd(_ct?.future12mUsd)}</b>（已解锁 ${fmtPct((_ct?.progressPct ?? 0) / 100)}，仍在解锁中），另有工资走 Association 预算（≈${t.association ? fmtUsd(t.association.budgetPerYearUsd) : "n/a"}/年当量）——这才是"团队赚多少"；` +
       `<b>投资人（战略伙伴）</b>另解锁 <b>${fmtUsd(t.investorReleaseUsd)}</b>/年，是<b>投资人退出/抛压信号、非团队收入</b>（内部人合计 ${fmtUsd(t.teamAnnualReleaseUsd)}）。均为解锁可变现估算，<b>非协议赚的钱</b>。真·融资入账（钱进 Association）：` +
       t.funding.filter(f => f.type === "raise").map(f => `${f.date} ${f.detail}`).join("；") +
       `。另有 ` +
