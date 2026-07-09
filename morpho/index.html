@@ -333,8 +333,8 @@ fetch("./data.json").then(r => r.json()).then(d => {
   const t = d.teamRevenue;
   if (t && t.status === "ok") {
     document.getElementById("teamCallout").innerHTML =
-      `团队锁仓代币未来一年解锁 <b style="color:var(--accent)">${fmtUsd(t.teamAnnualReleaseUsd)}</b>（${fmtTok(t.teamAnnualReleaseTokens)}，按现价）` +
-      `——即团队一年内变得<b>可自由卖出</b>的代币，反映潜在抛压/变现能力，<b>非协议赚的钱</b>。真·融资入账（钱进 Association）：` +
+      `<b>团队（创始人+贡献者）</b>未来一年解锁 <b style="color:var(--accent)">${fmtUsd(t.teamCoreReleaseUsd)}</b>，另有工资走 Association 预算（≈${t.association ? fmtUsd(t.association.budgetPerYearUsd) : "n/a"}/年当量）——这才是"团队赚多少"；` +
+      `<b>投资人（战略伙伴）</b>另解锁 <b>${fmtUsd(t.investorReleaseUsd)}</b>/年，是<b>投资人退出/抛压信号、非团队收入</b>（内部人合计 ${fmtUsd(t.teamAnnualReleaseUsd)}）。均为解锁可变现估算，<b>非协议赚的钱</b>。真·融资入账（钱进 Association）：` +
       t.funding.filter(f => f.type === "raise").map(f => `${f.date} ${f.detail}`).join("；") +
       `。另有 ` +
       t.funding.filter(f => f.type !== "raise").map(f => `${f.party} ${f.detail}`).join("；") +
@@ -408,10 +408,11 @@ fetch("./data.json").then(r => r.json()).then(d => {
   const wowBadge = (x) => x == null ? "n/a" :
     `<span style="color:${x >= 0 ? 'var(--ok)' : 'var(--alert)'}">${x >= 0 ? '▲' : '▼'}${(Math.abs(x) * 100).toFixed(2)}%</span>`;
   const pr = d.periods, ap = d.apy;
-  // 利率一行（APY / 利差）
+  // 利率一行（APY / 利差）；环比用百分点差（pp），|Δ|<0.005 显示持平
+  const ppTxt = (x) => x == null ? "" : Math.abs(x) < 0.005 ? " · 较上期持平" : ` · 较上期 ${x >= 0 ? "+" : ""}${x.toFixed(2)}pp`;
   if (ap?.status === "ok") document.getElementById("rates").innerHTML =
-    card("借款 APY", fmtPct(ap.borrowApy), `借款人付的利率 · ${ap.window || "7d均"} · ${ap.marketsCounted} 市场加权，剔除 >${ap.capPct}% 异常`) +
-    card("供给 APY", fmtPct(ap.supplyApy), `存款人赚的利率 · ${ap.window || "7d均"}`) +
+    card("借款 APY", fmtPct(ap.borrowApy), `借款人付的利率 · ${ap.window || "7d均"}${ppTxt(ap.borrowApyChangePp)} · ${ap.marketsCounted} 市场加权，剔除 >${ap.capPct}% 异常`) +
+    card("供给 APY", fmtPct(ap.supplyApy), `存款人赚的利率 · ${ap.window || "7d均"}${ppTxt(ap.supplyApyChangePp)}`) +
     card("借贷利差", ap.spread != null ? (ap.spread * 100).toFixed(2) + "%" : "n/a",
       `= 借款 ${fmtPct(ap.borrowApy)} − 供给 ${fmtPct(ap.supplyApy)}（占借款 ${fmtPct(ap.spreadRatio)}）· 协议抽 0，去向 = 利用率结构 + curator 费${ap.curatorFee != null ? `（加权 ${fmtPct(ap.curatorFee)}）` : ""}`);
   // 手续费一行（近 7天 / 30天 / 1年 滚动窗口，非自然周期）
