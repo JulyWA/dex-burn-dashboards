@@ -207,7 +207,7 @@
             <li><b>① 催化剂（权重最高，决定成败）</b>：fee switch 激活提案（治理区）｜协议 revenue（现 $0，≠0 即开关开了）｜<b>收入归属 DAO 还是 Association</b>（MIP 94 先例进协会=对持币人无用，最大陷阱）。</li>
             <li><b>② 内在价值基数（开关开了值多少）</b>：年化 fees + 增长（决定潜在协议收入 = fees × 25%，实时值见"潜在收入"卡片）｜TVL / 利用率 / 市场份额（护城河）｜Forward PE。</li>
             <li><b>③ 价格（现在贵不贵）</b>：PS 6.3x、市值/TVL 0.18——对 revenue=$0 的项目是纯预期定价，不便宜。</li>
-            <li><b>④ 下行风险</b>：解锁抛压（用户与分发最终占 45%、解锁进度仍低，线性释放到 2031，最大长期抛压，进度见解锁时间线）｜VC 占比 + 内部人变现｜坏账（现健康）。</li>
+            <li><b>④ 下行风险</b>：潜在供给（用户与分发 = 治理支配的分发池，最终占 45%、解锁进度仍低，线性释放到 2031——最大长期供给来源，但变现须经治理拨款 + 接收方卖出，节奏盯两级金库流出）｜VC 占比 + 内部人变现｜坏账（现健康）。</li>
             <li><b>买卖锚点</b>：<b>买点</b>=fee switch 提案出现且明确收入给 DAO；<b>警惕</b>=收入又进 Association（MIP 94 重演）、解锁洪峰、增长停滞。一句话：等治理把"好生意"变成"股东回报"的转折点——在此之前是成长/期权逻辑，非价值股逻辑。</li>
           </ul>
         </li>
@@ -349,12 +349,13 @@ fetch("./data.json").then(r => r.json()).then(d => {
   // 解锁抛压
   const u = d.unlocks;
   if (u && u.status === "ok") {
-    // 排除已在「团队收益」详列的类别（战略伙伴/贡献者/创始人），避免同值卡片重复；本节只留非团队抛压主力（用户与分发等）
+    // 排除已在「团队收益」详列的类别（战略伙伴/贡献者/创始人），避免同值卡片重复；本节只留非团队类别（用户与分发等）
     const teamLabels = new Set((t?.byLabel || []).map(b => b.label));
     const nonTeamCats = u.byCategory.filter(c => !teamLabels.has(c.label));
     document.getElementById("unlocks").innerHTML =
       card("未来12月全类别解锁", fmtUsd(u.future12mUsd), fmtTok(u.future12mTokens)) +
-      nonTeamCats.slice(0, 3).map(c => card(catZh(c.label), fmtUsd(c.usd), fmtTok(c.tokens))).join("");
+      nonTeamCats.slice(0, 3).map(c => card(catZh(c.label), fmtUsd(c.usd),
+        fmtTok(c.tokens) + (c.label === "Users & Distributors" ? " · 治理分发池（解锁=可支配额度释放，须经 MIP 拨款才流出）" : ""))).join("");
     const GRP_ZH = { insiders: "内部人", liquidity: "做市商", ecosystem: "生态/用户", farming: "激励" };
     const TYPE_ZH = { cliff: "一次性解锁", linear: "线性持续解锁" };
     document.getElementById("unlockEvents").innerHTML = (u.nextEvents || []).map(e => {
@@ -542,7 +543,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
     if (keyEl) {
       const ud = allocation.find(a => a.label === "Users & Distributors");
       const futureLi = ud ?
-        `<li><span class="tag WARN">未来抛压</span><span><b>未来解锁抛压主力是「用户与分发」（初始空投 / launch pool）。</b>它当前占流通仅 ${ud.pct.toFixed(0)}%、最终 ${ud.finalPct}%（全项目最大头），绝大部分还锁着；团队则大多已解锁完。<b>但没有大额单点(cliff)</b>——一次性空投已在 2024-11 TGE 释放完，之后是每月数百万级<b>线性释放到 2031</b>，属"温水"渐进抛压、非某日砸盘（故"近期解锁事件"里看不到它，它体现在左侧时间线的斜率上）。</span></li>` : "";
+        `<li><span class="tag WARN">未来供给</span><span><b>未来解锁主力是「用户与分发」——它是治理支配的生态分发池（空投/激励/拨款皆从此出），非用户既得资产。</b>当前占流通仅 ${ud.pct.toFixed(0)}%、最终 ${ud.finalPct}%（全项目最大头），每月数百万级<b>线性释放到 2031</b>、无大额 cliff（一次性空投已在 2024-11 TGE 释放完）。<b>它的"解锁"= 治理可支配额度的释放，须经 MIP 拨款 → 接收方 → 变现三步才成为真实卖压</b>（DAO 金库现躺着 ~123M 已解锁未分发即为证）——是间接、有治理缓冲的供给管道，节奏看下方两级金库流出，非机械砸盘。</span></li>` : "";
       const ih = d.insiderHoldings;
       let insiderLi = "";
       if (ih?.status === "ok" && ih.holdings[0]) {
