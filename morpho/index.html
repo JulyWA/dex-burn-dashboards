@@ -174,7 +174,7 @@
       <ul>
         <li><b>协议 revenue = $0</b>：Morpho 的 fee switch 未开启，全部借款利息归存款人 / curator，持币人零分红。<b>$0 是真实口径，不是数据缺失</b>。若某日 revenue≠0 = fee switch 已激活。</li>
         <li><b>潜在 fee switch 收入</b> = 年化 fees × 25%（治理上限）。<b>理论值，当前未激活</b>。</li>
-        <li><b>团队年释放价值（= 团队锁仓一年解锁额）</b>：未来 12 个月团队（贡献者 + 创始人 + 战略伙伴）解锁的代币量 × 当前币价。通俗说 = 团队手里锁着的币，一年内有多少会"松绑、能卖了"，按现价折算。<b>是既有持仓的解锁变现（潜在抛压），不是团队新赚的钱</b>；随币价波动。创始人已 100% 解锁完，未来释放主要来自战略伙伴。</li>
+        <li><b>解锁可变现价值（= 内部人锁仓一年解锁额）</b>：未来 12 个月内部人解锁的代币量 × 当前币价。口径拆分：<b>团队 = 创始人（已 100% 解锁完，未来 $0）+ 贡献者（仍在解锁中）；战略伙伴 = VC 投资人，其解锁属投资人退出</b>。通俗说 = 锁着的币一年内有多少"松绑、能卖了"，按现价折算——<b>是既有持仓的解锁变现（潜在抛压），非团队新赚的钱</b>，随币价波动。</li>
         <li><b>坏账：已实现 vs 名义</b>。已实现坏账 = 真实社会化损失（headline）；名义坏账含抵押品脱锚但未实现清算的部分，会被单个 exotic 死市场（如 K/USDC）灌到 $B 级，<b>不是系统性损失</b>。</li>
         <li><b>APY</b>：剔除 supply/borrow APY &gt; 50% 的异常（脱锚）市场后，按各自资产规模加权。Morpho 有 6000+ permissionless 市场，不过滤会被极端值污染。</li>
         <li><b>"交易量" = 净流量</b>：借贷协议无 DEX swap volume；净借款 / 存款流量 = 借款存量 / 净 TVL 的<b>周度差分</b>，非总额 gross（借款+还款总额）。</li>
@@ -541,14 +541,14 @@ fetch("./data.json").then(r => r.json()).then(d => {
     if (keyEl) {
       const ud = allocation.find(a => a.label === "Users & Distributors");
       const futureLi = ud ?
-        `<li><span class="tag WARN">未来抛压</span><span><b>未来解锁抛压主力是「用户与分发」（初始空投 / launch pool），不是团队。</b>它当前占流通仅 ${ud.pct.toFixed(0)}%、最终 ${ud.finalPct}%（全项目最大头），绝大部分还锁着；团队则大多已解锁完。<b>但没有大额单点(cliff)</b>——一次性空投已在 2024-11 TGE 释放完，之后是每月数百万级<b>线性释放到 2031</b>，属"温水"渐进抛压、非某日砸盘（故"近期解锁事件"里看不到它，它体现在左侧时间线的斜率上）。</span></li>` : "";
+        `<li><span class="tag WARN">未来抛压</span><span><b>未来解锁抛压主力是「用户与分发」（初始空投 / launch pool）。</b>它当前占流通仅 ${ud.pct.toFixed(0)}%、最终 ${ud.finalPct}%（全项目最大头），绝大部分还锁着；团队则大多已解锁完。<b>但没有大额单点(cliff)</b>——一次性空投已在 2024-11 TGE 释放完，之后是每月数百万级<b>线性释放到 2031</b>，属"温水"渐进抛压、非某日砸盘（故"近期解锁事件"里看不到它，它体现在左侧时间线的斜率上）。</span></li>` : "";
       const ih = d.insiderHoldings;
       let insiderLi = "";
       if (ih?.status === "ok" && ih.holdings[0]) {
         const s = ih.holdings[0];
         const chg = s.changeTokens;
         const chStr = chg == null ? "首次基线（下次起显示周变化）" : (chg < 0 ? `<span style="color:var(--warn)">▼ 净流出 ${fmtTok(Math.abs(chg))}（动用预算）</span>` : chg > 0 ? `<span style="color:var(--ok)">▲ 净流入 ${fmtTok(chg)}（grant 到账/回流）</span>` : "无变化");
-        insiderLi = `<li><span class="tag OK">运营金库</span><span><b>Association 运营金库链上实证</b>（MIP 131 落点，<b>非投资人锁仓</b>）：链上余额 <b>${fmtTok(s.balance)}</b>（${fmtUsd(ih.totalUsd)}）。该地址累计收 DAO grant、按 R&D/生态/BD 向数百地址分发——<b>余额下降 = Association 动用运营预算发钱（接收方或卖出 = 间接抛压），不是投资人减持</b>。本次周变化：${chStr}。<a href="https://etherscan.io/address/${s.address}" target="_blank" rel="noopener">Etherscan 查地址 ${s.address.slice(0, 8)}…${s.address.slice(-4)} ↗</a></span></li>`;
+        insiderLi = `<li><span class="tag OK">运营金库</span><span><b>Association 运营金库链上实证</b>（MIP 131 落点）：链上余额 <b>${fmtTok(s.balance)}</b>（${fmtUsd(ih.totalUsd)}）。该地址累计收 DAO grant、按 R&D/生态/BD 向数百地址分发——<b>余额下降 = Association 动用运营预算发钱（接收方或卖出 = 间接抛压）</b>。本次周变化：${chStr}。<a href="https://etherscan.io/address/${s.address}" target="_blank" rel="noopener">Etherscan 查地址 ${s.address.slice(0, 8)}…${s.address.slice(-4)} ↗</a></span></li>`;
       }
       keyEl.innerHTML = futureLi + insiderLi;
     }
