@@ -161,7 +161,7 @@
     <ul class="checks">
       <li><span class="tag WARN">原因</span><span><b>2025-11 CeDeFi 连环爆雷</b>：Stream Finance 外部基金亏 $9300万→xUSD 从 $1 崩到 $0.07；连环引爆 Elixir deUSD（跌 98%）——Elixir 把 65% 抵押品($6800万)通过 Morpho 私有市场借给 Stream（循环嵌套）。面板脱锚市场 xUSD/sdeUSD/wstUSR 正是此事件的直接体现。</span></li>
       <li><span class="tag OK">处理</span><span>Morpho <b>下架问题市场</b>（sdeUSD/USDC 等）；坏账<b>由该市场 curator/存款人承担、协议完全不兜底</b>（Blue 完全隔离，无协议级保险基金）——受损的是 MEV Capital/TelosC/Varlamore 等 curator 的 vault，<b>Morpho 协议本身毫发无损</b>。</span></li>
-      <li><span class="tag OK">互证</span><span>面板 realized <b>$1.22M</b>（链上已社会化）vs 媒体 $25.4M(MEV敞口)/sdeUSD 致 USDC vault 3.6% 坏账——口径不同但方向一致，真实损失非协议系统性。名义 $1.6B 里 K/USDC $1.49B 是预言机异常(realized=0)。<b>坏账数据由 Morpho API + 事件/媒体互证</b>。来源：官方风险文档、BlockEden/Cryptopolitan/Coinfomania 事件报道。</span></li>
+      <li><span class="tag OK">互证</span><span>面板 realized 坏账（链上已社会化，实时值见风险卡片）vs 媒体报道 $25.4M(MEV敞口)/sdeUSD 致 USDC vault 3.6% 坏账（2025-11 事件时点值）——口径不同但方向一致，真实损失非协议系统性。名义坏账大头是 K/USDC 预言机异常(realized=0)。<b>坏账数据由 Morpho API + 事件/媒体互证</b>。来源：官方风险文档、BlockEden/Cryptopolitan/Coinfomania 事件报道。</span></li>
       <li><span class="tag WARN">架构含义</span><span><b>Morpho 坏账 = 个别 curator vault 的坏账，不是"协议的坏账"</b>。隔离设计让协议毫发无损，但 curator 选长尾高风险抵押品追高收益，爆雷时其存款人承担——这是 Morpho（隔离+无兜底）vs Aave（pooled+安全模块）的核心风险差异。</span></li>
       <li><span class="tag ALERT">对币价的传导（别误判）</span><span>"坏账不影响协议"<b>≠</b>"不影响币价"。协议不崩，但传导路径是<b>信任 → 增长 → 估值</b>：① 存款人真亏钱→质疑安全→资金流出；② <b>打中"机构级基础设施"叙事的软肋</b>（Apollo/Coinbase 最怕这种 CeDeFi 连环爆雷）；③ curator 频繁爆雷→存款人不敢交给 curator→vault 层萎缩→增长放缓→潜在 fee switch 收入基数缩小。<b>MORPHO 押的是增长，坏账损的正是"增长预期"</b>——对 revenue=$0、全靠增长定价的币，这才是真影响。</span></li>
     </ul>
@@ -201,12 +201,12 @@
         <li><b>团队赚不赚钱——不透明本身是信号</b>：Association 是法国非营利，<b>不公开详细财报</b>；Berachain 许可费具体金额官方多次拒绝披露；MIP 131 的 150M 预算无年度细分。精确的"赚 X 花 Y"在官方层面就是查不到——<b>这种不透明本身就是个信号</b>。能确定的只有：协议费 $0、商业收入进协会、运营靠代币+融资烧。</li>
         <li><b>revenue $0 是刻意设计，非缺陷</b>：创始人 Paul Frambot 公开表态"所有收入回投增长、不分配给持币人"。持币人当前价值捕获 = 0，全押 fee switch 何时开。</li>
         <li><b>增持 ≠ 回购（别混淆）</b>：Apollo 增持 90M（9%）是<b>外部机构用自有资金</b>公开市场/OTC 买入（建仓 + 合作），是需求侧买盘利好；但<b>不是回购</b>——回购是<b>协议用自己的收入</b>买回代币（价值捕获）。Morpho 协议收入 $0、无回购机制，Apollo 增持不改变"零价值捕获"的事实，别据此高估代币价值捕获。<b>它也 ≠ 融资</b>：融资($175M)的钱进 Association，Apollo 增持的钱在二级市场给卖方、不进团队。</li>
-        <li><b>价值投资关注清单</b>：Morpho 现<b>不是传统价值股（有现金流/分红），而是"价值捕获期权"</b>——生意好（$209M fees、92.9% 利用率）但价值当前不流向持币人（revenue $0 + 收入进协会 + 无分红）。买 MORPHO = 押 fee switch 会开、且开了收入给持币人。按权重盯：
+        <li><b>价值投资关注清单</b>：Morpho 现<b>不是传统价值股（有现金流/分红），而是"价值捕获期权"</b>——生意好（年化 fees 两亿美元级、利用率 ~93%，实时值见上方卡片）但价值当前不流向持币人（revenue $0 + 收入进协会 + 无分红）。买 MORPHO = 押 fee switch 会开、且开了收入给持币人。按权重盯：
           <ul>
             <li><b>① 催化剂（权重最高，决定成败）</b>：fee switch 激活提案（治理区）｜协议 revenue（现 $0，≠0 即开关开了）｜<b>收入归属 DAO 还是 Association</b>（MIP 94 先例进协会=对持币人无用，最大陷阱）。</li>
-            <li><b>② 内在价值基数（开关开了值多少）</b>：年化 fees + 增长（决定潜在 $52M 协议收入）｜TVL / 利用率 / 市场份额（护城河）｜Forward PE。</li>
+            <li><b>② 内在价值基数（开关开了值多少）</b>：年化 fees + 增长（决定潜在协议收入 = fees × 25%，实时值见"潜在收入"卡片）｜TVL / 利用率 / 市场份额（护城河）｜Forward PE。</li>
             <li><b>③ 价格（现在贵不贵）</b>：PS 6.3x、市值/TVL 0.18——对 revenue=$0 的项目是纯预期定价，不便宜。</li>
-            <li><b>④ 下行风险</b>：解锁抛压（用户与分发最终 45%、才解锁 35%，线性砸到 2031，最大长期抛压）｜VC 占比 + 内部人变现｜坏账（现健康）。</li>
+            <li><b>④ 下行风险</b>：解锁抛压（用户与分发最终占 45%、解锁进度仍低，线性释放到 2031，最大长期抛压，进度见解锁时间线）｜VC 占比 + 内部人变现｜坏账（现健康）。</li>
             <li><b>买卖锚点</b>：<b>买点</b>=fee switch 提案出现且明确收入给 DAO；<b>警惕</b>=收入又进 Association（MIP 94 重演）、解锁洪峰、增长停滞。一句话：等治理把"好生意"变成"股东回报"的转折点——在此之前是成长/期权逻辑，非价值股逻辑。</li>
           </ul>
         </li>
@@ -313,7 +313,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
   // 口径栏动态数字：DefiLlama vs 官方 borrowed（避免硬编码过期）
   const dlc = document.getElementById("dlCompare");
   if (dlc && scale.dlBorrowed != null) dlc.innerHTML =
-    `DefiLlama ${fmtUsd(scale.dlBorrowed)} vs 官方 ${fmtUsd(scale.borrowed)}，官方口径利用率 ${fmtPct(scale.utilization)}`;
+    `DefiLlama ${fmtUsd(scale.dlBorrowed)} vs 官方 ${fmtUsd(scale.borrowed)}${scale.officialAsOf ? `（${scale.officialAsOf} 快照）` : ""}，官方口径利用率 ${fmtPct(scale.utilization)}`;
 
   document.getElementById("value").innerHTML =
     card("协议抽成率", vc.takeRate != null ? fmtPct(vc.takeRate) : "n/a", "revenue / fees · fee switch 关") +
