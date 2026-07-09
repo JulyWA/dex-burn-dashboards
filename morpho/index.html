@@ -129,14 +129,20 @@
   <h2 id="sec4">🪙 代币与解锁 <span class="sub-h">· 供给稀释压力：总量 10 亿，无销毁无通缩，只有解锁增发</span></h2>
   <div class="grid" id="token"></div>
   <div class="grid" id="unlocks"></div>
+  <!-- 主视觉：供给构成（当前锁定进度） + 解锁时间线（未来释放曲线）并列 -->
   <div class="grid2">
-    <div class="chart-box"><h3>代币分配结构（当前占流通，悬停看最终占比）</h3><div class="cv"><canvas id="allocChart"></canvas></div></div>
     <div class="chart-box"><h3>供给构成（流通 vs 未解锁）</h3><div class="cv"><canvas id="supplyChart"></canvas></div></div>
+    <div class="chart-box"><h3>累计解锁时间线（团队 vs 总解锁，未来释放曲线）</h3><div class="cv"><canvas id="unlockChart"></canvas></div></div>
   </div>
-  <ul class="checks" id="allocNote"></ul>
-  <div class="chart-box" style="height:320px;margin-top:12px"><h3>累计解锁时间线（含团队/内部人，解锁 USD 按现价估算）</h3><div class="cv" style="height:260px"><canvas id="unlockChart"></canvas></div></div>
+  <!-- 重点结论：未来抛压 + 链上实证 -->
+  <ul class="checks" id="unlockKeyNote"></ul>
   <details class="fold"><summary>近期一次性解锁事件（某日集中释放一批代币，非日常线性解锁，点开查看）</summary>
     <ul class="checks" id="unlockEvents"></ul>
+  </details>
+  <!-- 次要：分配结构（建模值，非实际持仓）折叠沉底 -->
+  <details class="fold" id="allocDetails"><summary>代币分配结构详情（按解锁表建模的占比，非链上实际持仓，点开查看）</summary>
+    <div class="chart-box" style="height:320px;margin-top:8px"><h3>代币分配结构（当前占流通 · 悬停看最终占比）</h3><div class="cv" style="height:260px"><canvas id="allocChart"></canvas></div></div>
+    <ul class="checks" id="allocNote"></ul>
   </details>
 
   <h2 id="sec5">👥 团队收益 <span class="sub-h">· 谁在赚钱：商业收入进 Association（法国非营利）不进 DAO；持币人零分红</span></h2>
@@ -172,7 +178,7 @@
         <li><b>坏账：已实现 vs 名义</b>。已实现坏账 = 真实社会化损失（headline）；名义坏账含抵押品脱锚但未实现清算的部分，会被单个 exotic 死市场（如 K/USDC）灌到 $B 级，<b>不是系统性损失</b>。</li>
         <li><b>APY</b>：剔除 supply/borrow APY &gt; 50% 的异常（脱锚）市场后，按各自资产规模加权。Morpho 有 6000+ permissionless 市场，不过滤会被极端值污染。</li>
         <li><b>"交易量" = 净流量</b>：借贷协议无 DEX swap volume；净借款 / 存款流量 = 借款存量 / 净 TVL 的<b>周度差分</b>，非总额 gross（借款+还款总额）。</li>
-        <li><b>供给 / 借款 / 利用率用 Morpho 官方口径</b>（morphoBlues 聚合），非 DefiLlama——DefiLlama 的 borrowed 对 Morpho 低估约 2.7x（$3.68B vs 官方 $9.79B），会把真实 92.9% 的资金利用率错算成 34%。净 TVL 仍用 DefiLlama（已与官方互核）。资产负债表：存款人供给 = 已借出 + 未借出；净 TVL = 未借出供给 + 抵押品。</li>
+        <li><b>供给 / 借款 / 利用率用 Morpho 官方口径</b>（morphoBlues 聚合），非 DefiLlama——DefiLlama 的 borrowed 对 Morpho 偏低（<span id="dlCompare">…</span>），用它算会低估资金利用率。净 TVL 仍用 DefiLlama（已与官方互核）；<b>净 TVL 与官方供给/抵押品不同源，不能直接加减对平</b>。官方口径资产负债恒等：存款人供给 = 已借出 + 未借出。</li>
         <li><b>解锁 USD</b> 按当前币价估算，价格敏感。</li>
         <li><b>颜色约定</b>：<span style="color:var(--alert)">红色</span> = 需警示/注意的异常或真负面（revenue $0 零价值捕获、坏账对币价的传导、互核偏差）；<span style="color:var(--ok)">绿色</span> = 正向/健康（利用率、环比上涨、核对通过）；<span style="color:var(--warn)">琥珀</span> = 近似/待留意（名义坏账账面虚高·别误读、手续费量级互核）。中性指标（PS/PE/估值倍数）不着色。</li>
         <li><b>单位约定</b>：金额 = $ + B/M/K；代币量 = M/B MORPHO 缩写；利率类一律用 %（APY、借贷利差同维度，利差 = 借款 − 供给 APY）；倍数 = x（PS / PE / 市值/TVL）；百分比小数位：水平类 1 位（APY 3.8%）、变化率/利差类 2 位（环比 ▲7.78%、利差 0.62%）。</li>
@@ -300,7 +306,12 @@ fetch("./data.json").then(r => r.json()).then(d => {
     card("存款人供给", fmtUsd(scale.supplied), "可借出的存款总额 · " + src) +
     card("总借款", fmtUsd(scale.borrowed), `已借出 · 资金利用率 <b style="color:var(--ok)">${fmtPct(scale.utilization)}</b>`) +
     card("抵押品", scale.collateral != null ? fmtUsd(scale.collateral) : "n/a", "借款人存入的抵押 · " + src) +
-    card("净 TVL", fmtUsd(scale.tvl), "= 未借出供给 + 抵押品 · DefiLlama 净口径" + wowInline(w.tvl));
+    card("净 TVL", fmtUsd(scale.tvl), "DefiLlama 净口径 · 与官方互核（与官方供给/借款口径不同源，不作加减）" + wowInline(w.tvl));
+
+  // 口径栏动态数字：DefiLlama vs 官方 borrowed（避免硬编码过期）
+  const dlc = document.getElementById("dlCompare");
+  if (dlc && scale.dlBorrowed != null) dlc.innerHTML =
+    `DefiLlama ${fmtUsd(scale.dlBorrowed)} vs 官方 ${fmtUsd(scale.borrowed)}，官方口径利用率 ${fmtPct(scale.utilization)}`;
 
   document.getElementById("value").innerHTML =
     card("协议抽成率", vc.takeRate != null ? fmtPct(vc.takeRate) : "n/a", "revenue / fees · fee switch 关") +
@@ -310,7 +321,8 @@ fetch("./data.json").then(r => r.json()).then(d => {
   document.getElementById("token").innerHTML =
     card("MORPHO 价格", token.priceUsd != null ? "$" + token.priceUsd : "n/a", "CoinGecko 现价 · 已与 DefiLlama 互核") +
     card("流通率", fmtPct(token.circulatingRate), fmtTok(token.circulatingSupply).replace(" MORPHO","") + " / " + fmtTok(token.totalSupply)) +
-    card("市值", fmtUsd(token.marketCapUsd), "= 价格 × 流通量 · FDV " + fmtUsd(token.fdvUsd) + " = 价格 × 总量");
+    card("市值", fmtUsd(token.marketCapUsd), "= 价格 × 流通量 · FDV " + fmtUsd(token.fdvUsd) + " = 价格 × 总量") +
+    card("日换手率", token.turnoverCirc != null ? fmtPct(token.turnoverCirc) : "n/a", `24h 量 ${fmtUsd(token.volume24hUsd)} / 流通市值 · 流动性&活跃度（越高越好卖出）`);
 
   // 团队收益
   const t = d.teamRevenue;
@@ -330,9 +342,12 @@ fetch("./data.json").then(r => r.json()).then(d => {
   // 解锁抛压
   const u = d.unlocks;
   if (u && u.status === "ok") {
+    // 排除已在「团队收益」详列的类别（战略伙伴/贡献者/创始人），避免同值卡片重复；本节只留非团队抛压主力（用户与分发等）
+    const teamLabels = new Set((t?.byLabel || []).map(b => b.label));
+    const nonTeamCats = u.byCategory.filter(c => !teamLabels.has(c.label));
     document.getElementById("unlocks").innerHTML =
       card("未来12月全类别解锁", fmtUsd(u.future12mUsd), fmtTok(u.future12mTokens)) +
-      u.byCategory.slice(0, 3).map(c => card(catZh(c.label), fmtUsd(c.usd), fmtTok(c.tokens))).join("");
+      nonTeamCats.slice(0, 3).map(c => card(catZh(c.label), fmtUsd(c.usd), fmtTok(c.tokens))).join("");
     const GRP_ZH = { insiders: "内部人", liquidity: "做市商", ecosystem: "生态/用户", farming: "激励" };
     const TYPE_ZH = { cliff: "一次性解锁", linear: "线性持续解锁" };
     document.getElementById("unlockEvents").innerHTML = (u.nextEvents || []).map(e => {
@@ -479,30 +494,64 @@ fetch("./data.json").then(r => r.json()).then(d => {
     flowChart("borrowFlowChart", ch.borrowFlowWeekly);
     flowChart("depositFlowChart", ch.depositFlowWeekly);
 
-    if (ch.allocation?.length) new Chart(document.getElementById("allocChart"), {
+    // allocation 数据源（emissions）某次失败时 series.js 会给 null，统一兜成空数组，
+    // 避免下面 .filter/.find 直接抛 TypeError 打断整段渲染（会被外层 catch 误报成"加载失败"）
+    const allocation = Array.isArray(ch.allocation) ? ch.allocation : [];
+    if (allocation.length) new Chart(document.getElementById("allocChart"), {
       type: "doughnut",
-      data: { labels: ch.allocation.map(a => catZh(a.label)),
-        datasets: [{ data: ch.allocation.map(a => a.pct), backgroundColor: CHART_COLORS, borderColor: "#0d1117", borderWidth: 2 }] },
+      data: { labels: allocation.map(a => catZh(a.label)),
+        datasets: [{ data: allocation.map(a => a.pct), backgroundColor: CHART_COLORS, borderColor: "#0d1117", borderWidth: 2 }] },
       options: { responsive: true, maintainAspectRatio: false,
         plugins: { legend: { position: (window.innerWidth < 480 ? "bottom" : "right"), labels: { boxWidth: 12, font: { size: 11 } } },
           tooltip: { callbacks: { label: (c) => {
-            const fp = ch.allocation[c.dataIndex]?.finalPct;
+            const fp = allocation[c.dataIndex]?.finalPct;
             return `${c.label}: 当前占流通 ${c.parsed}%` + (fp != null ? ` → 最终占总量 ${fp}%` : "");
           } } } } },
     });
 
-    // 分配集中度关键结论（当前 vs 最终，避免误读"内部人永远占一半"）
-    const ins = (key) => ch.allocation.filter(a => /Founders|Strategic Partners|Contributors/.test(a.label));
-    const insCur = ch.allocation.filter(a => /Founders|Strategic Partners|Contributors/.test(a.label)).reduce((s, a) => s + a.pct, 0);
-    const insFin = ch.allocation.filter(a => /Founders|Strategic Partners|Contributors/.test(a.label)).reduce((s, a) => s + (a.finalPct || 0), 0);
-    const fdV = ch.allocation.find(a => a.label === "Founders")?.finalPct;
-    const spV = ch.allocation.find(a => a.label === "Strategic Partners")?.finalPct;
-    const noteEl = document.getElementById("allocNote");
-    if (noteEl) noteEl.innerHTML =
-      `<li><span class="tag WARN">解锁节奏</span><span>当前流通里<b>内部人（创始人+战略伙伴+贡献者）占 ${insCur.toFixed(0)}%</b>——是内部人先解锁完造成的<b>暂时集中</b>，非永久。生态/用户那块最终占最大头，等它解锁上来内部人会稀释到 <b>${insFin.toFixed(0)}%</b>。</span></li>` +
-      `<li><span class="tag WARN">代币经济</span><span>最终占总量：创始人 ${fdV}% + 战略伙伴 ${spV}%。<b>战略伙伴(VC) ${spV}% 偏高</b>——代币经济向早期投资人倾斜（呼应多轮 VC 融资），偏"VC 重仓币"而非社区型分发。</span></li>` +
-      (() => { const ud = ch.allocation.find(a => a.label === "Users & Distributors"); return ud ?
-        `<li><span class="tag WARN">未来抛压</span><span><b>真正的未来解锁抛压主力是「用户与分发」（含初始用户空投 / launch pool）</b>，不是团队：当前占流通仅 ${ud.pct.toFixed(0)}%、最终 ${ud.finalPct}%（全项目最大头），说明绝大部分还锁着待解锁；而团队大多已解锁完。<b>但它没有未来的大额单点(cliff)节点</b>——初始空投的一次性大额已在 2024-11 TGE 解锁完，之后是每月数百万级的<b>线性持续释放到 2031</b>，是"温水"式渐进抛压、非某日突然砸盘（所以"近期解锁事件"里看不到它，它体现在解锁时间线的斜率上）。</span></li>` : ""; })();
+    // 折叠里：分配图的口径与结构说明（依赖 allocation，缺失时整块跳过）
+    if (allocation.length) {
+      const insCur = allocation.filter(a => /Founders|Strategic Partners|Contributors/.test(a.label)).reduce((s, a) => s + a.pct, 0);
+      const insFin = allocation.filter(a => /Founders|Strategic Partners|Contributors/.test(a.label)).reduce((s, a) => s + (a.finalPct || 0), 0);
+      const fdV = allocation.find(a => a.label === "Founders")?.finalPct;
+      const spV = allocation.find(a => a.label === "Strategic Partners")?.finalPct;
+      const noteEl = document.getElementById("allocNote");
+      if (noteEl) noteEl.innerHTML =
+        `<li><span class="tag ALERT">口径</span><span><b>此图是"按解锁时间表建模推算"，不是链上实际持仓。</b>它 = DefiLlama 按官方 vesting 计划算的"各类别到今天该解锁多少"，<b>不等于</b>创始人/VC 钱包里现在实际还剩多少（他们可能已减持、OTC 转让）。解锁 ≠ 持有 ≠ 卖出。想看真实持仓/减持要链上追地址（见上方"链上实证"或 Arkham）。</span></li>` +
+        `<li><span class="tag WARN">解锁节奏</span><span>当前流通里<b>内部人（创始人+战略伙伴+贡献者）占 ${insCur.toFixed(0)}%</b>——是内部人先解锁完造成的<b>暂时集中</b>，非永久。生态/用户那块最终占最大头，等它解锁上来内部人会稀释到 <b>${insFin.toFixed(0)}%</b>。</span></li>` +
+        `<li><span class="tag WARN">代币经济</span><span>最终占总量：创始人 ${fdV}% + 战略伙伴 ${spV}%。<b>战略伙伴(VC) ${spV}% 偏高</b>——代币经济向早期投资人倾斜（呼应多轮 VC 融资），偏"VC 重仓币"而非社区型分发。</span></li>`;
+    } else {
+      // 分配数据（DefiLlama emissions）本次未返回：隐藏空图表、明示数据缺失（区别于"功能移除"）
+      const box = document.querySelector("#allocDetails .chart-box");
+      if (box) box.style.display = "none";
+      const noteEl = document.getElementById("allocNote");
+      if (noteEl) noteEl.innerHTML =
+        `<li><span class="tag WARN">数据缺失</span><span><b>本次分配结构数据（DefiLlama emissions 源）未返回，图表暂不可用。</b>属数据源临时波动，非永久缺失；面板其余指标（供给构成、解锁时间线、链上实证等）不受影响。</span></li>`;
+    }
+
+    // 重点区（显眼）：未来抛压主力 + 链上实证（实际减持才是真信号）
+    const keyEl = document.getElementById("unlockKeyNote");
+    if (keyEl) {
+      const ud = allocation.find(a => a.label === "Users & Distributors");
+      const futureLi = ud ?
+        `<li><span class="tag WARN">未来抛压</span><span><b>未来解锁抛压主力是「用户与分发」（初始空投 / launch pool），不是团队。</b>它当前占流通仅 ${ud.pct.toFixed(0)}%、最终 ${ud.finalPct}%（全项目最大头），绝大部分还锁着；团队则大多已解锁完。<b>但没有大额单点(cliff)</b>——一次性空投已在 2024-11 TGE 释放完，之后是每月数百万级<b>线性释放到 2031</b>，属"温水"渐进抛压、非某日砸盘（故"近期解锁事件"里看不到它，它体现在左侧时间线的斜率上）。</span></li>` : "";
+      const ih = d.insiderHoldings;
+      let insiderLi = "";
+      if (ih?.status === "ok" && ih.holdings[0]) {
+        const s = ih.holdings[0];
+        const chg = s.changeTokens;
+        const chStr = chg == null ? "首次基线（下次起显示周变化）" : (chg < 0 ? `<span style="color:var(--alert)">▼ 减持 ${fmtTok(Math.abs(chg))}</span>` : chg > 0 ? `<span style="color:var(--ok)">▲ +${fmtTok(chg)}</span>` : "无变化");
+        insiderLi = `<li><span class="tag ${chg != null && chg < 0 ? 'WARN' : 'OK'}">链上实证</span><span><b>实际持仓校验（比理论解锁准）：</b>Seed 轮投资人锁仓合约链上实持 <b>${fmtTok(s.balance)}</b>（${fmtUsd(ih.totalUsd)}）——余额下降 = 投资人真减持/转出，是真抛压信号。本次：${chStr}。<a href="https://etherscan.io/address/${s.address}" target="_blank" rel="noopener">查看合约 ${s.address.slice(0, 8)}…${s.address.slice(-4)} ↗</a></span></li>`;
+      }
+      keyEl.innerHTML = futureLi + insiderLi;
+    }
+
+    // 折叠图表默认 display:none，Chart.js 初始尺寸为 0，展开时手动 resize
+    const allocDet = document.getElementById("allocDetails");
+    if (allocDet) allocDet.addEventListener("toggle", function () {
+      // 等浏览器完成展开后的布局，再 resize（否则可能仍拿到过渡态尺寸）
+      if (this.open) requestAnimationFrame(() => { const c = Chart.getChart(document.getElementById("allocChart")); if (c) c.resize(); });
+    });
 
     if (ch.supplyBreakdown) {
       const sb = ch.supplyBreakdown;
