@@ -410,8 +410,8 @@ fetch("./data.json").then(r => r.json()).then(d => {
   const pr = d.periods, ap = d.apy;
   // 利率一行（APY / 利差）
   if (ap?.status === "ok") document.getElementById("rates").innerHTML =
-    card("借款 APY", fmtPct(ap.borrowApy), `借款人付的利率 · ${ap.marketsCounted} 市场加权，剔除 >${ap.capPct}% 异常`) +
-    card("供给 APY", fmtPct(ap.supplyApy), "存款人赚的利率") +
+    card("借款 APY", fmtPct(ap.borrowApy), `借款人付的利率 · ${ap.window || "7d均"} · ${ap.marketsCounted} 市场加权，剔除 >${ap.capPct}% 异常`) +
+    card("供给 APY", fmtPct(ap.supplyApy), `存款人赚的利率 · ${ap.window || "7d均"}`) +
     card("借贷利差", ap.spread != null ? (ap.spread * 100).toFixed(2) + "%" : "n/a",
       `= 借款 ${fmtPct(ap.borrowApy)} − 供给 ${fmtPct(ap.supplyApy)}（占借款 ${fmtPct(ap.spreadRatio)}）· 协议抽 0，去向 = 利用率结构 + curator 费${ap.curatorFee != null ? `（加权 ${fmtPct(ap.curatorFee)}）` : ""}`);
   // 手续费一行（近 7天 / 30天 / 1年 滚动窗口，非自然周期）
