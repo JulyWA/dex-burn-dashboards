@@ -524,7 +524,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
       const spV = allocation.find(a => a.label === "Strategic Partners")?.finalPct;
       const noteEl = document.getElementById("allocNote");
       if (noteEl) noteEl.innerHTML =
-        `<li><span class="tag ALERT">口径</span><span><b>此图是"按解锁时间表建模推算"，不是链上实际持仓。</b>它 = DefiLlama 按官方 vesting 计划算的"各类别到今天该解锁多少"，<b>不等于</b>创始人/VC 钱包里现在实际还剩多少（他们可能已减持、OTC 转让）。解锁 ≠ 持有 ≠ 卖出。想看真实持仓/减持要链上追地址（见上方"链上实证"或 Arkham）。</span></li>` +
+        `<li><span class="tag ALERT">口径</span><span><b>此图是"按解锁时间表建模推算"，不是链上实际持仓。</b>它 = DefiLlama 按官方 vesting 计划算的"各类别到今天该解锁多少"，<b>不等于</b>创始人/VC 钱包里现在实际还剩多少（他们可能已减持、OTC 转让）。解锁 ≠ 持有 ≠ 卖出。想看真实资金动向要链上追地址、并以官方治理文档交叉验证（第三方标注如 Arkham 可能有误——本面板"链上实证"的地址即曾被误标）。</span></li>` +
         `<li><span class="tag WARN">解锁节奏</span><span>当前流通里<b>内部人（创始人+战略伙伴+贡献者）占 ${insCur.toFixed(0)}%</b>——是内部人先解锁完造成的<b>暂时集中</b>，非永久。生态/用户那块最终占最大头，等它解锁上来内部人会稀释到 <b>${insFin.toFixed(0)}%</b>。</span></li>` +
         `<li><span class="tag WARN">代币经济</span><span>最终占总量：创始人 ${fdV}% + 战略伙伴 ${spV}%。<b>战略伙伴(VC) ${spV}% 偏高</b>——代币经济向早期投资人倾斜（呼应多轮 VC 融资），偏"VC 重仓币"而非社区型分发。</span></li>`;
     } else {
@@ -536,7 +536,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
         `<li><span class="tag WARN">数据缺失</span><span><b>本次分配结构数据（DefiLlama emissions 源）未返回，图表暂不可用。</b>属数据源临时波动，非永久缺失；面板其余指标（供给构成、解锁时间线、链上实证等）不受影响。</span></li>`;
     }
 
-    // 重点区（显眼）：未来抛压主力 + 链上实证（实际减持才是真信号）
+    // 重点区（显眼）：未来抛压主力 + Association 运营金库链上实证
     const keyEl = document.getElementById("unlockKeyNote");
     if (keyEl) {
       const ud = allocation.find(a => a.label === "Users & Distributors");
@@ -547,8 +547,8 @@ fetch("./data.json").then(r => r.json()).then(d => {
       if (ih?.status === "ok" && ih.holdings[0]) {
         const s = ih.holdings[0];
         const chg = s.changeTokens;
-        const chStr = chg == null ? "首次基线（下次起显示周变化）" : (chg < 0 ? `<span style="color:var(--alert)">▼ 减持 ${fmtTok(Math.abs(chg))}</span>` : chg > 0 ? `<span style="color:var(--ok)">▲ +${fmtTok(chg)}</span>` : "无变化");
-        insiderLi = `<li><span class="tag ${chg != null && chg < 0 ? 'WARN' : 'OK'}">链上实证</span><span><b>实际持仓校验（比理论解锁准）：</b>Seed 轮投资人锁仓合约链上实持 <b>${fmtTok(s.balance)}</b>（${fmtUsd(ih.totalUsd)}）——余额下降 = 投资人真减持/转出，是真抛压信号。本次：${chStr}。<a href="https://etherscan.io/address/${s.address}" target="_blank" rel="noopener">查看合约 ${s.address.slice(0, 8)}…${s.address.slice(-4)} ↗</a></span></li>`;
+        const chStr = chg == null ? "首次基线（下次起显示周变化）" : (chg < 0 ? `<span style="color:var(--warn)">▼ 净流出 ${fmtTok(Math.abs(chg))}（动用预算）</span>` : chg > 0 ? `<span style="color:var(--ok)">▲ 净流入 ${fmtTok(chg)}（grant 到账/回流）</span>` : "无变化");
+        insiderLi = `<li><span class="tag OK">运营金库</span><span><b>Association 运营金库链上实证</b>（MIP 131 落点，<b>非投资人锁仓</b>）：链上余额 <b>${fmtTok(s.balance)}</b>（${fmtUsd(ih.totalUsd)}）。该地址累计收 DAO grant、按 R&D/生态/BD 向数百地址分发——<b>余额下降 = Association 动用运营预算发钱（接收方或卖出 = 间接抛压），不是投资人减持</b>。本次周变化：${chStr}。<a href="https://etherscan.io/address/${s.address}" target="_blank" rel="noopener">Etherscan 查地址 ${s.address.slice(0, 8)}…${s.address.slice(-4)} ↗</a></span></li>`;
       }
       keyEl.innerHTML = futureLi + insiderLi;
     }
