@@ -548,7 +548,8 @@ fetch("./data.json").then(r => r.json()).then(d => {
         const s = ih.holdings[0];
         const chg = s.changeTokens;
         const chStr = chg == null ? "首次基线（下次起显示周变化）" : (chg < 0 ? `<span style="color:var(--warn)">▼ 净流出 ${fmtTok(Math.abs(chg))}（动用预算）</span>` : chg > 0 ? `<span style="color:var(--ok)">▲ 净流入 ${fmtTok(chg)}（grant 到账/回流）</span>` : "无变化");
-        insiderLi = `<li><span class="tag OK">运营金库</span><span><b>Association 运营金库链上实证</b>（MIP 131 落点）：链上余额 <b>${fmtTok(s.balance)}</b>（${fmtUsd(ih.totalUsd)}）。该地址累计收 DAO grant、按 R&D/生态/BD 向数百地址分发——<b>余额下降 = Association 动用运营预算发钱（接收方或卖出 = 间接抛压）</b>。本次周变化：${chStr}。<a href="https://etherscan.io/address/${s.address}" target="_blank" rel="noopener">Etherscan 查地址 ${s.address.slice(0, 8)}…${s.address.slice(-4)} ↗</a></span></li>`;
+        const shareStr = ih.shareOfCirculating != null ? `，占流通 <b>${fmtPct(ih.shareOfCirculating)}</b>、占总量 ${ih.shareOfTotal != null ? fmtPct(ih.shareOfTotal) : "n/a"}` : "";
+        insiderLi = `<li><span class="tag OK">运营金库</span><span><b>Association 运营金库链上实证</b>（MIP 131 落点）：链上余额 <b>${fmtTok(s.balance)}</b>（${fmtUsd(ih.totalUsd)}${shareStr}）。该地址累计收 DAO grant、按 R&D/生态/BD 向数百地址分发——<b>余额下降 = Association 动用运营预算发钱（接收方或卖出 = 间接抛压）</b>；占流通比例=潜在抛压权重。本次周变化：${chStr}。<a href="https://etherscan.io/address/${s.address}" target="_blank" rel="noopener">Etherscan 查地址 ${s.address.slice(0, 8)}…${s.address.slice(-4)} ↗</a></span></li>`;
       }
       keyEl.innerHTML = futureLi + insiderLi;
     }
