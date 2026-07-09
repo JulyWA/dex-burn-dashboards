@@ -131,7 +131,7 @@
   <div class="grid" id="unlocks"></div>
   <!-- 主视觉：供给构成（当前锁定进度） + 解锁时间线（未来释放曲线）并列 -->
   <div class="grid2">
-    <div class="chart-box"><h3>供给构成（流通 vs 未解锁）</h3><div class="cv"><canvas id="supplyChart"></canvas></div></div>
+    <div class="chart-box"><h3>供给构成（市场流通 / Association 金库 / 未解锁储备）</h3><div class="cv"><canvas id="supplyChart"></canvas></div></div>
     <div class="chart-box"><h3>累计解锁时间线（团队 vs 总解锁，未来释放曲线）</h3><div class="cv"><canvas id="unlockChart"></canvas></div></div>
   </div>
   <!-- 重点结论：未来抛压 + 链上实证 -->
@@ -179,6 +179,7 @@
         <li><b>APY</b>：剔除 supply/borrow APY &gt; 50% 的异常（脱锚）市场后，按各自资产规模加权。Morpho 有 6000+ permissionless 市场，不过滤会被极端值污染。</li>
         <li><b>"交易量" = 净流量</b>：借贷协议无 DEX swap volume；净借款 / 存款流量 = 借款存量 / 净 TVL 的<b>周度差分</b>，非总额 gross（借款+还款总额）。</li>
         <li><b>供给 / 借款 / 利用率 = 官方 API 市场级聚合·剔除幽灵市场</b>。幽灵市场 = 无抵押把供给借空的预言机异常死市场（抵押&lt;1%供给·利用率&gt;98%，如 BONDUSD/USR、K/USDC、PAXG/USDC），资金不真实存在（<span id="ghostInfo">…</span>）。官方 morphoBlues.state 聚合<b>不剔幽灵</b>（供给会虚高一倍以上）且主网 state 有故障史，故弃用。剔除后多源互核通过：<b>借款与官方数据站(data.morpho.org) Active Loans、DefiLlama 三源一致（±2%）</b>（<span id="dlCompare">…</span>）、<b>净恒等成立：未借出 + 抵押品 ≈ DefiLlama 净 TVL ≈ 官方站 TVL</b>。注意：<b>官方站 headline 的 Total Deposits 是含幽灵的全量口径，比本站供给大一倍以上</b>——差异即幽灵虚供给，对照时以 Active Loans / TVL 为准。</li>
+        <li><b>供给构成三态口径</b>：CoinGecko 的"流通"≈ vesting 已解锁量（实测差 ~4%），其中含 Association 金库持仓（已解锁但未进市场）——故拆三段：<b>市场流通 = CG 流通 − Association 金库</b>；<b>未解锁储备</b>物理存放于 DAO 金库（0x9d03…，现持 ~392M，与建模未解锁 346M 差 ~45M 为口径细节），按解锁表 + 治理决议放出。DAO 金库流出 = 新拨款信号，Association 金库流出 = 预算执行。</li>
         <li><b>解锁 USD</b> 按当前币价估算，价格敏感。</li>
         <li><b>颜色约定</b>：<span style="color:var(--alert)">红色</span> = 需警示/注意的异常或真负面（revenue $0 零价值捕获、坏账对币价的传导、互核偏差）；<span style="color:var(--ok)">绿色</span> = 正向/健康（利用率、环比上涨、核对通过）；<span style="color:var(--warn)">琥珀</span> = 近似/待留意（名义坏账账面虚高·别误读、手续费量级互核）。中性指标（PS/PE/估值倍数）不着色。</li>
         <li><b>单位约定</b>：金额 = $ + B/M/K；代币量 = M/B MORPHO 缩写；利率类一律用 %（APY、借贷利差同维度，利差 = 借款 − 供给 APY）；倍数 = x（PS / PE / 市值/TVL）；百分比小数位：水平类 1 位（APY 3.8%）、变化率/利差类 2 位（环比 ▲7.78%、利差 0.62%）。</li>
@@ -563,11 +564,14 @@ fetch("./data.json").then(r => r.json()).then(d => {
 
     if (ch.supplyBreakdown) {
       const sb = ch.supplyBreakdown;
-      // 与左侧分配结构图同型（doughnut + 右图例），两图都是"10亿总量"的不同拆法
+      // 三段拆分：CG"流通"(≈已解锁)里含 Association 金库持仓——已解锁但未进市场，单列出来避免高估市场浮筹。
+      // 未解锁储备物理存放于 DAO 金库(0x9d03…)，按解锁表+治理决议放出。
+      const assocBal = (d.insiderHoldings?.status === "ok" && d.insiderHoldings.holdings?.[0]?.balance) || 0;
+      const marketCirc = Math.max(0, sb.circulating - assocBal);
       new Chart(document.getElementById("supplyChart"), {
         type: "doughnut",
-        data: { labels: ["流通", "未解锁"],
-          datasets: [{ data: [sb.circulating, sb.locked], backgroundColor: ["#58a6ff", "#6e7681"], borderColor: "#0d1117", borderWidth: 2 }] },
+        data: { labels: ["市场流通", "Association 金库(已解锁未分发)", "未解锁储备(存于 DAO 金库)"],
+          datasets: [{ data: [marketCirc, assocBal, sb.locked], backgroundColor: ["#58a6ff", "#d29922", "#6e7681"], borderColor: "#0d1117", borderWidth: 2 }] },
         options: { responsive: true, maintainAspectRatio: false,
           plugins: { legend: { position: (window.innerWidth < 480 ? "bottom" : "right"), labels: { boxWidth: 12, font: { size: 11 } } },
             tooltip: { callbacks: { label: (c) => `${c.label}: ${(c.parsed/1e6).toFixed(0)}M MORPHO (${(c.parsed/sb.total*100).toFixed(1)}%)` } } } },
