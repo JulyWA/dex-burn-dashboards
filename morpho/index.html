@@ -301,10 +301,12 @@ fetch("./data.json").then(r => r.json()).then(d => {
 
   const wowInline = (x) => x == null ? "" : ` · 环比上周 <span style="color:${x >= 0 ? 'var(--ok)' : 'var(--alert)'}">${x >= 0 ? '▲' : '▼'}${(Math.abs(x) * 100).toFixed(2)}%</span>`;
   const w = d.periods?.wow || {};
-  const src = scale.officialSource ? "Morpho 官方口径" : "DefiLlama";
+  // officialAsOf 非空 = 官方 API 部分链故障，沿用该日完整官方快照（stale），如实标注
+  const staleTag = scale.officialAsOf ? ` · <span style="color:var(--warn)">⚠️沿用 ${scale.officialAsOf} 官方快照（API 缺链${scale.officialMissingChains ? "：" + scale.officialMissingChains.join("/") : ""}）</span>` : "";
+  const src = (scale.officialSource ? "Morpho 官方口径" : "DefiLlama") + staleTag;
   document.getElementById("scale").innerHTML =
     card("存款人供给", fmtUsd(scale.supplied), "可借出的存款总额 · " + src) +
-    card("总借款", fmtUsd(scale.borrowed), `已借出 · 资金利用率 <b style="color:var(--ok)">${fmtPct(scale.utilization)}</b>`) +
+    card("总借款", fmtUsd(scale.borrowed), `已借出 · 资金利用率 <b style="color:var(--ok)">${fmtPct(scale.utilization)}</b>` + staleTag) +
     card("抵押品", scale.collateral != null ? fmtUsd(scale.collateral) : "n/a", "借款人存入的抵押 · " + src) +
     card("净 TVL", fmtUsd(scale.tvl), "DefiLlama 净口径 · 与官方互核（与官方供给/借款口径不同源，不作加减）" + wowInline(w.tvl));
 
