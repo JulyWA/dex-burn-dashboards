@@ -187,6 +187,8 @@
       <dd><code>流通市值(官方口径) ÷ 年化 holdersRevenue(30d×365/30)</code>。因协议收入全部用于回购，此 PE 同时等于"按当前速率回购完全部流通盘所需年数"。另列过去 1 年口径 PE 作对照。</dd>
       <dt>回购收益率</dt>
       <dd><code>年化 holdersRevenue ÷ 流通市值 = 1/PE</code>，即持币人的"股息率"视角。</dd>
+      <dt>持币人总回报（广义口径·参考）</dt>
+      <dd><code>年化回购 + 年化直接销毁美元值</code>。直接销毁（priority fee + 拍卖等）在经济上与回购等价，hl.eco 的"协议收入"即此加和口径（两者差 ~7%）。本面板的销毁美元值 = 链上 totalSupply 归档差分年化 × 现价（链上恒等口径，比第三方索引可验证）；差分窗口不足时兜底用<b>生命周期均值</b>（累计销毁÷上线天数×365，已与 hl.eco 独立口径互证吻合），卡片标注当前采用的口径。<b>PE 与回购收益率仍用纯回购口径</b>——跨协议可比性优先。</dd>
       <dt>净通缩率</dt>
       <dd><code>(年回购枚数 + 年链上销毁枚数 − 年解锁枚数) ÷ 流通量</code>。正=净通缩，负=净通胀。解锁项用过去 12 月实际外推（见 emissions 词条）；38.888% 未来排放与团队 2027-28 解锁洪峰均未计入，是两大悬顶。</dd>
       <dt>周/月/年环比 与 30d 同比</dt>
@@ -315,7 +317,13 @@ async function main() {
     tile("总手续费（30d）", fmtUsd(f?.month), `年化 ${fmtUsd(val?.annualFeesUsd)}`) +
     tile("回购收入（30d）", fmtUsd(hr?.month), `年化 ${fmtUsd(val?.annualHoldersRevenueUsd)} · 占总手续费 ${fmtPct(fr.holdersShare30d)}（名义 99%，扣 builder/deployer 分成后）`) +
     (val ? tile("PE（主口径：按当前收入速率）", val.pe ? val.pe.toFixed(1) : "n/a", `市值÷年化回购收入，≈回购完流通盘需 ${val.pe?.toFixed(0)} 年；若按过去1年实际收入算=${val.peTrailing1y?.toFixed(1)}（两者差距大→收入在下滑）`) : "") +
-    (val ? tile("回购收益率", fmtPct(val.buybackYield), "= 1/PE，持币人“股息率”") : "");
+    (val ? tile("回购收益率", fmtPct(val.buybackYield), "= 1/PE，持币人“股息率”") : "") +
+    (val?.totalHolderReturn ? (() => {
+      const thr = val.totalHolderReturn;
+      return tile("广义股息率（回购+销毁·参考）",
+        thr.yieldRate != null ? fmtPct(thr.yieldRate) : "积累中",
+        `${fmtUsd(thr.annualUsd)}/年 = 回购 ${fmtUsd(thr.buybackAnnualUsd)} + 直接销毁 ${fmtUsd(thr.burnAnnualUsd)}（${esc(thr.burnBasis)}）· 对照左侧纯回购口径；即 hl.eco 的"协议收入"加和口径`);
+    })() : "");
   const srcs = fr.sources;
   $("revNote").innerHTML = `<b>价值捕获路径</b>：交易费 → 99% 自动在链上换成 HYPE 进 AF（销毁池）→ 持币人通过供给收缩获益；<b>协议留存收入恒为 $0</b>，费用全部归社区（AF / HLP / deployer）。AF 累计回购成本 ${fmtUsd(b?.af.costUsd)}，当前持仓市值 ${fmtUsd(b?.af.valueUsd)}（浮盈 ${b?.af.costUsd ? fmtPct(b.af.valueUsd/b.af.costUsd-1,0) : "n/a"}）。`
     + (srcs ? `<br><b>收入引擎</b>：perp 手续费占 ${fmtPct(srcs.m30.perpShare)}（30d）——收入与加密行情高度绑定；HIP-3 股票市场费用并在 perp 内（免费源不可拆），其成交量占比已过半但费率低+deployer 分走至多 50%，量的多元化跑在收入多元化前面（精确份额见 hl.eco 人工对照）。` : "");
@@ -374,7 +382,7 @@ async function main() {
       tile("HLP APR", fmtPct(r.hlp.apr, 2), `30d PnL ${fmtUsd(r.hlp.pnlMonth)}`, r.hlp.pnlMonth < 0 ? "caution" : "") +
       tile("HLP 累计 PnL", fmtUsd(r.hlp.pnlAllTime), "为正=清算兜底业务整体盈利", r.hlp.pnlAllTime > 0 ? "good" : "highlight") +
       (r.validators ? tile("验证者集中度", `top5 ${fmtPct(r.validators.top5Share)}`, `${r.validators.count} 个验证者（活跃 ${r.validators.active}）· 质押 ${fmtTok(r.validators.totalStakedTokens)}`, r.validators.top5Share > 0.5 ? "caution" : "") : "") +
-      (r.unstaking ? tile("解押队列（7天到期）", `${fmtTok(r.unstaking.next7dTokens)} HYPE`, `${fmtUsd(r.unstaking.next7dUsd)} · ${r.unstaking.wallets} 钱包 · top5 占 ${fmtPct(r.unstaking.top5Share)} · 占质押 ${fmtPct(r.unstaking.shareOfStaked, 2)}`, r.unstaking.shareOfStaked > 0.01 ? "caution" : "")
+      (r.unstaking ? tile("解押队列（7天到期）", `${fmtTok(r.unstaking.next7dTokens)} HYPE`, `${fmtUsd(r.unstaking.next7dUsd)} · 占全网质押 ${fmtPct(r.unstaking.shareOfStaked, 2)} · ${r.unstaking.wallets} 个钱包排队，top5 占队列 ${fmtPct(r.unstaking.top5Share)}`, r.unstaking.shareOfStaked > 0.01 ? "caution" : "")
                    : tile("解押队列（7天到期）", "源降级", "Hypurrscan 不可用，勿当零解押解读", "caution"));
   }
   $("structRisk").innerHTML = `<b>结构性风险</b>：${(r?.structural || []).join("；")}。`;
