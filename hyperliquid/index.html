@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hyperliquid 监控面板</title>
+<style>
+  :root {
+    --bg: #0d1117; --card: #161b22; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+    --warn: #d29922; --alert: #f85149; --ok: #3fb950; --pending: #6e7681; --purple: #bc8cff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, "Segoe UI", "PingFang SC", Roboto, sans-serif; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 32px 20px 60px; }
+  header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  h1 { font-size: 22px; margin: 0; }
+  .ts { color: var(--muted); font-size: 13px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+  h2 { font-size: 14px; color: var(--muted); text-transform: uppercase;
+    letter-spacing: .04em; margin: 44px 0 12px; padding-top: 22px;
+    border-top: 1px solid var(--border); font-weight: 600; }
+  h2 .sub-h { font-size: 13px; color: var(--muted); font-weight: 400; text-transform: none; }
+  .toc { position: sticky; top: 0; z-index: 10; background: rgba(13,17,23,.94);
+    backdrop-filter: blur(6px); display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 10px 0; margin: 18px 0 2px; border-bottom: 1px solid var(--border); }
+  .toc a { font-size: 12px; color: var(--muted); text-decoration: none;
+    padding: 4px 11px; border: 1px solid var(--border); border-radius: 999px; white-space: nowrap; }
+  .toc a:hover { color: var(--accent); border-color: var(--accent); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 12px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .card .label { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+  .card .val { font-size: 24px; font-weight: 700; }
+  .card .sub { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .card.highlight { border-color: var(--alert); }
+  .card.highlight .val { color: var(--alert); }
+  .card.caution { border-color: var(--warn); }
+  .card.caution .val { color: var(--warn); }
+  .card.good .val { color: var(--ok); }
+  .up { color: var(--ok); } .down { color: var(--alert); } .na { color: var(--pending); }
+  .callout { background: var(--card); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 16px; margin-top: 12px;
+    font-size: 14px; line-height: 1.6; }
+  .callout.warn { border-left-color: var(--warn); }
+  .checks { list-style: none; padding: 0; margin: 12px 0 0; }
+  .checks li { padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
+    margin-bottom: 8px; font-size: 13px; display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+  .tag { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; flex-shrink: 0; }
+  .tag.OK { background: rgba(63,185,80,.15); color: var(--ok); }
+  .tag.WARN { background: rgba(210,153,34,.15); color: var(--warn); }
+  .tag.ALERT { background: rgba(248,81,73,.15); color: var(--alert); }
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; background: rgba(110,118,129,.08); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin-top: 12px; }
+  .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 14px 8px; height: 300px; position: relative; }
+  .chart-box h3 { margin: 0 0 10px; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .chart-box .cv { position: relative; height: 240px; }
+  footer { color: var(--muted); font-size: 12px; margin-top: 40px; text-align: center; }
+  a { color: var(--accent); }
+  .timeline { list-style: none; padding: 0; margin: 12px 0 0; }
+  .timeline li { border-left: 2px solid var(--border); padding: 0 0 14px 16px; margin-left: 6px; position: relative; font-size: 13px; line-height: 1.6; }
+  .timeline li::before { content: ""; position: absolute; left: -6px; top: 4px; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--warn); border: 2px solid var(--bg); }
+  .timeline .d { color: var(--muted); font-size: 12px; }
+  .timeline b { color: var(--text); }
+  .timeline .o { color: var(--muted); }
+  details.fold { margin-top: 12px; }
+  details.fold > summary { cursor: pointer; font-size: 13px; color: var(--muted);
+    padding: 9px 14px; border: 1px solid var(--border); border-radius: 8px;
+    background: var(--card); user-select: none; }
+  details.fold > summary:hover { color: var(--text); border-color: var(--accent); }
+  details.fold[open] > summary { margin-bottom: 8px; color: var(--text); }
+  .gloss dl { margin: 10px 0 4px; }
+  .gloss dt { font-size: 13px; font-weight: 600; margin-top: 12px; }
+  .gloss dd { font-size: 13px; color: var(--muted); margin: 4px 0 0 0; line-height: 1.7; }
+  .gloss code { background: rgba(110,118,129,.15); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Hyperliquid 监控面板</h1>
+    <span class="ts" id="ts">加载中…</span>
+  </header>
+
+  <nav class="toc">
+    <a href="#sec1">📊 交易量</a>
+    <a href="#sec2">💵 手续费收入与估值</a>
+    <a href="#sec4">🪙 代币与解锁</a>
+    <a href="#sec3">🔥 销毁与回购</a>
+    <a href="#sec5">👥 团队收益</a>
+    <a href="#sec6">⚠️ HLP 与风险</a>
+    <a href="#glossary">📖 名词与规则</a>
+    <a href="#appendix">🔗 口径与核对</a>
+  </nav>
+
+  <h2 id="sec1">📊 交易量 <span class="sub-h">· 24h 拆分（主 perp / HIP-3 股票 / spot）+ 周月年窗口与环比</span></h2>
+  <div class="grid" id="vol24"></div>
+  <div id="volTable"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>spot 周成交量（全历史，周聚合）</h3><div class="cv"><canvas id="spotVolChart"></canvas></div></div>
+  </div>
+
+  <h2 id="sec2">💵 手续费收入与估值 <span class="sub-h">· 协议留存 $0：交易费扣除 builder/deployer 分成后自动回购 HYPE 进 AF（实际占比见卡片）；估值锚 = 回购现金流</span></h2>
+  <div id="feesTable"></div>
+  <div class="grid" id="revenue"></div>
+  <div class="callout" id="revNote"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>钱从哪来（周，全历史堆叠，DefiLlama 子协议拆分）</h3><div class="cv"><canvas id="revSrcChart"></canvas></div></div>
+    <div class="chart-box"><h3>钱到哪去（周，全历史堆叠；AF=实测，HLP/生态=按现行规则推算；悬停看进 AF 占比）</h3><div class="cv"><canvas id="revDstChart"></canvas></div></div>
+  </div>
+  <div class="grid2">
+    <div class="chart-box"><h3>累计总手续费（Hypurrscan 独立源，与 DefiLlama 互核用）</h3><div class="cv"><canvas id="hypurrChart"></canvas></div></div>
+  </div>
+
+  <h2 id="sec4">🪙 代币与解锁 <span class="sub-h">· 存量结构：价格/市值 + 币在哪（供给结构/地址追踪）+ 什么时候出来（解锁节奏，洪峰 2027–2028）</span></h2>
+  <div class="grid" id="token"></div>
+  <details class="fold"><summary>官方创世分配表（白皮书静态内容，点开查看）</summary>
+    <div id="allocTable"></div>
+  </details>
+  <div class="grid2">
+    <div class="chart-box"><h3>当前供给结构（有效口径：分母=总供应−AF；AF 灰色仅示意）</h3><div class="cv"><canvas id="effSupplyChart"></canvas></div></div>
+    <div class="chart-box"><h3>累计解锁（团队 / 验证者奖励）</h3><div class="cv"><canvas id="unlockChart"></canvas></div></div>
+  </div>
+  <div class="grid2">
+    <div class="chart-box"><h3>持有人数趋势（断线段=数据源停更空档）</h3><div class="cv"><canvas id="holdersChart"></canvas></div></div>
+  </div>
+  <div class="grid2">
+    <div class="chart-box" style="grid-column: 1 / -1;"><h3>未来解锁推演（季度，⚠️情景假设非官方排期）· 红线=当前回购承接力</h3><div class="cv"><canvas id="projChart"></canvas></div></div>
+  </div>
+  <div class="callout warn" id="projNote"></div>
+
+  <h2 id="sec3">🔥 销毁与回购 <span class="sub-h">· 供给变化率：双口径销毁 + 回购速率 → 净通缩；对照需求端 ETF（存量结构见上方"代币与解锁"）</span></h2>
+  <div class="grid" id="burn"></div>
+  <div class="callout warn" id="deflation"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>ETF 周净流量（THYP+BHYP+HYPG，需求端）</h3><div class="cv"><canvas id="etfChart"></canvas></div></div>
+  </div>
+
+  <h2 id="sec5">👥 团队收益 <span class="sub-h">· 协议收入分成 $0，团队收益全部来自代币增值（23.8% 创世分配）</span></h2>
+  <div class="grid" id="team"></div>
+  <div class="callout" id="teamNote"></div>
+
+  <h2 id="sec6">⚠️ HLP 与风险 <span class="sub-h">· 平台"零坏账"的代价方：HLP 吸收清算亏损 + 极端时 ADL 社会化</span></h2>
+  <div class="grid" id="hlp"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>HLP 累计 PnL 与账户价值</h3><div class="cv"><canvas id="hlpChart"></canvas></div></div>
+  </div>
+  <details class="fold"><summary>⚠️ 风险事件台账与结构性风险（点开查看）</summary>
+    <div class="callout" id="structRisk"></div>
+    <ul class="timeline" id="events"></ul>
+  </details>
+
+  <h2 id="glossary">📖 名词解释与规则说明 <span class="sub-h">· 口径定义、计算公式、机制说明（静态内容）</span></h2>
+  <details class="fold gloss"><summary>名词解释（AF / holdersRevenue / HIP-3 / HLP / ADL…）</summary>
+    <dl>
+      <dt>AF（Assistance Fund，援助基金）</dt>
+      <dd>系统地址 <code>0xfefe…fe</code>（无私钥）。协议费用的 99% 在链上执行层自动换成 HYPE 存入。2025-12-24 验证者投票（85% 赞成）通过将其持仓"视同永久销毁"：承诺永不硬分叉动用，但链上 totalSupply 不扣减。现已是纯销毁池，仅余少量 USDC 周转。</dd>
+      <dt>holdersRevenue（回购收入）</dt>
+      <dd>DefiLlama 口径：进 AF 回购 HYPE 的费用部分，即持币人价值捕获的真实现金流。实测约为总手续费的 70%+（名义 99%，扣除 builder codes 费、Unit 协议费、spot/HIP-3 deployer 至多 50% 分成后）。Hyperliquid 的 protocolRevenue（协议留存）恒为 $0。</dd>
+      <dt>HIP-3 市场</dt>
+      <dd>builder 质押 50 万 HYPE 可部署的独立 perp 市场（2025-10 上线），以 xyz（美股/商品 perp）为主，已占全平台日成交量约一半。其费用 deployer 至多留 50%，其余进 AF。</dd>
+      <dt>HLP（Hyperliquidity Provider）</dt>
+      <dd>协议官方做市金库：用户存 USDC，收益来自做市与清算兜底。它是<b>用户资金池而非协议金库</b>，清算亏损由它吸收（"平台零坏账"的代价方之一）。</dd>
+      <dt>ADL（自动减仓）</dt>
+      <dd>极端行情下清算的最后防线：用对手方盈利仓位强制减仓，把损失社会化给盈利用户（2025-10-11 闪崩首次大规模触发）。</dd>
+      <dt>双口径销毁</dt>
+      <dd>①链上真实销毁 = maxSupply − totalSupply（spot 中 HYPE 计价手续费直接销毁 + HyperEVM gas 销毁），量级小；②AF 持仓视同销毁，量级大但链上供应不减。两口径不可相加后与单一第三方站对数。</dd>
+      <dt>流通量口径（官方 vs CoinGecko）</dt>
+      <dd>本面板主口径 = 官方 API <code>tokenDetails.circulatingSupply</code>。CoinGecko 把 AF 持仓视同销毁从 total 中扣除、流通量另扣部分非流通持仓，两家绝对值相差 ~25%，市值随之不同——对比外站数据时先核对口径。</dd>
+      <dt>emissions（解锁数据）</dt>
+      <dd>DefiLlama 解锁数据集，口径 = 追踪 HyperLabs 地址<b>实际转出</b>，非纸面计划。因此"未来已排期"数字必然偏低，前瞻测算须用"过去 12 月实际解锁外推"。</dd>
+      <dt>globalStats</dt>
+      <dd>官方半文档化端点，提供全平台累计/24h 成交量与用户数。已与"主 dex + HIP-3 + spot 逐一求和"互核（偏差 <1%）。</dd>
+      <dt>ETF 净流量（需求端）</dt>
+      <dd>3 只美国现货 ETF：THYP（21Shares，2026-05-12 上市）、BHYP（Bitwise，05-15）、HYPG（Grayscale 质押型，06-03）。数据源 Farside（经代理），T+1 披露、周末无数据、最新一日可能未更新。它是场外资金吸筹的可量化代理——<b>单列参照，不并入净通缩公式</b>（口径不同：ETF 持仓可赎回，非永久移出）。HYPG 上市初期的单日大额申购属种子性质，看周环比时注意离群值。</dd>
+    </dl>
+  </details>
+  <details class="fold gloss"><summary>计算公式与统计规则（PE / 回购收益率 / 净通缩 / 环比 / 积累中）</summary>
+    <dl>
+      <dt>PE（当前回购速率）</dt>
+      <dd><code>流通市值(官方口径) ÷ 年化 holdersRevenue(30d×365/30)</code>。因协议收入全部用于回购，此 PE 同时等于"按当前速率回购完全部流通盘所需年数"。另列过去 1 年口径 PE 作对照。</dd>
+      <dt>回购收益率</dt>
+      <dd><code>年化 holdersRevenue ÷ 流通市值 = 1/PE</code>，即持币人的"股息率"视角。</dd>
+      <dt>净通缩率</dt>
+      <dd><code>(年回购枚数 + 年链上销毁枚数 − 年解锁枚数) ÷ 流通量</code>。正=净通缩，负=净通胀。解锁项用过去 12 月实际外推（见 emissions 词条）；38.888% 未来排放与团队 2027-28 解锁洪峰均未计入，是两大悬顶。</dd>
+      <dt>周/月/年环比 与 30d 同比</dt>
+      <dd>环比=本期 vs 上一等长周期（近 7 天 vs 再前 7 天，以此类推）；年环比需 730 天序列覆盖。<b>30d 同比</b>=近 30 天 vs 去年同期 30 天（hl.eco 同款定义），只需 395 天序列，是年度趋势的先行替代。不足时均标"积累中"。</dd>
+      <dt>解押队列</dt>
+      <dd>官方规则（staking 文档）：解除委托有 1 天初始锁定、解除后即时回质押账户；质押账户→现货账户须进 <b>7 天解押队列</b>，且<b>每地址最多同时挂 5 笔</b>；无自动 slashing（jail 仅停发奖励）。队列=已发起、未到期的解押，是<b>唯一的短期（7 天）供给冲击前瞻</b>：解押≠必卖，但出队的币是即时可流通增量；5 笔上限逼大户分批，信号更显眼。与基金会/团队地址追踪卡构成链式预警（先见队列、后见流出）。7 天到期量 >1% 质押总量时告警。</dd>
+      <dt>"积累中"</dt>
+      <dd>该指标依赖自建归档（<code>data/metrics-history.json</code>，每次快照记录官方累计值后做尾随差分——DefiLlama 的 perp 成交量端点已收费，无免费历史源）。归档天数不足窗口长度时如实标注，绝不虚报。周窗口需 ≥7 天归档、月 ≥30、年 ≥365。</dd>
+      <dt>团队收益估算</dt>
+      <dd><code>解锁枚数 × 现价</code> 是"账面可变现"上限估算，非实际套现；实际套现需追踪 HyperLabs 地址链上转出。</dd>
+      <dt>"钱到哪去"的推算规则与依据来源</dt>
+      <dd>三层依据，可信度递减：
+        ① <b>官方文档</b>（<a href="https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees" target="_blank" rel="noopener">hyperliquid-docs · Fees</a>）给出定性框架，原句要点："fees are entirely directed to the community (HLP, the assistance fund, and deployers)"；"Spot and HIP-3 perp deployers may choose to keep up to 50% of trading fees"；AF 用系统地址在 L1 执行层自动将费用换成 HYPE 并销毁。<b>官方未给出 AF:HLP 的精确比例。</b><br>
+        ② <b>DefiLlama 公开 methodology</b>（api.llama.fi summary 随数据返回，与 holdersRevenue 同源）给出精确值："99% of fees go to Assistance Fund…excluding builders fees"；"1% of fees go to HLP Vault suppliers, <b>before 30 Aug 2025 it was 3%</b>"。历史堆叠图已按此分段（2025-08-30 前按 97:3）。<br>
+        ③ <b>本面板推算</b>：AF=实测 holdersRevenue；HLP=AF÷(1−份额)×份额；生态分成=总费用−AF−HLP 的残差（含 builder codes/deployer/Unit，内部占比无免费源可拆）。残差同时吸收了口径统计误差，读作"生态分成为主的漏损项"。</dd>
+    </dl>
+  </details>
+  <details class="fold gloss"><summary>争议项与歧义澄清（外部数字对不上/容易误读的点，先看这里）</summary>
+    <dl>
+      <dt>"HYPE 是通缩币"——本面板结论相反</dt>
+      <dd>按实际口径（年回购+链上销毁 − 年实际解锁），当前是<b>净通胀</b>。hl.eco 的 Real Inflation 页用独立口径（仅计质押增发）同样得出净通胀结论，两套数据链路方向一致。市场叙事只看回购/销毁，漏掉了验证者奖励等持续解锁。且两大悬顶（38.888% 未来排放、团队 2027-28 洪峰）均未计入——计入只会更通胀。</dd>
+      <dt>为什么各站的"销毁总量"对不上</dt>
+      <dd>取决于是否把 AF 持仓算作销毁：hypeburn.fun 只算链上真实销毁（~0.1% 量级）；hl.eco / CoinGecko 把 AF 计入（~4.7% 量级）。本面板双口径分开展示，"合计移出流通"= 两者之和。对外引用先说口径。</dd>
+      <dt>为什么"99% 回购"实际只到 ~7 成</dt>
+      <dd>99% 是"净额"规则：builder codes 返佣、HIP-3 deployer 分成（至多 50%）、Unit 等先从总费用中扣走，剩余净额的 99% 才进 AF。面板的"收入占比"卡是实测总转化率，此比例随生态繁荣而下降是结构性趋势，不是数据错误。</dd>
+      <dt>PE 为什么有好几个数</dt>
+      <dd>主口径 = 官方流通市值 ÷ 当前速率年化回购收入；对照口径 = 过去 1 年实际收入（收入下滑时主口径更高）；若用 CoinGecko 流通口径市值，PE 还会再低 ~1/4。三个都"对"，回答的问题不同：边际 vs 平均 vs 口径敏感性。</dd>
+      <dt>流通量 299M vs 222M 都是"官方"？</dt>
+      <dd>299M 是 Hyperliquid 官方 API 口径（本面板主口径）；222M 是 CoinGecko 口径（把 AF 视同销毁另扣 + 剔除部分非流通持仓）。市值随之差 ~25%。两者不可混用于同一计算。另一个已链上验证的细节：<b>基金会 60M 预算（质押中）被官方计入流通量</b>，而供应构成里的"非流通残差"与 HyperLabs 团队托管地址持仓恒等——所以官方口径的"流通"含基金会储备，比直觉的"市场上流通的币"更宽。</dd>
+      <dt>"Hyperliquid 日成交量"是哪个数</dt>
+      <dd>全平台（主 dex + HIP-3 + spot）约为主 dex（纯加密 perp）的两倍。外部报道常只引主 dex。本面板 24h 卡片给了拆分，引用时注意口径，否则会"翻倍/腰斩"打架。</dd>
+      <dt>HIP-3 量占一半 ≠ 贡献一半收入</dt>
+      <dd>股票 perp 费率低 + deployer 分走至多 50%，量的份额（~5 成）远大于费用份额（个位数百分比）。"量的多元化跑在收入多元化前面"是当前最重要的结构判断之一。</dd>
+      <dt>"未来 12 月解锁"数字很小 ≠ 没有供给压力</dt>
+      <dd>emissions 是实际转出口径，未来排期天然缺失。真实压力在：验证者奖励持续增发（净通胀的主要来源）+ 团队 23.8% 的 2027-2028 集中释放。评估抛压看"未解锁存量"，不看"已排期"。</dd>
+      <dt>ETF 净流入为什么不并入净通缩</dt>
+      <dd>ETF 持仓可赎回，不是永久移出流通（回购进 AF 才是）。它是需求端强度的参照指标，单列展示；并入会污染供给端口径。</dd>
+      <dt>"回购完流通盘 N 年"、"烧完供给 ~百年"怎么读</dt>
+      <dd>都是<b>静态外推</b>：假设当前价格与当前收入速率永远不变，实际两者都在变。前者是 PE 的直觉化读法（有对比价值），后者无区分度仅存档。它们是估值标尺，不是预测。</dd>
+      <dt>解押队列 ≠ 抛压</dt>
+      <dd>出冷却期的币也可能重新质押或持有，解押是"可流通增量"的上界信号。它的价值在于领先 7 天 + 集中度（top5 占比高=单一地址可制造冲击），不在于"队列有多少就会卖多少"。</dd>
+      <dt>"平台零坏账"与 HLP 亏损并存</dt>
+      <dd>零坏账指平台账面不留穿仓损失，实现方式是把损失转移给 HLP 存款人（清算兜底）和被 ADL 的盈利用户（社会化）。HLP 累计盈利说明这门兜底生意整体是赚的，但历次事件（JELLY、10·11）中它就是承压方。</dd>
+    </dl>
+  </details>
+
+  <h2 id="appendix">🔗 口径 · 数据源 · 核对 <span class="sub-h">· 每个指标的核对强度与本次互核结果</span></h2>
+  <details class="fold"><summary>核对覆盖矩阵（每个指标怎么核）</summary>
+    <div id="covTable"></div>
+  </details>
+  <details class="fold"><summary>本次快照核对结果（<span id="checksSummary">…</span>）</summary>
+    <ul class="checks" id="checks"></ul>
+  </details>
+
+  <footer>hyperliquid-monitor · 数据源：Hyperliquid 官方 API / DefiLlama / Hypurrscan / CoinGecko · 人工对照：hl.eco / hypeburn.fun / ASXN</footer>
+</div>
+
+<!-- Chart.js vendor 本地优先（断网/CDN 挂时图表仍在），失败回退 jsdelivr（带 SRI，哈希已与本地副本核对一致） -->
+<script src="./vendor/chart.umd.min.js" onerror="const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';s.integrity='sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4';s.crossOrigin='anonymous';s.referrerPolicy='no-referrer';document.head.appendChild(s)"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const fmtUsd = (n) => n == null || Number.isNaN(n) ? "n/a"
+  : Math.abs(n) >= 1e12 ? `$${(n/1e12).toFixed(2)}T`
+  : Math.abs(n) >= 1e9 ? `$${(n/1e9).toFixed(2)}B`
+  : Math.abs(n) >= 1e6 ? `$${(n/1e6).toFixed(2)}M`
+  : Math.abs(n) >= 1e3 ? `$${(n/1e3).toFixed(1)}K` : `$${n.toFixed(2)}`;
+const fmtTok = (n) => n == null ? "n/a"
+  : Math.abs(n) >= 1e9 ? `${(n/1e9).toFixed(2)}B` : Math.abs(n) >= 1e6 ? `${(n/1e6).toFixed(1)}M`
+  : Math.abs(n) >= 1e3 ? `${(n/1e3).toFixed(1)}K` : `${Math.round(n)}`;
+const fmtPct = (x, d=1) => x == null ? "n/a" : `${(x*100).toFixed(d)}%`;
+const chg = (x) => x == null ? '<span class="na">积累中</span>'
+  : x >= 0 ? `<span class="up">▲+${(x*100).toFixed(1)}%</span>` : `<span class="down">▼${(x*100).toFixed(1)}%</span>`;
+const tile = (label, val, sub, cls="") =>
+  `<div class="card ${cls}"><div class="label">${label}</div><div class="val">${val}</div>${sub ? `<div class="sub">${sub}</div>` : ""}</div>`;
+// 第三方来源字符串(dex 名/Farside 日期/错误信息含 API 响应片段)入 innerHTML 前必须过一遍
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+const C = { accent:"#58a6ff", ok:"#3fb950", warn:"#d29922", alert:"#f85149", purple:"#bc8cff", muted:"#6e7681", orange:"#ffa657" };
+// Chart.js 缺席(本地 vendor 丢失且 CDN 兜底未就绪)时：数据卡片照常渲染，仅图表缺席
+const HAS_CHART = typeof Chart !== "undefined";
+if (HAS_CHART) { Chart.defaults.color = "#8b949e"; Chart.defaults.borderColor = "#30363d"; }
+const dateLbl = (ts) => new Date(ts*1000).toISOString().slice(2,10);
+const baseOpts = (usd=true) => ({
+  responsive: true, maintainAspectRatio: false, interaction: { mode: "index", intersect: false },
+  plugins: { legend: { labels: { boxWidth: 12, font: { size: 11 } } } },
+  scales: { x: { ticks: { maxTicksLimit: 8, font: { size: 10 } }, grid: { display: false } },
+            y: { ticks: { font: { size: 10 }, callback: (v) => usd ? fmtUsd(v) : fmtTok(v) } } },
+});
+
+async function main() {
+  const s = await (await fetch("./data.json", { cache: "no-store" })).json(); // 快照更新后刷新即见，不吃浏览器缓存
+  $("ts").textContent = `快照 ${s.generatedAt.slice(0,16).replace("T"," ")} UTC`;
+  const v = s.volume, fr = s.feesRevenue, val = s.valuation, tk = s.token, b = s.burn;
+  const f = fr.fees, hr = fr.holdersRevenue;
+
+  // ① 交易量
+  $("vol24").innerHTML =
+    tile("24h 全平台成交量", fmtUsd(v.daily.allPlatform), `累计 ${fmtUsd(v.cumulativeAllPlatform)} · 用户 ${v.nUsers?.toLocaleString() ?? "n/a"}`) +
+    tile("主 perp（加密）", fmtUsd(v.daily.mainPerp), "官方主 dex 逐资产求和") +
+    tile("HIP-3 市场", fmtUsd(v.daily.hip3), `占 perp 量 ${fmtPct(v.daily.hip3Share24h)}（7天平滑 ${v.daily.hip3Share7d != null ? fmtPct(v.daily.hip3Share7d) : "积累中"}）· ${esc((v.daily.hip3Top||[]).map(x=>x.dex).join("/"))} 股票为主`, v.daily.hip3 > (v.daily.mainPerp||0) ? "caution" : "") +
+    tile("spot 现货", fmtUsd(v.daily.spotOfficial), `DefiLlama 口径 ${fmtUsd(v.daily.spotDefiLlama)}`);
+  const ap = v.windows.allPlatform, sp = v.windows.spot;
+  const wRow = (name, w7, w30, w1y, c7, c30, cYoy, c1y) =>
+    `<tr><td>${name}</td><td class="num">${w7}</td><td class="num">${c7}</td><td class="num">${w30}</td><td class="num">${c30}</td><td class="num">${cYoy}</td><td class="num">${w1y}</td><td class="num">${c1y}</td></tr>`;
+  const acc = '<span class="na">积累中</span>';
+  const yoy = (x) => x?.yoy30d != null ? chg(x.yoy30d) : acc; // 30d同比：近30d vs 去年同期(hl.eco 同款)
+  const tblHead = `<table><thead><tr><th>指标</th><th class="num">周</th><th class="num">周环比</th><th class="num">月</th><th class="num">月环比</th><th class="num">30d同比</th><th class="num">年</th><th class="num">年环比</th></tr></thead><tbody>`;
+  // 第一区：纯交易量
+  $("volTable").innerHTML = tblHead +
+    `${(() => { // 归档差分窗口：基准点间隔≠标准窗口时如实标注实际天数（如"11天"），避免首次出数虚高误读
+      const w = (x, days) => x ? `${fmtUsd(x.value)}${Math.abs(x.actualDays - days) > 1 ? `<span class="na">(实际${x.actualDays}天)</span>` : ""}` : acc;
+      const pd = v.windows.perpDerived || {};
+      return wRow("全平台成交量", w(ap.week, 7), w(ap.month, 30), w(ap.year, 365), acc, acc, acc, acc)
+        + wRow("Perp 成交量(含HIP-3，派生=全平台−spot)", w(pd.week, 7), w(pd.month, 30), w(pd.year, 365), acc, acc, acc, acc);
+    })()}
+    ${sp ? wRow("spot 成交量", fmtUsd(sp.week), fmtUsd(sp.month), fmtUsd(sp.year), chg(sp.change.week), chg(sp.change.month), yoy(sp), sp.yoyAvailable ? chg(sp.change.year) : acc) : ""}
+  </tbody></table>`;
+  // 第二区：手续费与回购收入的窗口表
+  $("feesTable").innerHTML = tblHead +
+    `${f ? wRow("总手续费", fmtUsd(f.week), fmtUsd(f.month), fmtUsd(f.year), chg(f.change.week), chg(f.change.month), yoy(f), f.yoyAvailable ? chg(f.change.year) : acc) : ""}
+    ${hr ? wRow("回购收入(→AF)", fmtUsd(hr.week), fmtUsd(hr.month), fmtUsd(hr.year), chg(hr.change.week), chg(hr.change.month), yoy(hr), hr.yoyAvailable ? chg(hr.change.year) : acc) : ""}
+  </tbody></table>`;
+
+  // ② 收入与估值
+  $("revenue").innerHTML =
+    tile("总手续费（30d）", fmtUsd(f?.month), `年化 ${fmtUsd(val?.annualFeesUsd)}`) +
+    tile("回购收入（30d）", fmtUsd(hr?.month), `年化 ${fmtUsd(val?.annualHoldersRevenueUsd)} · 占总手续费 ${fmtPct(fr.holdersShare30d)}（名义 99%，扣 builder/deployer 分成后）`) +
+    (val ? tile("PE（主口径：按当前收入速率）", val.pe ? val.pe.toFixed(1) : "n/a", `市值÷年化回购收入，≈回购完流通盘需 ${val.pe?.toFixed(0)} 年；若按过去1年实际收入算=${val.peTrailing1y?.toFixed(1)}（两者差距大→收入在下滑）`) : "") +
+    (val ? tile("回购收益率", fmtPct(val.buybackYield), "= 1/PE，持币人“股息率”") : "");
+  const srcs = fr.sources;
+  $("revNote").innerHTML = `<b>价值捕获路径</b>：交易费 → 99% 自动在链上换成 HYPE 进 AF（销毁池）→ 持币人通过供给收缩获益；<b>协议留存收入恒为 $0</b>，费用全部归社区（AF / HLP / deployer）。AF 累计回购成本 ${fmtUsd(b?.af.costUsd)}，当前持仓市值 ${fmtUsd(b?.af.valueUsd)}（浮盈 ${b?.af.costUsd ? fmtPct(b.af.valueUsd/b.af.costUsd-1,0) : "n/a"}）。`
+    + (srcs ? `<br><b>收入引擎</b>：perp 手续费占 ${fmtPct(srcs.m30.perpShare)}（30d）——收入与加密行情高度绑定；HIP-3 股票市场费用并在 perp 内（免费源不可拆），其成交量占比已过半但费率低+deployer 分走至多 50%，量的多元化跑在收入多元化前面（精确份额见 hl.eco 人工对照）。` : "");
+
+  // ③ 销毁与供应
+  $("burn").innerHTML =
+    tile("链上真实销毁（累计）", fmtTok(b?.onchain.totalTokens) + " HYPE", `spot HYPE 费+EVM gas · 年化 ${b?.onchain.annualTokens != null ? fmtTok(b.onchain.annualTokens) : "积累中"}`) +
+    tile("AF 持仓（视同销毁）", fmtTok(b?.af.tokens) + " HYPE", "2025-12-24 验证者投票通过") +
+    tile("合计移出流通", fmtTok(b?.effectiveRemovedTotal) + " HYPE", `占总量 ${fmtPct(b?.effectiveRemovedTotal/1e9, 2)}`) +
+    tile("年回购速率", fmtTok(b?.buyback.annualTokens) + " HYPE/年", `${fmtUsd(b?.buyback.annualUsd)}/年 按当前30d速率`) +
+    (val ? tile("净通缩率（实际口径）", fmtPct(val.netDeflation.rateOfCirc), `${val.netDeflation.netTokens >= 0 ? "净通缩" : "净通胀"} ${fmtTok(val.netDeflation.netTokens)} HYPE/年`, val.netDeflation.netTokens >= 0 ? "good" : "caution") : "") +
+    (s.etf ? tile("ETF 累计净流入", fmtUsd(s.etf.cumUsd), `单源 Farside·待复核 · ≈${fmtTok(s.etf.cumTokensAtPrice)} HYPE(按现价) · 近7d ${fmtUsd(s.etf.last7dUsd)} · 截至 ${esc(s.etf.lastDate)}`, "good")
+           : tile("ETF 累计净流入", "源降级", "Farside 代理不可用，勿当零流入解读", "caution"));
+  if (val) {
+    const nd = val.netDeflation;
+    $("deflation").innerHTML = `<b>净通缩测算（${nd.unlockBasis}）</b>：年移出 ${fmtTok(nd.removeAnnualTokens)} − 年解锁 ${fmtTok(nd.unlockAnnualTokens)} = <b>${fmtTok(nd.netTokens)} HYPE/年（${fmtPct(nd.rateOfCirc)} 流通盘）</b>。⚠️ ${nd.overhangNote}。${s.etf ? `需求端参照（单列，不并入上式）：ETF 累计吸筹 ≈${fmtTok(s.etf.cumTokensAtPrice)}（按现价折算）。` : ""}脚注：按当前移出速率"烧完全部供给"需 ~${Math.round(val.yearsToZeroFootnote)} 年。`;
+  }
+
+  // ④ 代币与解锁
+  const u = s.unlocks;
+  $("token").innerHTML =
+    tile("HYPE 价格", tk?.priceUsd != null ? `$${tk.priceUsd.toFixed(2)}` : "n/a", `市值(官方口径) ${fmtUsd(tk?.mcapOfficial)} · FDV ${fmtUsd(tk?.fdv)}`) +
+    tile("流通量（官方口径）", fmtTok(tk?.circulatingOfficial), `CoinGecko 口径 ${fmtTok(tk?.circulatingCoinGecko)}`) +
+    tile("总供应 / 上限", `${fmtTok(tk?.totalSupply)} / 1B`, "总供应=上限−链上真实销毁") +
+    tile("未来排放（未排期）", fmtTok(tk?.futureEmissions), "38.888% 分配无公开时间表——最大供给悬顶", "caution") +
+    tile("解锁：过去12月实际 / 已排期未来12月", u?.status === "ok" ? `${fmtTok(u.past12mTokens)} / ${fmtTok(u.next12mTokens)}` : "n/a", "\"已排期\"口径必然偏低≠无供给压力：团队 233M 洪峰在 2027–2028（见下方分配表与团队收益区）", "caution") +
+    (tk?.holders ? tile("持有人数", tk.holders.count.toLocaleString(), `7D ${tk.holders.growth7d != null ? fmtPct(tk.holders.growth7d, 2) : "积累中"} · 30D ${tk.holders.growth30d != null ? fmtPct(tk.holders.growth30d, 2) : "积累中"}（Hypurrscan）`) : "") +
+    // 关键地址追踪（已三重验证）：流出=动用/解锁信号
+    (s.treasury?.addressTracking || []).map((t) => t.totalTok == null
+      ? tile(esc(t.label), "查询失败", "本次快照该地址降级", "caution")
+      : tile(esc(t.label) + "（链上追踪）", `${fmtTok(t.totalTok)} HYPE`,
+          `${fmtUsd(t.totalUsd)} · 自${t.prevDate ?? "—"}变动 ${t.deltaTok == null ? "基准建立中" : (t.deltaTok >= 0 ? "+" : "") + fmtTok(t.deltaTok)}${t.deltaTok != null && t.deltaTok < 0 ? " ⚠️流出" : ""} · ${t.label.includes("Labs") ? "＝结构图红色'托管'段" : "在结构图蓝色'流通'段内(质押中)"}`,
+          t.deltaTok != null && t.deltaTok < -200000 ? "caution" : "")).join("");
+  if (tk?.officialAllocation) {
+    $("allocTable").innerHTML = `<table><thead><tr><th>官方分配</th><th class="num">枚数</th><th class="num">占比</th><th>解锁状态</th></tr></thead><tbody>` +
+      tk.officialAllocation.map((a) => `<tr><td>${a.label}</td><td class="num">${fmtTok(a.tokens)}</td><td class="num">${fmtPct(a.pct, 2)}</td><td style="color:var(--muted)">${a.note || ""}</td></tr>`).join("") +
+      `</tbody></table>`;
+  }
+
+  // ⑤ 团队收益
+  const t = s.teamRevenue;
+  if (t?.status === "ok") {
+    $("team").innerHTML =
+      tile("协议收入分成", "$0", "99%→AF回购，1%→HLP；团队一分未取", "good") +
+      tile("团队已解锁", `${fmtTok(t.unlockedTokens)} HYPE`, `${fmtPct(t.unlockedPct)} of 238M`) +
+      tile("过去12月解锁", `${fmtTok(t.past12mTokens)} HYPE`, `按现价约 ${fmtUsd(t.past12mUsd)}（账面估算）`) +
+      tile("未解锁存量", `${fmtTok(t.remainingTokens)} HYPE`, `现价约 ${fmtUsd(t.remainingUsd)} · 洪峰 2027–2028`, "caution");
+    $("teamNote").innerHTML = `无 VC 融资、无代币销售收入记录。当前年化释放（过去12月 ${fmtTok(t.past12mTokens)}）远小于 2027-2028 洪峰期——届时 ${fmtTok(t.remainingTokens)} 存量进入集中释放，评估团队抛压请看解锁存量而非当前速率。`;
+  }
+
+  // ⑥ HLP 与风险
+  const r = s.risk;
+  if (r?.hlp) {
+    $("hlp").innerHTML =
+      tile("HLP TVL", fmtUsd(r.hlp.tvl), "用户资金池（做市+清算兜底）") +
+      tile("HLP APR", fmtPct(r.hlp.apr, 2), `30d PnL ${fmtUsd(r.hlp.pnlMonth)}`, r.hlp.pnlMonth < 0 ? "caution" : "") +
+      tile("HLP 累计 PnL", fmtUsd(r.hlp.pnlAllTime), "为正=清算兜底业务整体盈利", r.hlp.pnlAllTime > 0 ? "good" : "highlight") +
+      (r.validators ? tile("验证者集中度", `top5 ${fmtPct(r.validators.top5Share)}`, `${r.validators.count} 个验证者（活跃 ${r.validators.active}）· 质押 ${fmtTok(r.validators.totalStakedTokens)}`, r.validators.top5Share > 0.5 ? "caution" : "") : "") +
+      (r.unstaking ? tile("解押队列（7天到期）", `${fmtTok(r.unstaking.next7dTokens)} HYPE`, `${fmtUsd(r.unstaking.next7dUsd)} · ${r.unstaking.wallets} 钱包 · top5 占 ${fmtPct(r.unstaking.top5Share)} · 占质押 ${fmtPct(r.unstaking.shareOfStaked, 2)}`, r.unstaking.shareOfStaked > 0.01 ? "caution" : "")
+                   : tile("解押队列（7天到期）", "源降级", "Hypurrscan 不可用，勿当零解押解读", "caution"));
+  }
+  $("structRisk").innerHTML = `<b>结构性风险</b>：${(r?.structural || []).join("；")}。`;
+  $("events").innerHTML = (r?.events || []).map((e) =>
+    `<li><span class="d">${e.date}</span> · <b>${e.title}</b><br>${e.impact}<br><span class="o">处置：${e.outcome}</span></li>`).join("");
+
+  // 附录：覆盖矩阵 + checks
+  $("covTable").innerHTML = `<table><thead><tr><th>指标</th><th>核对强度</th><th>路径</th></tr></thead><tbody>` +
+    (s.coverage || []).map((c) => `<tr><td>${c.metric}</td><td>${c.level}</td><td style="color:var(--muted)">${c.detail}</td></tr>`).join("") + `</tbody></table>`;
+  $("checks").innerHTML = (s.checks || []).map((c) => `<li><span class="tag ${esc(c.level)}">${esc(c.level)}</span><span>${esc(c.msg)}</span></li>`).join("");
+  const nWarn = (s.checks || []).filter((c) => c.level !== "OK").length;
+  $("checksSummary").textContent = nWarn === 0 ? `${(s.checks || []).length} 项全部通过` : `${nWarn} 项 WARN/ALERT，点开查看`;
+  if (nWarn > 0) $("checksSummary").closest("details").open = true; // 有异常时自动展开
+
+  // ---- 图表 ----
+  const ch = HAS_CHART ? (s.charts || {}) : {}; // 无 Chart.js → 跳过全部图表，数据区不受影响
+  // "周手续费 vs 进AF回购"图已删（与"钱到哪去"堆叠图信息重合：后者=总额+拆分，悬停即见占比）
+  if (ch.spotVolWeekly?.length) {
+    new Chart($("spotVolChart"), { type: "bar", data: {
+      labels: ch.spotVolWeekly.map((p) => dateLbl(p[0])),
+      datasets: [{ label: "spot 周成交量", data: ch.spotVolWeekly.map((p) => p[1]), backgroundColor: C.purple + "88" }] },
+      options: { ...baseOpts(), plugins: { legend: { display: false } } } });
+  }
+  // 来源/去向全历史周堆叠：悬停显示各段金额+当周占比；30d 占比数字保留在上方卡片区
+  const stackedFlowOpts = () => {
+    const o = baseOpts();
+    o.scales.x.stacked = true; o.scales.y.stacked = true;
+    o.plugins.tooltip = { callbacks: {
+      label: (c) => {
+        const rowTotal = c.chart.data.datasets.reduce((s, ds) => s + (ds.data[c.dataIndex] || 0), 0);
+        return ` ${c.dataset.label}: ${fmtUsd(c.parsed.y)}（${rowTotal ? (c.parsed.y / rowTotal * 100).toFixed(1) : 0}%）`;
+      },
+    } };
+    return o;
+  };
+  const stackBar = (id, rows, defs) => {
+    if (!rows?.length || !HAS_CHART) return;
+    new Chart($(id), { type: "bar", data: {
+      labels: rows.map((r) => dateLbl(r[0])),
+      datasets: defs.map(([label, idx, color]) => ({ label, data: rows.map((r) => r[idx]), backgroundColor: color + "99", stack: "s" })),
+    }, options: stackedFlowOpts() });
+  };
+  stackBar("revSrcChart", ch.srcWeekly, [["Perp(含HIP-3)", 1, C.accent], ["Spot", 2, C.purple], ["长尾(拍卖/gas,推算)", 3, C.muted]]);
+  stackBar("revDstChart", ch.dstWeekly, [["AF 回购(→持币人)", 1, C.ok], ["生态分成(推断)", 2, C.warn], ["HLP(1%规则推算)", 3, C.accent]]);
+  if (ch.hypurrCumFees?.length) {
+    new Chart($("hypurrChart"), { type: "line", data: {
+      labels: ch.hypurrCumFees.map((p) => dateLbl(p[0])),
+      datasets: [{ label: "累计手续费", data: ch.hypurrCumFees.map((p) => p[1]), borderColor: C.orange, pointRadius: 0, borderWidth: 2, fill: false }] },
+      options: { ...baseOpts(), plugins: { legend: { display: false } } } });
+  }
+  // 旧"供应构成(占总量10亿)"图已删：与 sec4 的"当前供给结构(有效口径)"语义重叠，
+  // 后者决策价值更高；总量口径的静态构成由折叠分配表覆盖。charts.composition 数据保留
+  // （effSupplyChart 的 HyperLabs 取值 + snapshot 恒等检查仍依赖）。
+  // 当前供给结构（有效口径）：分母=总供应−AF(视同销毁)，此时 流通+托管+未来排放 恒等闭合；
+  // AF 段灰色仅示意其规模，不参与占比分母
+  if (tk && b?.af.tokens != null && HAS_CHART) {
+    const labs = (ch.composition || []).find((c) => c.label.includes("HyperLabs"))?.tokens ?? null;
+    const eff = tk.totalSupply - b.af.tokens;
+    if (labs != null && eff > 0) {
+      const seg = [
+        { label: "流通（官方口径）", tok: tk.circulatingOfficial, color: C.accent },
+        { label: "HyperLabs 托管（团队锁仓+未来分配）", tok: labs, color: C.alert },
+        { label: "未来排放（未排期）", tok: tk.futureEmissions, color: C.warn },
+      ];
+      new Chart($("effSupplyChart"), { type: "doughnut", data: {
+        labels: [...seg.map((x) => `${x.label} ${fmtPct(x.tok / eff)} · ${fmtTok(x.tok)}`), `AF ${fmtTok(b.af.tokens)}（视同销毁·不计分母）`],
+        datasets: [{ data: [...seg.map((x) => x.tok), b.af.tokens],
+          backgroundColor: [...seg.map((x) => x.color + "cc"), "#484f58"], borderColor: "#0d1117", borderWidth: 2 }] },
+        options: { responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } },
+            tooltip: { callbacks: { label: (c) => c.dataIndex < 3 ? ` ${fmtTok(c.parsed)} HYPE · 占有效供给 ${fmtPct(c.parsed / eff)}` : ` ${fmtTok(c.parsed)} HYPE（不计分母）` } } } } });
+    }
+  }
+  const proj = s.unlockProjection;
+  if (proj?.status === "ok" && HAS_CHART) {
+    new Chart($("projChart"), { data: {
+      labels: proj.quarters.map((q) => q.label),
+      datasets: [
+        { type: "bar", label: "团队解锁（情景）", data: proj.quarters.map((q) => q.teamTok), backgroundColor: C.alert + "99", stack: "u" },
+        { type: "bar", label: "验证者奖励（实测速率外推）", data: proj.quarters.map((q) => q.validatorTok), backgroundColor: C.accent + "99", stack: "u" },
+        { type: "line", label: "当前回购速率（枚/季）", data: proj.quarters.map((q) => q.buybackTok), borderColor: C.ok, borderWidth: 2, pointRadius: 0, borderDash: [6, 4] },
+      ] },
+      options: { ...baseOpts(false), scales: { x: { stacked: true, ticks: { maxTicksLimit: 18, font: { size: 10 } }, grid: { display: false } }, y: { stacked: true, ticks: { font: { size: 10 }, callback: (v) => fmtTok(v) } } } } });
+    $("projNote").innerHTML = `<b>洪峰读法</b>：情景下解锁峰值在 <b>${esc(proj.peak.label)}</b>，约 ${fmtTok(proj.peak.totalTok)} HYPE/季 ≈ 当前回购承接力的 <b>${proj.peak.vsBuyback?.toFixed(1)} 倍</b>。假设：${esc(proj.assumptions)}`;
+  }
+  const uc = ch.unlockCumulative || {};
+  const ucLabels = Object.keys(uc);
+  if (ucLabels.length) {
+    const base = uc[ucLabels[0]].map((p) => dateLbl(p[0]));
+    new Chart($("unlockChart"), { type: "line", data: { labels: base,
+      datasets: ucLabels.map((l, i) => ({ label: l === "Core Contributors" ? "团队(核心贡献者)" : l === "Validator Rewards" ? "验证者奖励" : l,
+        data: uc[l].map((p) => p[1]), borderColor: [C.alert, C.accent, C.warn][i % 3], pointRadius: 0, borderWidth: 2, fill: false })) },
+      options: baseOpts(false) });
+  }
+  if (ch.etfWeekly?.length) {
+    new Chart($("etfChart"), { type: "bar", data: {
+      labels: ch.etfWeekly.map((p) => dateLbl(p[0])),
+      datasets: [{ label: "周净流量", data: ch.etfWeekly.map((p) => p[1]),
+        backgroundColor: ch.etfWeekly.map((p) => p[1] >= 0 ? C.ok + "aa" : C.alert + "aa") }] },
+      options: { ...baseOpts(), plugins: { legend: { display: false } } } });
+  }
+  if (ch.holdersSeries?.length) {
+    // 相邻点间隔 >30 天视为空档：插 null 断线，不做跨空档插值
+    const pts = [], lbls = [];
+    for (let i = 0; i < ch.holdersSeries.length; i++) {
+      const [t, c] = ch.holdersSeries[i];
+      if (i > 0 && t - ch.holdersSeries[i-1][0] > 30 * 86400) { lbls.push("…停更…"); pts.push(null); }
+      lbls.push(dateLbl(t)); pts.push(c);
+    }
+    new Chart($("holdersChart"), { type: "line", data: { labels: lbls,
+      datasets: [{ label: "持有人数", data: pts, borderColor: C.purple, pointRadius: 2, borderWidth: 2, fill: false, spanGaps: false }] },
+      options: { ...baseOpts(false), plugins: { legend: { display: false } } } });
+  }
+  if (ch.hlpPnl?.length) {
+    new Chart($("hlpChart"), { type: "line", data: {
+      labels: ch.hlpPnl.map((p) => dateLbl(p[0])),
+      datasets: [
+        { label: "累计 PnL", data: ch.hlpPnl.map((p) => p[1]), borderColor: C.ok, pointRadius: 0, borderWidth: 2, fill: false },
+        { label: "账户价值(TVL)", data: (ch.hlpAccountValue || []).map((p) => p[1]), borderColor: C.accent, pointRadius: 0, borderWidth: 2, fill: false },
+      ] }, options: baseOpts() });
+  }
+}
+main().catch((e) => { $("ts").textContent = "数据加载失败: " + e.message; });
+</script>
+</body>
+</html>
