@@ -50,12 +50,16 @@
   .tag.OK { background: rgba(63,185,80,.15); color: var(--ok); }
   .tag.WARN { background: rgba(210,153,34,.15); color: var(--warn); }
   .tag.ALERT { background: rgba(248,81,73,.15); color: var(--alert); }
+  /* 表格容器：宽表在窄屏(手机)横向滚动，页面本身不横向溢出（原 overflow:hidden 会裁掉右侧列） */
+  .table-wrap { margin-top: 12px; overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; -webkit-overflow-scrolling: touch; }
+  .table-wrap table { margin-top: 0; border: none; border-radius: 0; }
   table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px;
-    background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px; }
   th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); }
   th { color: var(--muted); font-weight: 600; font-size: 12px; background: rgba(110,118,129,.08); }
   tr:last-child td { border-bottom: none; }
-  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  /* 数值列不换行（窄屏时整表在容器内横滑）；文字列(路径/解锁状态)照常换行不撑宽 */
   .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin-top: 12px; }
   .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 14px 8px; height: 300px; position: relative; }
   .chart-box h3 { margin: 0 0 10px; font-size: 13px; color: var(--muted); font-weight: 600; }
@@ -101,13 +105,13 @@
 
   <h2 id="sec1">📊 交易量 <span class="sub-h">· 24h 拆分（主 perp / HIP-3 股票 / spot）+ 周月年窗口与环比</span></h2>
   <div class="grid" id="vol24"></div>
-  <div id="volTable"></div>
+  <div id="volTable" class="table-wrap"></div>
   <div class="grid2">
     <div class="chart-box"><h3>spot 周成交量（全历史，周聚合）</h3><div class="cv"><canvas id="spotVolChart"></canvas></div></div>
   </div>
 
   <h2 id="sec2">💵 手续费收入与估值 <span class="sub-h">· 协议留存 $0：交易费扣除 builder/deployer 分成后自动回购 HYPE 进 AF（实际占比见卡片）；估值锚 = 回购现金流</span></h2>
-  <div id="feesTable"></div>
+  <div id="feesTable" class="table-wrap"></div>
   <div class="grid" id="revenue"></div>
   <div class="callout" id="revNote"></div>
   <div class="grid2">
@@ -121,7 +125,7 @@
   <h2 id="sec4">🪙 代币与解锁 <span class="sub-h">· 存量结构：价格/市值 + 币在哪（供给结构/地址追踪）+ 什么时候出来（解锁节奏，洪峰 2027–2028）</span></h2>
   <div class="grid" id="token"></div>
   <details class="fold"><summary>官方创世分配表（白皮书静态内容，点开查看）</summary>
-    <div id="allocTable"></div>
+    <div id="allocTable" class="table-wrap"></div>
   </details>
   <div class="grid2">
     <div class="chart-box"><h3>当前供给结构（有效口径：分母=总供应−AF；AF 灰色仅示意）</h3><div class="cv"><canvas id="effSupplyChart"></canvas></div></div>
@@ -237,7 +241,7 @@
 
   <h2 id="appendix">🔗 口径 · 数据源 · 核对 <span class="sub-h">· 每个指标的核对强度与本次互核结果</span></h2>
   <details class="fold"><summary>核对覆盖矩阵（每个指标怎么核）</summary>
-    <div id="covTable"></div>
+    <div id="covTable" class="table-wrap"></div>
   </details>
   <details class="fold"><summary>本次快照核对结果（<span id="checksSummary">…</span>）</summary>
     <ul class="checks" id="checks"></ul>
