@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lighter / LIT 监控面板</title>
+<style>
+  :root {
+    --bg: #0d1117; --card: #161b22; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+    --warn: #d29922; --alert: #f85149; --ok: #3fb950; --pending: #6e7681; --purple: #bc8cff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, "Segoe UI", "PingFang SC", Roboto, sans-serif; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 32px 20px 60px; }
+  header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  h1 { font-size: 22px; margin: 0; }
+  .ts { color: var(--muted); font-size: 13px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+  h2 { font-size: 14px; color: var(--muted); text-transform: uppercase;
+    letter-spacing: .04em; margin: 44px 0 12px; padding-top: 22px;
+    border-top: 1px solid var(--border); font-weight: 600; }
+  h2 .sub-h { font-size: 13px; color: var(--muted); font-weight: 400; text-transform: none; }
+  .toc { position: sticky; top: 0; z-index: 10; background: rgba(13,17,23,.94);
+    backdrop-filter: blur(6px); display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 10px 0; margin: 18px 0 2px; border-bottom: 1px solid var(--border); }
+  .toc a { font-size: 12px; color: var(--muted); text-decoration: none;
+    padding: 4px 11px; border: 1px solid var(--border); border-radius: 999px; white-space: nowrap; }
+  .toc a:hover { color: var(--accent); border-color: var(--accent); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 12px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .card .label { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+  .card .val { font-size: 24px; font-weight: 700; }
+  .card .sub { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .card.highlight { border-color: var(--alert); }
+  .card.highlight .val { color: var(--alert); }
+  .card.caution { border-color: var(--warn); }
+  .card.caution .val { color: var(--warn); }
+  .card.good .val { color: var(--ok); }
+  .up { color: var(--ok); } .down { color: var(--alert); } .na { color: var(--pending); }
+  .callout { background: var(--card); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 16px; margin-top: 12px;
+    font-size: 14px; line-height: 1.6; }
+  .callout.warn { border-left-color: var(--warn); }
+  .checks { list-style: none; padding: 0; margin: 12px 0 0; }
+  .checks li { padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
+    margin-bottom: 8px; font-size: 13px; display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+  .tag { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; flex-shrink: 0; }
+  .tag.OK { background: rgba(63,185,80,.15); color: var(--ok); }
+  .tag.WARN { background: rgba(210,153,34,.15); color: var(--warn); }
+  .tag.ALERT { background: rgba(248,81,73,.15); color: var(--alert); }
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; background: rgba(110,118,129,.08); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin-top: 12px; }
+  .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 14px 8px; height: 300px; position: relative; }
+  .chart-box h3 { margin: 0 0 10px; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .chart-box .cv { position: relative; height: 240px; }
+  footer { color: var(--muted); font-size: 12px; margin-top: 40px; text-align: center; }
+  a { color: var(--accent); }
+  .timeline { list-style: none; padding: 0; margin: 12px 0 0; }
+  .timeline li { border-left: 2px solid var(--border); padding: 0 0 14px 16px; margin-left: 6px; position: relative; font-size: 13px; line-height: 1.6; }
+  .timeline li::before { content: ""; position: absolute; left: -6px; top: 4px; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--warn); border: 2px solid var(--bg); }
+  .timeline .d { color: var(--muted); font-size: 12px; }
+  .timeline b { color: var(--text); }
+  .timeline .o { color: var(--muted); }
+  details.fold { margin-top: 12px; }
+  details.fold > summary { cursor: pointer; font-size: 13px; color: var(--muted);
+    padding: 9px 14px; border: 1px solid var(--border); border-radius: 8px;
+    background: var(--card); user-select: none; }
+  details.fold > summary:hover { color: var(--text); border-color: var(--accent); }
+  details.fold[open] > summary { margin-bottom: 8px; color: var(--text); }
+  .gloss dl { margin: 10px 0 4px; }
+  .gloss dt { font-size: 13px; font-weight: 600; margin-top: 12px; }
+  .gloss dd { font-size: 13px; color: var(--muted); margin: 4px 0 0 0; line-height: 1.7; }
+  .gloss code { background: rgba(110,118,129,.15); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+  /* 闭环图 */
+  .flowcol { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .flowcol > h3 { margin: 0 0 10px; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .flow { display: flex; flex-direction: column; gap: 5px; }
+  .fnode { background: rgba(110,118,129,.07); border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; font-size: 13px; line-height: 1.5; }
+  .fnode b { font-size: 15px; }
+  .fnode .sub { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .fnode.ghost { border-style: dashed; color: var(--muted); background: transparent; }
+  .fnode.result-ok { border-color: var(--ok); }
+  .fnode.result-bad { border-color: var(--alert); }
+  .farrow { color: var(--muted); font-size: 12px; padding-left: 14px; }
+  .farrow b { color: var(--text); }
+  .fsplit { color: var(--muted); font-size: 11px; text-align: center; margin: 6px 0 2px; letter-spacing: .05em; }
+  .brow { margin-top: 6px; font-size: 13px; }
+  .btrack { height: 8px; background: rgba(110,118,129,.12); border-radius: 4px; margin-top: 4px; overflow: hidden; }
+  .bfill { height: 100%; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Lighter / LIT 监控面板</h1>
+    <span class="ts" id="ts">加载中…</span>
+  </header>
+
+  <nav class="toc">
+    <a href="#sec1">交易量</a>
+    <a href="#sec2">手续费收入与估值</a>
+    <a href="#sec3">代币与解锁</a>
+    <a href="#sec4">销毁·回购·质押</a>
+    <a href="#sec5">团队收入</a>
+    <a href="#sec6">金库资金流</a>
+    <a href="#sec7">风险</a>
+    <a href="#glossary">名词与规则</a>
+    <a href="#appendix">口径与核对</a>
+  </nav>
+
+  <h2 id="sec1">交易量 <span class="sub-h">· 24h（官方）+ 周月年窗口与环比（官方精确日序列，2025-01-17 起）</span></h2>
+  <div class="grid" id="vol24"></div>
+  <div id="volTable"></div>
+  <div class="grid2">
+    <div class="chart-box" style="grid-column: 1 / -1;"><h3>周成交量（官方日序列全历史，周聚合；2025Q4 高峰为空投 farming 期）</h3><div class="cv"><canvas id="volChart"></canvas></div></div>
+  </div>
+
+  <h2 id="sec2">手续费收入与估值 <span class="sub-h">· 散户零手续费：手续费=premium/大户实付；交易手续费（协议收入层）100% 回购 LIT（2026-06-30 起回购即销毁）；估值锚=回购现金流</span></h2>
+  <div id="feesTable"></div>
+  <div class="grid" id="revenue"></div>
+  <details class="fold"><summary>口径说明（总手续费 / 协议收入 / 回购金额的差值构成与统计范围）</summary><div class="callout" id="revNote"></div></details>
+  <div class="grid2">
+    <div class="chart-box"><h3>周手续费（DefiLlama）vs 周回购金额（官方，TGE 起）</h3><div class="cv"><canvas id="feesChart"></canvas></div></div>
+    <div class="chart-box"><h3>周协议收入 revenue（清算费归 LLP 不在内）</h3><div class="cv"><canvas id="revChart"></canvas></div></div>
+  </div>
+
+  <h2 id="sec3">代币与解锁 <span class="sub-h">· 存量结构：币在哪 + 什么时候出来（锁定期 cliff 拐点 2026-12-28，团队+投资人 ~50% 开闸）</span></h2>
+  <div class="grid" id="token"></div>
+  <details class="fold"><summary>官方分配表（1B 总量，点开查看）</summary>
+    <div id="allocTable"></div>
+  </details>
+  <div class="grid2">
+    <div class="chart-box"><h3>当前供应构成（六段恒等，合计≈1B）</h3><div class="cv"><canvas id="compChart"></canvas></div></div>
+    <div class="chart-box"><h3>累计解锁排期（团队 / 投资人，emissions 纸面排期）</h3><div class="cv"><canvas id="unlockChart"></canvas></div></div>
+  </div>
+  <div class="callout warn" id="cliffNote"></div>
+
+  <h2 id="sec4">销毁 · 回购 · 质押 <span class="sub-h">· 供给变化率三项：销毁（链上实测）− 质押奖励释放（生态储备存量）− 排期解锁 → 净通缩率</span></h2>
+  <div class="grid" id="burn"></div>
+  <div class="flowcol" style="margin-top: 12px"><h3>代币流闭环：净通缩率 = 销毁 − 质押奖励释放 − 排期解锁</h3><div class="flow" id="tokenFlow"></div></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>已销毁存量（面积=推导：官方回购累计，06-30 前为买回持有期；点=链上实测锚点）</h3><div class="cv"><canvas id="deadChart"></canvas></div></div>
+    <div class="chart-box"><h3>质押量（L2 池余额，每周归档）</h3><div class="cv"><canvas id="stakedChart"></canvas></div></div>
+  </div>
+
+  <h2 id="sec5">团队收入 <span class="sub-h">· 三段结构：代币解锁（cliff 中=0）+ 交易费分成（新规=0）+ 场外金库收益（不透明）</span></h2>
+  <div class="grid" id="team"></div>
+  <div class="callout" id="teamNote"></div>
+
+  <h2 id="sec6">金库资金流 <span class="sub-h">· 项目赚什么钱、钱花到哪去（无 DAO 公开报表，可量化项与不可得项如实分列）</span></h2>
+  <div class="flowcol" style="margin-top: 12px"><h3>现金流闭环（美元，按 30d 速率年化）</h3><div class="flow" id="cashFlow"></div></div>
+  <details class="fold"><summary>收支明细表（逐项可量化性）</summary>
+    <div id="treasuryTable"></div>
+    <div class="callout" id="treasuryNote"></div>
+  </details>
+
+  <h2 id="sec7">风险 <span class="sub-h">· OI/TVL 杠杆敞口 + 事件台账（10·11 宕机是已兑现一次的结构性风险）</span></h2>
+  <div class="grid" id="risk"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>未平仓合约 OI（美元，每周归档）</h3><div class="cv"><canvas id="oiChart"></canvas></div></div>
+  </div>
+  <details class="fold"><summary>风险事件台账与结构性风险（点开查看）</summary>
+    <div class="callout" id="structRisk"></div>
+    <ul class="timeline" id="events"></ul>
+  </details>
+
+  <h2 id="glossary">名词解释与规则说明 <span class="sub-h">· 口径定义、计算公式、机制说明（静态内容）</span></h2>
+  <details class="fold gloss"><summary>名词解释（零手续费模型 / holdersRevenue / 两阶段回购 / 有效流通 / LLP…）</summary>
+    <dl>
+      <dt>零手续费模型下的 "fees"</dt>
+      <dd>Lighter 对散户 maker/taker 均为 0 费（orderBookDetails 实测 0.0000）。DefiLlama 的 <b>Fees</b> = premium 账户/大户实际支付的 maker/taker 费；<b>Revenue</b> = maker/taker/transfer/withdraw 费（<b>清算费不计入，归 LLP</b>）；<b>HoldersRevenue</b> = 用于 LIT 回购的部分。所以 fees 数字远小于同体量收费型 perp DEX，这是商业模式差异不是数据错误。</dd>
+      <dt>两阶段回购</dt>
+      <dd>TGE(2025-12-30)–2026-06-30 为 <b>buyback-and-hold</b>（回购持有）；2026-06-30 起官方规则改为 <b>100% 交易手续费收入每日 24h TWAP 回购并永久销毁</b>（提至主网 0xdEaD）。首销毁 15,638,702 枚已链上验证。跨阶段对比回购数据时注意语义变化。</dd>
+      <dt>有效流通</dt>
+      <dd><code>CoinGecko 流通 250M − 链上 dead 余额</code>。CG 的 250M 是人工配置值（=S1+S2 空投总量），未扣已销毁部分——本面板市值/PE/占比全部用有效流通自算口径，与 CG/CMC 显示的市值差 ~6%。</dd>
+      <dt>质押（与前 5 个项目都不同的模块）</dt>
+      <dd>质押发生在 zkLighter L2 内部池（主网无质押合约）。奖励从<b>生态储备 250M</b> 的已铸造存量中释放（总量 10 亿不变，非新铸造，但流通盘被稀释）；官方目标 6% 年化且<b>团队可调</b>，API 的 APY 字段恒 0 不可读。质押是 LLP 准入条件之一，锁定了近半流通盘。</dd>
+      <dt>LLP（Lighter Liquidity Pool）</dt>
+      <dd>做市与清算兜底资金池（角色类似 Hyperliquid 的 HLP）：清算费归它、极端行情亏损由它吸收（10·11 宕机夜 LLP -5.35% 即此）。无公开专属 API，动态监控暂以 OI/TVL 比值为代理。</dd>
+      <dt>回购金额的双源结构（2026-07-14 升级）</dt>
+      <dd>主源 = 官方 <code>exchangeMetrics?kind=buyback / buyback_usdc</code>（与 app.lighter.xyz/stats 回购页同源，含精确枚数）；互核源 = DefiLlama holdersRevenue（30d 口径实测偏差 ~2%）。链上锚：官方累计回购枚数 − dead 余额 = 已买未销在途量，应为小正数，异常即告警。回购在自有 L2 执行、主网不可直接解码，故链上只能核"销毁存量"不能核"回购流水"。</dd>
+      <dt>emissions（解锁数据）</dt>
+      <dd>DefiLlama 解锁数据集。对 Lighter 是<b>纸面排期</b>口径且排期完整（与 Hyperliquid 的"实际转出"口径相反）：团队 259.8M、投资人 239.8M 均 1 年 cliff 后 ~3 年线性，2026-12-28 开闸。生态储备 250M 无排期（TBD），不在曲线内。</dd>
+      <dt>日量序列（官方 exchangeMetrics）</dt>
+      <dd>主口径 = 官方未文档化端点 <code>exchangeMetrics?kind=volume</code>（从官方 stats 页前端逆向确认），精确日交易量，2025-01-17 起。CoinGecko 量表（BTC 计价换算，滚动 24h 采样）降级为互核源，30 天求和比对（阈值 15%）。官方端点未文档化、可能变动——挂掉时自动回退归档并 WARN。</dd>
+    </dl>
+  </details>
+  <details class="fold gloss"><summary>计算公式与统计规则（PE / 回购收益率 / 净通缩 / 环比 / 积累中）</summary>
+    <dl>
+      <dt>PE（当前回购速率）</dt>
+      <dd><code>有效流通市值 ÷ 年化 holdersRevenue(30d×365/30)</code>。因交易费 100% 用于回购，此 PE 同时等于"按当前速率回购完全部有效流通盘所需年数"。另列 TGE 以来年化口径作对照——当前速率 PE 高于它，说明回购收入相对早期在下降（farming 退潮）。</dd>
+      <dt>回购收益率</dt>
+      <dd><code>1/PE</code>，持币人"股息率"视角。注意分子只含交易费回购——金库存款收益/Circle 分成/LLP 结构收益未计入（不可量化），真实赚钱能力的方向性偏差是<b>被低估</b>。</dd>
+      <dt>净通缩率</dt>
+      <dd><code>(年销毁 − 质押奖励释放估算 − 未来12月已排期解锁) ÷ 有效流通</code>。正=净通缩，负=净通胀。三项口径：销毁用链上差分实测（出数前以回购年化枚数为前瞻代理）；质押奖励释放=目标 6%×质押量（上限估算，生态储备存量非新铸造）；解锁用纸面排期（cliff 拐点在册，可信）。生态储备 250M 无排期未计入——计入只会更通胀。</dd>
+      <dt>周/月/年环比 与 30d 同比</dt>
+      <dd>环比=本期 vs 上一等长周期；年环比需 730 天序列（Lighter 上线 2025-09，2027-09 后才有）；30d 同比=近 30 天 vs 去年同期（需 395 天，约 2026-10 起可用）。不足标"积累中"，绝不虚报。</dd>
+      <dt>质押奖励释放为什么是"估算"</dt>
+      <dd>实际发放无公开报表且比率团队可调。取 <code>目标 APR × 当前质押量</code> 为上限口径；同时归档质押池余额做差分，若余额激增与用户新增质押不符（奖励注入/规则变化）触发 WARN 人工核对。</dd>
+      <dt>团队收入估算</dt>
+      <dd>cliff 中团队解锁=0，"未来 12 月解锁 × 现价"是账面可变现上限估算，非实际套现。融资 $68M 是运营资金主要来源（一次性）。</dd>
+    </dl>
+  </details>
+  <details class="fold gloss"><summary>争议项与歧义澄清（外部数字对不上/容易误读的点，先看这里）</summary>
+    <dl>
+      <dt>"LIT 在通缩"——当前窗口结论相反</dt>
+      <dd>回购销毁年化 ~10M 枚看着不小，但未来 12 月窗口已含 cliff 后 ~90M 枚解锁 + 质押奖励释放 ~6M 枚，<b>净通胀两位数百分比</b>。通缩叙事只在"只看销毁不看解锁"时成立。2026-12-28 前的纯流通盘阶段（解锁=0 的月份）确实是净通缩的，跨过 cliff 结论反转。</dd>
+      <dt>市值和 CG/CMC 对不上</dt>
+      <dd>本面板市值=有效流通(250M−dead)×价格，比 CG 的 250M 口径低 ~6%。CG 未扣销毁（250M 是人工配置值）。若 CG 某天开始扣减，核对项会提示口径重审。</dd>
+      <dt>"年化收入 $26M" 是什么口径</dt>
+      <dd>本面板回购年化（holdersRevenue 30d×12）≈$26M，与外部报道的"annualised revenue"量级一致。但外部口径常混入 LLP 收益/金库利息/Circle 分成——那些不进回购、也无公开数。引用时说清楚：<b>$26M 是"进回购的交易费"口径</b>。</dd>
+      <dt>fees 只有几十万美元/周，是不是很差</dt>
+      <dd>散户 0 费的获客换量策略下，费用基数=premium/大户费。看趋势（环比）比看绝对值有意义；商业模式的完整收入还有不可量化的场外三项（见金库板块）。</dd>
+      <dt>质押 45%+ 流通盘是好事吗</dt>
+      <dd>双面：锁定供给（利好价格）；但奖励从生态储备存量释放=用流通盘稀释买锁定，且 LLP 准入绑定质押=解押潮与 LLP 缩水可能同时发生（流动性螺旋风险）。</dd>
+      <dt>首销毁 15,638,702 vs 报道的 "15.5M"</dt>
+      <dd>链上 dead 余额精确值 15,638,703（含尘埃转账）；媒体四舍五入为 15.5M。以链上为准。</dd>
+    </dl>
+  </details>
+
+  <h2 id="appendix">口径 · 数据源 · 核对 <span class="sub-h">· 每个指标的核对强度与本次互核结果</span></h2>
+  <details class="fold"><summary>核对覆盖矩阵（每个指标怎么核）</summary>
+    <div id="covTable"></div>
+  </details>
+  <details class="fold"><summary>本次快照核对结果（<span id="checksSummary">…</span>）</summary>
+    <ul class="checks" id="checks"></ul>
+  </details>
+
+  <footer>lighter-monitor · 自动核对源：Lighter 官方 API / DefiLlama / CoinGecko / 以太坊链上 · 人工对照：<a href="https://app.lighter.xyz/stats?tab=buybacks" target="_blank" rel="noopener">官方 stats</a> / <a href="https://lightalytics.com/" target="_blank" rel="noopener">lightalytics</a> / <a href="https://litdash.xyz/" target="_blank" rel="noopener">litdash</a> · 官方规则出处：<a href="https://docs.lighter.xyz/about-lighter/lit-utility" target="_blank" rel="noopener">docs.lighter.xyz</a></footer>
+</div>
+
+<!-- Chart.js vendor 本地优先（断网/CDN 挂时图表仍在），失败回退 jsdelivr（带 SRI） -->
+<script src="./vendor/chart.umd.min.js" onerror="const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';s.integrity='sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4';s.crossOrigin='anonymous';s.referrerPolicy='no-referrer';document.head.appendChild(s)"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const fmtUsd = (n) => n == null || Number.isNaN(n) ? "n/a"
+  : Math.abs(n) >= 1e12 ? `$${(n/1e12).toFixed(2)}T`
+  : Math.abs(n) >= 1e9 ? `$${(n/1e9).toFixed(2)}B`
+  : Math.abs(n) >= 1e6 ? `$${(n/1e6).toFixed(2)}M`
+  : Math.abs(n) >= 1e3 ? `$${(n/1e3).toFixed(1)}K` : `$${n.toFixed(2)}`;
+const fmtTok = (n) => n == null ? "n/a"
+  : Math.abs(n) >= 1e9 ? `${(n/1e9).toFixed(2)}B` : Math.abs(n) >= 1e6 ? `${(n/1e6).toFixed(1)}M`
+  : Math.abs(n) >= 1e3 ? `${(n/1e3).toFixed(1)}K` : `${Math.round(n)}`;
+const fmtPct = (x, d=1) => x == null ? "n/a" : `${(x*100).toFixed(d)}%`;
+const chg = (x) => x == null ? '<span class="na">积累中</span>'
+  : x >= 0 ? `<span class="up">▲+${(x*100).toFixed(1)}%</span>` : `<span class="down">▼${(x*100).toFixed(1)}%</span>`;
+const tile = (label, val, sub, cls="") =>
+  `<div class="card ${cls}"><div class="label">${label}</div><div class="val">${val}</div>${sub ? `<div class="sub">${sub}</div>` : ""}</div>`;
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+const C = { accent:"#58a6ff", ok:"#3fb950", warn:"#d29922", alert:"#f85149", purple:"#bc8cff", muted:"#6e7681", orange:"#ffa657" };
+const HAS_CHART = typeof Chart !== "undefined";
+if (HAS_CHART) { Chart.defaults.color = "#8b949e"; Chart.defaults.borderColor = "#30363d"; }
+const dateLbl = (ts) => new Date(ts*1000).toISOString().slice(2,10);
+const baseOpts = (usd=true) => ({
+  responsive: true, maintainAspectRatio: false, interaction: { mode: "index", intersect: false },
+  plugins: { legend: { labels: { boxWidth: 12, font: { size: 11 } } } },
+  scales: { x: { ticks: { maxTicksLimit: 8, font: { size: 10 } }, grid: { display: false } },
+            y: { ticks: { font: { size: 10 }, callback: (v) => usd ? fmtUsd(v) : fmtTok(v) } } },
+});
+const barChart = (id, series, label, color, usd=true) => {
+  if (!HAS_CHART || !series?.length) return;
+  new Chart($(id), { type: "bar",
+    data: { labels: series.map((p) => dateLbl(p[0])), datasets: [{ label, data: series.map((p) => p[1]), backgroundColor: color }] },
+    options: baseOpts(usd) });
+};
+const lineChart = (id, series, label, color, usd=true) => {
+  if (!HAS_CHART || !series?.length) return;
+  new Chart($(id), { type: "line",
+    data: { labels: series.map((p) => dateLbl(p[0])), datasets: [{ label, data: series.map((p) => p[1]), borderColor: color, backgroundColor: color + "33", fill: true, pointRadius: series.length < 20 ? 3 : 0, tension: .2 }] },
+    options: baseOpts(usd) });
+};
+
+async function main() {
+  const s = await (await fetch("./data.json", { cache: "no-store" })).json();
+  $("ts").textContent = `快照 ${s.generatedAt.slice(0,16).replace("T"," ")} UTC`;
+  const v = s.volume, fr = s.feesRevenue, val = s.valuation, tk = s.token, b = s.burn, st = s.staking, t = s.teamRevenue, r = s.risk, nd = val?.netDeflation;
+
+  // ① 交易量
+  $("vol24").innerHTML =
+    tile("24h 成交量（官方）", fmtUsd(v.daily.official), `CoinGecko 互核 ${fmtUsd(v.daily.cgSeries)}`) +
+    tile("24h 成交笔数", v.daily.trades?.toLocaleString() ?? "n/a", `${v.daily.markets ?? "n/a"} 个市场`) +
+    tile("锁仓量（TVL）", fmtUsd(s.tvl), "DefiLlama");
+  const acc = '<span class="na">积累中</span>';
+  if (v.windows) {
+    const w = v.windows;
+    $("volTable").innerHTML =
+      `<table><thead><tr><th>指标</th><th class="num">周</th><th class="num">周环比</th><th class="num">月</th><th class="num">月环比</th><th class="num">30d同比</th><th class="num">年</th><th class="num">年环比</th></tr></thead><tbody>` +
+      `<tr><td>成交量（官方日序列）</td><td class="num">${fmtUsd(w.week)}</td><td class="num">${chg(w.change.week)}</td><td class="num">${fmtUsd(w.month)}</td><td class="num">${chg(w.change.month)}</td><td class="num">${w.yoy30d != null ? chg(w.yoy30d) : acc}</td><td class="num">${w.yearCovered ? fmtUsd(w.year) : acc}</td><td class="num">${w.yoyAvailable ? chg(w.change.year) : acc}</td></tr>` +
+      `</tbody></table>`;
+  }
+  barChart("volChart", s.charts.volumeWeekly, "周成交量", C.accent);
+
+  // ② 手续费与估值
+  const f = fr.fees, rev = fr.revenue, hr = fr.holdersRevenue;
+  const feeRow = (name, x) => x ? `<tr><td>${name}</td><td class="num">${fmtUsd(x.week)}</td><td class="num">${chg(x.change.week)}</td><td class="num">${fmtUsd(x.month)}</td><td class="num">${chg(x.change.month)}</td><td class="num">${x.yoy30d != null ? chg(x.yoy30d) : acc}</td><td class="num">${x.yearCovered ? fmtUsd(x.year) : acc}</td><td class="num">${x.yoyAvailable ? chg(x.change.year) : acc}</td><td class="num">${fmtUsd(x.allTime)}</td></tr>` : "";
+  $("feesTable").innerHTML =
+    `<table><thead><tr><th>指标</th><th class="num">周</th><th class="num">周环比</th><th class="num">月</th><th class="num">月环比</th><th class="num">30d同比</th><th class="num">年</th><th class="num">年环比</th><th class="num">累计</th></tr></thead><tbody>` +
+    feeRow("总手续费（fees）", f) + feeRow("协议收入（revenue，清算费除外）", rev) + feeRow("回购金额（DefiLlama 口径，互核源）", hr) +
+    `</tbody></table>`;
+  $("revenue").innerHTML =
+    tile("回购转化率（30d）", fmtPct(fr.buybackShareOfFees30d), `占总手续费；协议收入占比 ${fmtPct(fr.revenueShare30d)}，差额=清算费归 LLP`) +
+    tile("市盈率 PE（当前速率）", val?.pe?.toFixed(1) ?? "n/a", `TGE以来年化口径 ${val?.peTrailing1y?.toFixed(1) ?? "n/a"}（当前>TGE=收入在降）`) +
+    tile("回购收益率", fmtPct(val?.buybackYield), "=1/PE，持币人股息率视角", "good");
+  {
+    const f30 = f?.month, r30 = rev?.month, b30 = b?.buyback?.month;
+    const gapNote = f30 != null && r30 != null && b30 != null
+      ? `<b>三者差值构成（30d 实测，随快照更新）：</b><br>` +
+        `总手续费 ${fmtUsd(f30)} −（<b>清算费 ${fmtUsd(f30 - r30)}</b>，占 ${fmtPct((f30 - r30) / f30)}，直接归 LLP 兜底池，不进协议）→ 协议收入 ${fmtUsd(r30)}<br>` +
+        `协议收入 ${fmtUsd(r30)} −（<b>执行滞后 + 口径差 ${fmtUsd(r30 - b30)}</b>，占 ${fmtPct((r30 - b30) / r30)}；TWAP 分批执行的时间差 + DefiLlama 估算 vs 官方实际成交的测量噪声）→ 回购金额 ${fmtUsd(b30)}<br>` +
+        `<span style="color:var(--muted)">读法：看赚钱能力用协议收入；看持币人回报用回购金额（PE 分母）；与其他 perp DEX 对比总量用总手续费。差值①为结构性（清算费归 LLP，比例随行情波动）；差值②为技术性（应稳定在个位数百分比，突然拉大=回购规则可能变化，核对区会告警）。</span><br><br>`
+      : "";
+    $("revNote").innerHTML = gapNote + `<b>口径：</b>${esc(fr.scopeNote)}<br><b>不可量化的场外收入：</b>${esc(fr.offLedgerNote)}`;
+  }
+  if (HAS_CHART && s.charts.feesWeekly?.length) {
+    // 回购序列从 TGE(2025-12-30) 起，比 fees 短——按周桶时间戳对齐，缺失周为 null
+    const buyByTs = new Map((s.charts.buybackWeekly || s.charts.hrevWeekly || []).map((p) => [p[0], p[1]]));
+    new Chart($("feesChart"), { type: "bar", data: {
+      labels: s.charts.feesWeekly.map((p) => dateLbl(p[0])),
+      datasets: [
+        { label: "周手续费", data: s.charts.feesWeekly.map((p) => p[1]), backgroundColor: C.accent },
+        { label: "周回购金额(官方)", data: s.charts.feesWeekly.map((p) => buyByTs.get(p[0]) ?? null), backgroundColor: C.ok },
+      ] }, options: baseOpts() });
+  }
+  barChart("revChart", s.charts.revenueWeekly, "周协议收入", C.purple);
+
+  // ③ 代币与解锁
+  $("token").innerHTML =
+    tile("价格", tk.priceUsd != null ? `$${tk.priceUsd.toFixed(3)}` : "n/a", `CoinGecko ${tk.priceSources.coingecko ?? "n/a"} / DefiLlama ${tk.priceSources.defillama?.toFixed(3) ?? "n/a"}`) +
+    tile("有效流通", `${fmtTok(tk.circEffective)} LIT`, `= CoinGecko 流通 250M − 已销毁 ${fmtTok(tk.deadTokens)}`) +
+    tile("市值（有效流通）", fmtUsd(tk.mcapEffective), `CoinGecko 口径 ${fmtUsd(tk.mcapCoinGecko)}（未扣销毁）`) +
+    tile("全稀释市值（FDV）", fmtUsd(tk.fdv), `总量 10 亿 − 已销毁`);
+  $("allocTable").innerHTML =
+    `<table><thead><tr><th>类别</th><th class="num">枚数</th><th class="num">占比</th><th>备注</th></tr></thead><tbody>` +
+    tk.officialAllocation.map((a) => `<tr><td>${esc(a.label)}</td><td class="num">${fmtTok(a.tokens)}</td><td class="num">${fmtPct(a.pct, 0)}</td><td style="color:var(--muted)">${esc(a.note)}</td></tr>`).join("") +
+    `</tbody></table>`;
+  if (HAS_CHART && s.charts.composition) {
+    const comp = s.charts.composition;
+    new Chart($("compChart"), { type: "doughnut", data: {
+      labels: comp.map((c) => c.label),
+      datasets: [{ data: comp.map((c) => c.tokens), backgroundColor: [C.ok, C.accent, C.alert, C.warn, C.orange, C.muted] }] },
+      options: { responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: "right", labels: { boxWidth: 12, font: { size: 11 } } },
+          tooltip: { callbacks: { label: (x) => ` ${x.label}: ${fmtTok(x.raw)} LIT (${fmtPct(x.raw / 1e9)})` } } } } });
+  }
+  if (HAS_CHART && s.charts.unlockCumulative) {
+    const u = s.charts.unlockCumulative, colors = { "Team": C.alert, "Investors": C.warn }, zhName = { "Team": "团队", "Investors": "投资人" };
+    const dsets = Object.entries(u).map(([label, series]) => ({
+      label: zhName[label] || label, data: series.map((p) => ({ x: dateLbl(p[0]), y: p[1] })), borderColor: colors[label] || C.muted,
+      pointRadius: 0, tension: .2 }));
+    if (dsets.length) new Chart($("unlockChart"), { type: "line",
+      data: { labels: Object.values(u)[0].map((p) => dateLbl(p[0])), datasets: dsets.map((d) => ({ ...d, data: d.data.map((x) => x.y) })) },
+      options: baseOpts(false) });
+  }
+  if (t?.status === "ok") {
+    $("cliffNote").innerHTML = `<b>供给拐点倒计时：</b>团队 259.8M + 投资人 239.8M（合计 ~50% 总量）cliff 至 <b>${t.cliffEnd}</b>（${t.daysToCliff} 天后），其后 ~3 年线性释放。未来 12 月已排期解锁 ${fmtTok((t.next12mTokens||0) + (t.investor?.next12mTokens||0))} LIT ≈ ${fmtUsd((t.next12mUsd||0) + (t.investor?.next12mUsd||0))}（现价账面）。生态储备 250M 另无排期。`;
+  }
+
+  // ④ 销毁·回购·质押
+  $("burn").innerHTML =
+    tile("链上销毁存量", `${fmtTok(b.deadTokens)} LIT`, `${fmtUsd(b.deadValueUsd)} · 销毁地址余额（含首次销毁 15.64M）`) +
+    tile("回购年化（官方口径）", fmtUsd(b.buyback.annualUsd), `≈${fmtTok(b.buyback.annualTokens)} LIT/年 · 累计 ${fmtTok(b.buyback.cumTokens)} LIT / ${fmtUsd(b.buyback.cumUsd)}`) +
+    tile("质押量", st?.status === "ok" ? `${fmtTok(st.stakedTokens)} LIT` : "降级", st?.status === "ok" ? `${fmtUsd(st.stakedUsd)} · 占有效流通 ${fmtPct(st.stakedShareOfCirc)}` : esc(st?.error || "")) +
+    tile("质押奖励释放估算", st?.status === "ok" ? `${fmtTok(st.estRewardAnnualTokens)}/年` : "n/a", `从生态储备 250M 存量释放（非新铸造）· 目标 APR ${fmtPct(st?.targetApr)}，上限口径，团队可调`, "caution");
+  // 销毁存量：推导曲线（官方回购累计，全历史）+ 链上实测锚点（每周归档散点）
+  if (HAS_CHART && s.charts.deadDerivedSeries?.length) {
+    const day = (t) => t - (t % 86400);
+    const merged = new Map(s.charts.deadDerivedSeries.map((p) => [day(p[0]), { d: p[1] }]));
+    for (const [t, v] of s.charts.deadSeries || []) {
+      const k = day(t), o = merged.get(k) || {};
+      o.a = v; merged.set(k, o);
+    }
+    const keys = [...merged.keys()].sort((a, b) => a - b);
+    new Chart($("deadChart"), { type: "line", data: {
+      labels: keys.map(dateLbl),
+      datasets: [
+        { label: "推导（官方回购累计）", data: keys.map((k) => merged.get(k).d ?? null), borderColor: C.alert, backgroundColor: C.alert + "33", fill: true, pointRadius: 0, tension: .2, spanGaps: true },
+        { label: "链上实测锚点", data: keys.map((k) => merged.get(k).a ?? null), borderColor: C.accent, backgroundColor: C.accent, pointRadius: 4, showLine: false },
+      ] }, options: baseOpts(false) });
+  } else {
+    lineChart("deadChart", s.charts.deadSeries, "已销毁存量", C.alert, false);
+  }
+  lineChart("stakedChart", s.charts.stakedSeries, "质押量", C.ok, false);
+
+  // ⑤ 团队收入
+  if (t?.status === "ok") {
+    $("team").innerHTML =
+      tile("交易费分成", "$0", "交易手续费 100% 回购销毁，不分给团队", "good") +
+      tile("团队已解锁", `${fmtTok(t.unlockedTokens)} LIT`, `占团队份额 259.8M 的 ${fmtPct(t.unlockedPct)} · cliff 锁定中`) +
+      tile("团队未来12月解锁", `${fmtTok(t.next12mTokens)} LIT`, `${fmtUsd(t.next12mUsd)} 现价账面`, "caution") +
+      tile("投资人未来12月解锁", `${fmtTok(t.investor.next12mTokens)} LIT`, `${fmtUsd(t.investor.next12mUsd)} · 融资 $68M(a16z 领投)`);
+    $("teamNote").innerHTML = `<b>结论：</b>${esc(t.conclusion)}`;
+  }
+
+  // ⑥ 金库资金流 —— 两个闭环图
+  const bb = b?.buyback;
+  if (bb && val) {
+    const llpEst = val.annualFeesUsd != null && val.annualRevenueUsd != null ? val.annualFeesUsd - val.annualRevenueUsd : null;
+    $("cashFlow").innerHTML =
+      `<div class="fnode">交易手续费总盘 <b>${fmtUsd(val.annualFeesUsd)}</b>/年<span class="sub">散户 0 费；付费方=premium/大户（DefiLlama fees 口径）</span></div>` +
+      `<div class="farrow">├─ 清算费 ≈${fmtUsd(llpEst)}/年 → <b>LLP 兜底池</b>（不进协议）</div>` +
+      `<div class="farrow">└─ 协议收入 ${fmtUsd(val.annualRevenueUsd)}/年 ↓ <b>100%</b> 用于回购 · 每日 24h TWAP</div>` +
+      `<div class="fnode">回购 LIT <b>${fmtUsd(bb.annualUsd)}</b>/年 ≈ ${fmtTok(bb.annualTokens)}/年<span class="sub">TGE 以来累计 ${fmtTok(bb.cumTokens)} / ${fmtUsd(bb.cumUsd)}（官方口径）</span></div>` +
+      `<div class="farrow">↓ 2026-06-30 起买回即销毁（提至主网）</div>` +
+      `<div class="fnode">销毁地址 0xdEaD 存量 <b>${fmtTok(b.deadTokens)}</b><span class="sub">在途（已买未销）${fmtTok(bb.inTransitTokens)}</span></div>` +
+      `<div class="fnode result-ok">协议现金留存 = <b>$0</b>：可公开的钱全额返还持币人</div>` +
+      `<div class="fsplit">── 运营侧（与回购流水互不相通）──</div>` +
+      `<div class="fnode ghost">收入：金库 USDC 利息 + Circle 分成 + LLP 结构分成（均无公开口径，方向=真实收入被低估）<br>+ 融资 $68M（一次性）→ 支出：运营（薪酬/服务器/ZK 证明/L1 gas，无报表）</div>`;
+  }
+  const nd2 = val?.netDeflation;
+  if (nd2 && nd2.netTokens != null) {
+    const rows = [
+      { sign: "+", v: nd2.unlockNext12mTokens, label: "解锁：团队+投资人（未来12月已排期，cliff 2026-12-28 开闸）", c: "alert" },
+      { sign: "+", v: nd2.stakeIssuanceAnnualTokens, label: `质押奖励释放：生态储备存量进入流通（非新铸造；${fmtPct(st?.targetApr)} 目标 × 质押量，上限估算）`, c: "warn" },
+      { sign: "−", v: nd2.burnAnnualTokens, label: "回购销毁：100% 交易手续费（=协议收入层，不含清算费；官方口径年化）", c: "ok" },
+    ].filter((r) => r.v != null);
+    const mx = Math.max(...rows.map((r) => r.v));
+    const isDefl2 = nd2.netTokens >= 0;
+    $("tokenFlow").innerHTML =
+      `<div class="fnode">有效流通盘 <b>${fmtTok(val.circEffective)} LIT</b> 的年度供给变化：</div>` +
+      rows.map((r) =>
+        `<div class="brow"><span style="color:var(--${r.c});font-weight:700">${r.sign}${fmtTok(r.v)}</span> ${esc(r.label)}` +
+        `<div class="btrack"><div class="bfill" style="width:${Math.max(2, (r.v / mx) * 100).toFixed(0)}%;background:var(--${r.c})"></div></div></div>`
+      ).join("") +
+      `<div class="fnode ${isDefl2 ? "result-ok" : "result-bad"}" style="margin-top:8px">= 净${isDefl2 ? "通缩" : "通胀"} <b>${fmtTok(Math.abs(nd2.netTokens))} LIT/年</b>（${fmtPct(Math.abs(nd2.rateOfCirc))} 流通盘）</div>` +
+      `<div class="farrow" style="padding-left:0">cliff 开闸（2026-12-28）前解锁≈0、为净通缩；开闸后方向反转。生态储备 250M 无排期未计入。</div>`;
+  }
+
+  const tr = s.treasury;
+  $("treasuryTable").innerHTML =
+    `<table><thead><tr><th style="width:20%">方向</th><th>项目</th><th>可量化性</th></tr></thead><tbody>` +
+    `<tr><td rowspan="2">钱从哪来</td><td>${esc(tr.inflow.quantified)}</td><td class="num" style="color:var(--ok)">✓ 每周量化</td></tr>` +
+    `<tr><td style="color:var(--muted)">${esc(tr.inflow.unquantified)}</td><td class="num" style="color:var(--warn)">✗ 无公开口径</td></tr>` +
+    `<tr><td rowspan="3">钱到哪去</td><td>${esc(tr.outflow.buyback)}</td><td class="num" style="color:var(--ok)">✓ 链上可核</td></tr>` +
+    `<tr><td>${esc(tr.outflow.stakingRewards)}</td><td class="num" style="color:var(--warn)">≈ 上限估算</td></tr>` +
+    `<tr><td style="color:var(--muted)">${esc(tr.outflow.opsNote)}</td><td class="num" style="color:var(--warn)">✗ 无公开报表</td></tr>` +
+    `</tbody></table>`;
+  $("treasuryNote").innerHTML = esc(tr.note);
+
+  // ⑦ 风险
+  $("risk").innerHTML =
+    tile("未平仓合约（OI）", fmtUsd(r.openInterestUsd), `${r.marketsCounted ?? "n/a"} 个市场计入`) +
+    tile("杠杆比（OI/TVL）", r.oiTvlRatio?.toFixed(2) ?? "n/a", `杠杆敞口/兜底资金比。${esc(r.llpNote)}`, r.oiTvlRatio > 1.5 ? "highlight" : r.oiTvlRatio > 1 ? "caution" : "");
+  $("structRisk").innerHTML = "<b>结构性风险：</b><br>" + r.structural.map((x) => `· ${esc(x)}`).join("<br>");
+  $("events").innerHTML = r.events.map((e) =>
+    `<li><span class="d">${esc(e.date)}</span> · <b>${esc(e.title)}</b><br>${esc(e.impact)}<br><span class="o">↳ ${esc(e.outcome)}</span></li>`).join("");
+  lineChart("oiChart", s.charts.oiSeries, "未平仓合约(美元)", C.warn);
+
+  // 附录
+  $("covTable").innerHTML =
+    `<table><thead><tr><th>指标</th><th>核对强度</th><th>说明</th></tr></thead><tbody>` +
+    s.coverage.map((c) => `<tr><td>${esc(c.metric)}</td><td>${esc(c.level)}</td><td style="color:var(--muted)">${esc(c.detail)}</td></tr>`).join("") +
+    `</tbody></table>`;
+  const checks = s.checks || [];
+  const nWarn = checks.filter((c) => c.level !== "OK").length;
+  $("checksSummary").textContent = nWarn ? `${nWarn} 项提示` : "全部通过";
+  $("checks").innerHTML = checks.map((c) => `<li><span class="tag ${c.level}">${c.level}</span><span>${esc(c.msg)}</span></li>`).join("");
+}
+main().catch((e) => { $("ts").textContent = "数据加载失败: " + e.message; });
+</script>
+</body>
+</html>
