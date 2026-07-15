@@ -95,6 +95,25 @@
   .brow { margin-top: 6px; font-size: 13px; }
   .btrack { height: 8px; background: rgba(110,118,129,.12); border-radius: 4px; margin-top: 4px; overflow: hidden; }
   .bfill { height: 100%; border-radius: 4px; }
+  /* 移动端适配：宽表格容器内横滚（页面本体不横滚），TOC 单行横滑，紧凑排版 */
+  #volTable, #feesTable, #allocTable, #treasuryTable, #covTable { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #volTable table { min-width: 560px; }
+  #feesTable table { min-width: 660px; }
+  #allocTable table, #treasuryTable table, #covTable table { min-width: 520px; }
+  @media (max-width: 640px) {
+    .wrap { padding: 18px 12px 40px; }
+    h1 { font-size: 18px; }
+    h2 { margin: 30px 0 10px; padding-top: 16px; }
+    .card { padding: 12px; }
+    .card .val { font-size: 20px; }
+    .chart-box { padding: 10px 8px 6px; height: 260px; }
+    .chart-box .cv { height: 205px; }
+    .toc { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+    .toc::-webkit-scrollbar { display: none; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+    .fnode b { font-size: 14px; }
+    .callout { padding: 11px 12px; font-size: 13px; }
+  }
 </style>
 </head>
 <body>
