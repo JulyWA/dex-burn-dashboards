@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-13T00:50:47.195Z",
-  "lastWeek": "2026-07-06",
+  "generatedAt": "2026-07-20T00:50:35.115Z",
+  "lastWeek": "2026-07-13",
   "hasSupplyCurve": true,
   "weeklyVolume": [
     {
@@ -525,11 +525,15 @@
     },
     {
       "week": "2026-06-29",
-      "volume": 4587754462
+      "volume": 4610345953
     },
     {
       "week": "2026-07-06",
-      "volume": 3509551625
+      "volume": 3861955191
+    },
+    {
+      "week": "2026-07-13",
+      "volume": 3841248956
     }
   ],
   "weeklyFees": [
@@ -1321,9 +1325,15 @@
     },
     {
       "week": "2026-07-06",
-      "fees": 1311420,
-      "revenue": 457953,
-      "burnBudget": 297365
+      "fees": 1477012,
+      "revenue": 511039,
+      "burnBudget": 331116
+    },
+    {
+      "week": "2026-07-13",
+      "fees": 1213161,
+      "revenue": 423196,
+      "burnBudget": 273763
     }
   ],
   "weeklySupply": [
@@ -1551,41 +1561,46 @@
       "week": "2026-07-06",
       "net": 335541886.5388313,
       "netTrend": 335541886.5388313
+    },
+    {
+      "week": "2026-07-13",
+      "net": 335084893.5388313,
+      "netTrend": 335084893.5388313
     }
   ],
   "kpi": {
-    "vol7d": 3509551625,
-    "vol30d": 18415632097,
-    "fees7d": 1311420,
-    "fees30d": 7137764,
-    "rev7d": 457953,
-    "burnBudget7d": 297365,
-    "burnBudget30d": 1600132,
-    "netDeflationRate": 0.06198471423024761,
-    "netChange4w": -1338596.911173372,
-    "netWeek": -252497.02511540058,
+    "vol7d": 3841248956,
+    "vol30d": 17872575356,
+    "fees7d": 1213161,
+    "fees30d": 6347160,
+    "rev7d": 423196,
+    "burnBudget7d": 273763,
+    "burnBudget30d": 1421229,
+    "netDeflationRate": 0.06288178623300683,
+    "netChange4w": -1384276.9111733774,
+    "netWeek": -456993.00000000495,
     "netSource": "dune",
     "streakMonths": 32,
     "streakAsOf": "2026-04-30",
-    "burnBudgetCake": 209411.97183098592,
-    "burnShareOfFees": 0.22675039270409175
+    "burnBudgetCake": 195545,
+    "burnShareOfFees": 0.22566089744065299
   },
   "now": {
-    "net": 335541886.5388313,
-    "onchainNet": 341473295.5644989,
-    "circulating": 323209391.775139,
+    "net": 335084893.5388313,
+    "onchainNet": 341016302.5644989,
+    "circulating": 322758682.8528532,
     "maxSupply": 400000000,
-    "headroom": 64458113.46116871,
-    "price": 1.42,
-    "marketCap": 458585738,
-    "rawTotalSupply": 4737286207.751051,
-    "rawDead": 4395812912.186552
+    "headroom": 64915106.46116871,
+    "price": 1.4,
+    "marketCap": 451711464,
+    "rawTotalSupply": 4796483103.751051,
+    "rawDead": 4455466801.186552
   },
   "feeSplit": {
-    "fees": 7137764,
-    "lp": 4671503,
-    "burn": 1600132,
-    "treasury": 866129
+    "fees": 6347160,
+    "lp": 4140395,
+    "burn": 1421229,
+    "treasury": 785536
   },
   "target": {
     "annualPct": 0.04,
