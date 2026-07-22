@@ -103,6 +103,8 @@
   .flow-summary.deflation .big { color: var(--ok); }
   .flow-summary.inflation { background: rgba(248,81,73,.08); border: 1px solid var(--alert); }
   .flow-summary.inflation .big { color: var(--alert); }
+  .flow-summary.neutral { background: rgba(88,166,255,.07); border: 1px solid var(--accent); }
+  .flow-summary.neutral .big { color: var(--accent); }
   .stackbar { display: flex; height: 30px; border-radius: 6px; overflow: hidden;
     margin: 4px 0 8px; background: rgba(110,118,129,.12); }
   .stackbar > div { display: flex; align-items: center; justify-content: center;
@@ -458,6 +460,11 @@ async function main() {
   if (bb && val) {
     const llpEst = val.annualFeesUsd != null && val.annualRevenueUsd != null ? val.annualFeesUsd - val.annualRevenueUsd : null;
     $("cashFlow").innerHTML =
+      // 顶部结论卡（与代币流闭环 A 版风格统一：先给结论，链路细节在下方）
+      `<div class="flow-summary neutral">` +
+        `<div class="big">持币人年回报 ${fmtUsd(bb.annualUsd)}（回购收益率 ${fmtPct(val.buybackYield)}）</div>` +
+        `<div class="sub">交易手续费扣除清算费后 100% 回购销毁，协议现金留存 $0；场外收入（金库利息／Circle 分成／LLP）无公开口径未计入</div>` +
+      `</div>` +
       `<div class="mainline">` +
         `<div class="step">` +
           `<div class="num">${fmtUsd(val.annualFeesUsd)}<span class="unit">/年 · 交易手续费总盘</span></div>` +

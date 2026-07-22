@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-22T02:52:37.859Z",
+  "generatedAt": "2026-07-22T02:59:36.302Z",
   "volume": {
     "daily": {
-      "official": 1255318404.6707628,
+      "official": 1257477341.9615583,
       "cgSeries": 1241226711.186858,
-      "trades": 1495464,
+      "trades": 1499293,
       "markets": 227
     },
     "windows": {
@@ -76,7 +76,7 @@
   "tvl": 523777801.8658149,
   "burn": {
     "deadTokens": 15638703,
-    "deadValueUsd": 36594565.019999996,
+    "deadValueUsd": 36438177.99,
     "burnAnnualTokensMeasured": 0,
     "burnRateWindowDays": 8,
     "buyback": {
@@ -84,7 +84,7 @@
       "annualUsd": 24908961.552311033,
       "annualTokens": 12141785.817331731,
       "cumUsd": 23449488.676837187,
-      "lifetimeAnnualUsd": 41931565.41323868,
+      "lifetimeAnnualUsd": 41930569.21476292,
       "cumTokens": 16211819.170733701,
       "week": 411948.4976956478,
       "month": 2047311.908409126,
@@ -98,20 +98,20 @@
   "staking": {
     "status": "ok",
     "stakedTokens": 111278930.46824685,
-    "stakedUsd": 260392697.2956976,
-    "poolUsdValue": 259892832.340034,
+    "stakedUsd": 259279907.99101517,
+    "poolUsdValue": 260034379.139589,
     "stakedShareOfCirc": 0.47481786409573784,
     "targetApr": 0.06,
     "estRewardAnnualTokens": 6676735.82809481,
-    "estRewardAnnualUsd": 15623561.837741856,
+    "estRewardAnnualUsd": 15556794.479460908,
     "growthAnnualTokens": 178301892.69979388,
     "growthWindowDays": 8,
     "note": "奖励=生态储备已铸造存量释放(非新铸造,流通盘稀释项)；6%为目标值且团队可调，估算取上限口径；实际发放无公开报表"
   },
   "token": {
-    "priceUsd": 2.34,
+    "priceUsd": 2.33,
     "priceSources": {
-      "coingecko": 2.34,
+      "coingecko": 2.33,
       "defillama": 2.337305560506473
     },
     "maxSupply": 1000000000,
@@ -119,9 +119,9 @@
     "circCoinGecko": 250000000,
     "circEffective": 234361297,
     "deadTokens": 15638703,
-    "mcapEffective": 548405434.98,
-    "mcapCoinGecko": 584884616,
-    "fdv": 2303405434.98,
+    "mcapEffective": 546061822.01,
+    "mcapCoinGecko": 583337731,
+    "fdv": 2293561822.01,
     "officialAllocation": [
       {
         "label": "S1+S2 空投",
@@ -158,7 +158,7 @@
     "status": "ok",
     "horizonDays": 365,
     "next12mTokens": 93545233.14469862,
-    "next12mUsd": 218895845.55859476,
+    "next12mUsd": 217960393.2271478,
     "past12mTokens": 250000000,
     "byCategory": [
       {
@@ -166,14 +166,14 @@
         "unlockedTotal": 0,
         "next12mTokens": 48643521.23524342,
         "past12mTokens": 0,
-        "next12mUsd": 113825839.6904696
+        "next12mUsd": 113339404.47811717
       },
       {
         "label": "Investors",
         "unlockedTotal": 0,
         "next12mTokens": 44901711.909455195,
         "past12mTokens": 0,
-        "next12mUsd": 105070005.86812516
+        "next12mUsd": 104620988.7490306
       },
       {
         "label": "Seasons 1 and 2 Airdrop",
@@ -189,14 +189,14 @@
         "category": "insiders",
         "type": "linear",
         "tokens": 1661000,
-        "usd": 3886739.9999999995
+        "usd": 3870130
       },
       {
         "date": "2026-12-29",
         "category": "insiders",
         "type": "linear",
         "tokens": 1533000,
-        "usd": 3587220
+        "usd": 3571890
       }
     ],
     "scheduleNote": "emissions=实际转出口径；未来12月数字≠2027-28洪峰速率，团队 23.8% 主要在 2027-2028 释放"
@@ -207,16 +207,16 @@
     "unlockedTokens": 0,
     "unlockedPct": 0,
     "remainingTokens": 259827589,
-    "remainingUsd": 607996558.26,
+    "remainingUsd": 605398282.37,
     "past12mTokens": 0,
     "next12mTokens": 48643521.23524342,
-    "next12mUsd": 113825839.6904696,
+    "next12mUsd": 113339404.47811717,
     "cliffEnd": "2026-12-28",
     "daysToCliff": 159,
     "investor": {
       "unlockedTokens": 0,
       "next12mTokens": 44901711.909455195,
-      "next12mUsd": 105070005.86812516
+      "next12mUsd": 104620988.7490306
     },
     "protocolFeeShare": 0,
     "offLedgerNote": "金库存款收益/Circle USDC 分成/LLP 结构收益无公开口径，不可量化（≠0）",
@@ -236,11 +236,11 @@
     "note": "Lighter 无 DAO/国库公开报表；可量化的资金流=回购销毁(链上可核)+质押奖励(估算)，其余如实标注不可得"
   },
   "risk": {
-    "openInterestUsd": 472346399.53867453,
+    "openInterestUsd": 472235233.18134624,
     "marketsCounted": 219,
     "tvlUsd": 523777801.8658149,
-    "oiTvlRatio": 0.9018068307898309,
-    "dailyTrades": 1495464,
+    "oiTvlRatio": 0.9015945912544167,
+    "dailyTrades": 1499293,
     "events": [
       {
         "date": "2025-10-10",
@@ -266,21 +266,21 @@
     "llpNote": "LLP 无公开专属端点（数据源待评估）；坏账代理指标=OI/TVL 比值趋势 + 事件台账"
   },
   "valuation": {
-    "priceUsd": 2.34,
+    "priceUsd": 2.33,
     "circEffective": 234361297,
     "circCoinGecko": 250000000,
     "deadTokens": 15638703,
-    "mcapEffective": 548405434.98,
-    "mcapCoinGecko": 584884616,
-    "fdv": 2303405434.98,
+    "mcapEffective": 546061822.01,
+    "mcapCoinGecko": 583337731,
+    "fdv": 2293561822.01,
     "annualBuybackUsd": 24908961.552311033,
     "annualHoldersRevenueUsd": 24751890.999999996,
     "annualFeesUsd": 33436688.833333336,
     "annualRevenueUsd": 25655472.833333332,
-    "pe": 22.016390921327645,
-    "peTrailing1y": 13.078582437250407,
-    "buybackYield": 0.045420705127073455,
-    "psFdv": 68.88856269415393,
+    "pe": 21.92230378063821,
+    "peTrailing1y": 13.023000456138394,
+    "buybackYield": 0.045615643775687505,
+    "psFdv": 68.5941671270849,
     "netDeflation": {
       "burnAnnualTokens": 12141785.817331731,
       "burnBasis": "回购年化前瞻代理(100%费用回购→销毁；实测=0 或滞后)",
@@ -3751,7 +3751,7 @@
         111073394.71525767
       ],
       [
-        1784688752,
+        1784689171,
         111278930.46824685
       ]
     ],
@@ -3765,7 +3765,7 @@
         15638703
       ],
       [
-        1784688752,
+        1784689171,
         15638703
       ]
     ],
@@ -3779,8 +3779,8 @@
         441015687.004431
       ],
       [
-        1784688752,
-        472346399.53867453
+        1784689171,
+        472235233.18134624
       ]
     ]
   },
@@ -3788,10 +3788,10 @@
     {
       "metric": "价格",
       "sourceA": "CoinGecko",
-      "valueA": 2.34,
+      "valueA": 2.33,
       "sourceB": "DefiLlama",
       "valueB": 2.337305560506473,
-      "deviation": 0.001152133192356634,
+      "deviation": 0.0031305259155477894,
       "thresholdPct": 1,
       "status": "ok",
       "approx": false
@@ -3799,10 +3799,10 @@
     {
       "metric": "24h成交量",
       "sourceA": "官方 exchangeStats",
-      "valueA": 1255318404.6707628,
+      "valueA": 1257477341.9615583,
       "sourceB": "CoinGecko 量表末点",
       "valueB": 1241226711.186858,
-      "deviation": 0.011288955600599285,
+      "deviation": 0.013007247300234925,
       "thresholdPct": 15,
       "status": "ok",
       "approx": true
@@ -3821,10 +3821,10 @@
     {
       "metric": "质押池价值",
       "sourceA": "官方池 USD 报告",
-      "valueA": 259892832.340034,
+      "valueA": 260034379.139589,
       "sourceB": "staked×现价",
-      "valueB": 260392697.2956976,
-      "deviation": 0.0019215024335332291,
+      "valueB": 259279907.99101517,
+      "deviation": 0.002905643720077746,
       "thresholdPct": 5,
       "status": "ok",
       "approx": true
@@ -3956,6 +3956,10 @@
     },
     {
       "level": "OK",
+      "msg": "销毁批次 8 天未执行（在途累积 573K LIT，批次间隔属规则内；≥14 天转 WARN）"
+    },
+    {
+      "level": "OK",
       "msg": "供应构成恒等式闭合：六项合计 999.7M ≈ 1B（偏差 0.03%，分配数字精度内）"
     },
     {
@@ -3968,11 +3972,11 @@
     },
     {
       "level": "OK",
-      "msg": "价格 双源一致（偏差 0.12%，CoinGecko vs DefiLlama）"
+      "msg": "价格 双源一致（偏差 0.31%，CoinGecko vs DefiLlama）"
     },
     {
       "level": "OK",
-      "msg": "24h成交量 量级互核一致（偏差 1.13%，官方 exchangeStats vs CoinGecko 量表末点）"
+      "msg": "24h成交量 量级互核一致（偏差 1.30%，官方 exchangeStats vs CoinGecko 量表末点）"
     },
     {
       "level": "OK",
@@ -3980,7 +3984,7 @@
     },
     {
       "level": "OK",
-      "msg": "质押池价值 量级互核一致（偏差 0.19%，官方池 USD 报告 vs staked×现价）"
+      "msg": "质押池价值 量级互核一致（偏差 0.29%，官方池 USD 报告 vs staked×现价）"
     },
     {
       "level": "OK",
