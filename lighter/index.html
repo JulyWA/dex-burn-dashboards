@@ -95,6 +95,37 @@
   .brow { margin-top: 6px; font-size: 13px; }
   .btrack { height: 8px; background: rgba(110,118,129,.12); border-radius: 4px; margin-top: 4px; overflow: hidden; }
   .bfill { height: 100%; border-radius: 4px; }
+  /* 闭环图 · A 版：结论前置 + 主链路强化 */
+  .flow-summary { padding: 14px 16px; border-radius: 8px; margin-bottom: 14px; }
+  .flow-summary .big { font-size: 26px; font-weight: 700; line-height: 1.2; }
+  .flow-summary .sub { color: var(--muted); font-size: 12px; margin-top: 6px; line-height: 1.55; }
+  .flow-summary.deflation { background: rgba(63,185,80,.08); border: 1px solid var(--ok); }
+  .flow-summary.deflation .big { color: var(--ok); }
+  .flow-summary.inflation { background: rgba(248,81,73,.08); border: 1px solid var(--alert); }
+  .flow-summary.inflation .big { color: var(--alert); }
+  .stackbar { display: flex; height: 30px; border-radius: 6px; overflow: hidden;
+    margin: 4px 0 8px; background: rgba(110,118,129,.12); }
+  .stackbar > div { display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #0d1117; white-space: nowrap;
+    padding: 0 6px; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .contribs { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+  .contribs .row { font-size: 13px; line-height: 1.55; display: flex; gap: 8px; align-items: flex-start; }
+  .contribs .row .dot { width: 8px; height: 8px; border-radius: 2px; margin-top: 6px; flex-shrink: 0; }
+  .contribs .row .amt { font-weight: 700; white-space: nowrap; }
+  .mainline { display: flex; flex-direction: column; gap: 4px; }
+  .mainline .step { padding: 10px 14px; background: rgba(88,166,255,.05);
+    border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; }
+  .mainline .step .num { font-size: 16px; font-weight: 700; }
+  .mainline .step .num .unit { font-size: 12px; color: var(--muted); font-weight: 400; margin-left: 4px; }
+  .mainline .step .sub { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.55; }
+  .mainline .step.terminal { background: rgba(63,185,80,.08); border-left-color: var(--ok); }
+  .mainline .step.terminal .num { color: var(--ok); font-size: 18px; }
+  .mainline .arrow { font-size: 11px; color: var(--muted); padding-left: 18px; }
+  .mainline .fork { padding: 6px 0 6px 20px; margin: 2px 0 2px 8px;
+    border-left: 2px dashed rgba(110,118,129,.4); font-size: 12px; color: var(--muted); line-height: 1.55; }
+  .aside-note { margin-top: 14px; padding: 10px 12px; background: rgba(110,118,129,.06);
+    border: 1px dashed var(--border); border-radius: 8px; font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .aside-note b { color: var(--text); font-size: 12px; }
   /* 移动端适配：宽表格容器内横滚（页面本体不横滚），TOC 单行横滑，紧凑排版 */
   #volTable, #feesTable, #allocTable, #treasuryTable, #covTable { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   #volTable table { min-width: 560px; }
@@ -427,15 +458,38 @@ async function main() {
   if (bb && val) {
     const llpEst = val.annualFeesUsd != null && val.annualRevenueUsd != null ? val.annualFeesUsd - val.annualRevenueUsd : null;
     $("cashFlow").innerHTML =
-      `<div class="fnode">交易手续费总盘 <b>${fmtUsd(val.annualFeesUsd)}</b>/年<span class="sub">散户 0 费；付费方=premium/大户（DefiLlama fees 口径）</span></div>` +
-      `<div class="farrow">├─ 清算费 ≈${fmtUsd(llpEst)}/年 → <b>LLP 兜底池</b>（不进协议）</div>` +
-      `<div class="farrow">└─ 协议收入 ${fmtUsd(val.annualRevenueUsd)}/年 ↓ <b>100%</b> 用于回购 · 每日 24h TWAP</div>` +
-      `<div class="fnode">回购 LIT <b>${fmtUsd(bb.annualUsd)}</b>/年 ≈ ${fmtTok(bb.annualTokens)}/年<span class="sub">TGE 以来累计 ${fmtTok(bb.cumTokens)} / ${fmtUsd(bb.cumUsd)}（官方口径）</span></div>` +
-      `<div class="farrow">↓ 2026-06-30 起买回即销毁（提至主网）</div>` +
-      `<div class="fnode">销毁地址 0xdEaD 存量 <b>${fmtTok(b.deadTokens)}</b><span class="sub">在途（已买未销）${fmtTok(bb.inTransitTokens)}</span></div>` +
-      `<div class="fnode result-ok">协议现金留存 = <b>$0</b>：可公开的钱全额返还持币人</div>` +
-      `<div class="fsplit">── 运营侧（与回购流水互不相通）──</div>` +
-      `<div class="fnode ghost">收入：金库 USDC 利息 + Circle 分成 + LLP 结构分成（均无公开口径，方向=真实收入被低估）<br>+ 融资 $68M（一次性）→ 支出：运营（薪酬/服务器/ZK 证明/L1 gas，无报表）</div>`;
+      `<div class="mainline">` +
+        `<div class="step">` +
+          `<div class="num">${fmtUsd(val.annualFeesUsd)}<span class="unit">/年 · 交易手续费总盘</span></div>` +
+          `<div class="sub">散户 0 费；付费方=premium/大户（DefiLlama fees 口径）</div>` +
+        `</div>` +
+        `<div class="fork">├→ ≈${fmtUsd(llpEst)}/年 清算费 → LLP 兜底池（不进协议）</div>` +
+        `<div class="arrow">↓ 协议收入层</div>` +
+        `<div class="step">` +
+          `<div class="num">${fmtUsd(val.annualRevenueUsd)}<span class="unit">/年 · 协议收入</span></div>` +
+          `<div class="sub">= fees − 清算费 · 100% 用于回购，每日 24h TWAP</div>` +
+        `</div>` +
+        `<div class="arrow">↓ 全额回购 LIT</div>` +
+        `<div class="step">` +
+          `<div class="num">${fmtUsd(bb.annualUsd)}<span class="unit">/年 ≈ ${fmtTok(bb.annualTokens)} LIT · 回购</span></div>` +
+          `<div class="sub">TGE 累计 ${fmtTok(bb.cumTokens)} / ${fmtUsd(bb.cumUsd)}（官方口径）· 2026-06-30 起买回即销毁</div>` +
+        `</div>` +
+        `<div class="arrow">↓ 提至主网 0xdEaD</div>` +
+        `<div class="step">` +
+          `<div class="num">${fmtTok(b.deadTokens)} LIT<span class="unit">已销毁存量</span></div>` +
+          `<div class="sub">在途（已买未销）${fmtTok(bb.inTransitTokens)} LIT</div>` +
+        `</div>` +
+        `<div class="step terminal">` +
+          `<div class="num">协议现金留存 = $0</div>` +
+          `<div class="sub">可公开的钱 100% 返还持币人</div>` +
+        `</div>` +
+      `</div>` +
+      `<div class="aside-note">` +
+        `<b>运营侧（与回购流水互不相通，无公开报表）</b><br>` +
+        `收入：金库 USDC 利息 · Circle 分成 · LLP 结构分成（真实收入被低估）<br>` +
+        `一次性：融资 $68M<br>` +
+        `支出：薪酬 · 服务器 · ZK 证明 · L1 gas` +
+      `</div>`;
   }
   const nd2 = val?.netDeflation;
   if (nd2 && nd2.netTokens != null) {
@@ -446,14 +500,33 @@ async function main() {
     ].filter((r) => r.v != null);
     const mx = Math.max(...rows.map((r) => r.v));
     const isDefl2 = nd2.netTokens >= 0;
+    const totalAbs = rows.reduce((s, r) => s + r.v, 0);
+    const nextCirc = val.circEffective - nd2.netTokens;
+    const rowsSorted = [...rows].sort((a, b) => b.v - a.v);
     $("tokenFlow").innerHTML =
-      `<div class="fnode">有效流通盘 <b>${fmtTok(val.circEffective)} LIT</b> 的年度供给变化：</div>` +
-      rows.map((r) =>
-        `<div class="brow"><span style="color:var(--${r.c});font-weight:700">${r.sign}${fmtTok(r.v)}</span> ${esc(r.label)}` +
-        `<div class="btrack"><div class="bfill" style="width:${Math.max(2, (r.v / mx) * 100).toFixed(0)}%;background:var(--${r.c})"></div></div></div>`
-      ).join("") +
-      `<div class="fnode ${isDefl2 ? "result-ok" : "result-bad"}" style="margin-top:8px">= 净${isDefl2 ? "通缩" : "通胀"} <b>${fmtTok(Math.abs(nd2.netTokens))} LIT/年</b>（${fmtPct(Math.abs(nd2.rateOfCirc))} 流通盘）</div>` +
-      `<div class="farrow" style="padding-left:0">cliff 开闸（2026-12-28）前解锁≈0、为净通缩；开闸后方向反转。生态储备 250M 无排期未计入。</div>`;
+      // 顶部结论卡
+      `<div class="flow-summary ${isDefl2 ? "deflation" : "inflation"}">` +
+        `<div class="big">净${isDefl2 ? "通缩" : "通胀"} ${fmtPct(Math.abs(nd2.rateOfCirc))}/年</div>` +
+        `<div class="sub">未来 12 月：有效流通 ${fmtTok(val.circEffective)} → ${fmtTok(nextCirc)} LIT（净${isDefl2 ? "减" : "增"} ${fmtTok(Math.abs(nd2.netTokens))} LIT）</div>` +
+      `</div>` +
+      // 堆叠 bar（按绝对值宽度直观展示三项相对量级）
+      `<div class="stackbar">` +
+        rowsSorted.map((r) => {
+          const w = Math.max(4, (r.v / totalAbs) * 100);
+          return `<div style="background:var(--${r.c});width:${w.toFixed(1)}%" title="${r.sign}${fmtTok(r.v)} ${esc(r.label)}">${r.sign}${fmtTok(r.v)}</div>`;
+        }).join("") +
+      `</div>` +
+      // 贡献项详情（按绝对值降序）
+      `<div class="contribs">` +
+        rowsSorted.map((r) =>
+          `<div class="row">` +
+            `<div class="dot" style="background:var(--${r.c})"></div>` +
+            `<div><span class="amt" style="color:var(--${r.c})">${r.sign}${fmtTok(r.v)} LIT</span> · ${esc(r.label)}</div>` +
+          `</div>`
+        ).join("") +
+      `</div>` +
+      // 脚注
+      `<div class="aside-note">cliff 开闸（2026-12-28）前解锁≈0、为净通缩；开闸后方向反转。生态储备 250M 无排期未计入（计入只会更通胀）。</div>`;
   }
 
   const tr = s.treasury;

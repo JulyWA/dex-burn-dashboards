@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-22T02:21:12.658Z",
+  "generatedAt": "2026-07-22T02:22:54.273Z",
   "volume": {
     "daily": {
-      "official": 1242248426.9700942,
+      "official": 1242786243.1922636,
       "cgSeries": 1227693220.6473975,
-      "trades": 1474266,
+      "trades": 1475902,
       "markets": 227
     },
     "windows": {
@@ -84,7 +84,7 @@
       "annualUsd": 24908961.552311033,
       "annualTokens": 12141785.817331731,
       "cumUsd": 23449488.676837187,
-      "lifetimeAnnualUsd": 41936052.459415205,
+      "lifetimeAnnualUsd": 41935802.75752913,
       "cumTokens": 16211819.170733701,
       "week": 411948.4976956478,
       "month": 2047311.908409126,
@@ -99,7 +99,7 @@
     "status": "ok",
     "stakedTokens": 111278930.46824685,
     "stakedUsd": 258167118.68633267,
-    "poolUsdValue": 258003093.542822,
+    "poolUsdValue": 259376386.823731,
     "stakedShareOfCirc": 0.47481786409573784,
     "targetApr": 0.06,
     "estRewardAnnualTokens": 6676735.82809481,
@@ -120,7 +120,7 @@
     "circEffective": 234361297,
     "deadTokens": 15638703,
     "mcapEffective": 543718209.04,
-    "mcapCoinGecko": 579071367,
+    "mcapCoinGecko": 579264453,
     "fdv": 2283718209.04,
     "officialAllocation": [
       {
@@ -236,11 +236,11 @@
     "note": "Lighter 无 DAO/国库公开报表；可量化的资金流=回购销毁(链上可核)+质押奖励(估算)，其余如实标注不可得"
   },
   "risk": {
-    "openInterestUsd": 473945127.1243742,
+    "openInterestUsd": 474260957.621312,
     "marketsCounted": 219,
     "tvlUsd": 523777801.8658149,
-    "oiTvlRatio": 0.9048591319373874,
-    "dailyTrades": 1474266,
+    "oiTvlRatio": 0.9054621175847607,
+    "dailyTrades": 1475902,
     "events": [
       {
         "date": "2025-10-10",
@@ -271,14 +271,14 @@
     "circCoinGecko": 250000000,
     "deadTokens": 15638703,
     "mcapEffective": 543718209.04,
-    "mcapCoinGecko": 579071367,
+    "mcapCoinGecko": 579264453,
     "fdv": 2283718209.04,
     "annualBuybackUsd": 24908961.552311033,
     "annualHoldersRevenueUsd": 24751890.999999996,
     "annualFeesUsd": 33436688.833333336,
     "annualRevenueUsd": 25655472.833333332,
     "pe": 21.828216639948774,
-    "peTrailing1y": 12.965412268267228,
+    "peTrailing1y": 12.965489469314644,
     "buybackYield": 0.04581226292989306,
     "psFdv": 68.29977156001586,
     "netDeflation": {
@@ -3751,7 +3751,7 @@
         111073394.71525767
       ],
       [
-        1784686865,
+        1784686970,
         111278930.46824685
       ]
     ],
@@ -3765,7 +3765,7 @@
         15638703
       ],
       [
-        1784686865,
+        1784686970,
         15638703
       ]
     ],
@@ -3779,8 +3779,8 @@
         441015687.004431
       ],
       [
-        1784686865,
-        473945127.1243742
+        1784686970,
+        474260957.621312
       ]
     ]
   },
@@ -3799,10 +3799,10 @@
     {
       "metric": "24h成交量",
       "sourceA": "官方 exchangeStats",
-      "valueA": 1242248426.9700942,
+      "valueA": 1242786243.1922636,
       "sourceB": "CoinGecko 量表末点",
       "valueB": 1227693220.6473975,
-      "deviation": 0.011785870598794634,
+      "deviation": 0.012218699054804733,
       "thresholdPct": 15,
       "status": "ok",
       "approx": true
@@ -3821,10 +3821,10 @@
     {
       "metric": "质押池价值",
       "sourceA": "官方池 USD 报告",
-      "valueA": 258003093.542822,
+      "valueA": 259376386.823731,
       "sourceB": "staked×现价",
       "valueB": 258167118.68633267,
-      "deviation": 0.000635546723249695,
+      "deviation": 0.004673107186251101,
       "thresholdPct": 5,
       "status": "ok",
       "approx": true
@@ -3972,7 +3972,7 @@
     },
     {
       "level": "OK",
-      "msg": "24h成交量 量级互核一致（偏差 1.18%，官方 exchangeStats vs CoinGecko 量表末点）"
+      "msg": "24h成交量 量级互核一致（偏差 1.22%，官方 exchangeStats vs CoinGecko 量表末点）"
     },
     {
       "level": "OK",
@@ -3980,7 +3980,7 @@
     },
     {
       "level": "OK",
-      "msg": "质押池价值 量级互核一致（偏差 0.06%，官方池 USD 报告 vs staked×现价）"
+      "msg": "质押池价值 量级互核一致（偏差 0.47%，官方池 USD 报告 vs staked×现价）"
     },
     {
       "level": "OK",
