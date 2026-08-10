@@ -200,7 +200,7 @@
   <div class="grid" id="burn"></div>
   <div class="flowcol" style="margin-top: 12px"><h3>代币流闭环：净通缩率 = 销毁 − 质押奖励释放 − 排期解锁</h3><div class="flow" id="tokenFlow"></div></div>
   <div class="grid2">
-    <div class="chart-box"><h3>已销毁存量（面积=推导：官方回购累计，06-30 前为买回持有期；点=链上实测锚点）</h3><div class="cv"><canvas id="deadChart"></canvas></div></div>
+    <div class="chart-box"><h3>已销毁存量（面积=官方回购累计=销毁上界；点=链上实测，季度批量呈阶梯状）</h3><div class="cv"><canvas id="deadChart"></canvas></div></div>
     <div class="chart-box"><h3>质押量（L2 池余额，每周归档）</h3><div class="cv"><canvas id="stakedChart"></canvas></div></div>
   </div>
 
@@ -231,7 +231,7 @@
       <dt>零手续费模型下的 "fees"</dt>
       <dd>Lighter 对散户 maker/taker 均为 0 费（orderBookDetails 实测 0.0000）。DefiLlama 的 <b>Fees</b> = premium 账户/大户实际支付的 maker/taker 费；<b>Revenue</b> = maker/taker/transfer/withdraw 费（<b>清算费不计入，归 LLP</b>）；<b>HoldersRevenue</b> = 用于 LIT 回购的部分。所以 fees 数字远小于同体量收费型 perp DEX，这是商业模式差异不是数据错误。</dd>
       <dt>两阶段回购</dt>
-      <dd>TGE(2025-12-30)–2026-06-30 为 <b>buyback-and-hold</b>（回购持有）；2026-06-30 起官方规则改为 <b>100% 交易手续费收入每日 24h TWAP 回购并永久销毁</b>（提至主网 0xdEaD）。首销毁 15,638,702 枚已链上验证。跨阶段对比回购数据时注意语义变化。</dd>
+      <dd>TGE(2025-12-30)–Q2 为 <b>buyback-and-hold</b>（回购持有）；2026-06-30 规则改为回购即销毁后，实际执行是<b>回购每日、销毁每季度批量</b>：每日 24h TWAP 买入在 L2 累积，每季末后 ~10 天统一提主网 0xdEaD 销毁（Q2 批 2026-07-10 执行 15,638,702 枚，链上已验证；官方口径"视收入与治理情况"）。所以季中 dead 余额不动、在途持续累积是<b>制度性正常</b>，核对区按季度日历侦测逾期。</dd>
       <dt>有效流通</dt>
       <dd><code>CoinGecko 流通 250M − 链上 dead 余额</code>。CG 的 250M 是人工配置值（=S1+S2 空投总量），未扣已销毁部分——本面板市值/PE/占比全部用有效流通自算口径，与 CG/CMC 显示的市值差 ~6%。</dd>
       <dt>质押（与前 5 个项目都不同的模块）</dt>
@@ -242,7 +242,7 @@
       <b>为什么用杠杆比（OI/TVL）代读：</b>坏账发生的前提是"清算规模超过市场承接能力"，而 OI 就是潜在清算规模的上界、TVL 近似兜底资金规模。比值越高，同样烈度的行情下 LLP 承压越深。它是<b>事前的风险敞口指标</b>，不是事后的损失记录——能预警"下次极端行情会更疼"，不能告诉你"上次亏了多少"。<br>
       <b>判读标尺：</b>&lt;1 常态（当前 ~0.85）；1–1.5 杠杆偏高（卡片变黄）；&gt;1.5 极端行情下 LLP 承压风险显著（变红）。看趋势重于看单值：OI 涨而 TVL 平=杠杆堆积，是最需要警惕的形态。</dd>
       <dt>回购金额的双源结构（2026-07-14 升级）</dt>
-      <dd>主源 = 官方 <code>exchangeMetrics?kind=buyback / buyback_usdc</code>（与 app.lighter.xyz/stats 回购页同源，含精确枚数）；互核源 = DefiLlama holdersRevenue（30d 口径实测偏差 ~2%）。链上锚：官方累计回购枚数 − dead 余额 = 已买未销在途量，应为小正数，异常即告警。回购在自有 L2 执行、主网不可直接解码，故链上只能核"销毁存量"不能核"回购流水"。</dd>
+      <dd>主源 = 官方 <code>exchangeMetrics?kind=buyback / buyback_usdc</code>（与 app.lighter.xyz/stats 回购页同源，含精确枚数）；互核源 = DefiLlama holdersRevenue（30d 口径实测偏差 ~2%）。链上锚：官方累计回购枚数 − dead 余额 = 在途量，季中随每日回购持续累积、季度销毁后归零（季末已过 20 天未销毁才告警）。回购在自有 L2 执行、主网不可直接解码，故链上只能核"销毁存量"不能核"回购流水"。</dd>
       <dt>emissions（解锁数据）</dt>
       <dd>DefiLlama 解锁数据集。对 Lighter 是<b>纸面排期</b>口径且排期完整（与 Hyperliquid 的"实际转出"口径相反）：团队 259.8M、投资人 239.8M 均 1 年 cliff 后 ~3 年线性，2026-12-28 开闸。生态储备 250M 无排期（TBD），不在曲线内。</dd>
       <dt>日量序列（官方 exchangeMetrics）</dt>
