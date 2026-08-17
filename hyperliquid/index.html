@@ -355,12 +355,12 @@ async function main() {
     tile("未来排放（未排期）", fmtTok(tk?.futureEmissions), "38.888% 分配无公开时间表——最大供给悬顶", "caution") +
     tile("解锁：过去12月实际 / 已排期未来12月", u?.status === "ok" ? `${fmtTok(u.past12mTokens)} / ${fmtTok(u.next12mTokens)}` : "n/a", "\"已排期\"口径必然偏低≠无供给压力：团队 233M 洪峰在 2027–2028（见下方分配表与团队收益区）", "caution") +
     (tk?.holders ? tile("持有人数", tk.holders.count.toLocaleString(), `7D ${tk.holders.growth7d != null ? fmtPct(tk.holders.growth7d, 2) : "积累中"} · 30D ${tk.holders.growth30d != null ? fmtPct(tk.holders.growth30d, 2) : "积累中"}（Hypurrscan）`) : "") +
-    // 关键地址追踪（已三重验证）：流出=动用/解锁信号
-    (s.treasury?.addressTracking || []).map((t) => t.totalTok == null
+    // 关键地址追踪（已三重验证）：大额流出=动用/解锁信号（阈值统一读快照，勿硬编码）
+    (s.treasury?.addressTracking || []).map((t) => { const warnAt = s.treasury?.outflowWarnTokens ?? 400000; const bigOut = t.deltaTok != null && t.deltaTok < -warnAt; return t.totalTok == null
       ? tile(esc(t.label), "查询失败", "本次快照该地址降级", "caution")
       : tile(esc(t.label) + "（链上追踪）", `${fmtTok(t.totalTok)} HYPE`,
-          `${fmtUsd(t.totalUsd)} · 自${t.prevDate ?? "—"}变动 ${t.deltaTok == null ? "基准建立中" : (t.deltaTok >= 0 ? "+" : "") + fmtTok(t.deltaTok)}${t.deltaTok != null && t.deltaTok < 0 ? " ⚠️流出" : ""} · ${t.label.includes("Labs") ? "＝结构图红色'托管'段" : "在结构图蓝色'流通'段内(质押中)"}`,
-          t.deltaTok != null && t.deltaTok < -200000 ? "caution" : "")).join("");
+          `${fmtUsd(t.totalUsd)} · 自${t.prevDate ?? "—"}变动 ${t.deltaTok == null ? "基准建立中" : (t.deltaTok >= 0 ? "+" : "") + fmtTok(t.deltaTok)}${bigOut ? " ⚠️大额流出" : ""} · ${t.label.includes("Labs") ? "＝结构图红色'托管'段" : "在结构图蓝色'流通'段内(质押中)"}`,
+          bigOut ? "caution" : ""); }).join("");
   if (tk?.officialAllocation) {
     $("allocTable").innerHTML = `<table><thead><tr><th>官方分配</th><th class="num">枚数</th><th class="num">占比</th><th>解锁状态</th></tr></thead><tbody>` +
       tk.officialAllocation.map((a) => `<tr><td>${a.label}</td><td class="num">${fmtTok(a.tokens)}</td><td class="num">${fmtPct(a.pct, 2)}</td><td style="color:var(--muted)">${a.note || ""}</td></tr>`).join("") +
