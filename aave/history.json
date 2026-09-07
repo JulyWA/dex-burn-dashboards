@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-31T00:56:02.833Z",
-  "lastWeek": "2026-08-17",
+  "generatedAt": "2026-09-07T00:56:04.852Z",
+  "lastWeek": "2026-08-24",
   "weeklyIncome": [
     {
       "week": "2024-01-01",
@@ -691,6 +691,11 @@
       "week": "2026-08-17",
       "fees": 7466098,
       "revenue": 992309
+    },
+    {
+      "week": "2026-08-24",
+      "fees": 8146233,
+      "revenue": 1202553
     }
   ],
   "weeklyTvl": [
@@ -1252,27 +1257,27 @@
     }
   ],
   "kpi": {
-    "fees": 8147570,
-    "rev": 1202991,
-    "tvl": 17454767784.516174,
-    "borrowed": 24283796900.997772,
-    "gho": 698389269.0520681,
+    "fees": 7114645,
+    "rev": 985762,
+    "tvl": 18028480326.291763,
+    "borrowed": 24941952407.306,
+    "gho": 698423808.9977945,
     "annualBuyback": 30000000,
     "weeklyBuyback": 576923.0769230769,
-    "reserveUsd": 71334220.87964307,
-    "takeRate": 0.1301058434559609,
-    "buybackRatio": 0.28410922821718687,
-    "utilization": 0.5818071868059675,
-    "avgBorrowRate": 0.01587298984056988,
-    "avgSupplyRate": 0.007954071730579253,
-    "netMargin": 0.007918918109990628,
-    "ghoRevenue": 4163792.5321446536,
-    "ghoBorrowRate": 0.0375,
-    "topChainPct": 0.8437215074581583,
-    "onchainNetTvl": 14382348676.775536,
+    "reserveUsd": 77762118.35300218,
+    "takeRate": 0.12986139170153477,
+    "buybackRatio": 0.29092605419019485,
+    "utilization": 0.5804445247721316,
+    "avgBorrowRate": 0.015523701667125725,
+    "avgSupplyRate": 0.007755091477806931,
+    "netMargin": 0.007768610189318795,
+    "ghoRevenue": 4488367.167664291,
+    "ghoBorrowRate": 0.04,
+    "topChainPct": 0.8433070240974491,
+    "onchainNetTvl": 14833124041.596386,
     "onchainReserveCount": 67,
-    "onchainRevenue": 43242988.601878576,
-    "onchainTakeRate": 0.13824552306814908,
+    "onchainRevenue": 44520823.479705304,
+    "onchainTakeRate": 0.1361377650718409,
     "coreTeamTotalStable": 25000000,
     "coreTeamTotalAave": 75000,
     "coreTeamStableDisbursed": 14162560.142905463,
@@ -1281,70 +1286,70 @@
     "actualBuyback30dUsd": 0,
     "actualBuybackPaused": true,
     "actualBuybackLast": "2026-04-19",
-    "umbrellaUsd": 47859924.496685,
+    "umbrellaUsd": 49429526.951169,
     "umbrellaCount": 1,
-    "buybackYield": 0.015674828631095657,
-    "buybackPayback": 63.79655073333333,
-    "earningsYield": 0.027935102665562674,
-    "earningsPayback": 35.79725523016466,
+    "buybackYield": 0.014320618543030007,
+    "buybackPayback": 69.829386,
+    "earningsYield": 0.02575412512497882,
+    "earningsPayback": 38.82873113131318,
     "daoOpex": 51733148,
     "approvedAnnualSpend": 85044009,
-    "daoNet": -31579113.16666667,
+    "daoNet": -31092166.66666667,
     "buybackCoverage": null,
     "buybackCoveragePreCut": null,
     "bbCumAave": 249555.20895770573,
     "bbCumCost": 45296948.98126727,
     "bbCumAvgPrice": 181.51073331810971,
-    "bbCumValue": 31228956.972099893,
-    "bbCumPnlPct": -0.31057261748435316,
+    "bbCumValue": 33433913.575251877,
+    "bbCumPnlPct": -0.26189480026395157,
     "bbCumStart": "2025-04-09",
-    "bbTrail12m": 27202951.085185014,
+    "bbTrail12m": 26238665.370907016,
     "bbLastDate": "2026-04-19",
-    "histYield": 0.014213386550678424,
-    "histPayback": 70.35620936885506,
-    "aaveLockedPct": 0.1550813229567161,
-    "aaveLockedUsd": 307879848.8395093,
-    "ghoStaked": 32734003.312152274
+    "histYield": 0.012525130595165678,
+    "histPayback": 79.83948689413025,
+    "aaveLockedPct": 0.1552888651060625,
+    "aaveLockedUsd": 337361953.66561866,
+    "ghoStaked": 32196364.300174877
   },
   "now": {
-    "price": 124.08,
-    "marketCap": 1913896522,
+    "price": 135.78,
+    "marketCap": 2094881580,
     "total": 16000000,
-    "circulating": 15425094.82300287,
-    "reserve": 574905.0683401279,
-    "nonCirculating": 574905.1769971307
+    "circulating": 15427293.28065251,
+    "reserve": 572706.7193474899,
+    "nonCirculating": 572706.71934749
   },
   "dataStale": null,
   "chains": [
     {
       "chain": "Ethereum",
-      "tvl": 14336910292.47043,
-      "borrowed": 9922451444.48914
-    },
-    {
-      "chain": "Plasma",
-      "tvl": 508609069.51524,
-      "borrowed": 739946073.68032
+      "tvl": 14872490051.69507,
+      "borrowed": 10188895922.4607
     },
     {
       "chain": "Base",
-      "tvl": 497681512.55719,
-      "borrowed": 348411585.98259
+      "tvl": 521384749.26688,
+      "borrowed": 362591284.77424
+    },
+    {
+      "chain": "Plasma",
+      "tvl": 505361687.84576,
+      "borrowed": 756492577.63144
     },
     {
       "chain": "Arbitrum",
-      "tvl": 483131456.82252,
-      "borrowed": 334627578.49641
+      "tvl": 498749456.81322,
+      "borrowed": 348249481.62379
     },
     {
       "chain": "Monad",
-      "tvl": 301447597.73284,
-      "borrowed": 308245341.14798
+      "tvl": 307033504.54599,
+      "borrowed": 282041222.70788
     },
     {
       "chain": "Avalanche",
-      "tvl": 253431268.98284,
-      "borrowed": 144785519.10897
+      "tvl": 272676689.83926,
+      "borrowed": 149208601.20513
     }
   ],
   "plan": {
@@ -1356,9 +1361,9 @@
   "spend": {
     "live": true,
     "stale": false,
-    "fetchedAt": "2026-08-31T00:56:02.809Z",
+    "fetchedAt": "2026-09-07T00:56:04.828Z",
     "revenue2025": 146492234.76239276,
-    "ytdRevenue": 70966591.11341177,
+    "ytdRevenue": 72404341.22221759,
     "approvedAnnual": 85044009,
     "serviceProviders": 51733148,
     "daoInitiatives": 33310861,
@@ -1376,15 +1381,15 @@
       "aave": 12566900,
       "eth": 980800
     },
-    "outflowYtd": 1068410690.037815,
-    "outflow30d": 123906200.61850353,
+    "outflowYtd": 1070366711.6837395,
+    "outflow30d": 33019896.228103496,
     "yearly": [
       {
         "year": 2020,
         "revenue": 550961.8512328399,
-        "outflow": 834836.0871187176,
+        "outflow": 834836.0871187181,
         "revenueByItem": {
-          "atoken_interest": 10.092618698371089,
+          "atoken_interest": 10.092618698371087,
           "borrow_interest": 6516.713540789617,
           "gho_interest": 0,
           "liquidation_fees": 0,
@@ -1396,9 +1401,9 @@
       {
         "year": 2021,
         "revenue": 14578902.87870819,
-        "outflow": 461735593.10700357,
+        "outflow": 461735593.1070035,
         "revenueByItem": {
-          "atoken_interest": 155470.48130163288,
+          "atoken_interest": 155470.48130163286,
           "borrow_interest": 13658790.136455204,
           "gho_interest": 0,
           "liquidation_fees": 0,
@@ -1410,12 +1415,12 @@
       {
         "year": 2022,
         "revenue": 22938967.03969701,
-        "outflow": 189834324.59665674,
+        "outflow": 189834324.59665677,
         "revenueByItem": {
-          "atoken_interest": 841341.2754700119,
-          "borrow_interest": 21442903.02284619,
+          "atoken_interest": 841341.275470012,
+          "borrow_interest": 21442903.022846185,
           "gho_interest": 0,
-          "liquidation_fees": 180903.9103251029,
+          "liquidation_fees": 180903.91032510286,
           "svr_liquidation_fees": 0,
           "others": 473818.8310556983
         },
@@ -1424,7 +1429,7 @@
       {
         "year": 2023,
         "revenue": 23235047.57071007,
-        "outflow": 122589610.91962972,
+        "outflow": 122582041.8885557,
         "revenueByItem": {
           "atoken_interest": 740291.26688417,
           "borrow_interest": 21474468.48291789,
@@ -1437,52 +1442,52 @@
       },
       {
         "year": 2024,
-        "revenue": 90574946.16010839,
-        "outflow": 257918728.2712242,
+        "revenue": 90574946.17799261,
+        "outflow": 257918728.27122417,
         "revenueByItem": {
-          "atoken_interest": 1852793.8335958892,
+          "atoken_interest": 1852793.8335958894,
           "borrow_interest": 80963560.12941048,
-          "gho_interest": 4272278.615479903,
-          "liquidation_fees": 2679623.0805917145,
+          "gho_interest": 4272278.615479902,
+          "liquidation_fees": 2679623.0805917154,
           "svr_liquidation_fees": 0,
-          "others": 806690.5010302935
+          "others": 806690.5189145214
         },
         "nonAaveReserve": 107366777.13047314
       },
       {
         "year": 2025,
-        "revenue": 146492234.76239258,
-        "outflow": 530862359.0126368,
+        "revenue": 146492234.7623926,
+        "outflow": 526835986.98675406,
         "revenueByItem": {
           "atoken_interest": 3143873.0680355104,
-          "borrow_interest": 109231101.15142818,
-          "gho_interest": 12512954.024306122,
-          "liquidation_fees": 7122618.059086223,
-          "svr_liquidation_fees": 5991188.068718401,
+          "borrow_interest": 109231101.1514282,
+          "gho_interest": 12512954.02430612,
+          "liquidation_fees": 7122618.059086224,
+          "svr_liquidation_fees": 5991188.068718403,
           "others": 8490500.390818248
         },
         "nonAaveReserve": 142588848.34325415
       },
       {
         "year": 2026,
-        "revenue": 70966591.11341183,
-        "outflow": 1068410690.0378143,
+        "revenue": 72404341.22221768,
+        "outflow": 1070366711.6837394,
         "revenueByItem": {
-          "atoken_interest": 4027722.6788206007,
-          "borrow_interest": 44296975.348892406,
-          "gho_interest": 2846620.672414438,
-          "liquidation_fees": 4085099.3425795226,
-          "svr_liquidation_fees": 8143875.720753098,
-          "others": 7566297.349951711
+          "atoken_interest": 4117442.450874219,
+          "borrow_interest": 45330526.49564475,
+          "gho_interest": 2938314.2968697385,
+          "liquidation_fees": 4090187.0863778605,
+          "svr_liquidation_fees": 8144345.737596837,
+          "others": 7783525.154854229
         },
-        "nonAaveReserve": 87225996.82978667
+        "nonAaveReserve": 88705302.81630135
       }
     ],
     "curYear": 2026,
     "ytdBreakdown": [
       {
         "label": "未分类(含回购 swap 等)",
-        "usd": 266302304.08673495
+        "usd": 263236276.13823405
       },
       {
         "label": "GSM Revenue Distribution",
@@ -1497,16 +1502,16 @@
         "usd": 16272615.38314031
       },
       {
-        "label": "Merkl Rewards",
-        "usd": 7529810.443964567
-      },
-      {
         "label": "Safety Module",
-        "usd": 6452045.413866497
+        "usd": 6443669.7462428
       },
       {
         "label": "Umbrella",
-        "usd": 4587490.73654213
+        "usd": 4574863.673599915
+      },
+      {
+        "label": "Merkl Rewards",
+        "usd": 4351723.1314315535
       },
       {
         "label": "Uniswap v4 LP position movement",
@@ -1526,7 +1531,7 @@
       },
       {
         "label": "Growth",
-        "usd": 1756293.5321099279
+        "usd": 1756297.5677647113
       },
       {
         "label": "Finance",
@@ -1534,7 +1539,7 @@
       },
       {
         "label": "GHO Liquidity",
-        "usd": 949887.9166757567
+        "usd": 974887.9166757567
       },
       {
         "label": "Lido Incentives",
@@ -1550,7 +1555,7 @@
       },
       {
         "label": "Staking",
-        "usd": 97412.56956218678
+        "usd": 97363.95578050107
       },
       {
         "label": "GHO CEX",
@@ -1558,22 +1563,30 @@
       },
       {
         "label": "Aave Robot keeper funding",
-        "usd": 28543.09080022317
+        "usd": 33656.196955223175
       },
       {
         "label": "Partnership (Ahab)",
         "usd": 24741.463420993852
       },
       {
+        "label": "ALC GHO liquidity payment",
+        "usd": 11295.207193480464
+      },
+      {
         "label": "Merkl Campaign Fees",
-        "usd": 240
+        "usd": 2400
+      },
+      {
+        "label": "Safe executor gas funding",
+        "usd": 14.717926998843184
       },
       {
         "label": "CCIP router fee/send",
         "usd": 6.8006479068687335
       }
     ],
-    "ytdPaymentsTotal": 519921369.12691486,
+    "ytdPaymentsTotal": 513699789.58846015,
     "ytdOneOffDonation": 39243759.696814574,
     "coreTeamAnnual": 6250000,
     "coreTeamAaveAnnual": 18750,
