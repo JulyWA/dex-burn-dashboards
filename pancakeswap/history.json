@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T00:50:42.620Z",
+  "generatedAt": "2026-09-07T05:34:31.840Z",
   "lastWeek": "2026-08-31",
   "hasSupplyCurve": true,
   "weeklyVolume": [
@@ -1687,18 +1687,18 @@
     "netSource": "dune",
     "streakMonths": 32,
     "streakAsOf": "2026-04-30",
-    "burnBudgetCake": 494677.03587443946,
+    "burnBudgetCake": 501422.6318181818,
     "burnShareOfFees": 0.22241068004703937
   },
   "now": {
-    "net": 332454315.1958355,
-    "onchainNet": 338385724.22150326,
+    "net": 391995555.1958355,
+    "onchainNet": 397926964.22150326,
     "circulating": 320777546.5387133,
     "maxSupply": 400000000,
-    "headroom": 67545684.80416453,
-    "price": 2.23,
-    "marketCap": 716652985,
-    "rawTotalSupply": 5209477531.751051,
+    "headroom": 8004444.804164529,
+    "price": 2.2,
+    "marketCap": 705024975,
+    "rawTotalSupply": 5269018771.751051,
     "rawDead": 4871091807.529548
   },
   "feeSplit": {
