@@ -16,7 +16,7 @@ table{border-collapse:collapse;width:100%;font-size:13px}th,td{border-bottom:1px
 <div class="grid">
  <div class="card"><h2>① 溢价时序（%，灰=停更窗口）</h2><canvas id="c1"></canvas></div>
  <div class="card"><h2>② 休市峰值 |溢价| vs 次 session 开盘 4h 中位</h2><canvas id="c2"></canvas></div>
- <div class="card"><h2>③ 回测净年化（%）三档 × 本金</h2><canvas id="c3"></canvas></div>
+ <div class="card"><h2>③ 回测超额年化（%，WETH 池剔除 ETH/USD 变动）三档 × 本金</h2><canvas id="c3"></canvas></div>
  <div class="card"><h2>④ 日成交量（USD，完整 UTC 日）</h2><canvas id="c4"></canvas></div>
 </div>
 <h2>费用模型对照 / 风险告警</h2><div class="card" id="risk"></div>
@@ -28,7 +28,7 @@ fetch('data.json').then(r=>r.json()).then(d=>{
  document.getElementById('asof').textContent='截至 '+d.asof+' 美股收盘 · 生成 '+d.generated_at.slice(0,16)+'Z';
  document.getElementById('concl').innerHTML=(d.stop?'<b class="red">🔴 建议停止投入</b><br>':'')+d.conclusion;
  document.getElementById('abandon').innerHTML=d.abandon.map(a=>(a.triggered===true?'🔴':a.triggered===null?'⚪':a.pending?'⏳':'🟢')+' '+a.rule+'：'+a.value+(a.note?' <span class="grey">（'+a.note+'）</span>':'')).join('<br>');
- const t=document.getElementById('pools');t.innerHTML='<tr><th>池</th><th>TVL</th><th>24h量</th><th>溢价中位(在线)</th><th>n</th><th>带内占比</th><th>溢价中位(停更)</th><th>n</th><th>@$10k 最优净年化</th><th>档</th><th>容量</th></tr>'+d.pools.map(p=>'<tr><td>'+p.label+(p.extra_exposure?' <span class="warn">+ETH</span>':'')+'</td><td>'+usd(p.tvl_usd)+'</td><td>'+usd(p.volume_24h_usd)+'</td><td>'+pct(p.premium_fresh_median,2)+'</td><td>'+p.premium_fresh_n+'</td><td>'+pct(p.premium_band_share,0)+'</td><td>'+pct(p.premium_stale_median,2)+'</td><td>'+p.premium_stale_n+'</td><td>'+pct(p.best_net_annualized_10k)+(p.best_insufficient?' <span class="grey">样本不足</span>':'')+'</td><td>'+(p.best_tier||'')+'</td><td>'+(p.capacity_below_rf_at?usd(p.capacity_below_rf_at):'—')+'</td></tr>').join('');
+ const t=document.getElementById('pools');t.innerHTML='<tr><th>池</th><th>TVL</th><th>24h量</th><th>溢价中位(在线)</th><th>n</th><th>带内占比</th><th>溢价中位(停更)</th><th>n</th><th>@$10k 超额年化(WETH池剔ETH)</th><th>绝对年化</th><th>档</th></tr>'+d.pools.map(p=>'<tr><td>'+p.label+(p.extra_exposure?' <span class="warn">+ETH</span>':'')+'</td><td>'+usd(p.tvl_usd)+'</td><td>'+usd(p.volume_24h_usd)+'</td><td>'+pct(p.premium_fresh_median,2)+'</td><td>'+p.premium_fresh_n+'</td><td>'+pct(p.premium_band_share,0)+'</td><td>'+pct(p.premium_stale_median,2)+'</td><td>'+p.premium_stale_n+'</td><td>'+pct(p.best_rank_annualized_10k)+(p.best_insufficient?' <span class="grey">样本不足</span>':'')+'</td><td>'+pct(p.best_absolute_annualized_10k)+'</td><td>'+(p.best_tier||'')+'</td></tr>').join('');
  const ds=Object.entries(d.premium).map(([k,v],i)=>({label:k,data:v.map(x=>({x:x.t*1000,y:x.p})),borderColor:C[i%6],pointRadius:0,borderWidth:1,segment:{borderColor:ctx=>v[ctx.p1DataIndex]&&v[ctx.p1DataIndex].s?'#484f58':C[i%6]}}));
  new Chart(c1,{type:'line',data:{datasets:ds},options:{parsing:false,scales:{x:{type:'linear',ticks:{callback:v=>new Date(v).toISOString().slice(5,13)}},y:{title:{display:true,text:'%'}}},plugins:{legend:{labels:{color:'#e6edf3'}}}}});
  const ep=d.episodes.filter(e=>e.complete);
