@@ -1,0 +1,42 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Robinhood 股票代币 LP 跟踪</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+body{font:14px/1.6 -apple-system,"PingFang SC",Segoe UI,sans-serif;background:#0d1117;color:#e6edf3;margin:0;padding:20px;max-width:1200px;margin:auto}
+h1{font-size:20px;margin:4px 0}h2{font-size:15px;margin:24px 0 8px;color:#8b949e}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;margin:10px 0}
+.red{color:#ff7b72}.green{color:#7ee787}.grey{color:#8b949e}.warn{color:#d29922}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{border-bottom:1px solid #30363d;padding:5px 6px;text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
+.scroll{overflow-x:auto}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(520px,1fr));gap:12px}canvas{max-height:320px}
+</style></head><body>
+<h1>Robinhood Chain 股票代币 LP 跟踪 <span class="grey" id="asof"></span></h1>
+<div class="card" id="concl"></div>
+<h2>放弃判据</h2><div class="card" id="abandon"></div>
+<h2>候选池</h2><div class="card scroll"><table id="pools"></table></div>
+<div class="grid">
+ <div class="card"><h2>① 溢价时序（%，灰=停更窗口）</h2><canvas id="c1"></canvas></div>
+ <div class="card"><h2>② 休市峰值 |溢价| vs 次 session 开盘 4h 中位</h2><canvas id="c2"></canvas></div>
+ <div class="card"><h2>③ 回测净年化（%）三档 × 本金</h2><canvas id="c3"></canvas></div>
+ <div class="card"><h2>④ 日成交量（USD，完整 UTC 日）</h2><canvas id="c4"></canvas></div>
+</div>
+<h2>费用模型对照 / 风险告警</h2><div class="card" id="risk"></div>
+<p class="grey">数据：链上自采（Swap/Mint/Burn/Collect、Chainlink 逐轮）+ GeckoTerminal 快照 + Dune。仅供研究，不构成投资建议。</p>
+<script>
+const pct=(x,d=1)=>x==null?'—':(x*100).toFixed(d)+'%';const usd=x=>x==null?'—':x>=1e6?'$'+(x/1e6).toFixed(2)+'M':x>=1e3?'$'+(x/1e3).toFixed(0)+'k':'$'+x.toFixed(0);
+const C=['#58a6ff','#7ee787','#d2a8ff','#ffa657','#ff7b72','#79c0ff'];
+fetch('data.json').then(r=>r.json()).then(d=>{
+ document.getElementById('asof').textContent='截至 '+d.asof+' 美股收盘 · 生成 '+d.generated_at.slice(0,16)+'Z';
+ document.getElementById('concl').innerHTML=(d.stop?'<b class="red">🔴 建议停止投入</b><br>':'')+d.conclusion;
+ document.getElementById('abandon').innerHTML=d.abandon.map(a=>(a.triggered===true?'🔴':a.triggered===null?'⚪':a.pending?'⏳':'🟢')+' '+a.rule+'：'+a.value+(a.note?' <span class="grey">（'+a.note+'）</span>':'')).join('<br>');
+ const t=document.getElementById('pools');t.innerHTML='<tr><th>池</th><th>TVL</th><th>24h量</th><th>溢价中位(在线)</th><th>n</th><th>带内占比</th><th>溢价中位(停更)</th><th>n</th><th>@$10k 最优净年化</th><th>档</th><th>容量</th></tr>'+d.pools.map(p=>'<tr><td>'+p.label+(p.extra_exposure?' <span class="warn">+ETH</span>':'')+'</td><td>'+usd(p.tvl_usd)+'</td><td>'+usd(p.volume_24h_usd)+'</td><td>'+pct(p.premium_fresh_median,2)+'</td><td>'+p.premium_fresh_n+'</td><td>'+pct(p.premium_band_share,0)+'</td><td>'+pct(p.premium_stale_median,2)+'</td><td>'+p.premium_stale_n+'</td><td>'+pct(p.best_net_annualized_10k)+(p.best_insufficient?' <span class="grey">样本不足</span>':'')+'</td><td>'+(p.best_tier||'')+'</td><td>'+(p.capacity_below_rf_at?usd(p.capacity_below_rf_at):'—')+'</td></tr>').join('');
+ const ds=Object.entries(d.premium).map(([k,v],i)=>({label:k,data:v.map(x=>({x:x.t*1000,y:x.p})),borderColor:C[i%6],pointRadius:0,borderWidth:1,segment:{borderColor:ctx=>v[ctx.p1DataIndex]&&v[ctx.p1DataIndex].s?'#484f58':C[i%6]}}));
+ new Chart(c1,{type:'line',data:{datasets:ds},options:{parsing:false,scales:{x:{type:'linear',ticks:{callback:v=>new Date(v).toISOString().slice(5,13)}},y:{title:{display:true,text:'%'}}},plugins:{legend:{labels:{color:'#e6edf3'}}}}});
+ const ep=d.episodes.filter(e=>e.complete);
+ new Chart(c2,{type:'bar',data:{labels:ep.map(e=>e.label+' '+e.window),datasets:[{label:'休市峰值|溢价|',data:ep.map(e=>e.peak*100),backgroundColor:'#ff7b72'},{label:'次 session 4h 中位|溢价|',data:ep.map(e=>(e.conv??0)*100),backgroundColor:'#7ee787'}]},options:{plugins:{legend:{labels:{color:'#e6edf3'}}}}});
+ const bt=d.backtest.filter(r=>r.principal===10000);const labels=[...new Set(bt.map(r=>r.label))];const tiers=['p10_p90','p5_p95','with_weekend_extremes'];
+ new Chart(c3,{type:'bar',data:{labels,datasets:[2000,10000,50000].flatMap((pr,j)=>tiers.map((tr,i)=>({label:tr+' @$'+pr/1000+'k',data:labels.map(l=>{const r=d.backtest.find(x=>x.label===l&&x.tier===tr&&x.principal===pr);return r&&r.net!=null?r.net*100:null}),backgroundColor:C[(i*2+j)%6],hidden:pr!==10000})))},options:{plugins:{legend:{labels:{color:'#e6edf3'}}}}});
+ const days=[...new Set(Object.values(d.volume).flat().map(x=>x.d))].sort();
+ new Chart(c4,{type:'bar',data:{labels:days,datasets:Object.entries(d.volume).map(([k,v],i)=>({label:k,data:days.map(x=>(v.find(y=>y.d===x)||{}).v??null),backgroundColor:C[i%6]}))},options:{scales:{x:{stacked:true},y:{stacked:true}},plugins:{legend:{labels:{color:'#e6edf3'}}}}});
+ document.getElementById('risk').innerHTML=(d.ground_truth?'<b>费用模型：</b>'+d.ground_truth.verdict+'<br>':'')+(d.risk.length?d.risk.map(a=>'['+a.level+'] '+a.message).join('<br>'):'无活跃告警');
+});
+</script></body></html>
