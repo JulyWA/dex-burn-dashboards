@@ -372,7 +372,7 @@ async function main() {
       ? `<b>三者差值构成（30d 实测，随快照更新）：</b><br>` +
         `总手续费 ${fmtUsd(f30)} −（<b>清算费 ${fmtUsd(f30 - r30)}</b>，占 ${fmtPct((f30 - r30) / f30)}，直接归 LLP 兜底池，不进协议）→ 协议收入 ${fmtUsd(r30)}<br>` +
         `协议收入 ${fmtUsd(r30)} −（<b>执行滞后 + 口径差 ${fmtUsd(r30 - b30)}</b>，占 ${fmtPct((r30 - b30) / r30)}；TWAP 分批执行的时间差 + DefiLlama 估算 vs 官方实际成交的测量噪声）→ 回购金额 ${fmtUsd(b30)}<br>` +
-        `<span style="color:var(--muted)">读法：看赚钱能力用协议收入；看持币人回报用回购金额（PE 分母）；与其他 perp DEX 对比总量用总手续费。差值①为结构性（清算费归 LLP，比例随行情波动）；差值②为技术性（应稳定在个位数百分比，突然拉大=回购规则可能变化，核对区会告警）。</span><br><br>`
+        `<span style="color:var(--muted)">读法：看赚钱能力用协议收入；看持币人回报用回购金额（PE 分母）；与其他 perp DEX 对比总量用总手续费。差值①为结构性（清算费归 LLP，比例随行情波动）；差值②原被描述为技术性噪声（"应稳定在个位数百分比"）——<b>该定性已于 2026-09-11 证伪并修正口径</b>。当时它从 2026-07 的 ~3% 升到 24.8%，根因不是执行滞后：DefiLlama 的 lighter 是<b>父协议</b>，含 Lighter Perps / Spot / Robinhood Perps 三个子协议，而 <b>LIT 回购只来自 Perps</b>（Perps 自身 holdersRevenue/revenue = 100.2%，零缺口）；Robinhood Perps 2026-07-21 上线、收入占父协议 22.8% 且不回购 LIT，Spot 另占 2.2%。<b>本页 fees/revenue 现已改用子协议 lighter-perps 为主口径</b>（= README/PLAN 定义的 zkLighter perp DEX 本体，也正是当初核定口径逐字对应的那份 methodology），分子分母同源；被排除的那部分作为附注单列，不丢信息。核对区自 2026-09-11 起对该项 >10% 告警（此前面板承诺了这条告警，但代码里并不存在），口径问题排除后再走高即为真信号。</span><br><br>`
       : "";
     $("revNote").innerHTML = gapNote + `<b>口径：</b>${esc(fr.scopeNote)}<br><b>不可量化的场外收入：</b>${esc(fr.offLedgerNote)}`;
   }
