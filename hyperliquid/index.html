@@ -292,7 +292,7 @@ async function main() {
   $("vol24").innerHTML =
     tile("24h 全平台成交量", fmtUsd(v.daily.allPlatform), `累计 ${fmtUsd(v.cumulativeAllPlatform)} · 用户 ${v.nUsers?.toLocaleString() ?? "n/a"}`) +
     tile("主 perp（加密）", fmtUsd(v.daily.mainPerp), "官方主 dex 逐资产求和") +
-    tile("HIP-3 市场", fmtUsd(v.daily.hip3), `占 perp 量 ${fmtPct(v.daily.hip3Share24h)}（7天平滑 ${v.daily.hip3Share7d != null ? fmtPct(v.daily.hip3Share7d) : "积累中"}）· ${esc((v.daily.hip3Top||[]).map(x=>x.dex).join("/"))} 股票为主`, v.daily.hip3 > (v.daily.mainPerp||0) ? "caution" : "") +
+    tile("HIP-3 市场", fmtUsd(v.daily.hip3), `占 perp 量 ${fmtPct(v.daily.hip3Share24h)}（${v.daily.hip3ShareSmooth != null ? `近${v.daily.hip3ShareSmoothPoints}周平滑 ${fmtPct(v.daily.hip3ShareSmooth)}` : "周度平滑积累中"}）· ${esc((v.daily.hip3Top||[]).map(x=>x.dex).join("/"))} 股票为主`, v.daily.hip3 > (v.daily.mainPerp||0) ? "caution" : "") +
     tile("spot 现货", fmtUsd(v.daily.spotOfficial), `DefiLlama 口径 ${fmtUsd(v.daily.spotDefiLlama)}`);
   const ap = v.windows.allPlatform, sp = v.windows.spot;
   const wRow = (name, w7, w30, w1y, c7, c30, cYoy, c1y) =>
@@ -338,12 +338,17 @@ async function main() {
     tile("AF 持仓（视同销毁）", fmtTok(b?.af.tokens) + " HYPE", "2025-12-24 验证者投票通过") +
     tile("合计移出流通", fmtTok(b?.effectiveRemovedTotal) + " HYPE", `占总量 ${fmtPct(b?.effectiveRemovedTotal/1e9, 2)}`) +
     tile("年回购速率", fmtTok(b?.buyback.annualTokens) + " HYPE/年", `${fmtUsd(b?.buyback.annualUsd)}/年 按当前30d速率`) +
-    (val ? tile("净通缩率（实际口径）", fmtPct(val.netDeflation.rateOfCirc), `${val.netDeflation.netTokens >= 0 ? "净通缩" : "净通胀"} ${fmtTok(val.netDeflation.netTokens)} HYPE/年`, val.netDeflation.netTokens >= 0 ? "good" : "caution") : "") +
+    // netTokens 可为 null（链上销毁缺源）；null >= 0 在 JS 里为 true，必须先判 null，否则缺源会显示成绿色"净通缩"
+    (val ? (val.netDeflation.netTokens == null
+      ? tile("净通缩率（实际口径）", "暂缺", "链上销毁速率缺源 —— 不按 0 计，不出结论", "caution")
+      // 2026-09-14（D4-A）：|rate| < 0.3pp（≈14 期序列 1σ）判"≈持平"，与周报卡片同口径
+      : (() => { const nd0 = val.netDeflation, flat = nd0.rateOfCirc != null && Math.abs(nd0.rateOfCirc) < 0.003;
+          return tile("净通缩率（实际口径）", fmtPct(nd0.rateOfCirc), `${flat ? "≈持平（在估计噪声内）" : nd0.netTokens >= 0 ? "净通缩" : "净通胀"} ${fmtTok(nd0.netTokens)} HYPE/年${nd0.isLowerBound ? "（链上销毁按均值兜底，为下界）" : ""}`, flat ? "" : nd0.netTokens >= 0 ? "good" : "caution"); })()) : "") +
     (s.etf ? tile("ETF 累计净流入", fmtUsd(s.etf.cumUsd), `单源 Farside·待复核 · ≈${fmtTok(s.etf.cumTokensAtPrice)} HYPE(按现价) · 近7d ${fmtUsd(s.etf.last7dUsd)} · 截至 ${esc(s.etf.lastDate)}`, "good")
            : tile("ETF 累计净流入", "源降级", "Farside 代理不可用，勿当零流入解读", "caution"));
   if (val) {
     const nd = val.netDeflation;
-    $("deflation").innerHTML = `<b>净通缩测算（${nd.unlockBasis}）</b>：年移出 ${fmtTok(nd.removeAnnualTokens)} − 年解锁 ${fmtTok(nd.unlockAnnualTokens)} = <b>${fmtTok(nd.netTokens)} HYPE/年（${fmtPct(nd.rateOfCirc)} 流通盘）</b>。⚠️ ${nd.overhangNote}。${s.etf ? `需求端参照（单列，不并入上式）：ETF 累计吸筹 ≈${fmtTok(s.etf.cumTokensAtPrice)}（按现价折算）。` : ""}脚注：按当前移出速率"烧完全部供给"需 ~${Math.round(val.yearsToZeroFootnote)} 年。`;
+    $("deflation").innerHTML = `<b>净通缩测算（${nd.unlockBasis}）</b>：年移出 ${fmtTok(nd.removeAnnualTokens)} − 年解锁 ${fmtTok(nd.unlockAnnualTokens)} = <b>${fmtTok(nd.netTokens)} HYPE/年（${fmtPct(nd.rateOfCirc)} 流通盘）</b>${nd.isLowerBound ? "（链上销毁归档不足，按生命周期均值兜底 —— 此数为下界）" : ""}。⚠️ ${nd.overhangNote}。${s.etf ? `需求端参照（单列，不并入上式）：ETF 累计吸筹 ≈${fmtTok(s.etf.cumTokensAtPrice)}（按现价折算）。` : ""}${val.yearsToZeroFootnote != null ? `脚注：按当前移出速率"烧完全部供给"需 ~${Math.round(val.yearsToZeroFootnote)} 年。` : ""}`;
   }
 
   // ④ 代币与解锁
