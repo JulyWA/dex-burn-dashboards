@@ -1,136 +1,136 @@
 {
-  "generatedAt": "2026-09-21T02:40:10.504Z",
+  "generatedAt": "2026-09-28T02:40:10.848Z",
   "volume": {
     "daily": {
-      "official": 1210208466.8564348,
-      "cgSeries": 1111694831.12063,
-      "trades": 1545697,
+      "official": 1029392262.8192332,
+      "cgSeries": 827490766.9435828,
+      "trades": 1644357,
       "markets": 246
     },
     "windows": {
-      "week": 11140024886.529999,
-      "month": 43502793683.229996,
-      "year": 1342768176373.8896,
+      "week": 10703211869.470001,
+      "month": 41603262752.66,
+      "year": 1292252950901.991,
       "yearCovered": true,
-      "allTime": 1808046222017.3093,
+      "allTime": 1818749433886.7793,
       "change": {
-        "week": 0.32107055468855067,
-        "month": 0.2457338093189732,
+        "week": -0.03921113476040539,
+        "month": 0.07797666359668659,
         "year": null
       },
       "yoyAvailable": false,
-      "yoy30d": -0.6695919169148831
+      "yoy30d": -0.7368800214536496
     },
-    "seriesDays": 612,
+    "seriesDays": 619,
     "source": "official",
     "note": "日量主口径=官方 exchangeMetrics 精确日序列(2025-01-17 起)；CoinGecko 量表 30d 求和作互核；24h 头条=官方 exchangeStats"
   },
   "feesRevenue": {
     "fees": {
-      "week": 800444,
-      "month": 3742572,
-      "year": 75616876,
+      "week": 886592,
+      "month": 3311933,
+      "year": 76503468,
       "yearCovered": false,
-      "allTime": 75616876,
+      "allTime": 76503468,
       "change": {
-        "week": 0.2799997441420523,
-        "month": 0.29667399557770785,
+        "week": 0.10762526797627317,
+        "month": -0.04467255720254159,
         "year": null
       },
       "yoyAvailable": false,
       "yoy30d": null
     },
     "revenue": {
-      "week": 664300,
-      "month": 3107502,
-      "year": 57856306,
+      "week": 645291,
+      "month": 2722847,
+      "year": 58501597,
       "yearCovered": false,
-      "allTime": 57856306,
+      "allTime": 58501597,
       "change": {
-        "week": 0.3055774472944104,
-        "month": 0.567667181570804,
+        "week": -0.028615083546590397,
+        "month": 0.10257566916497977,
         "year": null
       },
       "yoyAvailable": false,
       "yoy30d": null
     },
     "holdersRevenue": {
-      "week": 658994,
-      "month": 3139389,
-      "year": 28120350,
+      "week": 651657,
+      "month": 2717196,
+      "year": 28772007,
       "yearCovered": false,
-      "allTime": 28120350,
+      "allTime": 28772007,
       "change": {
-        "week": 0.35560327980811557,
-        "month": 0.6249030173696603,
+        "week": -0.011133637028561717,
+        "month": 0.08159373302046202,
         "year": null
       },
       "yoyAvailable": false,
       "yoy30d": null
     },
-    "revenueShare30d": 0.8303118817754207,
-    "buybackShareOfFees30d": 0.838831958343086,
+    "revenueShare30d": 0.8221322713955868,
+    "buybackShareOfFees30d": 0.8204260170722053,
     "nonBuybackScope": {
-      "feesUsd30d": 1521833,
-      "revenueUsd30d": 1361072,
-      "shareOfParentRevenue30d": 0.3045875485110015,
-      "parentFees30d": 5264405,
-      "parentRevenue30d": 4468574,
+      "feesUsd30d": 1762648,
+      "revenueUsd30d": 1623467,
+      "shareOfParentRevenue30d": 0.3735273153297254,
+      "parentFees30d": 5074581,
+      "parentRevenue30d": 4346314,
       "available": true,
       "note": "父协议 lighter 减去主口径 lighter-perps 的差额=Lighter Robinhood Perps + Lighter Spot 等子协议；它们计入协议收入但 holdersRevenue 恒为 0，不回购 LIT"
     },
     "scopeNote": "口径=DefiLlama 子协议 lighter-perps（zkLighter perp DEX 本体）。Fees=maker/taker 费（散户 0 费，premium/大户付费）；Revenue=maker/taker/transfer/withdraw 费，清算费不计入（归 LLP）；HoldersRevenue=LIT 回购。⚠️ 2026-09-11 改：原用父协议 lighter，但它自 2026-07-21 起并入 Lighter Robinhood Perps、另含 Lighter Spot，这两个子协议的 holdersRevenue 恒为 0（不回购 LIT），父口径会把不回购的收入算进分母——与 README/PLAN 定的\"zkLighter perp DEX\"范围及本条口径描述（逐字对应 lighter-perps 的官方 methodology）都不符。父子差额作为附注单列，不进主口径",
     "offLedgerNote": "金库存款收益(USDC 生息)、Circle 分成(2026-02 起,平台约$9.2亿 USDC)、LLP 收益分成——均无公开可编程口径，周报如实标'不可量化'，勿用第三方年化估算硬填"
   },
-  "tvl": 730807409.0842152,
+  "tvl": 764428138.3347287,
   "burn": {
     "deadTokens": 15638703,
-    "deadValueUsd": 75222161.42999999,
+    "deadValueUsd": 69592228.35000001,
     "burnAnnualTokensMeasured": null,
     "burnRateWindowDays": null,
     "buyback": {
       "source": "官方 exchangeMetrics",
-      "annualUsd": 38456953.19729095,
-      "annualTokens": 9866972.04461638,
-      "cumUsd": 28608877.436586373,
-      "lifetimeAnnualUsd": 39388156.690914206,
-      "cumTokens": 17889398.477875873,
-      "week": 662688.7955123708,
-      "month": 3160845.468270489,
-      "weekChange": 0.35147245265598126,
-      "monthChange": 0.6292296139256177,
-      "weekTokens": 144216.16602833997,
-      "inTransitTokens": 2250695.4778758734
+      "annualUsd": 33295821.778072525,
+      "annualTokens": 7568231.39221922,
+      "cumUsd": 29263951.12292858,
+      "lifetimeAnnualUsd": 39253596.97600597,
+      "cumTokens": 18021226.055669073,
+      "week": 655073.6863422039,
+      "month": 2736642.8858689745,
+      "weekChange": -0.011491229701988731,
+      "monthChange": 0.08418017930588052,
+      "weekTokens": 131827.57779319998,
+      "inTransitTokens": 2382523.055669073
     },
     "phaseNote": "2026-06-30 前买回持有、之后买回即销毁；年销毁速率在归档差分出数前，以回购年化枚数为前瞻代理（100% 手续费回购→销毁）"
   },
   "staking": {
     "status": "ok",
-    "stakedTokens": 113163627.53018714,
-    "stakedUsd": 544317048.4202001,
-    "poolUsdValue": 546005336.579323,
-    "stakedShareOfCirc": 0.48285970840222453,
+    "stakedTokens": 113898726.58636764,
+    "stakedUsd": 506849333.309336,
+    "poolUsdValue": 505458402.060263,
+    "stakedShareOfCirc": 0.4859963144271541,
     "targetApr": 0.06,
-    "estRewardAnnualTokens": 6789817.651811228,
-    "estRewardAnnualUsd": 32659022.905212004,
-    "growthAnnualTokens": -63145253.39567275,
+    "estRewardAnnualTokens": 6833923.595182058,
+    "estRewardAnnualUsd": 30410959.99856016,
+    "growthAnnualTokens": -6231615.474174617,
     "growthWindowDays": 35,
     "note": "奖励=生态储备已铸造存量释放(非新铸造,流通盘稀释项)；6%为目标值且团队可调，估算取上限口径；实际发放无公开报表"
   },
   "token": {
-    "priceUsd": 4.81,
+    "priceUsd": 4.45,
     "priceSources": {
-      "coingecko": 4.81,
-      "defillama": 4.8183910212629435
+      "coingecko": 4.45,
+      "defillama": 4.451416070087539
     },
     "maxSupply": 1000000000,
     "totalSupplyOnchain": 1000000000,
     "circCoinGecko": 250000000,
     "circEffective": 234361297,
     "deadTokens": 15638703,
-    "mcapEffective": 1127277838.57,
-    "mcapCoinGecko": 1203289580,
-    "fdv": 4734777838.57,
+    "mcapEffective": 1042907771.6500001,
+    "mcapCoinGecko": 1111872935,
+    "fdv": 4380407771.650001,
     "officialAllocation": [
       {
         "label": "S1+S2 空投",
@@ -166,23 +166,23 @@
   "unlocks": {
     "status": "ok",
     "horizonDays": 365,
-    "next12mTokens": 121380643.98287722,
-    "next12mUsd": 583840897.5576394,
+    "next12mTokens": 124574871.45611084,
+    "next12mUsd": 554358177.9796933,
     "past12mTokens": 250000000,
     "byCategory": [
       {
         "label": "Team",
         "unlockedTotal": 0,
-        "next12mTokens": 63117934.87109649,
+        "next12mTokens": 64778933.15717799,
         "past12mTokens": 0,
-        "next12mUsd": 303597266.7299741
+        "next12mUsd": 288266252.54944205
       },
       {
         "label": "Investors",
         "unlockedTotal": 0,
-        "next12mTokens": 58262709.111780725,
+        "next12mTokens": 59795938.298932835,
         "past12mTokens": 0,
-        "next12mUsd": 280243630.82766527
+        "next12mUsd": 266091925.43025112
       },
       {
         "label": "Seasons 1 and 2 Airdrop",
@@ -198,14 +198,14 @@
         "category": "insiders",
         "type": "linear",
         "tokens": 1661000,
-        "usd": 7989409.999999999
+        "usd": 7391450
       },
       {
         "date": "2026-12-29",
         "category": "insiders",
         "type": "linear",
         "tokens": 1533000,
-        "usd": 7373729.999999999
+        "usd": 6821850
       }
     ],
     "scheduleNote": "emissions=实际转出口径；未来12月数字≠2027-28洪峰速率，团队 23.8% 主要在 2027-2028 释放"
@@ -216,16 +216,16 @@
     "unlockedTokens": 0,
     "unlockedPct": 0,
     "remainingTokens": 259827589,
-    "remainingUsd": 1249770703.09,
+    "remainingUsd": 1156232771.05,
     "past12mTokens": 0,
-    "next12mTokens": 63117934.87109649,
-    "next12mUsd": 303597266.7299741,
+    "next12mTokens": 64778933.15717799,
+    "next12mUsd": 288266252.54944205,
     "cliffEnd": "2026-12-28",
-    "daysToCliff": 98,
+    "daysToCliff": 91,
     "investor": {
       "unlockedTokens": 0,
-      "next12mTokens": 58262709.111780725,
-      "next12mUsd": 280243630.82766527
+      "next12mTokens": 59795938.298932835,
+      "next12mUsd": 266091925.43025112
     },
     "protocolFeeShare": 0,
     "offLedgerNote": "金库存款收益/Circle USDC 分成/LLP 结构收益无公开口径，不可量化（≠0）",
@@ -245,11 +245,11 @@
     "note": "Lighter 无 DAO/国库公开报表；可量化的资金流=回购销毁(链上可核)+质押奖励(估算)，其余如实标注不可得"
   },
   "risk": {
-    "openInterestUsd": 608884063.2772216,
+    "openInterestUsd": 622979569.319183,
     "marketsCounted": 235,
-    "tvlUsd": 730807409.0842152,
-    "oiTvlRatio": 0.8331662428549028,
-    "dailyTrades": 1545697,
+    "tvlUsd": 764428138.3347287,
+    "oiTvlRatio": 0.8149615877253226,
+    "dailyTrades": 1644357,
     "events": [
       {
         "date": "2025-10-10",
@@ -275,28 +275,28 @@
     "llpNote": "LLP 无公开专属端点（数据源待评估）；坏账代理指标=OI/TVL 比值趋势 + 事件台账"
   },
   "valuation": {
-    "priceUsd": 4.81,
+    "priceUsd": 4.45,
     "circEffective": 234361297,
     "circCoinGecko": 250000000,
     "deadTokens": 15638703,
-    "mcapEffective": 1127277838.57,
-    "mcapCoinGecko": 1203289580,
-    "fdv": 4734777838.57,
-    "annualBuybackUsd": 38456953.19729095,
-    "annualHoldersRevenueUsd": 38195899.5,
-    "annualFeesUsd": 45534626,
-    "annualRevenueUsd": 37807941,
-    "pe": 29.312718373368423,
-    "peTrailing1y": 28.619715500167917,
-    "buybackYield": 0.034114884442397304,
-    "psFdv": 103.98192001335423,
+    "mcapEffective": 1042907771.6500001,
+    "mcapCoinGecko": 1111872935,
+    "fdv": 4380407771.650001,
+    "annualBuybackUsd": 33295821.778072525,
+    "annualHoldersRevenueUsd": 33059218,
+    "annualFeesUsd": 40295184.83333333,
+    "annualRevenueUsd": 33127971.833333332,
+    "pe": 31.322481799708065,
+    "peTrailing1y": 26.56846383498268,
+    "buybackYield": 0.03192595038906912,
+    "psFdv": 108.70797068602604,
     "netDeflation": {
-      "burnAnnualTokens": 9866972.04461638,
+      "burnAnnualTokens": 7568231.39221922,
       "burnBasis": "回购年化前瞻代理(100%费用回购→销毁；实测=0 或滞后)",
-      "stakeIssuanceAnnualTokens": 6789817.651811228,
-      "unlockNext12mTokens": 121380643.98287722,
-      "netTokens": -118303489.59007207,
-      "rateOfCirc": -0.5047910687662395,
+      "stakeIssuanceAnnualTokens": 6833923.595182058,
+      "unlockNext12mTokens": 124574871.45611084,
+      "netTokens": -123840563.65907368,
+      "rateOfCirc": -0.528417299461667,
       "overhangNote": "生态储备 250M 无排期未计入；团队+投资人 ~500M 自 2026-12-28 起 3 年线性——解锁项将从 0 跳升，净通缩结论大概率在 cliff 后反转"
     },
     "revenueScopeNote": "PE/回购收益率分母=年化回购（官方 exchangeMetrics 主源，DefiLlama 互核）；金库存款收益/Circle 分成/LLP 收益无公开口径未计入（真实赚钱能力被低估的方向性偏差）"
@@ -650,6 +650,10 @@
       [
         1789862400,
         11140024886.529999
+      ],
+      [
+        1790467200,
+        10703211869.470001
       ]
     ],
     "buybackWeekly": [
@@ -800,6 +804,10 @@
       [
         1789862400,
         662688.7955123708
+      ],
+      [
+        1790467200,
+        655073.6863422039
       ]
     ],
     "deadDerivedSeries": [
@@ -1862,6 +1870,34 @@
       [
         1789862400,
         17889398.477875873
+      ],
+      [
+        1789948800,
+        17914553.673171483
+      ],
+      [
+        1790035200,
+        17934238.673392285
+      ],
+      [
+        1790121600,
+        17961712.228180595
+      ],
+      [
+        1790208000,
+        17983388.305938825
+      ],
+      [
+        1790294400,
+        17999185.516229603
+      ],
+      [
+        1790380800,
+        18010865.513554364
+      ],
+      [
+        1790467200,
+        18021226.055669073
       ]
     ],
     "feesWeekly": [
@@ -2060,6 +2096,10 @@
       [
         1789862400,
         800444
+      ],
+      [
+        1790467200,
+        886592
       ]
     ],
     "revenueWeekly": [
@@ -2258,6 +2298,10 @@
       [
         1789862400,
         664300
+      ],
+      [
+        1790467200,
+        645291
       ]
     ],
     "hrevWeekly": [
@@ -2456,6 +2500,10 @@
       [
         1789862400,
         658994
+      ],
+      [
+        1790467200,
+        651657
       ]
     ],
     "unlockCumulative": {
@@ -4147,11 +4195,11 @@
     "composition": [
       {
         "label": "流通-质押中",
-        "tokens": 113163627.53018714
+        "tokens": 113898726.58636764
       },
       {
         "label": "流通-未质押",
-        "tokens": 121197669.46981286
+        "tokens": 120462570.41363236
       },
       {
         "label": "已销毁(dead)",
@@ -4218,6 +4266,10 @@
       [
         1789958405,
         113163627.53018714
+      ],
+      [
+        1790563205,
+        113898726.58636764
       ]
     ],
     "deadSeries": [
@@ -4267,6 +4319,10 @@
       ],
       [
         1789958405,
+        15638703
+      ],
+      [
+        1790563205,
         15638703
       ]
     ],
@@ -4318,6 +4374,10 @@
       [
         1789958405,
         608884063.2772216
+      ],
+      [
+        1790563205,
+        622979569.319183
       ]
     ]
   },
@@ -4325,10 +4385,10 @@
     {
       "metric": "价格",
       "sourceA": "CoinGecko",
-      "valueA": 4.81,
+      "valueA": 4.45,
       "sourceB": "DefiLlama",
-      "valueB": 4.8183910212629435,
-      "deviation": 0.0017429747596277513,
+      "valueB": 4.451416070087539,
+      "deviation": 0.0003181673739075683,
       "thresholdPct": 1,
       "status": "ok",
       "approx": false
@@ -4336,12 +4396,12 @@
     {
       "metric": "24h成交量",
       "sourceA": "官方 exchangeStats",
-      "valueA": 1210208466.8564348,
+      "valueA": 1029392262.8192332,
       "sourceB": "CoinGecko 量表末点",
-      "valueB": 1111694831.12063,
-      "deviation": 0.08485593333851053,
+      "valueB": 827490766.9435828,
+      "deviation": 0.21746280475344723,
       "thresholdPct": 15,
-      "status": "ok",
+      "status": "warn",
       "approx": true
     },
     {
@@ -4358,10 +4418,10 @@
     {
       "metric": "质押池价值",
       "sourceA": "官方池 USD 报告",
-      "valueA": 546005336.579323,
+      "valueA": 505458402.060263,
       "sourceB": "staked×现价",
-      "valueB": 544317048.4202001,
-      "deviation": 0.0030968604925481415,
+      "valueB": 506849333.309336,
+      "deviation": 0.0027480403447973103,
       "thresholdPct": 5,
       "status": "ok",
       "approx": true
@@ -4390,10 +4450,10 @@
     {
       "metric": "30d成交量",
       "sourceA": "官方 exchangeMetrics",
-      "valueA": 43502793683.229996,
+      "valueA": 41603262752.66,
       "sourceB": "CoinGecko 量表求和",
-      "valueB": 43005198298.027954,
-      "deviation": 0.011504032721273804,
+      "valueB": 41004750423.59228,
+      "deviation": 0.014490418206542299,
       "thresholdPct": 15,
       "status": "ok",
       "approx": true
@@ -4401,10 +4461,10 @@
     {
       "metric": "30d回购金额",
       "sourceA": "官方 exchangeMetrics",
-      "valueA": 3160845.468270489,
+      "valueA": 2736642.8858689745,
       "sourceB": "DefiLlama holdersRevenue",
-      "valueB": 3139389,
-      "deviation": 0.0068113237304259075,
+      "valueB": 2717196,
+      "deviation": 0.0071314486092949455,
       "thresholdPct": 15,
       "status": "ok",
       "approx": true
@@ -4477,27 +4537,27 @@
     },
     {
       "level": "OK",
-      "msg": "质押 48.3% 有效流通（区间 10–80%）"
+      "msg": "质押 48.6% 有效流通（区间 10–80%）"
     },
     {
       "level": "OK",
-      "msg": "收入/手续费占比（revenue/fees）= 83.0%（30d，区间 40–100%；差额≈清算费归 LLP）"
+      "msg": "收入/手续费占比（revenue/fees）= 82.2%（30d，区间 40–100%；差额≈清算费归 LLP）"
     },
     {
       "level": "OK",
-      "msg": "回购双源在位：官方 exchangeMetrics 累计 17.89M LIT / $28.61M（DefiLlama 互核见下）"
+      "msg": "回购双源在位：官方 exchangeMetrics 累计 18.02M LIT / $29.26M（DefiLlama 互核见下）"
     },
     {
       "level": "WARN",
-      "msg": "季度销毁无法判定：归档缺上季末（2026-06-30）之前的 deadBalance 基线，逾期与否不可判（距季末 83 天；在途 2251K LIT）"
+      "msg": "季度销毁无法判定：归档缺上季末（2026-06-30）之前的 deadBalance 基线，逾期与否不可判（距季末 90 天；在途 2383K LIT）"
     },
     {
       "level": "OK",
-      "msg": "回购缺口（协议收入→回购金额）30d = -1.7%（个位数区间内）"
+      "msg": "回购缺口（协议收入→回购金额）30d = -0.5%（个位数区间内）"
     },
     {
       "level": "OK",
-      "msg": "口径边界：父协议 lighter 30d 协议收入 4.47M，其中 30.5%（1.36M）来自不回购 LIT 的子协议（Robinhood Perps / Spot），已排除在主口径外"
+      "msg": "口径边界：父协议 lighter 30d 协议收入 4.35M，其中 37.4%（1.62M）来自不回购 LIT 的子协议（Robinhood Perps / Spot），已排除在主口径外"
     },
     {
       "level": "OK",
@@ -4513,35 +4573,35 @@
     },
     {
       "level": "OK",
-      "msg": "日量序列新鲜：末点 2026-09-20（滞后 1 天）"
+      "msg": "日量序列新鲜：末点 2026-09-27（滞后 1 天）"
     },
     {
       "level": "OK",
-      "msg": "日量序列覆盖 612 天（主口径=官方 exchangeMetrics，起点 2025-01-17；环比要求：周14/月60/年730 天）"
+      "msg": "日量序列覆盖 619 天（主口径=官方 exchangeMetrics，起点 2025-01-17；环比要求：周14/月60/年730 天）"
     },
     {
       "level": "OK",
-      "msg": "手续费(DefiLlama) 序列新鲜：末点 2026-09-20（滞后 1 天）"
+      "msg": "手续费(DefiLlama) 序列新鲜：末点 2026-09-27（滞后 1 天）"
     },
     {
       "level": "OK",
-      "msg": "协议收入(DefiLlama) 序列新鲜：末点 2026-09-20（滞后 1 天）"
+      "msg": "协议收入(DefiLlama) 序列新鲜：末点 2026-09-27（滞后 1 天）"
     },
     {
       "level": "OK",
-      "msg": "holdersRevenue(DefiLlama) 序列新鲜：末点 2026-09-20（滞后 1 天）"
+      "msg": "holdersRevenue(DefiLlama) 序列新鲜：末点 2026-09-27（滞后 1 天）"
     },
     {
       "level": "OK",
-      "msg": "手续费序列起点 2025-10-12（DefiLlama，344 天）"
+      "msg": "手续费序列起点 2025-10-12（DefiLlama，351 天）"
     },
     {
       "level": "OK",
-      "msg": "价格 双源一致（偏差 0.17%，CoinGecko vs DefiLlama）"
+      "msg": "价格 双源一致（偏差 0.03%，CoinGecko vs DefiLlama）"
     },
     {
-      "level": "OK",
-      "msg": "24h成交量 量级互核一致（偏差 8.49%，官方 exchangeStats vs CoinGecko 量表末点）"
+      "level": "WARN",
+      "msg": "24h成交量 量级互核偏差 21.75% > 15%（官方 exchangeStats vs CoinGecko 量表末点）"
     },
     {
       "level": "OK",
@@ -4549,7 +4609,7 @@
     },
     {
       "level": "OK",
-      "msg": "质押池价值 量级互核一致（偏差 0.31%，官方池 USD 报告 vs staked×现价）"
+      "msg": "质押池价值 量级互核一致（偏差 0.27%，官方池 USD 报告 vs staked×现价）"
     },
     {
       "level": "OK",
@@ -4557,11 +4617,11 @@
     },
     {
       "level": "OK",
-      "msg": "30d成交量 量级互核一致（偏差 1.15%，官方 exchangeMetrics vs CoinGecko 量表求和）"
+      "msg": "30d成交量 量级互核一致（偏差 1.45%，官方 exchangeMetrics vs CoinGecko 量表求和）"
     },
     {
       "level": "OK",
-      "msg": "30d回购金额 量级互核一致（偏差 0.68%，官方 exchangeMetrics vs DefiLlama holdersRevenue）"
+      "msg": "30d回购金额 量级互核一致（偏差 0.71%，官方 exchangeMetrics vs DefiLlama holdersRevenue）"
     }
   ]
 }
