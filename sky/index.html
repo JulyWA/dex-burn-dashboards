@@ -141,7 +141,9 @@
   <div class="notes" id="notes">
     <details open><summary>口径说明（读数前必看）</summary><ul>
       <li><b>规模不是交易量</b>：Sky 的收入 = 稳定费（Prime Agent 借 USDS 的利息、加密金库利息、稳定币抵押收益）− 付给 sUSDS/DSR 储户的利息。规模用 USDS+DAI 去重总量表示。</li>
-      <li><b>DefiLlama 五口径 ≠ 独立源</b>：DefiLlama 的 Sky 数据由官方 info-sky API 的年化运行率 ÷365 换算，"日费用"是运行率快照，不是当日入账。独立核对靠链上（vat/vow/Splitter）与官方 MSC 月度结算（实收实付）。</li>
+      <li><b>DefiLlama 五口径 ≠ 独立源</b>：DefiLlama 的 Sky 数据由官方 info-sky API 换算：fees = 年化运行率 ÷365；<b>revenue = (稳定费+清算+PSM − SSR 成本)/365，不扣 dai_expenses（约 $53M/年），比官方净收入高约 45%</b>，本站"净收入"主口径改用官方 total_net_revenue；holdersRevenue = 当日买入 SKY 枚数 × 当日价 + USDS farm 累计增量（已按月与官方对账，无重漏）。独立核对靠链上（vat/vow/Splitter）与官方 MSC 月度结算（实收实付）。运行率与月结实收天然有 30–45% 口径差（月结含 Agent 结算净额与一次性项），面板两者并列、以月结为准。</li>
+      <li><b>PE 两口径</b>：主口径 8 周中位×52 与其他六项目一致，但回购速率 2026-08-17 与 09-13 两次上调后中位滞后于现状，故并列"当前速率"口径（最近一整周×52）。<b>回购收益率</b>按链上实际 kick 频次（官方 farm 累计增量反推，约 30–33 次/天）而非理想 86400/hop。</li>
+      <li><b>净流通与补满月数都是外推</b>：净流通 = 当前季度 vest 流×4 − 近 30 天回购×12，各季度流速差可达 3 倍，季度切换会翻符号；后备资本补满月数按近 90 天日均增量，序列月结跳升、月中下滑呈锯齿。1 年环比的基准取 ±3 天均值，避免基准日单点尖峰。</li>
       <li><b>持有人收益</b>：Step3 资本 = 45% 买 SKY 发给质押者 + 45% USDS 发给质押者 + 10% 买 SKY 销毁（Atlas A.2.3.1.2.4）；链上 Splitter burn=55%、farm=45% 与之吻合。PE = 流通市值 ÷ 持有人收益（近 8 周中位 ×52），与另外六个项目同口径。</li>
       <li><b>SKY 质押奖励 ≠ 增发</b>：可增发流 MCD_VEST_SKY 已于 2025-06 结束。SKY 奖励来自金库（Smart Burn Engine 买回的 SKY）经 MCD_VEST_SKY_TREASURY 按流发放，是流通盘内部转移；供应板块把它计为"金库→市场"流出，与"市场→金库"的回购相抵后给出净流通变化。</li>
       <li><b>流通量口径</b>：CoinGecko 流通 = 总量 − 金库，未扣转换合约里未领取的 ~2.06B SKY（属未转换 MKR 持有人，MKR 可交易，不算新增稀释）。面板另给"有效流通 = 总量 − 金库 − 转换合约"。</li>
@@ -207,7 +209,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
   barChart("groupChart", g.map(x => x.name), [{ label: "债务规模", data: g.map(x => x.debt) }, { label: "年化收入", data: g.map(x => x.revenueAnnual) }]);
 
   // 2 赚钱能力
-  const rows = [["fees", "总费用（用户付：稳定费+清算+PSM）"], ["revenue", "净收入（扣 SSR 成本）"], ["holdersRevenue", "持有人收益（回购+USDS 奖励）"], ["protocolRevenue", "协议留存（安全维护+后备资本）"], ["supplySideRevenue", "付给储户（SSR 成本）"]];
+  const rows = [["fees", "总费用（用户付：稳定费+清算+PSM）"], ["netRevenueOfficial", "净收入（官方：扣 SSR 成本与 dai_expenses）"], ["revenue", "净收入（DefiLlama 口径，未扣 dai_expenses，仅参考）"], ["holdersRevenue", "持有人收益（回购+USDS 奖励）"], ["protocolRevenue", "协议留存（DefiLlama：revenue − 持有人）"], ["supplySideRevenue", "付给储户（SSR 成本）"]];
   document.getElementById("incomeTable").innerHTML = `<tr><th>口径</th><th>近 7 天</th><th>近 30 天</th><th>近 365 天</th></tr>` +
     rows.map(([k, n]) => { const w = W[k]; return `<tr><td>${n}</td><td>${fmtUsd(w?.week)}${chg(w?.change?.week)}</td><td>${fmtUsd(w?.month)}${chg(w?.change?.month)}</td><td>${fmtUsd(w?.year)}${chg(w?.change?.year)}</td></tr>`; }).join("") +
     `<tr><td colspan="4" style="text-align:left;color:var(--muted);font-size:12px">环比 = 与上一个同长度窗口比。DefiLlama 口径 = 官方年化运行率 ÷365，覆盖到 ${i.coverage.fees?.coveredThrough}${i.coverage.fees?.trimmedDays ? `，末尾 ${i.coverage.fees.trimmedDays} 天占位已剔除` : ""}</td></tr>`;
@@ -218,7 +220,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
     card("最新月结（MSC）净收入", st ? fmtUsd(st.last.netRevenue) : "n/a", st ? `${st.last.period} · 收入 ${fmtUsd(st.last.income)} − 支出 ${fmtUsd(st.last.expenses)} · 环比${chg(st.mom?.netRevenue)}` : "官方结算数据缺失") +
     card("近 12 月结算净收入", st ? fmtUsd(st.trailing12m.netRevenue) : "n/a", st ? `${st.trailing12m.months} 个月实收实付 · 近 3 月年化 ${fmtUsd(st.annualizedFromLast3.netRevenue)}` : "") +
     card("官方净收入运行率", fmtUsd(i.runRate?.netRevenue), i.runRate ? `稳定费 ${fmtUsd(i.runRate.stabilityFee)} − SSR ${fmtUsd(i.runRate.ssrCost)} − DAI 支出 ${fmtUsd(i.runRate.daiExpenses)} · 30 天变化${chg(i.rrChange?.netRevenue30d)}` : "");
-  lineChart("incomeChart", ch.feesWeekly.map(p => fmtDate(p.t)), [{ label: "总费用", data: ch.feesWeekly.map(p => p.v) }, { label: "净收入", data: ch.revenueWeekly.map(p => p.v) }, { label: "持有人收益", data: ch.hrevWeekly.map(p => p.v) }]);
+  lineChart("incomeChart", ch.feesWeekly.map(p => fmtDate(p.t)), [{ label: "总费用", data: ch.feesWeekly.map(p => p.v) }, { label: "净收入（官方）", data: (ch.netRevenueOfficialWeekly || []).slice(-ch.feesWeekly.length).map(p => p.v) }, { label: "净收入（DefiLlama 参考）", data: ch.revenueWeekly.map(p => p.v), borderDash: [4, 3] }, { label: "持有人收益", data: ch.hrevWeekly.map(p => p.v) }]);
   barChart("mscChart", ch.settlementsMonthly.map(m => m.period), [{ label: "收入", data: ch.settlementsMonthly.map(m => m.income) }, { label: "支出", data: ch.settlementsMonthly.map(m => m.expenses) }, { label: "净收入", data: ch.settlementsMonthly.map(m => m.netRevenue) }]);
   const rr = ch.runRateWeekly;
   lineChart("runRateChart", rr.stabilityFee.map(p => fmtDate(p.t)), [{ label: "稳定费（年化）", data: rr.stabilityFee.map(p => p.v) }, { label: "SSR 成本（年化）", data: rr.ssrCost.map(p => p.v) }, { label: "净收入（年化）", data: rr.netRevenue.map(p => p.v) }]);
@@ -275,9 +277,10 @@ fetch("./data.json").then(r => r.json()).then(d => {
   const bb = v.buyback, ur = v.usdsRewards, sr = v.skyRewards, val = v.valuation;
   document.getElementById("vcCards").innerHTML =
     card("持有人收益年化", fmtUsd(v.holdersRevenueAnnual), `回购 + USDS 奖励 · 近 8 周中位 ×52 · 近 30 天 ${fmtUsd(W.holdersRevenue?.month)}`) +
-    card("PE（主口径）", val.peHolders != null ? val.peHolders.toFixed(1) : "n/a", `流通市值 ${fmtUsd(t.marketCapUsd)} ÷ 持有人收益 · FDV 口径 ${val.peHoldersFdv != null ? val.peHoldersFdv.toFixed(1) : "n/a"}`) +
+    card("PE（主口径）", val.peHolders != null ? val.peHolders.toFixed(1) : "n/a", `流通市值 ${fmtUsd(t.marketCapUsd)} ÷ 持有人收益 8 周中位年化 · FDV 口径 ${val.peHoldersFdv != null ? val.peHoldersFdv.toFixed(1) : "n/a"}`) +
+    card("PE（当前速率）", val.peCurrentRate != null ? val.peCurrentRate.toFixed(1) : "n/a", `最近一整周 ×52 = ${fmtUsd(val.holdersRevenueCurrentRate)} · 回购速率 8 月起两次上调，中位口径滞后 · 持有人收益率 ${fmtPct(val.holdersYieldCurrent, 2)}`, val.peCurrentRate != null && val.peHolders != null && val.peCurrentRate < val.peHolders * 0.8 ? "caution" : "") +
     card("PE（净收入口径）", val.peNetRevenueMsc12m != null ? val.peNetRevenueMsc12m.toFixed(1) : "n/a", `市值 ÷ MSC 近 12 月实收净收入 · DefiLlama revenue 1y 口径 ${val.peRevenueDl1y != null ? val.peRevenueDl1y.toFixed(1) : "n/a"}`) +
-    card("回购收益率", fmtPct(val.buybackYield, 2), `Splitter 买 SKY 年化 ${fmtUsd(bb.annualUsdsFromSplitter)} ÷ 市值 · 持有人收益率 ${fmtPct(val.holdersYield, 2)}`) +
+    card("回购收益率", fmtPct(val.buybackYield, 2), `Splitter 买 SKY 年化 ${fmtUsd(bb.annualUsdsFromSplitter)} ÷ 市值 · 实际 ${bb.splitter.dailyKicks?.toFixed(1)} 次/天（理想 ${bb.splitter.theoreticalKicks?.toFixed(1)}）· 持有人收益率 ${fmtPct(val.holdersYield, 2)}`) +
     card("质押 APY（官方）", `${fmtPct(val.stakingApyUsds)} / ${fmtPct(val.stakingApySky)}`, "选 USDS 奖励 / 选 SKY 奖励 · 两档由治理调成等值") +
     card("累计回购", fmtUsd(bb.usdsCumulative), `→ ${fmtTok(bb.skyCumulative)}（占总量 ${fmtPct(bb.skyBoughtPctOfSupply)}）· 均价 $${bb.avgCostUsd?.toFixed(4)} · 浮盈 ${fmtUsd(bb.unrealizedProfitUsd)}`) +
     card("近 30 天回购", fmtTok(bb.last30dSky), `≈ ${fmtUsd(bb.last30dUsdEst)} · 当前速率年化 ${fmtTok(bb.annualSkyFromRecentPace)}`) +
@@ -295,7 +298,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
     card("有效流通", fmtTok(t.effectiveCirculating), `= 总量 − 金库 ${fmtTok(t.treasury)} − 转换合约待领 ${fmtTok(t.converterHeld)} · 占总量 ${fmtPct(t.effectiveCircPct)}`) +
     card("质押中", fmtTok(t.staked), `占总量 ${fmtPct(t.stakedPct)} · lsSKY 总量，与官方 lsev2 互核`) +
     card("未转换 MKR", fmtNum(t.mkr.unconverted) + " MKR", `= ${fmtTok(t.mkr.potentialSky)}（已含在总量内，存放于转换合约）· 延迟升级罚金 ${fmtPct(t.mkr.penaltyPct, 0)}，每季 +1pp`) +
-    card("净流通变化（年化）", fmtPct(sd.netInflationRateCirc, 2), `金库→质押者 ${fmtTok(sd.emissionToStakersAnnualSky)} − 回购 ${fmtTok(sd.buybackFromMarketAnnualSky)} = ${fmtTok(sd.netCircChangeAnnualSky)}/年`, sd.netInflationRateCirc > 0.01 ? "caution" : "") +
+    card("净流通变化（年化）", fmtPct(sd.netInflationRateCirc, 2), `按当前季度 vest 流外推：金库→质押者 ${fmtTok(sd.emissionToStakersAnnualSky)} − 回购 ${fmtTok(sd.buybackFromMarketAnnualSky)} = ${fmtTok(sd.netCircChangeAnnualSky)}/年 · 上一季度流 ${fmtTok(v.skyRewards.prevStreamPerDay)}/天 vs 当前 ${fmtTok(v.skyRewards.activeStreams[0]?.perDay)}/天`, sd.netInflationRateCirc > 0.01 ? "caution" : "") +
     card("金库可持续天数", sd.treasuryRunwayDays != null ? Math.round(sd.treasuryRunwayDays) + " 天" : "∞", `金库 ${fmtTok(t.treasury)} ÷ 净流出速率 · 见底则奖励只能靠回购速率`) +
     card("观察到的销毁", fmtTok(sd.burnObserved), `总量 vs 基准 ${fmtNum(sd.totalSupplyRef)}（2026-09-29）· >0 = 真烧`, sd.burnObserved > 1e6 ? "good" : "");
   const sup = [["有效流通（市场）", t.effectiveCirculating - (t.staked || 0)], ["质押中", t.staked], ["转换合约待领（未转换 MKR）", t.converterHeld], ["金库", t.treasury]];
@@ -322,7 +325,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
     card("抵押率", fmtPct(rk.collateralRatio), `抵押 ${fmtUsd(rk.collateralUsd)} / 债务 ${fmtUsd(rk.debtUsd)}`) +
     card("最大敞口分组", `${rk.top1?.name} ${fmtPct(rk.top1?.share)}`, rk.concentration.slice(0, 4).map(x => `${x.name} ${fmtPct(x.share, 0)}`).join(" · ")) +
     card("规模变化 30/90/365 天", `${fmtPct(rk.usdsDaiSupplyChange.d30)} / ${fmtPct(rk.usdsDaiSupplyChange.d90)}`, `365 天 ${fmtPct(rk.usdsDaiSupplyChange.d365)} · 规模缩水 = 收入缩水`, rk.usdsDaiSupplyChange.d90 < -0.05 ? "caution" : "") +
-    card("近 30 天清算", fmtUsd(rk.liquidations30dUsd), "官方 liquidations/historic");
+    card("近 30 天清算", fmtUsd(rk.liquidations30dUsd), `全部抵押品类型 · 近 90 天 ${fmtUsd(rk.liquidations90dUsd)} · 最近一笔 ${rk.lastLiquidation ? `${rk.lastLiquidation.date} ${rk.lastLiquidation.ilk} ${fmtUsd(rk.lastLiquidation.debtRepaid)}` : "n/a"}`);
   document.getElementById("riskEvents").innerHTML =
     rk.historicEvents.map(e => li("WARN", `<b>${e.date} ${e.title}</b>：${e.detail}`)).join("") +
     rk.structural.map(x => li("INFO", `结构性：${x}`)).join("") +
