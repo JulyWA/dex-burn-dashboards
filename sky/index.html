@@ -101,6 +101,7 @@
   <h2 id="sec3">🏦 金库：钱从哪来、花到哪去 <span class="sub-h">· Atlas 财库管理瀑布（TMF）按最新月度结算推算 vs 链上实测</span></h2>
   <div class="grid" id="treasuryCards"></div>
   <div class="flow" id="waterfall"></div>
+  <div class="chart-box" style="height:480px;margin-top:12px"><h3 id="sankeyTitle">资金流向（最新月结，单位 $M）：来源 → 收入 → 支出 / 净收入 → ①②③ → 持有人拆分</h3><div class="cv" style="height:410px;padding-bottom:6px"><canvas id="sankeyChart"></canvas></div></div>
   <div class="grid2">
     <div class="chart-box"><h3>后备资本（Aggregate Backstop Capital，周）</h3><div class="cv"><canvas id="backstopChart"></canvas></div></div>
     <div class="chart-box"><h3>Sky 核心净盈余（官方 sky_surplus，周；负 = 已投出到 Agent）</h3><div class="cv"><canvas id="surplusChart"></canvas></div></div>
@@ -163,6 +164,7 @@
   <footer>Sky 监控 · 数据每周一自动更新（阶段 3 上线后）· 本页为静态页，所有数字来自 data.json</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-sankey@0.12.1/dist/chartjs-chart-sankey.min.js"></script>
 <script>
 if (window.Chart) { Chart.defaults.color = "#8b949e"; Chart.defaults.borderColor = "#30363d"; Chart.defaults.font.family = "-apple-system, PingFang SC, sans-serif"; }
 const C = { blue: "#58a6ff", green: "#3fb950", yellow: "#d29922", red: "#f85149", purple: "#a371f7", cyan: "#39c5cf", pink: "#db61a2", gray: "#6e7681" };
@@ -237,6 +239,31 @@ fetch("./data.json").then(r => r.json()).then(d => {
     `<div class="step">→ 45% 买 SKY 发质押者<b>${fmtUsd(wf.skyBuybackToStakers)}</b>金库 → vest 流</div>` +
     `<div class="step">→ 45% USDS 发质押者<b>${fmtUsd(wf.usdsToStakers)}</b>REWARDS_LSSKY_USDS</div>` +
     `<div class="step">→ 10% 买 SKY 销毁<b>${fmtUsd(wf.skyBuybackBurn)}</b>看 totalSupply 是否真降</div>`;
+  // 桑基：来源按当前运行率占比分摊到本月收入（近似，标注）；收入 → 支出/净收入 → ①②③ → ③ 三分
+  (() => {
+    const el = document.getElementById("sankeyChart"); if (!el || !window.Chart || !wf || !i.settlements) return;
+    const M = (x) => Math.round((x || 0) / 1e4) / 100; // $M 两位小数
+    const inc = i.settlements.last.income, exp = i.settlements.last.expenses;
+    const src = (ch.revenueByGroup || []).filter(g => g.share > 0.02).map(g => ({ from: `来源·${g.name}`, to: "收入", flow: M(inc * g.share) }));
+    const other = inc - src.reduce((s, x) => s + x.flow * 1e6, 0);
+    if (other > 1e5) src.push({ from: "来源·其他", to: "收入", flow: M(other) });
+    const data = [
+      ...src,
+      { from: "收入", to: "支出（SSR 利息等）", flow: M(exp) },
+      { from: "收入", to: "净收入", flow: M(wf.netRevenue) },
+      { from: "净收入", to: "① 安全维护与治理 20%", flow: M(wf.step1SecurityMaintenance) },
+      { from: "净收入", to: `② 补后备资本 ${fmtPct(wf.step2RetainPct, 0)}`, flow: M(wf.step2Retained) },
+      { from: "净收入", to: "③ 持有人", flow: M(wf.step3Capital) },
+      { from: "③ 持有人", to: "买 SKY 发质押者 45%", flow: M(wf.skyBuybackToStakers) },
+      { from: "③ 持有人", to: "直接发 USDS 45%", flow: M(wf.usdsToStakers) },
+      { from: "③ 持有人", to: "买 SKY 销毁 10%", flow: M(wf.skyBuybackBurn) },
+    ].filter(d => d.flow > 0);
+    const colorOf = (k) => k.startsWith("来源") ? C.gray : k === "收入" ? C.blue : k.startsWith("支出") ? C.red : k === "净收入" ? C.cyan : k.startsWith("①") ? C.yellow : k.startsWith("②") ? C.purple : k.startsWith("③") || k.includes("质押") || k.includes("USDS") ? C.green : k.includes("销毁") ? C.pink : C.blue;
+    new Chart(el, { type: "sankey", data: { datasets: [{ data, colorFrom: (c) => colorOf(c.dataset.data[c.dataIndex].from), colorTo: (c) => colorOf(c.dataset.data[c.dataIndex].to), colorMode: "gradient", borderWidth: 0, nodeWidth: 14, size: "max",
+      labels: Object.fromEntries(data.flatMap(d => [d.from, d.to]).map(k => [k, k])) }] },
+      options: { responsive: true, maintainAspectRatio: false, layout: { padding: { top: 6, bottom: 14 } }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.raw.from} → ${c.raw.to}：$${c.raw.flow}M` } } } } });
+    document.getElementById("sankeyTitle").textContent = `资金流向（${wf.period} 月结，单位 $M）：来源（按当前运行率占比分摊，近似）→ 收入 ${M(inc)} → 支出 ${M(exp)} / 净收入 ${M(wf.netRevenue)} → ①②③ → 持有人拆分`;
+  })();
   lineChart("backstopChart", ch.backstopWeekly.map(p => fmtDate(p.t)), [{ label: "后备资本", data: ch.backstopWeekly.map(p => p.v) }]);
   lineChart("surplusChart", ch.coreSurplusWeekly.map(p => fmtDate(p.t)), [{ label: "Sky 核心净盈余", data: ch.coreSurplusWeekly.map(p => p.v), borderColor: C.yellow }]);
   barChart("opexChart", ch.opexMonthly.map(m => m.month), [{ label: "运营支出", data: ch.opexMonthly.map(m => m.usd) }]);
