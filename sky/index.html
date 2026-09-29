@@ -71,7 +71,6 @@
     <span class="ts" id="ts">加载中…</span>
   </header>
   <nav class="toc">
-    <a href="#sec0">🧭 一句话</a>
     <a href="#sec1">📊 规模</a>
     <a href="#sec2">💵 赚钱能力</a>
     <a href="#sec3">🏦 金库：来源与去向</a>
@@ -82,9 +81,6 @@
     <a href="#sec8">✅ 核对</a>
     <a href="#appendix">🔗 口径与附录</a>
   </nav>
-
-  <h2 id="sec0">🧭 一句话结论</h2>
-  <div class="callout" id="headline"></div>
 
   <h2 id="sec1">📊 规模 <span class="sub-h">· Sky 是稳定币发行商，没有"交易量"：营业额 = USDS/DAI 规模 × 利差</span></h2>
   <div class="grid" id="scale"></div>
@@ -190,14 +186,6 @@ fetch("./data.json").then(r => r.json()).then(d => {
   const bj = new Date(new Date(d.generatedAt).getTime() + 8 * 3600e3);
   document.getElementById("ts").textContent = "更新于 " + bj.toISOString().replace("T", " ").slice(0, 16) + " (UTC+8)";
   const W = i.windows;
-
-  // 0 一句话
-  const pe = v.valuation.peHolders, hy = v.valuation.holdersYield;
-  document.getElementById("headline").innerHTML =
-    `Sky 靠 <b>${fmtUsd(s.stableTotalOfficial)}</b> 的 USDS/DAI 规模赚利差：总费用运行率 <b>${fmtUsd(W.fees?.year)}</b>/年，扣掉付给储户的 SSR 后净收入 <b>${fmtUsd(W.revenue?.year)}</b>/年（最新月结实收净 <b>${fmtUsd(i.settlements?.last?.netRevenue)}</b>/月）。` +
-    `净收入先留 20% 给安全维护、再留 50% 补后备资本（现 ${fmtUsd(tr.aggregateBackstopCapital)}，未到 $150M 地板），剩下约 40% 才到持有人：回购 + USDS 奖励年化 <b>${fmtUsd(v.holdersRevenueAnnual)}</b>，对应 PE <b>${pe != null ? pe.toFixed(1) : "n/a"}</b>、持有人收益率 <b>${fmtPct(hy, 2)}</b>。` +
-    `SKY 总量固定 ${fmtTok(t.totalSupply)}，<b>无增发</b>；回购回来的 SKY 经金库再发给质押者（${fmtTok(sd.emissionToStakersAnnualSky)}/年）、回购从市场收回 ${fmtTok(sd.buybackFromMarketAnnualSky)}/年，净流通变化 <b>${fmtPct(sd.netInflationRateCirc, 2)}</b>/年；Atlas 规定的 10% 销毁份额<b>${sd.burnObserved > 1e6 ? "已观察到" : "尚未观察到总量下降"}</b>。` +
-    `核心净盈余 <b class="${tr.coreSurplusChain < 0 ? "down" : "up"}">${fmtUsd(tr.coreSurplusChain)}</b>（已投出到 Prime Agent 作后备资本），排队清算债务 ${fmtUsd(rk.queuedLiquidationDebt)}。`;
 
   // 1 规模
   document.getElementById("scale").innerHTML =
