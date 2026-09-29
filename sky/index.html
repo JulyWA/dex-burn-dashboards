@@ -101,7 +101,7 @@
   <h2 id="sec3">🏦 金库：钱从哪来、花到哪去 <span class="sub-h">· Atlas 财库管理瀑布（TMF）按最新月度结算推算 vs 链上实测</span></h2>
   <div class="grid" id="treasuryCards"></div>
   <div class="flow" id="waterfall"></div>
-  <div class="chart-box" style="height:480px;margin-top:12px"><h3 id="sankeyTitle">资金流向（最新月结，单位 $M）：来源 → 收入 → 支出 / 净收入 → ①②③ → 持有人拆分</h3><div class="cv" style="height:410px;padding-bottom:6px"><canvas id="sankeyChart"></canvas></div></div>
+  <div class="chart-box" style="height:580px;margin-top:12px"><h3 id="sankeyTitle">资金流向（最新月结，单位 $M）：来源 → 收入 → 支出 / 净收入 → ①②③ → 持有人拆分</h3><div class="cv" style="height:500px"><canvas id="sankeyChart"></canvas></div></div>
   <div class="grid2">
     <div class="chart-box"><h3>后备资本（Aggregate Backstop Capital，周）</h3><div class="cv"><canvas id="backstopChart"></canvas></div></div>
     <div class="chart-box"><h3>Sky 核心净盈余（官方 sky_surplus，周；负 = 已投出到 Agent）</h3><div class="cv"><canvas id="surplusChart"></canvas></div></div>
@@ -259,7 +259,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
       { from: "③ 持有人", to: "买 SKY 销毁 10%", flow: M(wf.skyBuybackBurn) },
     ].filter(d => d.flow > 0);
     const colorOf = (k) => k.startsWith("来源") ? C.gray : k === "收入" ? C.blue : k.startsWith("支出") ? C.red : k === "净收入" ? C.cyan : k.startsWith("①") ? C.yellow : k.startsWith("②") ? C.purple : k.startsWith("③") || k.includes("质押") || k.includes("USDS") ? C.green : k.includes("销毁") ? C.pink : C.blue;
-    new Chart(el, { type: "sankey", data: { datasets: [{ data, colorFrom: (c) => colorOf(c.dataset.data[c.dataIndex].from), colorTo: (c) => colorOf(c.dataset.data[c.dataIndex].to), colorMode: "gradient", borderWidth: 0, nodeWidth: 14, nodePadding: 16, size: "max",
+    new Chart(el, { type: "sankey", data: { datasets: [{ data, colorFrom: (c) => colorOf(c.dataset.data[c.dataIndex].from), colorTo: (c) => colorOf(c.dataset.data[c.dataIndex].to), colorMode: "gradient", borderWidth: 0, nodeWidth: 14, nodePadding: 26, size: "max",
       labels: Object.fromEntries(data.flatMap(d => [d.from, d.to]).map(k => [k, k])) }] },
       options: { responsive: true, maintainAspectRatio: false, layout: { padding: { top: 6, bottom: 34 } }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.raw.from} → ${c.raw.to}：$${c.raw.flow}M` } } } } });
     document.getElementById("sankeyTitle").textContent = `资金流向（${wf.period} 月结，单位 $M）：来源（按当前运行率占比分摊，近似）→ 收入 ${M(inc)} → 支出 ${M(exp)} / 净收入 ${M(wf.netRevenue)} → ①②③ → 持有人拆分`;
