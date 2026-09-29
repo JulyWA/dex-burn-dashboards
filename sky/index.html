@@ -144,6 +144,12 @@
       <li><b>持有人收益</b>：Step3 资本 = 45% 买 SKY 发给质押者 + 45% USDS 发给质押者 + 10% 买 SKY 销毁（Atlas A.2.3.1.2.4）；链上 Splitter burn=55%、farm=45% 与之吻合。PE = 流通市值 ÷ 持有人收益（近 8 周中位 ×52），与另外六个项目同口径。</li>
       <li><b>SKY 质押奖励 ≠ 增发</b>：可增发流 MCD_VEST_SKY 已于 2025-06 结束。SKY 奖励来自金库（Smart Burn Engine 买回的 SKY）经 MCD_VEST_SKY_TREASURY 按流发放，是流通盘内部转移；供应板块把它计为"金库→市场"流出，与"市场→金库"的回购相抵后给出净流通变化。</li>
       <li><b>流通量口径</b>：CoinGecko 流通 = 总量 − 金库，未扣转换合约里未领取的 ~2.06B SKY（属未转换 MKR 持有人，MKR 可交易，不算新增稀释）。面板另给"有效流通 = 总量 − 金库 − 转换合约"。</li>
+      <li><b>SSR</b>（Sky Savings Rate）：协议付给 sUSDS 储户的年息，是成本端利率；越高越能吸引 USDS 存款做大规模，但直接吃掉净收入。</li>
+      <li><b>留存率</b> = 净收入 ÷ 总费用：用户付的每 $100 费用里协议留下多少，其余付给储户；下降 = 利差收窄。</li>
+      <li><b>月结实收 vs 净收入（运行率）</b>：净收入来自官方年化运行率 ÷365 累加（DefiLlama 同源），是"当前赚钱速度"的估算，适合看趋势与环比；月结实收来自官方 Monthly Settlement Cycle，是每月实际记账的收入 − 支出（含与 Spark/Grove 等 Agent 的月度结算和一次性项目），金库瀑布分配按此数。两者偏差 >30% 会告警。</li>
+      <li><b>PE</b> = 流通市值 ÷ 持有人收益年化（近 8 周中位 ×52）；附注 PE = 市值 ÷ 月结近 12 月净收入。<b>回购收益率</b> = 链上 Splitter 当前速率买 SKY 的 USDS 年化 ÷ 流通市值（全体持有人按市值分摊）。<b>质押 APY</b> = 官方口径，USDS 奖励年化 ÷ 质押 SKY 市值，只有质押者拿，所以高于回购收益率。</li>
+      <li><b>团队收入</b>：团队没有代币解锁。每 $100 净收入拨 $20 进「安全维护与治理预算」（Core Council 治理与开发 10% + Fortification 法律与安全 10%），这是团队/贡献者/安全的钱；官方 accounting/operation 是实付，2026-04 改制前含一次性拨款所以高于 20% 推算。Spark/Grove 基金会的 grant 由各自 Agent 金库支付，不经 Sky 核心。代币侧收益 = 持币增值 + Agent 代币（SPK/GROVE 70% 归 Sky 生态）。</li>
+      <li><b>风险后果</b>：① 核心自有盈余为负 = Sky 核心没有自己的缓冲垫，资本放在 Spark/Grove/Obex 手里；Agent 亏损时最后防线是拍卖 SKY 补坏账（2020 黑色星期四先例），会稀释持有人。② 后备资本未到 $150M 地板时，净收入的 50% 先补资本，持有人只拿 40%；按当前每月留存额可推算补满月数。③ 排队清算债务（vow.Sin）是清算产生、等待用盈余核销的坏账，才是真正的坏账口径。</li>
       <li><b>净盈余为负</b>：vat.dai(vow) − vat.sin(vow) 与官方 sky_surplus 一致为负，含义是 Sky 核心已把盈余投出到 Prime Agent SubProxy（Spark/Grove/Obex 作后备资本），不是坏账；真正的清算坏账看"排队清算债务"（vow.Sin）。</li>
     </ul></details>
     <details><summary>数据源与端点</summary><ul>
