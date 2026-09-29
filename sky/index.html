@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sky 监控面板</title>
+<style>
+  :root {
+    --bg: #0d1117; --card: #161b22; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+    --warn: #d29922; --alert: #f85149; --ok: #3fb950; --pending: #6e7681; --purple: #a371f7;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, "Segoe UI", "PingFang SC", Roboto, sans-serif; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 16px 60px; }
+  header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  h1 { font-size: 22px; margin: 0; }
+  .ts { color: var(--muted); font-size: 13px; }
+  h2 { font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin: 44px 0 12px; padding-top: 22px; border-top: 1px solid var(--border); font-weight: 600; }
+  h2 .sub-h { font-size: 13px; color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .toc { position: sticky; top: 0; z-index: 10; background: rgba(13,17,23,.94); backdrop-filter: blur(6px); display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 0; margin: 18px 0 2px; border-bottom: 1px solid var(--border); }
+  .toc a { font-size: 12px; color: var(--muted); text-decoration: none; padding: 4px 11px; border: 1px solid var(--border); border-radius: 999px; white-space: nowrap; }
+  .toc a:hover { color: var(--accent); border-color: var(--accent); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; margin-top: 12px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .card .label { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+  .card .val { font-size: 24px; font-weight: 700; word-break: break-word; }
+  .card .sub { color: var(--muted); font-size: 12px; margin-top: 4px; line-height: 1.5; }
+  .card.highlight { border-color: var(--alert); } .card.highlight .val { color: var(--alert); }
+  .card.caution { border-color: var(--warn); } .card.caution .val { color: var(--warn); }
+  .card.good { border-color: var(--ok); } .card.good .val { color: var(--ok); }
+  .callout { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 16px; margin-top: 12px; font-size: 14px; line-height: 1.7; }
+  .callout b { color: var(--text); }
+  .checks { list-style: none; padding: 0; margin: 12px 0 0; }
+  .checks li { padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; font-size: 13px; display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+  .tag { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+  .tag.OK { background: rgba(63,185,80,.15); color: var(--ok); }
+  .tag.WARN { background: rgba(210,153,34,.15); color: var(--warn); }
+  .tag.ALERT { background: rgba(248,81,73,.15); color: var(--alert); }
+  .tag.INFO { background: rgba(88,166,255,.15); color: var(--accent); }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin-top: 12px; }
+  .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 14px 8px; height: 300px; position: relative; }
+  .chart-box h3 { margin: 0 0 10px; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .chart-box .cv { position: relative; height: 240px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  th, td { padding: 8px 10px; text-align: right; border-bottom: 1px solid var(--border); }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  tr:last-child td { border-bottom: none; }
+  .tbl-wrap { overflow-x: auto; }
+  .notes { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 16px; margin-top: 12px; }
+  .notes details { border-bottom: 1px solid var(--border); padding: 10px 0; }
+  .notes details:last-of-type { border-bottom: none; }
+  .notes summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  .notes ul { margin: 10px 0 4px; padding-left: 20px; }
+  .notes li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 6px; }
+  .notes li b { color: var(--text); }
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+  .flow .step { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 12px; color: var(--muted); }
+  .flow .step b { display: block; color: var(--text); font-size: 16px; margin: 4px 0; }
+  .up { color: var(--ok); } .down { color: var(--alert); }
+  footer { color: var(--muted); font-size: 12px; margin-top: 40px; text-align: center; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Sky（原 MakerDAO）监控面板</h1>
+    <span class="ts" id="ts">加载中…</span>
+  </header>
+  <nav class="toc">
+    <a href="#sec0">🧭 一句话</a>
+    <a href="#sec1">📊 规模</a>
+    <a href="#sec2">💵 赚钱能力</a>
+    <a href="#sec3">🏦 金库：来源与去向</a>
+    <a href="#sec4">🔁 持有人收益与估值</a>
+    <a href="#sec5">🪙 代币供应</a>
+    <a href="#sec6">👥 团队收入</a>
+    <a href="#sec7">⚠️ 风险</a>
+    <a href="#sec8">✅ 核对</a>
+    <a href="#appendix">🔗 口径与附录</a>
+  </nav>
+
+  <h2 id="sec0">🧭 一句话结论</h2>
+  <div class="callout" id="headline"></div>
+
+  <h2 id="sec1">📊 规模 <span class="sub-h">· Sky 是稳定币发行商，没有"交易量"：营业额 = USDS/DAI 规模 × 利差</span></h2>
+  <div class="grid" id="scale"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>USDS + DAI 稳定币规模（周，官方去重口径）</h3><div class="cv"><canvas id="stableChart"></canvas></div></div>
+    <div class="chart-box"><h3>收入来源分组：债务规模 vs 年化收入</h3><div class="cv"><canvas id="groupChart"></canvas></div></div>
+  </div>
+
+  <h2 id="sec2">💵 赚钱能力 <span class="sub-h">· 三层口径：总费用（用户付）→ 净收入（扣付给储户的 SSR）→ 持有人拿到的（回购+USDS 奖励）</span></h2>
+  <div class="tbl-wrap"><table id="incomeTable"></table></div>
+  <div class="grid" id="incomeCards"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>总费用 vs 净收入 vs 持有人收益（周，DefiLlama 运行率口径）</h3><div class="cv"><canvas id="incomeChart"></canvas></div></div>
+    <div class="chart-box"><h3>月度结算 MSC：实收 / 实付 / 净收入（官方）</h3><div class="cv"><canvas id="mscChart"></canvas></div></div>
+    <div class="chart-box"><h3>官方年化运行率：稳定费 vs SSR 成本 vs 净收入</h3><div class="cv"><canvas id="runRateChart"></canvas></div></div>
+  </div>
+
+  <h2 id="sec3">🏦 金库：钱从哪来、花到哪去 <span class="sub-h">· Atlas 财库管理瀑布（TMF）按最新月度结算推算 vs 链上实测</span></h2>
+  <div class="grid" id="treasuryCards"></div>
+  <div class="flow" id="waterfall"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>后备资本（Aggregate Backstop Capital，周）</h3><div class="cv"><canvas id="backstopChart"></canvas></div></div>
+    <div class="chart-box"><h3>Sky 核心净盈余（官方 sky_surplus，周；负 = 已投出到 Agent）</h3><div class="cv"><canvas id="surplusChart"></canvas></div></div>
+    <div class="chart-box"><h3>Step1 安全维护/运营支出（官方月度）</h3><div class="cv"><canvas id="opexChart"></canvas></div></div>
+  </div>
+  <div class="tbl-wrap"><table id="flowTable"></table></div>
+
+  <h2 id="sec4">🔁 持有人收益与估值 <span class="sub-h">· 持有人收益 = USDS 现金买回 SKY + 直接发放 USDS；SKY 奖励是买回的币再发，不是新增收入</span></h2>
+  <div class="grid" id="vcCards"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>回购 SKY 枚数（周，官方）</h3><div class="cv"><canvas id="buybackChart"></canvas></div></div>
+    <div class="chart-box"><h3>回购 USDS 实付（月，官方）</h3><div class="cv"><canvas id="buybackUsdChart"></canvas></div></div>
+  </div>
+  <ul class="checks" id="vcNotes"></ul>
+
+  <h2 id="sec5">🪙 代币供应 <span class="sub-h">· 总量固定、无增发；回购→金库→质押奖励再发出；Atlas 规定 10% 销毁，看总量是否真降</span></h2>
+  <div class="grid" id="supplyCards"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>供应构成</h3><div class="cv"><canvas id="supplyChart"></canvas></div></div>
+    <div class="chart-box"><h3>SKY 质押奖励发放表（金库 vest 流，官方链上）</h3><div class="cv"><canvas id="vestChart"></canvas></div></div>
+  </div>
+  <ul class="checks" id="supplyNotes"></ul>
+
+  <h2 id="sec6">👥 团队收入 <span class="sub-h">· 团队赚的是协议收入（TMF Step1 净收入 20%）+ Agent 代币/持币增值，不是铸币</span></h2>
+  <div class="grid" id="teamCards"></div>
+  <div class="callout" id="teamNote"></div>
+
+  <h2 id="sec7">⚠️ 风险与黑历史</h2>
+  <div class="grid" id="riskCards"></div>
+  <ul class="checks" id="riskEvents"></ul>
+
+  <h2 id="sec8">✅ 核对与数据源</h2>
+  <ul class="checks" id="checks"></ul>
+  <div class="tbl-wrap"><table id="coverageTable"></table></div>
+
+  <h2 id="appendix">🔗 口径与附录</h2>
+  <div class="notes" id="notes">
+    <details open><summary>口径说明（读数前必看）</summary><ul>
+      <li><b>规模不是交易量</b>：Sky 的收入 = 稳定费（Prime Agent 借 USDS 的利息、加密金库利息、稳定币抵押收益）− 付给 sUSDS/DSR 储户的利息。规模用 USDS+DAI 去重总量表示。</li>
+      <li><b>DefiLlama 五口径 ≠ 独立源</b>：DefiLlama 的 Sky 数据由官方 info-sky API 的年化运行率 ÷365 换算，"日费用"是运行率快照，不是当日入账。独立核对靠链上（vat/vow/Splitter）与官方 MSC 月度结算（实收实付）。</li>
+      <li><b>持有人收益</b>：Step3 资本 = 45% 买 SKY 发给质押者 + 45% USDS 发给质押者 + 10% 买 SKY 销毁（Atlas A.2.3.1.2.4）；链上 Splitter burn=55%、farm=45% 与之吻合。PE = 流通市值 ÷ 持有人收益（近 8 周中位 ×52），与另外六个项目同口径。</li>
+      <li><b>SKY 质押奖励 ≠ 增发</b>：可增发流 MCD_VEST_SKY 已于 2025-06 结束。SKY 奖励来自金库（Smart Burn Engine 买回的 SKY）经 MCD_VEST_SKY_TREASURY 按流发放，是流通盘内部转移；供应板块把它计为"金库→市场"流出，与"市场→金库"的回购相抵后给出净流通变化。</li>
+      <li><b>流通量口径</b>：CoinGecko 流通 = 总量 − 金库，未扣转换合约里未领取的 ~2.06B SKY（属未转换 MKR 持有人，MKR 可交易，不算新增稀释）。面板另给"有效流通 = 总量 − 金库 − 转换合约"。</li>
+      <li><b>净盈余为负</b>：vat.dai(vow) − vat.sin(vow) 与官方 sky_surplus 一致为负，含义是 Sky 核心已把盈余投出到 Prime Agent SubProxy（Spark/Grove/Obex 作后备资本），不是坏账；真正的清算坏账看"排队清算债务"（vow.Sin）。</li>
+    </ul></details>
+    <details><summary>数据源与端点</summary><ul>
+      <li>DefiLlama：<a href="https://defillama.com/protocol/sky-lending" target="_blank">sky-lending</a>（fees/revenue/holdersRevenue/protocolRevenue/supplySideRevenue）</li>
+      <li>官方面板后端：info-sky.blockanalitica.com（revenue/historic、buyback、farms、financials/settlements、backstop、buffer、groups、lsev2、migrations）；官方前端 <a href="https://info.sky.money" target="_blank">info.sky.money</a></li>
+      <li>链上（公共 RPC）：SKY / lsSKY / MKR / MKR_SKY / MCD_SPLIT / MCD_FLAP / MCD_VAT / MCD_VOW / MCD_VEST_SKY(_TREASURY) / REWARDS_LSSKY_* / USDS / sUSDS / POT，地址来自 <a href="https://chainlog.sky.money" target="_blank">chainlog</a></li>
+      <li>规则原文：<a href="https://github.com/sky-ecosystem/next-gen-atlas" target="_blank">Sky Atlas</a>（A.2.3.1 财库管理、A.3.5 盈余与 Smart Burn Engine、A.4 代币）；月度财报 <a href="https://insights.skyeco.com" target="_blank">insights.skyeco.com</a></li>
+      <li>价格/市值：CoinGecko ↔ coins.llama 互核</li>
+    </ul></details>
+  </div>
+  <footer>Sky 监控 · 数据每周一自动更新（阶段 3 上线后）· 本页为静态页，所有数字来自 data.json</footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+if (window.Chart) { Chart.defaults.color = "#8b949e"; Chart.defaults.borderColor = "#30363d"; Chart.defaults.font.family = "-apple-system, PingFang SC, sans-serif"; }
+const C = { blue: "#58a6ff", green: "#3fb950", yellow: "#d29922", red: "#f85149", purple: "#a371f7", cyan: "#39c5cf", pink: "#db61a2", gray: "#6e7681" };
+const fmtDate = (ts) => new Date(ts * 1000).toISOString().slice(0, 10);
+const fmtUsd = (n) => { if (n == null || isNaN(n)) return "n/a"; const a = Math.abs(n); if (a >= 1e9) return "$" + (n/1e9).toFixed(2) + "B"; if (a >= 1e6) return "$" + (n/1e6).toFixed(2) + "M"; if (a >= 1e3) return "$" + (n/1e3).toFixed(1) + "K"; return "$" + n.toFixed(2); };
+const fmtPct = (x, d = 1) => x == null || isNaN(x) ? "n/a" : (x*100).toFixed(d) + "%";
+const fmtNum = (n) => n == null || isNaN(n) ? "n/a" : Math.round(n).toLocaleString("en-US");
+const fmtTok = (n) => { if (n == null || isNaN(n)) return "n/a"; if (Math.abs(n) < 0.5) n = 0; const a = Math.abs(n); if (a >= 1e9) return (n/1e9).toFixed(2) + "B SKY"; if (a >= 1e6) return (n/1e6).toFixed(1) + "M SKY"; return fmtNum(n) + " SKY"; };
+const chg = (x, d = 1) => x == null || isNaN(x) ? "" : ` <span class="${x >= 0 ? "up" : "down"}">${x >= 0 ? "▲" : "▼"}${Math.abs(x*100).toFixed(d)}%</span>`;
+const card = (label, val, sub, cls = "") => `<div class="card ${cls}"><div class="label">${label}</div><div class="val">${val}</div>${sub ? `<div class="sub">${sub}</div>` : ""}</div>`;
+const li = (level, html) => `<li><span class="tag ${level}">${level}</span><span>${html}</span></li>`;
+const usdAxis = { ticks: { callback: (v) => fmtUsd(v) } };
+const tokAxis = { ticks: { callback: (v) => fmtTok(v).replace(" SKY", "") } };
+function lineChart(id, labels, datasets, yAxis = usdAxis, extra = {}) {
+  const el = document.getElementById(id); if (!el || !window.Chart) return;
+  new Chart(el, { type: "line", data: { labels, datasets: datasets.map((d, i) => ({ borderWidth: 1.6, pointRadius: 0, tension: .25, borderColor: Object.values(C)[i], backgroundColor: Object.values(C)[i] + "33", fill: false, ...d })) },
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: "index", intersect: false }, plugins: { legend: { display: datasets.length > 1, labels: { boxWidth: 10 } } }, scales: { x: { ticks: { maxTicksLimit: 8 } }, y: yAxis }, ...extra } });
+}
+function barChart(id, labels, datasets, yAxis = usdAxis, stacked = false) {
+  const el = document.getElementById(id); if (!el || !window.Chart) return;
+  new Chart(el, { type: "bar", data: { labels, datasets: datasets.map((d, i) => ({ backgroundColor: Object.values(C)[i] + "cc", borderWidth: 0, ...d })) },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: datasets.length > 1, labels: { boxWidth: 10 } } }, scales: { x: { stacked, ticks: { maxTicksLimit: 12 } }, y: { stacked, ...yAxis } } } });
+}
+
+fetch("./data.json").then(r => r.json()).then(d => {
+  const { token: t, scale: s, income: i, valueCapture: v, supplyDynamics: sd, treasury: tr, teamRevenue: tm, risk: rk, charts: ch, checks } = d;
+  const bj = new Date(new Date(d.generatedAt).getTime() + 8 * 3600e3);
+  document.getElementById("ts").textContent = "更新于 " + bj.toISOString().replace("T", " ").slice(0, 16) + " (UTC+8)";
+  const W = i.windows;
+
+  // 0 一句话
+  const pe = v.valuation.peHolders, hy = v.valuation.holdersYield;
+  document.getElementById("headline").innerHTML =
+    `Sky 靠 <b>${fmtUsd(s.stableTotalOfficial)}</b> 的 USDS/DAI 规模赚利差：总费用运行率 <b>${fmtUsd(W.fees?.year)}</b>/年，扣掉付给储户的 SSR 后净收入 <b>${fmtUsd(W.revenue?.year)}</b>/年（最新月结实收净 <b>${fmtUsd(i.settlements?.last?.netRevenue)}</b>/月）。` +
+    `净收入先留 20% 给安全维护、再留 50% 补后备资本（现 ${fmtUsd(tr.aggregateBackstopCapital)}，未到 $150M 地板），剩下约 40% 才到持有人：回购 + USDS 奖励年化 <b>${fmtUsd(v.holdersRevenueAnnual)}</b>，对应 PE <b>${pe != null ? pe.toFixed(1) : "n/a"}</b>、持有人收益率 <b>${fmtPct(hy, 2)}</b>。` +
+    `SKY 总量固定 ${fmtTok(t.totalSupply)}，<b>无增发</b>；回购回来的 SKY 经金库再发给质押者（${fmtTok(sd.emissionToStakersAnnualSky)}/年）、回购从市场收回 ${fmtTok(sd.buybackFromMarketAnnualSky)}/年，净流通变化 <b>${fmtPct(sd.netInflationRateCirc, 2)}</b>/年；Atlas 规定的 10% 销毁份额<b>${sd.burnObserved > 1e6 ? "已观察到" : "尚未观察到总量下降"}</b>。` +
+    `核心净盈余 <b class="${tr.coreSurplusChain < 0 ? "down" : "up"}">${fmtUsd(tr.coreSurplusChain)}</b>（已投出到 Prime Agent 作后备资本），排队清算债务 ${fmtUsd(rk.queuedLiquidationDebt)}。`;
+
+  // 1 规模
+  document.getElementById("scale").innerHTML =
+    card("USDS + DAI 规模", fmtUsd(s.stableTotalOfficial), `官方去重口径 · 周${chg(s.change.stable.week)} 月${chg(s.change.stable.month)} 年${chg(s.change.stable.year)}`) +
+    card("其中 USDS", fmtUsd(s.usdsOfficial), `DAI ${fmtUsd(s.daiOfficial)} · USDS 周${chg(s.change.usds.week)} 月${chg(s.change.usds.month)}`) +
+    card("sUSDS 存款（付息负债）", fmtUsd(s.susdsTvl), `SSR ${fmtPct(s.ssr, 2)} · DSR ${fmtPct(s.dsr, 2)} · 这是成本端`) +
+    card("抵押品 / 抵押率", fmtUsd(s.collateral), `债务 ${fmtUsd(s.debt)} · 抵押率 ${fmtPct(s.collateralRatio)} · 债务上限使用 ${fmtPct(rk.debtCeilingUtilization)}`) +
+    card("生态 TVL（官方）", fmtUsd(s.ecosystemTvl), `DefiLlama sky-lending TVL ${fmtUsd(s.dlTvl)}`);
+  lineChart("stableChart", ch.stableSupplyWeekly.map(p => fmtDate(p.t)), [{ label: "USDS+DAI", data: ch.stableSupplyWeekly.map(p => p.v) }, { label: "USDS", data: ch.usdsWeekly.map(p => p.v) }, { label: "sUSDS 存款", data: ch.susdsWeekly.map(p => p.v) }]);
+  const g = ch.revenueByGroup.filter(x => x.debt > 0 || x.revenueAnnual > 0);
+  barChart("groupChart", g.map(x => x.name), [{ label: "债务规模", data: g.map(x => x.debt) }, { label: "年化收入", data: g.map(x => x.revenueAnnual) }]);
+
+  // 2 赚钱能力
+  const rows = [["fees", "总费用（用户付：稳定费+清算+PSM）"], ["revenue", "净收入（扣 SSR 成本）"], ["holdersRevenue", "持有人收益（回购+USDS 奖励）"], ["protocolRevenue", "协议留存（安全维护+后备资本）"], ["supplySideRevenue", "付给储户（SSR 成本）"]];
+  document.getElementById("incomeTable").innerHTML = `<tr><th>口径</th><th>近 7 天</th><th>近 30 天</th><th>近 365 天</th></tr>` +
+    rows.map(([k, n]) => { const w = W[k]; return `<tr><td>${n}</td><td>${fmtUsd(w?.week)}${chg(w?.change?.week)}</td><td>${fmtUsd(w?.month)}${chg(w?.change?.month)}</td><td>${fmtUsd(w?.year)}${chg(w?.change?.year)}</td></tr>`; }).join("") +
+    `<tr><td colspan="4" style="text-align:left;color:var(--muted);font-size:12px">环比 = 与上一个同长度窗口比。DefiLlama 口径 = 官方年化运行率 ÷365，覆盖到 ${i.coverage.fees?.coveredThrough}${i.coverage.fees?.trimmedDays ? `，末尾 ${i.coverage.fees.trimmedDays} 天占位已剔除` : ""}</td></tr>`;
+  const st = i.settlements;
+  document.getElementById("incomeCards").innerHTML =
+    card("留存率 净收入/总费用", fmtPct(i.ratios.revenueOverFees), `其余 ${fmtPct(i.ratios.ssrCostOverFees)} 付给 sUSDS/DSR 储户`) +
+    card("持有人分成 持有人/净收入", fmtPct(i.ratios.holdersOverRevenue), `协议留存 ${fmtPct(i.ratios.protocolRetainedOverRevenue)}（安全维护 + 后备资本）`) +
+    card("最新月结（MSC）净收入", st ? fmtUsd(st.last.netRevenue) : "n/a", st ? `${st.last.period} · 收入 ${fmtUsd(st.last.income)} − 支出 ${fmtUsd(st.last.expenses)} · 环比${chg(st.mom?.netRevenue)}` : "官方结算数据缺失") +
+    card("近 12 月结算净收入", st ? fmtUsd(st.trailing12m.netRevenue) : "n/a", st ? `${st.trailing12m.months} 个月实收实付 · 近 3 月年化 ${fmtUsd(st.annualizedFromLast3.netRevenue)}` : "") +
+    card("官方净收入运行率", fmtUsd(i.runRate?.netRevenue), i.runRate ? `稳定费 ${fmtUsd(i.runRate.stabilityFee)} − SSR ${fmtUsd(i.runRate.ssrCost)} − DAI 支出 ${fmtUsd(i.runRate.daiExpenses)} · 30 天变化${chg(i.rrChange?.netRevenue30d)}` : "");
+  lineChart("incomeChart", ch.feesWeekly.map(p => fmtDate(p.t)), [{ label: "总费用", data: ch.feesWeekly.map(p => p.v) }, { label: "净收入", data: ch.revenueWeekly.map(p => p.v) }, { label: "持有人收益", data: ch.hrevWeekly.map(p => p.v) }]);
+  barChart("mscChart", ch.settlementsMonthly.map(m => m.period), [{ label: "收入", data: ch.settlementsMonthly.map(m => m.income) }, { label: "支出", data: ch.settlementsMonthly.map(m => m.expenses) }, { label: "净收入", data: ch.settlementsMonthly.map(m => m.netRevenue) }]);
+  const rr = ch.runRateWeekly;
+  lineChart("runRateChart", rr.stabilityFee.map(p => fmtDate(p.t)), [{ label: "稳定费（年化）", data: rr.stabilityFee.map(p => p.v) }, { label: "SSR 成本（年化）", data: rr.ssrCost.map(p => p.v) }, { label: "净收入（年化）", data: rr.netRevenue.map(p => p.v) }]);
+
+  // 3 金库
+  document.getElementById("treasuryCards").innerHTML =
+    card("核心净盈余（链上）", fmtUsd(tr.coreSurplusChain), `vat.dai − vat.sin(vow) · 官方 sky_surplus ${fmtUsd(tr.officialSkySurplus)} · 负 = 盈余已投出到 Agent SubProxy`, tr.coreSurplusChain < 0 ? "caution" : "") +
+    card("后备资本 ABC", fmtUsd(tr.aggregateBackstopCapital), `地板 $150M 的 ${fmtPct(tr.fillPctOfFloor, 0)} · 目标 1.5%×USDS = ${fmtUsd(tr.targetBackstop)} · 30 天${chg(tr.backstopChange30d != null && tr.aggregateBackstopCapital ? tr.backstopChange30d / (tr.aggregateBackstopCapital - tr.backstopChange30d) : null)}`, tr.fillPctOfFloor < 1 ? "caution" : "good") +
+    card("Agent SubProxy 余额", tr.agentProxies ? fmtUsd((tr.agentProxies.spark || 0) + (tr.agentProxies.grove || 0) + (tr.agentProxies.obex || 0)) : "n/a", tr.agentProxies ? `Spark ${fmtUsd(tr.agentProxies.spark)} · Grove ${fmtUsd(tr.agentProxies.grove)} · Obex ${fmtUsd(tr.agentProxies.obex)}` : "") +
+    card("Step2 留存比例（当前）", fmtPct(tr.step2RetainPct, 0), "后备资本低于 $150M 地板 → 净收入扣安全维护后的 50% 留下补资本") +
+    card("Splitter 实测（月）", fmtUsd(tr.step3ActualMonthly), `每 ${v.buyback.splitter.hop}s 一次 ${fmtNum(v.buyback.splitter.kickLot)} USDS · burn ${fmtPct(v.buyback.splitter.burn, 0)} 买 SKY / farm ${fmtPct(1 - v.buyback.splitter.burn, 0)} 发 USDS`);
+  const wf = tr.waterfall;
+  if (wf) document.getElementById("waterfall").innerHTML =
+    `<div class="step">Step0 净收入（${wf.period}）<b>${fmtUsd(wf.netRevenue)}</b>MSC 实收 − 实付</div>` +
+    `<div class="step">Step1 安全维护 20%<b>${fmtUsd(wf.step1SecurityMaintenance)}</b>Core Council ${fmtUsd(wf.coreCouncil)} + Fortification ${fmtUsd(wf.fortification)}</div>` +
+    `<div class="step">Step2 后备资本留存 ${fmtPct(wf.step2RetainPct, 0)}<b>${fmtUsd(wf.step2Retained)}</b>补 ABC 至 $150M 地板</div>` +
+    `<div class="step">Step3 资本<b>${fmtUsd(wf.step3Capital)}</b>Splitter 实测 ${fmtUsd(tr.step3ActualMonthly)}/月</div>` +
+    `<div class="step">→ 45% 买 SKY 发质押者<b>${fmtUsd(wf.skyBuybackToStakers)}</b>金库 → vest 流</div>` +
+    `<div class="step">→ 45% USDS 发质押者<b>${fmtUsd(wf.usdsToStakers)}</b>REWARDS_LSSKY_USDS</div>` +
+    `<div class="step">→ 10% 买 SKY 销毁<b>${fmtUsd(wf.skyBuybackBurn)}</b>看 totalSupply 是否真降</div>`;
+  lineChart("backstopChart", ch.backstopWeekly.map(p => fmtDate(p.t)), [{ label: "后备资本", data: ch.backstopWeekly.map(p => p.v) }]);
+  lineChart("surplusChart", ch.coreSurplusWeekly.map(p => fmtDate(p.t)), [{ label: "Sky 核心净盈余", data: ch.coreSurplusWeekly.map(p => p.v), borderColor: C.yellow }]);
+  barChart("opexChart", ch.opexMonthly.map(m => m.month), [{ label: "运营支出", data: ch.opexMonthly.map(m => m.usd) }]);
+  document.getElementById("flowTable").innerHTML = `<tr><th>资金流（年化运行率）</th><th>金额</th></tr>` +
+    tr.inflows.map(x => `<tr><td>⬆ 流入 · ${x.name}</td><td class="up">${fmtUsd(x.annual)}</td></tr>`).join("") +
+    tr.outflows.map(x => `<tr><td>⬇ 流出 · ${x.name}</td><td class="down">${fmtUsd(x.annual)}</td></tr>`).join("");
+
+  // 4 持有人收益与估值
+  const bb = v.buyback, ur = v.usdsRewards, sr = v.skyRewards, val = v.valuation;
+  document.getElementById("vcCards").innerHTML =
+    card("持有人收益年化", fmtUsd(v.holdersRevenueAnnual), `回购 + USDS 奖励 · 近 8 周中位 ×52 · 近 30 天 ${fmtUsd(W.holdersRevenue?.month)}`) +
+    card("PE（主口径）", val.peHolders != null ? val.peHolders.toFixed(1) : "n/a", `流通市值 ${fmtUsd(t.marketCapUsd)} ÷ 持有人收益 · FDV 口径 ${val.peHoldersFdv != null ? val.peHoldersFdv.toFixed(1) : "n/a"}`) +
+    card("PE（净收入口径）", val.peNetRevenueMsc12m != null ? val.peNetRevenueMsc12m.toFixed(1) : "n/a", `市值 ÷ MSC 近 12 月实收净收入 · DefiLlama revenue 1y 口径 ${val.peRevenueDl1y != null ? val.peRevenueDl1y.toFixed(1) : "n/a"}`) +
+    card("回购收益率", fmtPct(val.buybackYield, 2), `Splitter 买 SKY 年化 ${fmtUsd(bb.annualUsdsFromSplitter)} ÷ 市值 · 持有人收益率 ${fmtPct(val.holdersYield, 2)}`) +
+    card("质押 APY（官方）", `${fmtPct(val.stakingApyUsds)} / ${fmtPct(val.stakingApySky)}`, "选 USDS 奖励 / 选 SKY 奖励 · 两档由治理调成等值") +
+    card("累计回购", fmtUsd(bb.usdsCumulative), `→ ${fmtTok(bb.skyCumulative)}（占总量 ${fmtPct(bb.skyBoughtPctOfSupply)}）· 均价 $${bb.avgCostUsd?.toFixed(4)} · 浮盈 ${fmtUsd(bb.unrealizedProfitUsd)}`) +
+    card("近 30 天回购", fmtTok(bb.last30dSky), `≈ ${fmtUsd(bb.last30dUsdEst)} · 当前速率年化 ${fmtTok(bb.annualSkyFromRecentPace)}`) +
+    card("USDS 奖励年化", fmtUsd(ur.annualFromRate), `链上 rewardRate · 累计已发 ${fmtUsd(ur.cumulative)} · 近 30 天 ${fmtUsd(ur.last30d)}`) +
+    card("SKY 奖励（金库再发放）", fmtTok(sr.annualSky) + "/年", `≈ ${fmtUsd(sr.annualUsd)} · 来源 = 回购回来的 SKY，不计入持有人收益`);
+  barChart("buybackChart", ch.buybackSkyWeekly.map(p => fmtDate(p.t)), [{ label: "回购 SKY", data: ch.buybackSkyWeekly.map(p => p.v) }], tokAxis);
+  barChart("buybackUsdChart", ch.buybackUsdsMonthly.map(m => m.month), [{ label: "USDS 实付", data: ch.buybackUsdsMonthly.map(m => m.usds), backgroundColor: C.green + "cc" }]);
+  document.getElementById("vcNotes").innerHTML =
+    li("INFO", `持有人收益的三条独立路径：官方 buyback/farm API、链上 Splitter（每 ${bb.splitter.hop}s 一次 ${fmtNum(bb.splitter.kickLot)} USDS → 日 ${fmtUsd(bb.dailyUsdsFromSplitter + (ur.annualFromSplitter / 365))}）、DefiLlama holdersRevenue；见「核对」节偏差。`) +
+    li("INFO", `Atlas 规定 Step3 的 10% 买回后销毁 ≈ ${fmtUsd(bb.impliedBurnAnnualUsd)}/年 ≈ ${fmtTok(bb.impliedBurnAnnualSky)}/年；${sd.burnObserved > 1e6 ? `已观察到总量下降 ${fmtTok(sd.burnObserved)}` : "目前 totalSupply 未见下降，买回的 SKY 全部停留金库/发放（销毁未落地或另有节奏）"}。`);
+
+  // 5 代币供应
+  document.getElementById("supplyCards").innerHTML =
+    card("总供应量（链上）", fmtTok(t.totalSupply), `CoinGecko ${fmtTok(t.cgTotalSupply)} · 无增发（可增发流 ${sd.lastMintStreamEnd} 结束）`) +
+    card("有效流通", fmtTok(t.effectiveCirculating), `= 总量 − 金库 ${fmtTok(t.treasury)} − 转换合约待领 ${fmtTok(t.converterHeld)} · 占总量 ${fmtPct(t.effectiveCircPct)}`) +
+    card("质押中", fmtTok(t.staked), `占总量 ${fmtPct(t.stakedPct)} · lsSKY 总量，与官方 lsev2 互核`) +
+    card("未转换 MKR", fmtNum(t.mkr.unconverted) + " MKR", `= ${fmtTok(t.mkr.potentialSky)}（已含在总量内，存放于转换合约）· 延迟升级罚金 ${fmtPct(t.mkr.penaltyPct, 0)}，每季 +1pp`) +
+    card("净流通变化（年化）", fmtPct(sd.netInflationRateCirc, 2), `金库→质押者 ${fmtTok(sd.emissionToStakersAnnualSky)} − 回购 ${fmtTok(sd.buybackFromMarketAnnualSky)} = ${fmtTok(sd.netCircChangeAnnualSky)}/年`, sd.netInflationRateCirc > 0.01 ? "caution" : "") +
+    card("金库可持续天数", sd.treasuryRunwayDays != null ? Math.round(sd.treasuryRunwayDays) + " 天" : "∞", `金库 ${fmtTok(t.treasury)} ÷ 净流出速率 · 见底则奖励只能靠回购速率`) +
+    card("观察到的销毁", fmtTok(sd.burnObserved), `总量 vs 基准 ${fmtNum(sd.totalSupplyRef)}（2026-09-29）· >0 = 真烧`, sd.burnObserved > 1e6 ? "good" : "");
+  const sup = [["有效流通（市场）", t.effectiveCirculating - (t.staked || 0)], ["质押中", t.staked], ["转换合约待领（未转换 MKR）", t.converterHeld], ["金库", t.treasury]];
+  const el = document.getElementById("supplyChart");
+  if (el && window.Chart) new Chart(el, { type: "doughnut", data: { labels: sup.map(x => x[0]), datasets: [{ data: sup.map(x => Math.max(0, x[1] || 0)), backgroundColor: [C.blue, C.green, C.yellow, C.purple], borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "right", labels: { boxWidth: 10 } }, tooltip: { callbacks: { label: (c) => `${c.label}: ${fmtTok(c.raw)}` } } } } });
+  const vs = ch.skyRewardSchedule || [];
+  barChart("vestChart", vs.map(x => `${x.from}→${x.to}`), [{ label: "每日发放 SKY", data: vs.map(x => x.perDay), backgroundColor: vs.map(x => x.active ? C.green + "cc" : C.gray + "cc") }], tokAxis);
+  document.getElementById("supplyNotes").innerHTML =
+    li("INFO", `SKY 质押奖励当前流：${sr.activeStreams.map(x => `#${x.id} ${x.from}→${x.to} 共 ${fmtTok(x.tot)}（${fmtTok(x.perDay)}/天）`).join("；") || "无进行中的流"}；治理按月结调整（Atlas A.2.3.1.4.1 让 SKY/USDS 两档奖励率等值）。`) +
+    li("INFO", `流通量口径差异：CoinGecko 流通 ${fmtTok(t.cgCirculating)} 只扣金库；有效流通再扣转换合约里 ${fmtTok(t.converterHeld)}（属未转换 MKR 持有人，不算新增稀释；MKR 每季罚金 +1pp 持续推动转换）。`);
+
+  // 6 团队
+  document.getElementById("teamCards").innerHTML =
+    card("Step1 安全维护年化（推算）", fmtUsd(tm.step1AnnualUsd), `= 近 12 月结算净收入 ${fmtUsd(tm.annualNetRevenue)} × 20%`) +
+    card("→ Core Council 10%", fmtUsd(tm.coreCouncilAnnualUsd), "治理运营 / 执行 Agent / 代表 / Frontier 基金会拨款") +
+    card("→ Fortification 10%", fmtUsd(tm.fortificationAnnualUsd), "法律防御 / 安全 / 不可量化风险") +
+    card("官方运营支出近 12 月", fmtUsd(tm.opexActualTrailing12m), "accounting/operation 实付 · 2026-04 TMF 改制前含 Genesis 期一次性拨款，高于 20% 推算属正常");
+  document.getElementById("teamNote").innerHTML = `<b>团队赚的是什么钱？</b>${tm.conclusion} 具体：${tm.basis}。Prime Agent 基金会另从各自金库拿 grant（${tm.agentFoundationGrants.map(x => `${x.agent}：${x.detail}`).join("；")}）。代币侧：${tm.tokenSide} 月度财报要点：${tm.reports.map(r => `${r.period} ${r.note}`).join("；")}。`;
+
+  // 7 风险
+  document.getElementById("riskCards").innerHTML =
+    card("排队清算债务（vow.Sin）", fmtUsd(rk.queuedLiquidationDebt), "清算产生、等待 heal 的债务 · 真正的坏账口径", rk.queuedLiquidationDebt > 5e7 ? "caution" : "") +
+    card("核心净盈余", fmtUsd(rk.coreSurplusChain), "负 = 盈余已投出到 Agent，后备资本靠 Agent 余额撑", rk.coreSurplusNegative ? "caution" : "") +
+    card("抵押率", fmtPct(rk.collateralRatio), `抵押 ${fmtUsd(rk.collateralUsd)} / 债务 ${fmtUsd(rk.debtUsd)}`) +
+    card("最大敞口分组", `${rk.top1?.name} ${fmtPct(rk.top1?.share)}`, rk.concentration.slice(0, 4).map(x => `${x.name} ${fmtPct(x.share, 0)}`).join(" · ")) +
+    card("规模变化 30/90/365 天", `${fmtPct(rk.usdsDaiSupplyChange.d30)} / ${fmtPct(rk.usdsDaiSupplyChange.d90)}`, `365 天 ${fmtPct(rk.usdsDaiSupplyChange.d365)} · 规模缩水 = 收入缩水`, rk.usdsDaiSupplyChange.d90 < -0.05 ? "caution" : "") +
+    card("近 30 天清算", fmtUsd(rk.liquidations30dUsd), "官方 liquidations/historic");
+  document.getElementById("riskEvents").innerHTML =
+    rk.historicEvents.map(e => li("WARN", `<b>${e.date} ${e.title}</b>：${e.detail}`)).join("") +
+    rk.structural.map(x => li("INFO", `结构性：${x}`)).join("") +
+    (rk.dlHacks?.length ? rk.dlHacks.map(h => li("ALERT", `DefiLlama 记录攻击事件：${JSON.stringify(h)}`)).join("") : li("OK", "DefiLlama hacks 字段：无记录"));
+
+  // 8 核对
+  document.getElementById("checks").innerHTML = checks.map(c => li(c.level, c.msg)).join("");
+  document.getElementById("coverageTable").innerHTML = `<tr><th>指标</th><th>核对强度</th><th>说明</th></tr>` + d.coverage.map(c => `<tr><td>${c.metric}</td><td>${c.level}</td><td style="text-align:left;color:var(--muted)">${c.detail}</td></tr>`).join("");
+}).catch(e => { document.getElementById("ts").textContent = "加载失败：" + e.message; console.error(e); });
+</script>
+</body>
+</html>
