@@ -141,7 +141,7 @@
       <li><b>交易量主源是官方接口（Dune）</b>：DefiLlama 的 dexs 只统计 V2 curve 内成交，不含 V1 与毕业后 v4 池，漏算约 90%；官方接口未公开文档、可能改版，图中并列两条以便发现。手续费与协议收入用 DefiLlama（适配器开源、按事件），官方累计协议收入作 ±15% 核对。</li>
       <li><b>持有人收益 = 实际送进 dead 的 PONS × 当日价</b>（DefiLlama holdersRevenue 事件法，非 80% 推算）；链上用 dRPC 归档节点的 dead 余额日差分 × CoinGecko 日价互核（Blockscout 事件接口有小时级配额，不用）。回购由 Safe#1 人工把资产送进 intake→splitter 再 TWAP 买入，所以<b>单周「销毁 ÷ 协议收入」在 40%–97% 之间摆</b>，只有 4 周滚动值有意义。</li>
       <li><b>PE 三口径</b>：主口径 流通市值 ÷ 销毁价值近 8 周中位×52（与另七个项目一致）；因数据只有 11 周且 8 月是低谷，并列「当前速率」（最近一整周×52）与「协议收入口径」（近 30 天协议收入年化）。<b>回购收益率</b> = 销毁价值年化 ÷ 流通市值。</li>
-      <li><b>净通缩率</b>：主数是「近 28 天销毁占流通」不年化；年化只给两个参考——美元口径（近 28 天销毁美元×365/28 ÷ 市值，价格中性，= 回购收益率）与枚数口径（同窗×365/28，附近 4 周单周×52 区间）。不用 8 周中位枚数：8 周内价格涨约 20 倍，低价期的高枚数会把中位年化到 70%+。无增发、无解锁，所以净通缩 = 销毁率。年窗口在不满一年时 = 上线以来累计（PE 汇总约定）。</li>
+      <li><b>净通缩率</b> = 近 28 天销毁枚数×365/28 ÷ 流通（与其他项目同口径），旁边给「近 28 天已烧流通的 x%」这个不外推的事实数，以及近 4 周单周外推区间作敏感度。美元口径不在此重复，它就是估值板块的回购收益率。不用 8 周中位枚数：8 周内价格涨约 20 倍，低价期的高枚数会把中位年化到 70%+。无增发、无解锁，所以净通缩 = 销毁率。年窗口在不满一年时 = 上线以来累计（PE 汇总约定）。</li>
       <li><b>团队收入</b> = splitter 分给 Safe#2 的 ETH（主）+ Safe#1→Safe#2 稳定币 + 多签直接 USDG 支付，全部链上、按日价折美元。「实测分账」= 三项 ÷（三项 + 销毁），政策 20%。<b>链上 splitter 只对 ETH 腿按 20% 分账</b>（2026-09-30 抽样 3 笔均为 20.00%），USDG/TAO/meme 币腿 100% 进回购，所以仅 splitter 口径 ≈ 20%×ETH 腿占比。Safe#2 的真实 ETH 转出（已剔 Safe 内部 delegatecall 回声）与 Safe#1 直接转出的 PONS 另列，那是「钱被拿走」的动作。</li>
       <li><b>V2 BuybackVault ≠ PONS 销毁</b>：创作者开回购时买的是自己的 meme 币，进 vault 5 年线性 vest，协议与创作者分成——这是协议未来的 meme 币资产，不影响 PONS 供应。</li>
       <li><b>疑似大户</b> = top20 里非合约、无标签的地址，不能断言归属团队；Uniswap Labs 持仓钱包未披露。</li>
@@ -224,7 +224,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
     card("已销毁（dead）", fmtTok(sd.dead), `占总量 ${fmtPct(sd.burnedPctOfMax)} · 近 ${v.buyback.recentSenders?.rows ?? "n/a"} 笔送 dead 转账中协议回购钱包占 ${fmtPct(v.buyback.protocolShareRecent)}`, "good") +
     card("流通量", fmtTok(sd.circulating), `= 总量 − dead · CoinGecko ${fmtTok(t.cgCirculating)} · 持有地址 ${fmtNum(t.holdersCount)}`) +
     card("近 28 天销毁占流通（不年化）", fmtPct(sd.burn28dPctOfCirc, 2), `${fmtTok(sd.burn28dTokens)} ÷ 流通 · 无增发无解锁，净通缩 = 销毁`, sd.burn28dPctOfCirc != null ? "good" : "") +
-    card("净通缩率（年化，仅供参考）", `${fmtPct(sd.netDeflationRateUsd28d)} <span style="font-size:13px;color:var(--muted)">美元口径</span>`, `美元口径 = 近 28 天销毁美元×365/28 ÷ 市值（价格中性）· 枚数口径 ${fmtPct(sd.netDeflationRate)}，近 4 周单周×52 区间 ${fmtPct(sd.netDeflationRateRange?.min)}–${fmtPct(sd.netDeflationRateRange?.max)}（4 周内成交价翻倍，枚数年化不稳）`) +
+    card("净通缩率（年化）", fmtPct(sd.netDeflationRate), `近 28 天枚数×365/28 ÷ 流通，即当前烧币速度外推一年 · 近 4 周单周外推区间 ${fmtPct(sd.netDeflationRateRange?.min, 0)}–${fmtPct(sd.netDeflationRateRange?.max, 0)}（币价 4 周翻倍，同样美元买到的枚数差一倍，只能当当前速度不能当预测）· 无增发无解锁`) +
     card("近 7 天销毁", `${fmtTok(sd.burn7dTokens)}`, `${v.buyback.seriesSource || "归档序列未采到"} · 窗口 ${v.buyback.window7?.from || ""}~${v.buyback.window7?.to || ""}`) +
     card("增发 / 解锁", "无", sd.unlockNote);
   barChart("burnChart", ch.burnWeeklyTokens.map(p => fmtDate(p.t)), [{ label: "销毁 PONS", data: ch.burnWeeklyTokens.map(p => p.v), backgroundColor: C.red + "cc" }], tokAxis);
