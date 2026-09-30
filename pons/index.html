@@ -120,11 +120,11 @@
   <h3 class="sub3">③ 表外事项：不属于本期收入分配、但要盯的资金动作</h3>
   <div class="tbl-wrap"><table id="offTable"></table></div>
 
-  <h2 id="sec5">👥 团队收入 <span class="sub-h">· 团队赚的是协议收入的 20%（ETH 现金流进 Safe#2），不是增发、不是 PONS 池创作者费（已 redirect 给回购）</span></h2>
+  <h2 id="sec5">👥 团队收入 <span class="sub-h">· 团队赚的是协议收入的 20%（ETH/USDG 等实物进团队多签 Safe#2），不是增发、不是 PONS 池创作者费（已 redirect 给回购）</span></h2>
   <div class="grid" id="teamCards"></div>
   <div class="grid2">
-    <div class="chart-box"><h3>splitter → Safe#2 团队分账（周，ETH）</h3><div class="cv"><canvas id="teamChart"></canvas></div></div>
-    <div class="chart-box"><h3>团队分账 vs 销毁（周，美元）</h3><div class="cv"><canvas id="teamVsBurnChart"></canvas></div></div>
+    <div class="chart-box"><h3>splitter → Safe#2 团队分账：ETH 部分（周）</h3><div class="cv"><canvas id="teamChart"></canvas></div></div>
+    <div class="chart-box"><h3>splitter 团队分账（ETH + 代币）vs 销毁（周，美元）</h3><div class="cv"><canvas id="teamVsBurnChart"></canvas></div></div>
   </div>
   <div class="tbl-wrap"><table id="ponsOutTable"></table></div>
   <div class="callout" id="teamNote"></div>
@@ -149,7 +149,7 @@
       <li><b>持有人收益 = 实际送进 dead 的 PONS × 当日价</b>（DefiLlama holdersRevenue 事件法，非 80% 推算）；链上用 dRPC 归档节点的 dead 余额日差分 × CoinGecko 日价互核（Blockscout 事件接口有小时级配额，不用）。回购由 Safe#1 人工把资产送进 intake→splitter 再 TWAP 买入，所以<b>单周「销毁 ÷ 协议收入」在 40%–97% 之间摆</b>，只有 4 周滚动值有意义。</li>
       <li><b>PE</b>：主口径 流通市值 ÷ 销毁价值近 8 周中位×52（与另七个项目一致）；数据只有 11 周且 8 月是低谷，中位偏高，故并列「当前速率」口径（最近一整周×52，偏低），真值在两者之间。协议收入口径（含团队 20%）只作附注。<b>回购收益率</b> = 销毁价值年化 ÷ 流通市值，与 PE 同分子。</li>
       <li><b>净通缩率</b> = 近 28 天销毁枚数×365/28 ÷ 流通（与其他项目同口径），旁边给「近 28 天已烧流通的 x%」这个不外推的事实数，以及近 4 周单周外推区间作敏感度。美元口径不在此重复，它就是估值板块的回购收益率。不用 8 周中位枚数：8 周内价格涨约 20 倍，低价期的高枚数会把中位年化到 70%+。无增发、无解锁，所以净通缩 = 销毁率。年窗口在不满一年时 = 上线以来累计（PE 汇总约定）。</li>
-      <li><b>团队收入</b> = splitter 分给 Safe#2 的 ETH（主）+ Safe#1→Safe#2 稳定币 + 多签直接 USDG 支付，全部链上、按日价折美元。「实测分账」= 三项 ÷（三项 + 销毁），政策 20%。<b>链上 splitter 只对 ETH 腿按 20% 分账</b>（2026-09-30 抽样 3 笔均为 20.00%），USDG/TAO/meme 币腿 100% 进回购，所以仅 splitter 口径 ≈ 20%×ETH 腿占比。Safe#2 的真实 ETH 转出（已剔 Safe 内部 delegatecall 回声）与 Safe#1 直接转出的 PONS 另列，那是「钱被拿走」的动作。</li>
+      <li><b>团队收入</b> = splitter 按 20% 实物分给团队多签 Safe#2 的 ETH 与 USDG 等代币（主）+ Safe#1→Safe#2 稳定币 + Safe#1 直接 USDG 支付，全部链上；ETH 按日价、稳定币按面值、其他代币按现价近似。「实测分账」= 团队 ÷（团队 + 销毁），政策 20%。链上核实：splitter 对送入的每种资产都按 20.00% 分给 Safe#2，其余买 PONS 销毁。Safe#2 的 ETH 与 USDG 流水已与链上余额对账。Safe#2 的真实转出（已剔 Safe 内部 delegatecall 回声）与 Safe#1 直接转出的 PONS 列在表外事项，那是「钱被拿走」的动作。</li>
       <li><b>V2 BuybackVault ≠ PONS 销毁</b>：创作者开回购时买的是自己的 meme 币，进 vault 5 年线性 vest，协议与创作者分成——这是协议未来的 meme 币资产，不影响 PONS 供应。</li>
       <li><b>疑似大户</b> = top20 里非合约、无标签的地址，不能断言归属团队；Uniswap Labs 持仓钱包未披露。</li>
       <li><b>口径守卫</b>：每次快照读 locker/hook/factory 参数、收款地址、多签 owner，与上次比对，变动即 ALERT（80/20 与费率都不是合约常量，团队可单方面改）；参数读不到时打 WARN「未采到」，不打 OK。</li>
@@ -299,11 +299,11 @@ fetch("./data.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.json()).
   // 5 团队
   const p = tm.primary, scx = tm.shareCheck, po = tm.payouts;
   document.getElementById("teamCards").innerHTML =
-    card("团队分账（近 7 天）", fmtUsd(p.usd7d), `${fmtEth(p.eth7d)} · splitter → Safe#2 · 按日 ETH 价折算`) +
-    card("团队分账（近 28 天）", fmtUsd(p.usd28d), `${fmtEth(p.eth28d)}${/中位/.test(p.annualBasis || "") ? ` · 年化 ${fmtUsd(p.annualUsd)}（${p.annualBasis}）` : " · 满 4 周后给年化"}`) +
-    card("累计（自 " + (p.since || "n/a") + "）", fmtUsd(p.usdAll), `${fmtEth(p.ethAll)} · 历史${p.complete === false ? "不完整（翻页到上限）" : "完整"} · 另有非 splitter 流入 ${fmtEth(p.otherInflowsEth)}${(p.otherInflows || []).map(x => `（${x.date} ${fmtEth(x.eth)} ← ${x.fromLabel ? x.fromLabel.split("；")[0] : short(x.from)}）`).join("")}`) +
-    card("实测分账比例（同窗 28 天）", fmtPct(scx.d28), `三项 ÷（三项 + 销毁）· 政策 ${fmtPct(scx.policy, 0)} · 近 7 天 ${fmtPct(scx.d7)} · 仅 splitter ETH 口径 ${fmtPct(scx.splitterOnly28d)}：链上 splitter 只对 ETH 腿分 20%，USDG/TAO/meme 腿 100% 进回购`, scx.d28 > 0.25 ? "caution" : "") +
-    card("按收入推算的 20%", fmtUsd(tm.impliedFromRevenue28d), "= 同窗协议收入 × 20% · 差额 = 非 ETH 腿不分账 + 管道时滞") +
+    card("splitter 分账（近 7 天）", fmtUsd(p.splitterAll7dUsd), `${fmtEth(p.eth7d)} ≈ ${fmtUsd(p.usd7d)} + 代币 ${fmtUsd(p.tokens7dUsd)} · splitter → 团队多签 Safe#2`) +
+    card("splitter 分账（近 28 天）", fmtUsd(p.splitterAll28dUsd), `${fmtEth(p.eth28d)} ≈ ${fmtUsd(p.usd28d)} + USDG 等代币 ${fmtUsd(p.tokens28dUsd)}${/中位/.test(p.annualBasis || "") ? ` · 年化 ${fmtUsd(p.annualUsd)}（${p.annualBasis}）` : " · 满 4 周后给年化"}`) +
+    card("累计（自 " + (p.since || "n/a") + "）", fmtUsd((p.usdAll || 0) + (p.tokensAllUsd || 0)), `${fmtEth(p.ethAll)} + 代币 ${fmtUsd(p.tokensAllUsd)} · 历史${p.complete === false ? "不完整（翻页到上限）" : "完整"} · 另有非 splitter 流入 ${fmtEth(p.otherInflowsEth)}${(p.otherInflows || []).map(x => `（${x.date} ${fmtEth(x.eth)} ← ${x.fromLabel ? x.fromLabel.split("；")[0] : short(x.from)}）`).join("")}`) +
+    card("实测分账比例（同窗 28 天）", fmtPct(scx.d28), `团队 ÷（团队 + 销毁）· 政策 ${fmtPct(scx.policy, 0)} · 近 7 天 ${fmtPct(scx.d7)} · 仅 splitter 实物分账口径 ${fmtPct(scx.splitterOnly28d)}（ETH + USDG 等代币，各按 20%）`, scx.d28 > 0.25 ? "caution" : "") +
+    card("按收入推算的 20%", fmtUsd(tm.impliedFromRevenue28d), `= 同窗协议收入 × 20% · 实际团队合计 ${fmtUsd(scx.components28d?.total)} · 差额在管道时滞`) +
     (po ? card("多签直接支付（USDG）", fmtUsd(po.safe1.all + po.safe2.all), `Safe#1 ${fmtUsd(po.safe1.all)}（${po.safe1.count} 笔 / ${po.safe1.recipients} 地址）· Safe#2 ${fmtUsd(po.safe2.all)}（${po.safe2.count} 笔）· Safe#1→Safe#2 ${fmtUsd(po.safe1ToSafe2Stable)} · 小额分笔形态`) : card("多签直接支付", "未采集", "")) +
     (po ? card("Safe#2 真实 ETH 转出", fmtEth(po.safe2EthOutAll), `近 28 天 ${fmtEth(po.safe2EthOut28d)} · 已剔 Safe 内部 delegatecall 回声 · 团队把钱拿走的动作，明细见下表`, po.safe2EthOut28d > 50 ? "caution" : "") : "");
   const tw = ch.teamWeeklyEth;
