@@ -62,6 +62,9 @@
   .up { color: var(--ok); } .down { color: var(--alert); }
   footer { color: var(--muted); font-size: 12px; margin-top: 40px; text-align: center; }
   a { color: var(--accent); }
+  h3.sub3 { font-size: 14px; margin: 22px 0 0; color: var(--text); font-weight: 600; }
+  td.ind { padding-left: 30px; color: var(--muted); }
+  tr.tot td { font-weight: 700; border-top: 2px solid var(--border); }
 </style>
 </head>
 <body>
@@ -104,14 +107,18 @@
   <div class="grid" id="vcCards"></div>
   <div class="grid2">
     <div class="chart-box"><h3>买回销毁价值（周）：DefiLlama vs 链上枚数×日价</h3><div class="cv"><canvas id="hrChart"></canvas></div></div>
-    <div class="chart-box"><h3>销毁 ÷ 协议收入（周，政策 80%；单周摆动 = 管道时滞）</h3><div class="cv"><canvas id="ratioChart"></canvas></div></div>
+    <div class="chart-box"><h3>销毁 ÷ 协议收入（周，政策 80%；单周摆动 = 管道时滞；&gt;150% 的首周不画）</h3><div class="cv"><canvas id="ratioChart"></canvas></div></div>
   </div>
   <ul class="checks" id="vcNotes"></ul>
 
   <h2 id="sec4">🏦 金库资金流 <span class="sub-h">· 无 DAO、无金库合约：钱在两个 2/3 多签 + 回购管道三合约里</span></h2>
-  <div class="flow" id="flowSteps"></div>
-  <div class="grid" id="treasuryCards"></div>
-  <div class="tbl-wrap"><table id="flowTable"></table></div>
+  <div class="chart-box" style="height:320px;margin-top:12px"><h3 id="sankeyTitle">钱的流向（同窗 28 天，单位 $M）</h3><div class="cv" style="height:250px"><canvas id="sankeyChart"></canvas></div></div>
+  <h3 class="sub3">① 收支表：这 28 天协议收入分给了谁（三项加总 = 100%）</h3>
+  <div class="tbl-wrap"><table id="ledgerTable"></table></div>
+  <h3 class="sub3">② 存量表：钱现在在哪、归谁</h3>
+  <div class="tbl-wrap"><table id="stockTable"></table></div>
+  <h3 class="sub3">③ 表外事项：不属于本期收入分配、但要盯的资金动作</h3>
+  <div class="tbl-wrap"><table id="offTable"></table></div>
 
   <h2 id="sec5">👥 团队收入 <span class="sub-h">· 团队赚的是协议收入的 20%（ETH 现金流进 Safe#2），不是增发、不是 PONS 池创作者费（已 redirect 给回购）</span></h2>
   <div class="grid" id="teamCards"></div>
@@ -159,6 +166,7 @@
   <footer>Pons 监控 · 数据每周一自动更新（阶段 3 上线后）· 本页为静态页，所有数字来自 data.json</footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-sankey@0.12.1/dist/chartjs-chart-sankey.min.js"></script>
 <script>
 if (window.Chart) { Chart.defaults.color = "#8b949e"; Chart.defaults.borderColor = "#30363d"; Chart.defaults.font.family = "-apple-system, PingFang SC, sans-serif"; }
 const C = { blue: "#58a6ff", green: "#3fb950", yellow: "#d29922", red: "#f85149", purple: "#a371f7", cyan: "#39c5cf", pink: "#db61a2", gray: "#6e7681" };
@@ -246,31 +254,45 @@ fetch("./data.json").then(r => r.json()).then(d => {
     card("价格", px(t.priceUsd), `7 天${chg(t.priceChange7d)} 30 天${chg(t.priceChange30d)} · ATH ${px(t.ath)} (${(t.athDate || "").slice(0, 10)}) · 24h 成交 ${fmtUsd(t.volume24hUsd)}`);
   const hw = ch.hrevWeekly;
   lineChart("hrChart", hw.map(p => fmtDate(p.t)), [{ label: "DefiLlama holdersRevenue", data: hw.map(p => p.v) }, { label: "链上枚数 × 日价", data: alignTo(hw, ch.burnWeeklyUsdChain), borderColor: C.red }]);
-  lineChart("ratioChart", ch.hrRatioWeekly.map(p => fmtDate(p.t)), [{ label: "销毁 ÷ 协议收入", data: ch.hrRatioWeekly.map(p => p.v), borderColor: C.yellow }, { label: "政策 80%", data: ch.hrRatioWeekly.map(() => 0.8), borderColor: C.gray, borderDash: [4, 4] }], pctAxis);
+  lineChart("ratioChart", ch.hrRatioWeekly.map(p => fmtDate(p.t)), [{ label: "销毁 ÷ 协议收入", data: ch.hrRatioWeekly.map(p => p.v != null && p.v > 1.5 ? null : p.v), borderColor: C.yellow, spanGaps: false }, { label: "政策 80%", data: ch.hrRatioWeekly.map(() => 0.8), borderColor: C.gray, borderDash: [4, 4] }], pctAxis);
   document.getElementById("vcNotes").innerHTML =
     li("INFO", `${bb.executionNote}。近 28 天 销毁 ÷ 协议收入 = ${fmtPct(R.hrOverRevenue28d)}，上线以来累计 ${fmtPct(R.hrOverRevenueAllTime)}（7–8 月 V2 收入起量时回购滞后拉低了累计值）。`) +
     li("INFO", `近 7 天：链上 ${fmtTok(bb.tokens7d)} ≈ ${fmtUsd(bb.usd7dChain)}，DefiLlama ${fmtUsd(bb.usd7dLlama)}。`);
 
-  // 4 金库
-  const h = tr.holdings, fl = tr.flows;
-  document.getElementById("flowSteps").innerHTML =
-    `<div class="step">用户付费（${i.win28.from.slice(5)}~${i.win28.to.slice(5)}）<b>${fmtUsd(i.win28.fees)}</b>手续费 + 发币费</div>` +
-    `<div class="step">→ 创作者等<b>${fmtUsd(i.win28.supplySide)}</b>70%/35% 分成 + 创作者税 + meme 回购</div>` +
-    `<div class="step">→ 协议收入（Safe#1）<b>${fmtUsd(i.win28.revenue)}</b>V1 locker 份额 + V2 escrow 30% + 发币费</div>` +
-    `<div class="step">→ intake → splitter<b>${fmtUsd(pp?.totalUsd)}</b>在途（含创作者未领 escrow）</div>` +
-    `<div class="step">→ 买 PONS → dead<b>${fmtUsd(i.win28.holdersRevenue)}</b>同窗销毁价值</div>` +
-    `<div class="step">→ ETH 腿 20% → Safe#2（团队）<b>${fmtUsd(tm.primary.usd28d)}</b>${fmtEth(tm.primary.eth28d)} 同窗</div>`;
-  document.getElementById("treasuryCards").innerHTML =
-    card("Safe#1 协议金库", fmtUsd(h.safe1.usdApprox), `${fmtEth(h.safe1.eth)} + ${fmtTok(h.safe1.pons)} + escrow 可领 ${fmtEth(h.safe1.escrowClaimableEth)} · 2/3 多签 · 全部合约 owner`) +
-    card("Safe#2 运营金库（团队）", fmtUsd(h.safe2.usdApprox), `${fmtEth(h.safe2.eth)} · 2/3 多签，与 Safe#1 共享 2 个签名人 · 收 splitter 20%`) +
-    card("splitter 在途", fmtUsd(h.pipeline.splitterUsd), `${fmtEth(h.pipeline.splitterEth)} + 配对资产 · 待 TWAP 买 PONS`) +
-    card("V2 escrow", fmtUsd(h.pipeline.escrowUsd), `合约共 ${fmtEth(h.pipeline.escrowEthTotal)}（含创作者未领）· 协议可领 ${fmtEth(h.safe1.escrowClaimableEth)}`) +
-    card("Safe#1 累计送入回购管道（稳定币部分）", fmtUsd(tr.buybackFundingStableAll), "USDG 形态转入 intake；WETH/meme 币形态另计，不在此数");
-  const fo = fl.outflows;
-  document.getElementById("flowTable").innerHTML = `<tr><th>${fl.window} 资金流</th><th>金额</th><th>来源</th></tr>` +
-    fl.inflows.map(x => `<tr><td>⬆ ${x.name}</td><td class="up">${fmtUsd(x.usd)}</td><td style="text-align:left;color:var(--muted)">${x.source || ""}</td></tr>`).join("") +
-    fo.map(x => `<tr><td>⬇ ${x.name}</td><td class="down">${fmtUsd(x.usd)}</td><td style="text-align:left;color:var(--muted)">${x.source || ""}</td></tr>`).join("") +
-    `<tr><td>＝ 余额（仍在管道/多签或时滞）</td><td>${fmtUsd(fl.residual)}</td><td style="text-align:left;color:var(--muted)">${fl.residualNote}</td></tr>`;
+  // 4 金库：流向图 + 收支表 / 存量表 / 表外事项
+  const h = tr.holdings, lg = tr.ledger, pp2 = v.buyback.pipeline;
+  const pc = (x) => x == null ? "" : fmtPct(x);
+  (() => {
+    const el = document.getElementById("sankeyChart"); if (!el || !window.Chart || !lg) return;
+    const M = (x) => Math.round((x || 0) / 1e4) / 100;
+    const u = lg.uses, burn = u.find(x => x.key === "burn"), team = u.find(x => x.key === "team"), res = u.find(x => x.key === "residual");
+    const data = [
+      ...lg.income.map(x => ({ from: x.name.split("（")[0] + " 收入", to: "协议收入", flow: M(x.usd) })),
+      { from: "协议收入", to: `① 买回 PONS 销毁 ${pc(burn.pct)}`, flow: M(burn.usd) },
+      ...(team.items || []).filter(y => y.usd > 0).map(y => ({ from: "协议收入", to: "② 团队 " + pc(team.pct), flow: M(y.usd) })).slice(0, 0),
+      { from: "协议收入", to: `② 团队 ${pc(team.pct)}`, flow: M(team.usd) },
+      { from: "协议收入", to: `③ 尚未分配 ${pc(res.pct)}`, flow: M(Math.max(0, res.usd)) },
+    ].filter(d => d.flow > 0);
+    const colorOf = (k) => k.endsWith(" 收入") ? C.gray : k === "协议收入" ? C.blue : k.startsWith("①") ? C.green : k.startsWith("②") ? C.purple : C.yellow;
+    new Chart(el, { type: "sankey", data: { datasets: [{ data, colorFrom: (c) => colorOf(c.dataset.data[c.dataIndex].from), colorTo: (c) => colorOf(c.dataset.data[c.dataIndex].to), colorMode: "gradient", borderWidth: 0, nodeWidth: 14, nodePadding: 30, size: "max",
+      labels: Object.fromEntries(data.flatMap(d => [d.from, d.to]).map(k => [k, k])) }] },
+      options: { responsive: true, maintainAspectRatio: false, layout: { padding: { top: 6, bottom: 20 } }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.raw.from} → ${c.raw.to}：$${c.raw.flow}M` } } } } });
+    document.getElementById("sankeyTitle").textContent = `协议收入的去向（${lg.window.from} ~ ${lg.window.to}，$M）：收入 ${M(lg.upstream.revenue)} → 销毁 ${M(burn.usd)} / 团队 ${M(team.usd)} / 未分配 ${M(res.usd)}　｜　上游：用户付手续费 ${M(lg.upstream.fees)}，其中 ${M(lg.upstream.creators)} 直接归创作者，不经过协议`;
+  })();
+  if (lg) {
+    const row = (name, usd, p, note, cls = "", ind = false) => `<tr class="${cls}"><td class="${ind ? "ind" : ""}">${name}</td><td>${fmtUsd(usd)}</td><td>${pc(p)}</td><td style="text-align:left;color:var(--muted)">${note || ""}</td></tr>`;
+    const inc = lg.income.reduce((a, x) => a + (x.usd || 0), 0);
+    document.getElementById("ledgerTable").innerHTML = `<tr><th>${lg.window.from} ~ ${lg.window.to}</th><th>金额</th><th>占协议收入</th><th>说明</th></tr>` +
+      row("协议收入（DefiLlama）", lg.upstream.revenue, 1, `用户付手续费 ${fmtUsd(lg.upstream.fees)} 的 ${fmtPct(lg.upstream.revenuePctOfFees)}；其余 ${fmtUsd(lg.upstream.creators)} 归创作者等，不经过协议`, "tot") +
+      lg.income.map(x => row("来自 " + x.name, x.usd, x.pct, "", "", true)).join("") +
+      lg.uses.map(x => row(x.name, x.usd, x.pct, (x.policy != null ? `官方政策 ${fmtPct(x.policy, 0)} · ` : "") + (x.detail || ""), "tot") + (x.items || []).map(y => row(y.name, y.usd, y.pct, "", "", true)).join("")).join("") +
+      row("合计 ①+②+③", lg.uses.reduce((a, x) => a + (x.usd || 0), 0), lg.uses.reduce((a, x) => a + (x.pct || 0), 0), "应等于协议收入", "tot");
+    document.getElementById("stockTable").innerHTML = `<tr><th>位置</th><th>当前价值</th><th>归属</th><th>构成</th></tr>` +
+      lg.stocks.map(x => `<tr><td>${x.name}</td><td>${fmtUsd(x.usd)}</td><td>${x.owner}</td><td style="text-align:left;color:var(--muted)">${x.detail}</td></tr>`).join("") +
+      `<tr class="tot"><td>待分配合计（Safe#1 + splitter）</td><td>${fmtUsd(lg.stocksUnallocated)}</td><td></td><td style="text-align:left;color:var(--muted)">对照收支表 ③ 尚未分配 ${fmtUsd(lg.uses.find(x => x.key === "residual").usd)}；差额 = 现价 vs 当日价、窗口前已有的余额、统计时滞。V2 escrow 合约里另有创作者未领份额，不属于协议</td></tr>`;
+    document.getElementById("offTable").innerHTML = `<tr><th>动作（同窗 28 天）</th><th>金额</th><th>级别</th><th>明细</th></tr>` +
+      lg.offBalance.map(x => `<tr><td>${x.name}</td><td>${fmtUsd(x.usd)}</td><td><span class="tag ${x.level}">${x.level}</span></td><td style="text-align:left;color:var(--muted)">${x.detail || ""}</td></tr>`).join("");
+  }
 
   // 5 团队
   const p = tm.primary, scx = tm.shareCheck, po = tm.payouts;
