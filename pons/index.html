@@ -140,7 +140,7 @@
       <li><b>业务本质</b>：Pons 不是 DEX，是 Robinhood Chain 上的 meme 发币平台（类 pump.fun）。V1 直接进 Uniswap v3 池（1% 税，创作者 70/协议 30；最早期 90/10），V2 先走 bonding curve 再毕业到 Uniswap v4（协议 30%，创作者 35–70%，创作者可选把 35% 用于回购自己的 meme 币）。</li>
       <li><b>交易量主源是官方接口（Dune）</b>：DefiLlama 的 dexs 只统计 V2 curve 内成交，不含 V1 与毕业后 v4 池，漏算约 90%；官方接口未公开文档、可能改版，图中并列两条以便发现。手续费与协议收入用 DefiLlama（适配器开源、按事件），官方累计协议收入作 ±15% 核对。</li>
       <li><b>持有人收益 = 实际送进 dead 的 PONS × 当日价</b>（DefiLlama holdersRevenue 事件法，非 80% 推算）；链上用 dRPC 归档节点的 dead 余额日差分 × CoinGecko 日价互核（Blockscout 事件接口有小时级配额，不用）。回购由 Safe#1 人工把资产送进 intake→splitter 再 TWAP 买入，所以<b>单周「销毁 ÷ 协议收入」在 40%–97% 之间摆</b>，只有 4 周滚动值有意义。</li>
-      <li><b>PE 三口径</b>：主口径 流通市值 ÷ 销毁价值近 8 周中位×52（与另七个项目一致）；因数据只有 11 周且 8 月是低谷，并列「当前速率」（最近一整周×52）与「协议收入口径」（近 30 天协议收入年化）。<b>回购收益率</b> = 销毁价值年化 ÷ 流通市值。</li>
+      <li><b>PE</b>：主口径 流通市值 ÷ 销毁价值近 8 周中位×52（与另七个项目一致）；数据只有 11 周且 8 月是低谷，中位偏高，故并列「当前速率」口径（最近一整周×52，偏低），真值在两者之间。协议收入口径（含团队 20%）只作附注。<b>回购收益率</b> = 销毁价值年化 ÷ 流通市值，与 PE 同分子。</li>
       <li><b>净通缩率</b> = 近 28 天销毁枚数×365/28 ÷ 流通（与其他项目同口径），旁边给「近 28 天已烧流通的 x%」这个不外推的事实数，以及近 4 周单周外推区间作敏感度。美元口径不在此重复，它就是估值板块的回购收益率。不用 8 周中位枚数：8 周内价格涨约 20 倍，低价期的高枚数会把中位年化到 70%+。无增发、无解锁，所以净通缩 = 销毁率。年窗口在不满一年时 = 上线以来累计（PE 汇总约定）。</li>
       <li><b>团队收入</b> = splitter 分给 Safe#2 的 ETH（主）+ Safe#1→Safe#2 稳定币 + 多签直接 USDG 支付，全部链上、按日价折美元。「实测分账」= 三项 ÷（三项 + 销毁），政策 20%。<b>链上 splitter 只对 ETH 腿按 20% 分账</b>（2026-09-30 抽样 3 笔均为 20.00%），USDG/TAO/meme 币腿 100% 进回购，所以仅 splitter 口径 ≈ 20%×ETH 腿占比。Safe#2 的真实 ETH 转出（已剔 Safe 内部 delegatecall 回声）与 Safe#1 直接转出的 PONS 另列，那是「钱被拿走」的动作。</li>
       <li><b>V2 BuybackVault ≠ PONS 销毁</b>：创作者开回购时买的是自己的 meme 币，进 vault 5 年线性 vest，协议与创作者分成——这是协议未来的 meme 币资产，不影响 PONS 供应。</li>
@@ -238,10 +238,9 @@ fetch("./data.json").then(r => r.json()).then(d => {
   // 3 持有人收益与估值
   const val = v.valuation, bb = v.buyback, pp = bb.pipeline;
   document.getElementById("vcCards").innerHTML =
-    card("销毁价值年化（8 周中位）", fmtUsd(val.holdersRevenueAnnual), `= 持有人收益 · 当前速率 ${fmtUsd(val.holdersRevenueCurrentRate)}（最近一整周×52）`) +
-    card("PE（主口径）", val.peHolders != null ? val.peHolders.toFixed(1) : "n/a", `流通市值 ${fmtUsd(t.marketCapUsd)} ÷ 销毁价值 8 周中位年化 · 中位含 8 月低谷`) +
-    card("PE（28 天 / 当前速率 / 协议收入口径）", `${val.pe28d != null ? val.pe28d.toFixed(1) : "n/a"} / ${val.peCurrentRate != null ? val.peCurrentRate.toFixed(1) : "n/a"} / ${val.peRevenue != null ? val.peRevenue.toFixed(1) : "n/a"}`, `28 天 = 市值 ÷ 近 28 天销毁×365/28；当前速率 = 最近一整周×52；协议收入口径 = 近 28 天协议收入年化（含团队 20%）`) +
-    card("回购收益率", fmtPct(val.buybackYield28d), `近 28 天销毁美元×365/28 ÷ 流通市值 · 8 周中位口径 ${fmtPct(val.buybackYield)} · 当前速率 ${fmtPct(val.buybackYieldCurrent)}`) +
+    card("销毁价值年化（8 周中位）", fmtUsd(val.holdersRevenueAnnual), `= 持有人收益，跨项目统一口径 · 当前速率 ${fmtUsd(val.holdersRevenueCurrentRate)}（最近一整周×52）`) +
+    card("PE", `${val.peHolders != null ? val.peHolders.toFixed(1) : "n/a"} <span style="font-size:14px;color:var(--muted)">/ 当前速率 ${val.peCurrentRate != null ? val.peCurrentRate.toFixed(1) : "n/a"}</span>`, `流通市值 ${fmtUsd(t.marketCapUsd)} ÷ 销毁价值年化 · 主口径 8 周中位（含 8 月低谷，偏高）· 当前速率口径 = 最近一整周×52（偏低）· 真值在两者之间`) +
+        card("回购收益率", `${fmtPct(val.buybackYield)} <span style="font-size:14px;color:var(--muted)">/ 当前速率 ${fmtPct(val.buybackYieldCurrent)}</span>`, `销毁价值年化 ÷ 流通市值，与 PE 同分子 · 附注：协议收入口径 PE ${val.peRevenue != null ? val.peRevenue.toFixed(1) : "n/a"}（含团队 20%）`) +
     card("累计回购", fmtUsd(bb.cumulativeUsdLlama), `可归因回购 ${fmtTok(bb.buybackTokensAttributable)}（dead ${fmtTok(bb.cumulativeTokensAll)} − 发币夜/部署者非回购 ${fmtTok(bb.nonBuybackBurnTokens)}）· 均价 ${px(bb.avgCostUsd)} · 现价浮盈 ${fmtUsd(bb.unrealizedUsd)}`) +
     card("回购管道在途", fmtUsd(pp?.totalUsd), pp ? `splitter ${fmtUsd(pp.splitter?.valueUsd)}（${fmtEth(pp.splitter?.ethAmount)} + ${nn(pp.splitter?.assetCount, "?")} 种配对资产）· escrow 未领 ${fmtUsd(pp.escrow?.valueUsd)}（含创作者份额）· intake ${fmtUsd(pp.intake?.valueUsd ?? 0)} · 官方 ${pp.asOf.slice(0, 16)}Z` : "官方 buyback-status 未取到") +
     card("价格", px(t.priceUsd), `7 天${chg(t.priceChange7d)} 30 天${chg(t.priceChange30d)} · ATH ${px(t.ath)} (${(t.athDate || "").slice(0, 10)}) · 24h 成交 ${fmtUsd(t.volume24hUsd)}`);
@@ -277,7 +276,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
   const p = tm.primary, scx = tm.shareCheck, po = tm.payouts;
   document.getElementById("teamCards").innerHTML =
     card("团队分账（近 7 天）", fmtUsd(p.usd7d), `${fmtEth(p.eth7d)} · splitter → Safe#2 · 按日 ETH 价折算`) +
-    card("团队分账（近 28 天）", fmtUsd(p.usd28d), `${fmtEth(p.eth28d)} · 年化 ${fmtUsd(p.annualUsd)}（${p.annualBasis || "n/a"}）`) +
+    card("团队分账（近 28 天）", fmtUsd(p.usd28d), `${fmtEth(p.eth28d)}${/中位/.test(p.annualBasis || "") ? ` · 年化 ${fmtUsd(p.annualUsd)}（${p.annualBasis}）` : " · 满 4 周后给年化"}`) +
     card("累计（自 " + (p.since || "n/a") + "）", fmtUsd(p.usdAll), `${fmtEth(p.ethAll)} · 历史${p.complete === false ? "不完整（翻页到上限）" : "完整"} · 另有非 splitter 流入 ${fmtEth(p.otherInflowsEth)}${(p.otherInflows || []).map(x => `（${x.date} ${fmtEth(x.eth)} ← ${x.fromLabel ? x.fromLabel.split("；")[0] : short(x.from)}）`).join("")}`) +
     card("实测分账比例（同窗 28 天）", fmtPct(scx.d28), `三项 ÷（三项 + 销毁）· 政策 ${fmtPct(scx.policy, 0)} · 近 7 天 ${fmtPct(scx.d7)} · 仅 splitter ETH 口径 ${fmtPct(scx.splitterOnly28d)}：链上 splitter 只对 ETH 腿分 20%，USDG/TAO/meme 腿 100% 进回购`, scx.d28 > 0.25 ? "caution" : "") +
     card("按收入推算的 20%", fmtUsd(tm.impliedFromRevenue28d), "= 同窗协议收入 × 20% · 差额 = 非 ETH 腿不分账 + 管道时滞") +
@@ -298,8 +297,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
   const cc = ho.concentration;
   document.getElementById("holderCards").innerHTML =
     card("持有地址数", fmtNum(ho.holdersCount), "Blockscout") +
-    card("top10（非 dead）占流通", fmtPct(cc.top10NonDeadPctOfCirc), "") +
-    card("疑似大户 EOA（top20 内未知地址）", fmtPct(cc.unknownEoaTop20PctOfCirc), `最大单一 ${cc.largestEoa ? short(cc.largestEoa.address) + " " + fmtPct(cc.largestEoa.pctOfCirc) : "n/a"} · 非合约、无标签，不能断言归属`, cc.unknownEoaTop20PctOfCirc > 0.3 ? "caution" : "") +
+        card("疑似大户 EOA（top20 内未知地址）", fmtPct(cc.unknownEoaTop20PctOfCirc), `最大单一 ${cc.largestEoa ? short(cc.largestEoa.address) + " " + fmtPct(cc.largestEoa.pctOfCirc) : "n/a"} · 非合约、无标签，不能断言归属`, cc.unknownEoaTop20PctOfCirc > 0.3 ? "caution" : "") +
     card("流动性/合约（top20 内）", fmtPct(cc.contractsTop20PctOfCirc), "Uniswap v3/v4 池、PoolManager、其他合约");
   document.getElementById("holdersTable").innerHTML = `<tr><th>#</th><th>地址</th><th>持仓</th><th>占流通</th><th>标签</th></tr>` +
     ho.top.map((r, k) => `<tr><td>${k + 1}</td><td style="text-align:left">${link(r.address)}</td><td>${fmtTok(r.tokens)}</td><td>${r.kind === "dead" ? "—" : fmtPct(r.pctOfCirc)}</td><td style="text-align:left;color:${r.kind === "eoa" ? "var(--warn)" : "var(--muted)"}">${r.label}</td></tr>`).join("");
@@ -307,7 +305,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
   // 7 风险
   const ft = rk.feesTrend, bp = rk.buybackPolicy;
   document.getElementById("riskCards").innerHTML =
-    card("手续费近 4 周 vs 前 4 周", fmtPct(ft.change), `距峰值周（${fmtUsd(ft.peakWeek)}）回撤 ${fmtPct(ft.drawdownFromPeak)} · 收入与 meme 热度同源`, ft.change < -0.3 ? "caution" : "") +
+    card("手续费距峰值周回撤", fmtPct(ft.drawdownFromPeak), `峰值周 ${fmtUsd(ft.peakWeek)} · 近 4 周 vs 前 4 周${chg(ft.change)} · 收入与 meme 热度同源`, ft.drawdownFromPeak > 0.5 ? "caution" : "") +
     card("回购政策执行", fmtPct(bp.hrOverRevenue28d), `销毁 ÷ 协议收入（28 天）· 政策 80% · 低于 ${fmtPct(bp.warnBelow, 0)} 告警`, bp.hrOverRevenue28d < bp.warnBelow ? "caution" : "good") +
     card("金库直接转出 PONS（30 天）", rk.treasuryPonsOutflows30d == null ? "未采集" : `${rk.treasuryPonsOutflows30d} 笔`, "≥10 万枚的非回购路径转出（OTC/交易所/做市）", rk.treasuryPonsOutflows30d > 0 ? "caution" : "") +
     card("中心化", `Safe#1 ${nn(rk.centralization.safe1.threshold)}/${nn(rk.centralization.safe1.owners?.length)}`, rk.centralization.note, "caution") +
