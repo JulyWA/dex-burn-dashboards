@@ -199,7 +199,8 @@ function barChart(id, labels, datasets, yAxis = usdAxis, stacked = false) {
 }
 const alignTo = (base, series) => base.map(p => { const q = (series || []).find(x => x.t === p.t); return q ? q.v : null; });
 
-fetch("./data.json").then(r => r.json()).then(d => {
+// GitHub Pages 给 data.json 的 cache-control 是 max-age=600：页面改版后浏览器会拿新 index.html 配旧 data.json（2026-09-30 July 看到金库板块空白即此因）→ 带时间戳绕过缓存
+fetch("./data.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.json()).then(d => {
   const { token: t, income: i, valueCapture: v, supplyDynamics: sd, treasury: tr, teamRevenue: tm, holders: ho, risk: rk, charts: ch, checks } = d;
   const bj = new Date(new Date(d.generatedAt).getTime() + 8 * 3600e3);
   document.getElementById("ts").textContent = "更新于 " + bj.toISOString().replace("T", " ").slice(0, 16) + " (UTC+8) · 块 " + d.blockNumber;
@@ -279,6 +280,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
       options: { responsive: true, maintainAspectRatio: false, layout: { padding: { top: 6, bottom: 20 } }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.raw.from} → ${c.raw.to}：$${c.raw.flow}M` } } } } });
     document.getElementById("sankeyTitle").textContent = `协议收入的去向（${lg.window.from} ~ ${lg.window.to}，$M）：收入 ${M(lg.upstream.revenue)} → 销毁 ${M(burn.usd)} / 团队 ${M(team.usd)} / 未分配 ${M(res.usd)}　｜　上游：用户付手续费 ${M(lg.upstream.fees)}，其中 ${M(lg.upstream.creators)} 直接归创作者，不经过协议`;
   })();
+  if (!lg) { for (const id of ["ledgerTable", "stockTable", "offTable"]) document.getElementById(id).innerHTML = `<tr><td>数据文件版本比页面旧，缺少账本字段。请强制刷新（Cmd+Shift+R）；若仍为空说明本期快照未生成该字段。</td></tr>`; }
   if (lg) {
     const row = (name, usd, p, note, cls = "", ind = false) => `<tr class="${cls}"><td class="${ind ? "ind" : ""}">${name}</td><td>${fmtUsd(usd)}</td><td>${pc(p)}</td><td style="text-align:left;color:var(--muted)">${note || ""}</td></tr>`;
     const inc = lg.income.reduce((a, x) => a + (x.usd || 0), 0);
