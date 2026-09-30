@@ -1,0 +1,3159 @@
+{
+  "generatedAt": "2026-09-30T05:14:02.748Z",
+  "nowSec": 1790745164,
+  "blockNumber": 76256146,
+  "token": {
+    "priceUsd": 0.552218,
+    "priceLlama": 0.550898122308551,
+    "marketCapUsd": 376702779,
+    "fdvUsd": 376676954,
+    "priceChange7d": -0.2176909,
+    "priceChange30d": 0.6498425,
+    "volume24hUsd": 72232144,
+    "ath": 0.971034,
+    "athDate": "2026-09-05T17:13:10.000Z",
+    "maxSupply": 1000000000,
+    "totalSupply": 1000000000,
+    "dead": 317753320.2468728,
+    "circulating": 682246679.7531272,
+    "cgCirculating": 682307967.9848722,
+    "cgTotal": 682307967.9848722,
+    "mcapFromChain": 376748896.9999124,
+    "holdersCount": 102112,
+    "pools": [
+      {
+        "name": "PONS / USDG",
+        "address": "0x486435a1f76cd58193f854c6e6213cd05fd58d637865d02065ff558b387fa6ea",
+        "dex": "uniswap-v4-robinhood",
+        "volume24hUsd": 11235019.711882,
+        "liquidityUsd": 6869085.9672,
+        "createdAt": "2026-09-08T13:29:28Z"
+      },
+      {
+        "name": "PONS / USDG 0.3%",
+        "address": "0x4be9657ec9002e528f4f17a5c43edc525a07f888f7b180c2afbf75e096c4f38a",
+        "dex": "uniswap-v4-robinhood",
+        "volume24hUsd": 6013916.85775756,
+        "liquidityUsd": 6118506.8949,
+        "createdAt": "2026-07-18T01:42:13Z"
+      },
+      {
+        "name": "PONS / WETH 0.3%",
+        "address": "0xed50bdeea8adc232f159486192a4157281d722ff",
+        "dex": "uniswap-v3-robinhood",
+        "volume24hUsd": 6610546.34878824,
+        "liquidityUsd": 4420036.5496,
+        "createdAt": "2026-07-16T15:39:37Z"
+      },
+      {
+        "name": "PONS / USDG 0.3%",
+        "address": "0xf2a0be59ab76b96f957bd5e5b967f2b75e8db269",
+        "dex": "ramses-v3-robinhood",
+        "volume24hUsd": 7750292.21940337,
+        "liquidityUsd": 1330465.5992,
+        "createdAt": "2026-08-11T03:34:02Z"
+      },
+      {
+        "name": "PONS / WETH 1%",
+        "address": "0x10cc6bd38112cac182db90b6a71d8bb5939526ba",
+        "dex": "uniswap-v3-robinhood",
+        "volume24hUsd": 1380994.53448623,
+        "liquidityUsd": 4073559.9154,
+        "createdAt": "2026-07-13T20:42:21Z"
+      },
+      {
+        "name": "PONS / WETH",
+        "address": "0xb59001413cb070e28433826f927b7265a0813213ba21f454d86896cee3cce674",
+        "dex": "uniswap-v4-robinhood",
+        "volume24hUsd": 1694226.54706999,
+        "liquidityUsd": 967224.7306,
+        "createdAt": "2026-09-04T21:25:11Z"
+      },
+      {
+        "name": "PONS / USDG 0.3%",
+        "address": "0x2f393b60ef0cfaf669af63284e5592dc3a657b73",
+        "dex": "up-v3",
+        "volume24hUsd": 2995157.63185966,
+        "liquidityUsd": 477121.4325,
+        "createdAt": "2026-08-19T20:13:45Z"
+      },
+      {
+        "name": "PONS / WETH 1%",
+        "address": "0x51b6ca77deae9f17c1d89edfb301ae50053c57a5",
+        "dex": "ramses-v3-robinhood",
+        "volume24hUsd": 1000073.15558171,
+        "liquidityUsd": 587625.8546,
+        "createdAt": "2026-08-06T21:01:23Z"
+      }
+    ],
+    "poolsLiquidityUsd": 30709190.952099998,
+    "poolsVolume24h": 42037462.139876105
+  },
+  "income": {
+    "windows": {
+      "fees": {
+        "week": 11280771,
+        "month": 137153782,
+        "year": 183471862,
+        "change": {
+          "week": -0.4214617482856719,
+          "month": 3.4128343498552396,
+          "year": null
+        },
+        "coverage": {
+          "trimmedDays": 0,
+          "outage": false,
+          "coveredThrough": "2026-09-30",
+          "lagDays": 0
+        }
+      },
+      "revenue": {
+        "week": 1724108,
+        "month": 23394815,
+        "year": 33634174,
+        "change": {
+          "week": -0.41818895998342415,
+          "month": 2.8381212202943145,
+          "year": null
+        },
+        "coverage": {
+          "trimmedDays": 0,
+          "outage": false,
+          "coveredThrough": "2026-09-30",
+          "lagDays": 0
+        }
+      },
+      "holdersRevenue": {
+        "week": 1209004,
+        "month": 16515995,
+        "year": 20059800,
+        "change": {
+          "week": -0.48516457007125485,
+          "month": 9.646386570439185,
+          "year": null
+        },
+        "coverage": {
+          "trimmedDays": 0,
+          "outage": false,
+          "coveredThrough": "2026-09-29",
+          "lagDays": 1
+        }
+      },
+      "supplySideRevenue": {
+        "week": 9484842,
+        "month": 113687089,
+        "year": 149783754,
+        "change": {
+          "week": -0.4263912210087639,
+          "month": 3.5492595909443048,
+          "year": null
+        },
+        "coverage": {
+          "trimmedDays": 0,
+          "outage": false,
+          "coveredThrough": "2026-09-30",
+          "lagDays": 0
+        }
+      },
+      "volume": {
+        "week": 190536327,
+        "month": 2325547978,
+        "year": 2701599273,
+        "change": {
+          "week": -0.4173826405257948,
+          "month": 5.184124370586199,
+          "year": null
+        },
+        "coverage": {
+          "trimmedDays": 0,
+          "outage": false,
+          "coveredThrough": "2026-09-30",
+          "lagDays": 0
+        }
+      },
+      "v1Revenue": {
+        "week": 90688,
+        "month": 1074843,
+        "year": 7070997,
+        "change": {
+          "week": -0.2076259709395287,
+          "month": -0.4478879012771833,
+          "year": null
+        },
+        "coverage": {
+          "trimmedDays": 0,
+          "outage": false,
+          "coveredThrough": "2026-09-29",
+          "lagDays": 1
+        }
+      },
+      "v2Revenue": {
+        "week": 1647569,
+        "month": 22429793,
+        "year": 26563177,
+        "change": {
+          "week": -0.42222592387378227,
+          "month": 4.426496304238851,
+          "year": null
+        },
+        "coverage": {
+          "trimmedDays": 0,
+          "outage": false,
+          "coveredThrough": "2026-09-30",
+          "lagDays": 0
+        }
+      },
+      "v1Fees": {
+        "week": 411229,
+        "month": 5255556,
+        "year": 28345430,
+        "change": {
+          "week": -0.2689600125149771,
+          "month": -0.36226046798455463,
+          "year": null
+        },
+        "coverage": {
+          "trimmedDays": 0,
+          "outage": false,
+          "coveredThrough": "2026-09-29",
+          "lagDays": 1
+        }
+      },
+      "v2Fees": {
+        "week": 10937565,
+        "month": 132408336,
+        "year": 155126432,
+        "change": {
+          "week": -0.4227692241114525,
+          "month": 4.828320119784686,
+          "year": null
+        },
+        "coverage": {
+          "trimmedDays": 0,
+          "outage": false,
+          "coveredThrough": "2026-09-30",
+          "lagDays": 0
+        }
+      },
+      "volumeOfficial": {
+        "week": 1016087607.5336666,
+        "month": 11717017138.805597,
+        "year": 15803109254.756636,
+        "change": {
+          "week": -0.32806399063516456,
+          "month": 3.7327876985746444,
+          "year": null
+        },
+        "coverage": {
+          "trimmedDays": 0,
+          "outage": false,
+          "coveredThrough": "2026-09-29",
+          "lagDays": 1
+        }
+      },
+      "launches": {
+        "week": 53374,
+        "month": 523159,
+        "year": 910930,
+        "change": {
+          "week": -0.3503809546992527,
+          "month": 2.281083996563121,
+          "year": null
+        },
+        "coverage": {
+          "trimmedDays": 0,
+          "outage": false,
+          "coveredThrough": "2026-09-29",
+          "lagDays": 1
+        }
+      }
+    },
+    "ratios": {
+      "revenueOverFees28d": 0.16966332541727042,
+      "hrOverRevenue28d": 0.7373089777199563,
+      "hrOverRevenue7d": 0.6753461486683883,
+      "hrOverRevenueAllTime": 0.5964112571933534,
+      "opsRetained28d": 5830562,
+      "opsRetainedAllTime": 13574374,
+      "v1ShareOfRevenue28d": 0.04024457555903303,
+      "takeRateOnOfficialVolume28d": 0.012189985656947198,
+      "supplySideOverFees28d": 0.8303362465166505
+    },
+    "weekly": {
+      "fees": [
+        {
+          "t": 1783555200,
+          "v": 842776
+        },
+        {
+          "t": 1784160000,
+          "v": 5768871
+        },
+        {
+          "t": 1784764800,
+          "v": 7284949
+        },
+        {
+          "t": 1785369600,
+          "v": 2844152
+        },
+        {
+          "t": 1785974400,
+          "v": 3577009
+        },
+        {
+          "t": 1786579200,
+          "v": 2854222
+        },
+        {
+          "t": 1787184000,
+          "v": 4809751
+        },
+        {
+          "t": 1787788800,
+          "v": 28859681
+        },
+        {
+          "t": 1788393600,
+          "v": 59424295
+        },
+        {
+          "t": 1788998400,
+          "v": 36426638
+        },
+        {
+          "t": 1789603200,
+          "v": 19498747
+        }
+      ],
+      "revenue": [
+        {
+          "t": 1783555200,
+          "v": 98175
+        },
+        {
+          "t": 1784160000,
+          "v": 1671068
+        },
+        {
+          "t": 1784764800,
+          "v": 2035460
+        },
+        {
+          "t": 1785369600,
+          "v": 708557
+        },
+        {
+          "t": 1785974400,
+          "v": 853539
+        },
+        {
+          "t": 1786579200,
+          "v": 587160
+        },
+        {
+          "t": 1787184000,
+          "v": 941171
+        },
+        {
+          "t": 1787788800,
+          "v": 5371421
+        },
+        {
+          "t": 1788393600,
+          "v": 10697287
+        },
+        {
+          "t": 1788998400,
+          "v": 5982881
+        },
+        {
+          "t": 1789603200,
+          "v": 2963347
+        }
+      ],
+      "holdersRevenue": [
+        {
+          "t": 1783555200,
+          "v": 334092
+        },
+        {
+          "t": 1784160000,
+          "v": 417277
+        },
+        {
+          "t": 1784764800,
+          "v": 1007844
+        },
+        {
+          "t": 1785369600,
+          "v": 615963
+        },
+        {
+          "t": 1785974400,
+          "v": 472438
+        },
+        {
+          "t": 1786579200,
+          "v": 164985
+        },
+        {
+          "t": 1787184000,
+          "v": 382780
+        },
+        {
+          "t": 1787788800,
+          "v": 382226
+        },
+        {
+          "t": 1788393600,
+          "v": 7023462
+        },
+        {
+          "t": 1788998400,
+          "v": 6164402
+        },
+        {
+          "t": 1789603200,
+          "v": 2006867
+        }
+      ],
+      "supplySide": [
+        {
+          "t": 1783555200,
+          "v": 744600
+        },
+        {
+          "t": 1784160000,
+          "v": 4097803
+        },
+        {
+          "t": 1784764800,
+          "v": 5257565
+        },
+        {
+          "t": 1785369600,
+          "v": 2143218
+        },
+        {
+          "t": 1785974400,
+          "v": 2725730
+        },
+        {
+          "t": 1786579200,
+          "v": 2267060
+        },
+        {
+          "t": 1787184000,
+          "v": 3868568
+        },
+        {
+          "t": 1787788800,
+          "v": 23488260
+        },
+        {
+          "t": 1788393600,
+          "v": 48726987
+        },
+        {
+          "t": 1788998400,
+          "v": 30443736
+        },
+        {
+          "t": 1789603200,
+          "v": 16535385
+        }
+      ],
+      "v1Revenue": [
+        {
+          "t": 1783555200,
+          "v": 98175
+        },
+        {
+          "t": 1784160000,
+          "v": 1671068
+        },
+        {
+          "t": 1784764800,
+          "v": 2035460
+        },
+        {
+          "t": 1785369600,
+          "v": 691858
+        },
+        {
+          "t": 1785974400,
+          "v": 612227
+        },
+        {
+          "t": 1786579200,
+          "v": 251276
+        },
+        {
+          "t": 1787184000,
+          "v": 319239
+        },
+        {
+          "t": 1787788800,
+          "v": 551803
+        },
+        {
+          "t": 1788393600,
+          "v": 404284
+        },
+        {
+          "t": 1788998400,
+          "v": 247301
+        },
+        {
+          "t": 1789603200,
+          "v": 111767
+        }
+      ],
+      "v2Revenue": [
+        {
+          "t": 1785369600,
+          "v": 16699
+        },
+        {
+          "t": 1785974400,
+          "v": 241312
+        },
+        {
+          "t": 1786579200,
+          "v": 335884
+        },
+        {
+          "t": 1787184000,
+          "v": 621932
+        },
+        {
+          "t": 1787788800,
+          "v": 4819618
+        },
+        {
+          "t": 1788393600,
+          "v": 10293003
+        },
+        {
+          "t": 1788998400,
+          "v": 5735580
+        },
+        {
+          "t": 1789603200,
+          "v": 2851580
+        }
+      ],
+      "volumeOfficial": [
+        {
+          "t": 1783555200,
+          "v": 110198868.53995878
+        },
+        {
+          "t": 1784160000,
+          "v": 606168539.0321933
+        },
+        {
+          "t": 1784764800,
+          "v": 766977945.104181
+        },
+        {
+          "t": 1785369600,
+          "v": 378368253.9523064
+        },
+        {
+          "t": 1785974400,
+          "v": 446444168.1018038
+        },
+        {
+          "t": 1786579200,
+          "v": 243948660.37262645
+        },
+        {
+          "t": 1787184000,
+          "v": 459945525.8102576
+        },
+        {
+          "t": 1787788800,
+          "v": 2611320874.099588
+        },
+        {
+          "t": 1788393600,
+          "v": 5082108719.4367485
+        },
+        {
+          "t": 1788998400,
+          "v": 2767749097.8164244
+        },
+        {
+          "t": 1789603200,
+          "v": 1519842127.576079
+        }
+      ],
+      "volumeLlama": [
+        {
+          "t": 1785369600,
+          "v": 1028430
+        },
+        {
+          "t": 1785974400,
+          "v": 12660655
+        },
+        {
+          "t": 1786579200,
+          "v": 34236504
+        },
+        {
+          "t": 1787184000,
+          "v": 51529301
+        },
+        {
+          "t": 1787788800,
+          "v": 491749592
+        },
+        {
+          "t": 1788393600,
+          "v": 984483182
+        },
+        {
+          "t": 1788998400,
+          "v": 608340181
+        },
+        {
+          "t": 1789603200,
+          "v": 327035101
+        }
+      ],
+      "launches": [
+        {
+          "t": 1783555200,
+          "v": 16141
+        },
+        {
+          "t": 1784160000,
+          "v": 90250
+        },
+        {
+          "t": 1784764800,
+          "v": 98779
+        },
+        {
+          "t": 1785369600,
+          "v": 54787
+        },
+        {
+          "t": 1785974400,
+          "v": 22671
+        },
+        {
+          "t": 1786579200,
+          "v": 17553
+        },
+        {
+          "t": 1787184000,
+          "v": 24914
+        },
+        {
+          "t": 1787788800,
+          "v": 126618
+        },
+        {
+          "t": 1788393600,
+          "v": 193582
+        },
+        {
+          "t": 1788998400,
+          "v": 140929
+        },
+        {
+          "t": 1789603200,
+          "v": 81700
+        }
+      ]
+    },
+    "hrRatioWeekly": [
+      {
+        "t": 1783555200,
+        "v": 3.4030252100840337
+      },
+      {
+        "t": 1784160000,
+        "v": 0.24970677435029573
+      },
+      {
+        "t": 1784764800,
+        "v": 0.495143112613365
+      },
+      {
+        "t": 1785369600,
+        "v": 0.8693203228533484
+      },
+      {
+        "t": 1785974400,
+        "v": 0.5535048779259062
+      },
+      {
+        "t": 1786579200,
+        "v": 0.280988146331494
+      },
+      {
+        "t": 1787184000,
+        "v": 0.4067061139792875
+      },
+      {
+        "t": 1787788800,
+        "v": 0.07115919604886677
+      },
+      {
+        "t": 1788393600,
+        "v": 0.6565647906801042
+      },
+      {
+        "t": 1788998400,
+        "v": 1.0303400652628725
+      },
+      {
+        "t": 1789603200,
+        "v": 0.6772298350480048
+      }
+    ],
+    "anchor": 1790726400,
+    "anchorOfficial": 1790726400,
+    "win28": {
+      "fees": 130820924,
+      "revenue": 22195513,
+      "holdersRevenue": 16364951,
+      "supplySide": 108625355,
+      "v1Revenue": 893249,
+      "v2Revenue": 21302264,
+      "volumeOfficial": 10731835761.057177,
+      "feesSameWindowAsOfficial": 130820924,
+      "from": "2026-09-02",
+      "to": "2026-09-29"
+    },
+    "win7": {
+      "fees": 11952838,
+      "revenue": 1790199,
+      "holdersRevenue": 1209004,
+      "feesChildren": 11952838,
+      "from": "2026-09-23",
+      "to": "2026-09-29"
+    },
+    "seriesLen": {
+      "fees": 79,
+      "revenue": 79,
+      "holdersRevenue": 78
+    },
+    "coverage": {
+      "llama": {
+        "trimmedDays": 0,
+        "outage": false,
+        "coveredThrough": "2026-09-30",
+        "lagDays": 0
+      },
+      "official": {
+        "latestDay": "2026-09-29",
+        "claimedLatestDay": "2026-09-29",
+        "trimmedDays": 0,
+        "lagDays": 0,
+        "generatedAt": "2026-09-30T03:42:09.556Z"
+      }
+    },
+    "officialTotals": {
+      "launches24h": 7338,
+      "launchesAllTime": 910930,
+      "volumeUsd24h": 164556565.88303083,
+      "volumeUsdAllTime": 15803109254.756636,
+      "protocolRevenueUsd": 30940232.38957148,
+      "creatorEarningsUsd": 125025261.26000002,
+      "uniqueDevelopers": 415522
+    },
+    "llamaTotals": {
+      "feesAllTime": 183471862,
+      "revenueAllTime": 33634174,
+      "hrAllTime": 20059800,
+      "volumeAllTime": 2701599273
+    },
+    "momFees": 3.4128343498552396
+  },
+  "valueCapture": {
+    "valuation": {
+      "peHolders": 13.311792641753291,
+      "peHoldersFdv": 13.310880046826632,
+      "peCurrentRate": 3.609748035888009,
+      "peRevenue": 1.301963483796792,
+      "pe28d": 1.7658315891160923,
+      "buybackYield": 0.07512136245748269,
+      "buybackYieldCurrent": 0.27702764571322686,
+      "buybackYield28d": 0.5663054201564951,
+      "holdersRevenueAnnual": 28298426,
+      "holdersRevenueCurrentRate": 104357084,
+      "holdersRevenue28dAnnual": 213328825.5357143,
+      "weeksOfData": 11
+    },
+    "buyback": {
+      "cumulativeTokensAll": 317753320.2468728,
+      "protocolShareRecent": 0.999808718408187,
+      "recentSenders": {
+        "rows": 200,
+        "from": 1790706958,
+        "to": 1790744701,
+        "top": [
+          {
+            "addr": "0x5795d227dcc305afe212bef18e81b111def7c324",
+            "share": 0.999808718408187,
+            "label": "splitter 回购/分账合约（80% 买 PONS→dead，20% ETH→Safe#2）"
+          },
+          {
+            "addr": "0x7e97eadea120321c65cc09b6fdecc6eb15d55b2f",
+            "share": 0.00019128159181296605,
+            "label": "第三方/未知"
+          }
+        ]
+      },
+      "cumulativeUsdLlama": 20059800,
+      "buybackTokensAttributable": 237343320.24687278,
+      "nonBuybackBurnTokens": 80410000,
+      "avgCostUsd": 0.08451807271902487,
+      "unrealizedUsd": 111005453.6200876,
+      "tokens7d": 2088025.50733006,
+      "usd7dChain": 1286974.039068609,
+      "usd28dChain": 16380639.033426406,
+      "usd7dLlama": 1209004,
+      "usd28dLlama": 16364951,
+      "window7": {
+        "fees": 11952838,
+        "revenue": 1790199,
+        "holdersRevenue": 1209004,
+        "feesChildren": 11952838,
+        "from": "2026-09-23",
+        "to": "2026-09-29"
+      },
+      "window28": {
+        "from": "2026-09-02",
+        "to": "2026-09-29"
+      },
+      "pipeline": {
+        "totalUsd": 2117458.61494384,
+        "splitter": {
+          "address": "0x5795d227DcC305Afe212Bef18E81B111dEF7C324",
+          "valueUsd": 1318242.0468474918,
+          "ethAmount": 481.59562175834526,
+          "assetCount": 20,
+          "top": [
+            {
+              "symbol": "ETH",
+              "valueUsd": 1285740.8475057571
+            },
+            {
+              "symbol": "BULL",
+              "valueUsd": 8851.85751304546
+            },
+            {
+              "symbol": "INDA",
+              "valueUsd": 8282.248406680937
+            },
+            {
+              "symbol": "SKHY",
+              "valueUsd": 8067.684693940628
+            },
+            {
+              "symbol": "META",
+              "valueUsd": 1625.5492708978727
+            },
+            {
+              "symbol": "LMT",
+              "valueUsd": 1606.9640661384726
+            }
+          ]
+        },
+        "intake": {
+          "address": "0xCD9107D2bDFAD6b56A7ac235BeBE46e555c1801C",
+          "valueUsd": null,
+          "ethAmount": 0,
+          "assetCount": 0,
+          "top": []
+        },
+        "escrow": {
+          "address": "0xd3AFEB2a57f70eF218Aa82451c51B2fb0416Ac9e",
+          "valueUsd": 799216.5680963484,
+          "ethAmount": 197.41900155618848,
+          "assetCount": 64,
+          "top": [
+            {
+              "symbol": "ETH",
+              "valueUsd": 527059.763225922
+            },
+            {
+              "symbol": "USDG",
+              "valueUsd": 110972.82254
+            },
+            {
+              "symbol": "NVDA",
+              "valueUsd": 35928.66006357533
+            },
+            {
+              "symbol": "SPY",
+              "valueUsd": 30620.458830261494
+            },
+            {
+              "symbol": "SPCX",
+              "valueUsd": 23761.410321860414
+            },
+            {
+              "symbol": "GME",
+              "valueUsd": 8204.4785904183
+            }
+          ]
+        },
+        "ethUsd": 2669.7519441962772,
+        "asOf": "2026-09-30T05:11:16.038Z"
+      },
+      "executionNote": "回购由 Safe#1 人工把资产送进 intake→splitter，splitter 按 TWAP 卖资产买 PONS 送 dead；周度 HR/收入 在 40%–97% 摆动是管道时滞，看 4 周滚动",
+      "eventsAsOfBlock": 76069694,
+      "lastEventTs": 1790744701,
+      "seriesSource": "dRPC 历史 balanceOf(dead) 日差分，至 2026-09-30"
+    },
+    "policy": {
+      "buybackShareOfProtocolRevenue": 0.8,
+      "opsShareOfProtocolRevenue": 0.2,
+      "v1LegacyProtocolShare": 0.1,
+      "v1ProtocolShare": 0.3,
+      "v2ProtocolShareBps": 3000,
+      "v2BuybackBurnBps": 5000,
+      "launchFeeEth": 0.0005,
+      "_source": "docs.ponsfamily.com（V1 fees / 80% TWAP buyback / 20% infra+team，声明 not immutable yet）+ 链上 hook/locker 参数 2026-09-30"
+    }
+  },
+  "supplyDynamics": {
+    "maxSupply": 1000000000,
+    "totalSupply": 1000000000,
+    "dead": 317753320.2468728,
+    "circulating": 682246679.7531272,
+    "burnedPctOfMax": 0.3177533202468728,
+    "mintPossible": false,
+    "mintNote": "合约无 mint 函数，totalSupply 恒 10 亿；销毁 = 转入 dead（永久锁，不减 totalSupply）",
+    "burn28dPctOfCirc": 0.03601372147665713,
+    "burnAnnualTokens": 320290653.3784348,
+    "burnAnnualBasis": "近 28 天枚数 ×365/28（与 tokens28d 同窗）",
+    "burnAnnualRange": {
+      "min": 155853081.73309422,
+      "max": 530856863.72606874
+    },
+    "burnCurrentTokens": 155853081.73309422,
+    "netDeflationRate": 0.4694645835349947,
+    "netDeflationRateRange": {
+      "min": 0.22844095304280568,
+      "max": 0.778101058576292
+    },
+    "netDeflationRateCurrent": 0.22844095304280568,
+    "netDeflationRateUsd28d": 0.5663054201564951,
+    "netDeflationRateAtCurrentPrice": 0.07511216681811966,
+    "burn7dTokens": 2088025.50733006,
+    "burn28dTokens": 24570241.903003216,
+    "eventsCollected": true,
+    "unlocks": null,
+    "unlockNote": "无团队/投资人分配、无解锁表（PONS 以普通 v1 发币方式创建，部署者现持 0 PONS）"
+  },
+  "treasury": {
+    "holdings": {
+      "safe1": {
+        "eth": 6.767000000000178,
+        "pons": 385354.54970582586,
+        "escrowClaimableEth": 119.56404653908022,
+        "usdApprox": 550008.8647038921
+      },
+      "safe2": {
+        "eth": 823.478624917749,
+        "usdApprox": 2198070.3195617017
+      },
+      "pipeline": {
+        "usd": 2117458.61494384,
+        "splitterUsd": 1318242.0468474918,
+        "intakeUsd": null,
+        "escrowUsd": 799216.5680963484,
+        "splitterEth": 481.59562175834526,
+        "escrowEthTotal": 197.41900155618848
+      },
+      "ethUsd": 2669.25,
+      "note": "escrow 总 ETH 含创作者未领份额；协议可领部分 = escrowClaimableEth。pipeline 估值来自官方 buyback-status（配对资产按参考价）。"
+    },
+    "flows": {
+      "window": "近 28 天（2026-09-02 ~ 2026-09-29）",
+      "inflows": [
+        {
+          "name": "协议收入（V1 10%/30% + V2 30% + 发币费）",
+          "usd": 22195513,
+          "source": "DefiLlama revenue"
+        },
+        {
+          "name": "  其中 V1",
+          "usd": 893249
+        },
+        {
+          "name": "  其中 V2",
+          "usd": 21302264
+        }
+      ],
+      "outflows": [
+        {
+          "name": "买回 PONS 销毁（持有人）",
+          "usd": 16364951,
+          "source": "DefiLlama holdersRevenue = 链上 dead 事件"
+        },
+        {
+          "name": "团队 20%（splitter → Safe#2 ETH）",
+          "usd": null,
+          "source": "链上 Safe#2 内部转入"
+        },
+        {
+          "name": "团队：Safe#1 → Safe#2 稳定币",
+          "usd": null,
+          "source": "链上 ERC-20 转出"
+        },
+        {
+          "name": "Safe#1/Safe#2 直接支付（USDG）",
+          "usd": null,
+          "source": "链上 ERC-20 转出"
+        },
+        {
+          "name": "Safe#1 直接转出 PONS",
+          "usd": null,
+          "source": "链上，见告警"
+        }
+      ],
+      "residual": null,
+      "residualNote": "余额 = 收入 − 销毁 − 团队三项，为正即仍在管道/多签里（配对资产未变现、escrow 未领）或统计时滞",
+      "passThrough": {
+        "creatorsAndOthers": 108625355,
+        "fees": 130820924
+      }
+    },
+    "buybackFundingStableAll": 0
+  },
+  "teamRevenue": {
+    "primary": {
+      "label": "splitter 分给 Safe#2 的 ETH（政策 20%，链上实为 ETH 腿的 20%）",
+      "collected": false,
+      "annualBasis": "0 周均值×52（样本不足）",
+      "usd7d": null,
+      "usd28d": null,
+      "eth7d": null,
+      "eth28d": null,
+      "ethAll": null,
+      "usdAll": null,
+      "annualUsd": null,
+      "since": null,
+      "complete": null,
+      "otherInflowsEth": 0,
+      "otherInflows": []
+    },
+    "shareCheck": {
+      "d28": null,
+      "d7": null,
+      "splitterOnly28d": null,
+      "splitterOnly7d": null,
+      "policy": 0.2,
+      "components28d": {
+        "splitterEthUsd": null,
+        "safe1ToSafe2Stable": null,
+        "safe1DirectPayouts": null,
+        "total": null
+      }
+    },
+    "impliedFromRevenue28d": 4439102.600000001,
+    "payouts": null,
+    "ponsOut": null,
+    "ponsOutAlerts30d": null,
+    "tokenSide": {
+      "teamAllocation": 0,
+      "deployerHolds": 0,
+      "uniswapStake": "Uniswap Labs 2026-09-04 宣布入股，规模/价格/钱包未披露",
+      "note": "无解锁、无团队代币；团队持币若有，只能是二级买入或早期参与，链上不可归因"
+    },
+    "splitterNote": "链上抽样 3 笔（2026-09-30）：splitter 只对 ETH 腿按 20.00% 分给 Safe#2，USDG/TAO/CBBTC/meme 币腿 100% 进回购；故 splitter 口径分账 ≈ 20% × ETH 腿占比（实测 12%），不是协议收入的 20%。",
+    "conclusion": "团队赚的是协议收入（政策 20% 现金流，ETH 形态进 Safe#2；链上实为 ETH 腿的 20%）+ 未来 V2 BuybackVault 里 meme 币回购的协议份额（5 年 vest）；不是代币增发，也不是 PONS 池创作者费（该费已 redirect 给回购）。"
+  },
+  "holders": {
+    "holdersCount": 102112,
+    "top": [
+      {
+        "address": "0x000000000000000000000000000000000000dEaD",
+        "tokens": 317753320.2468728,
+        "pctOfMax": 0.3177533202468728,
+        "pctOfCirc": 0.4657454989181518,
+        "kind": "dead",
+        "label": "销毁地址 (dead)"
+      },
+      {
+        "address": "0xC882b111A75C0c657fC507C04FbFcD2cC984F071",
+        "tokens": 48781868.3836883,
+        "pctOfMax": 0.0487818683836883,
+        "pctOfCirc": 0.07150180401220882,
+        "kind": "eoa",
+        "label": "未知地址（疑似大户）"
+      },
+      {
+        "address": "0xB995B91882F5990e5aB3Cc4700b66b20A66C4C79",
+        "tokens": 36370663.12042294,
+        "pctOfMax": 0.03637066312042294,
+        "pctOfCirc": 0.053310135761428346,
+        "kind": "eoa",
+        "label": "未知地址（疑似大户）"
+      },
+      {
+        "address": "0x091D1C972cb1648537a2Ba78eaBa371b1cE18336",
+        "tokens": 17311504.8069,
+        "pctOfMax": 0.0173115048069,
+        "pctOfCirc": 0.02537426025021362,
+        "kind": "eoa",
+        "label": "未知地址（疑似大户）"
+      },
+      {
+        "address": "0xa64723bFdc2805c4Ad09c509983cfd85362298BA",
+        "tokens": 17288962.124958854,
+        "pctOfMax": 0.017288962124958854,
+        "pctOfCirc": 0.025341218415624846,
+        "kind": "eoa",
+        "label": "未知地址（疑似大户）"
+      },
+      {
+        "address": "0x8366a39CC670B4001A1121B8F6A443A643e40951",
+        "tokens": 12910824.474832473,
+        "pctOfMax": 0.012910824474832473,
+        "pctOfCirc": 0.01892398286130801,
+        "kind": "known",
+        "label": "Uniswap v4 PoolManager（流动性）"
+      },
+      {
+        "address": "0xc0E17AD342AFABD36b3971F8305fF147006962ae",
+        "tokens": 11687791.243193561,
+        "pctOfMax": 0.011687791243193562,
+        "pctOfCirc": 0.01713132740700595,
+        "kind": "eoa",
+        "label": "未知地址（疑似大户）"
+      },
+      {
+        "address": "0x1Bcc5f67CD17e13770F199fA03bC043b0cde1143",
+        "tokens": 10958309.181923706,
+        "pctOfMax": 0.010958309181923706,
+        "pctOfCirc": 0.016062092359158127,
+        "kind": "contract",
+        "label": "合约（未命名）"
+      },
+      {
+        "address": "0x0a6EBEd0155EDB4b21D92AD02897A626CD90119E",
+        "tokens": 10957912.14288832,
+        "pctOfMax": 0.010957912142888321,
+        "pctOfCirc": 0.016061510400979116,
+        "kind": "contract",
+        "label": "合约（未命名）"
+      },
+      {
+        "address": "0x2dBAf98620aC5Bbe3441f756fEfF82702D095b1a",
+        "tokens": 10535991.347895768,
+        "pctOfMax": 0.010535991347895768,
+        "pctOfCirc": 0.015443081894818812,
+        "kind": "eoa",
+        "label": "未知地址（疑似大户）"
+      },
+      {
+        "address": "0xDE52C75041371b5E08d8a50b82C63734850628C1",
+        "tokens": 8999999.980473917,
+        "pctOfMax": 0.008999999980473917,
+        "pctOfCirc": 0.013191709461643098,
+        "kind": "eoa",
+        "label": "未知地址（疑似大户）"
+      },
+      {
+        "address": "0x73D8bD54F7Cf5FAb43fE4Ef40A62D390644946Db",
+        "tokens": 8919873.011290528,
+        "pctOfMax": 0.008919873011290528,
+        "pctOfCirc": 0.013074263717220593,
+        "kind": "contract",
+        "label": "合约 ERC1967Proxy"
+      },
+      {
+        "address": "0x1AB4973a48dc892Cd9971ECE8e01DcC7688f8F23",
+        "tokens": 8543784.608656857,
+        "pctOfMax": 0.008543784608656858,
+        "pctOfCirc": 0.012523013833864971,
+        "kind": "eoa",
+        "label": "未知地址（疑似大户）"
+      },
+      {
+        "address": "0x33d35d84372a97dA6Bbd32D101bDcC48074cC102",
+        "tokens": 7905675.567638863,
+        "pctOfMax": 0.007905675567638862,
+        "pctOfCirc": 0.011587708379173868,
+        "kind": "contract",
+        "label": "合约（未命名）"
+      },
+      {
+        "address": "0x0D0707963952f2fBA59dD06f2b425ace40b492Fe",
+        "tokens": 7481352.870397786,
+        "pctOfMax": 0.007481352870397786,
+        "pctOfCirc": 0.01096575929560395,
+        "kind": "eoa",
+        "label": "未知地址（疑似大户）"
+      },
+      {
+        "address": "0x88D25C861938a91AF4ad57aD964a8fCc6c6351d3",
+        "tokens": 7274850.902257003,
+        "pctOfMax": 0.007274850902257003,
+        "pctOfCirc": 0.010663079965283857,
+        "kind": "eoa",
+        "label": "未知地址（疑似大户）"
+      },
+      {
+        "address": "0xEd50bDeeA8aDC232f159486192a4157281D722ff",
+        "tokens": 6145415.547966405,
+        "pctOfMax": 0.0061454155479664044,
+        "pctOfCirc": 0.009007615178413385,
+        "kind": "known",
+        "label": "Uniswap v3 PONS/WETH 0.3% 池"
+      },
+      {
+        "address": "0x39681F13BBc7e128FbcA0c43b3914e2f53a000Fb",
+        "tokens": 5849921.552096914,
+        "pctOfMax": 0.0058499215520969134,
+        "pctOfCirc": 0.008574496184010339,
+        "kind": "contract",
+        "label": "合约（未命名）"
+      },
+      {
+        "address": "0xe16d837A2099B7b8f5AA117F82099C4D115f868B",
+        "tokens": 5703840.2246707305,
+        "pctOfMax": 0.005703840224670731,
+        "pctOfCirc": 0.008360378135859423,
+        "kind": "contract",
+        "label": "合约（未命名）"
+      },
+      {
+        "address": "0xFF5D8D4e19017f411f81Ef3A682e242A3278C9Ad",
+        "tokens": 5395658.184081404,
+        "pctOfMax": 0.005395658184081403,
+        "pctOfCirc": 0.007908661697018206,
+        "kind": "eoa",
+        "label": "未知地址（疑似大户）"
+      }
+    ],
+    "concentration": {
+      "top10NonDeadPctOfCirc": 0.2723411228243887,
+      "unknownEoaTop20PctOfCirc": 0.35981342112572684,
+      "contractsTop20PctOfCirc": 0.16774980050112628,
+      "largestEoa": {
+        "address": "0xC882b111A75C0c657fC507C04FbFcD2cC984F071",
+        "pctOfCirc": 0.07150180401220882
+      }
+    },
+    "composition": [
+      {
+        "name": "已销毁（dead）",
+        "tokens": 317753320.2468728
+      },
+      {
+        "name": "疑似大户 EOA（top20 内未知地址）",
+        "tokens": 245481511.89364085
+      },
+      {
+        "name": "流动性/合约（top20 内）",
+        "tokens": 114446744.42114288
+      },
+      {
+        "name": "其余流通",
+        "tokens": 322318423.4383435
+      }
+    ],
+    "note": "疑似 = 非合约、无标签、持仓进 top20；不能断言归属团队。Uniswap Labs 持仓钱包未披露，无法单列。"
+  },
+  "risk": {
+    "historicEvents": [
+      {
+        "date": "2026-07-10~09-21",
+        "title": "V2 反狙击税白名单被团伙利用",
+        "detail": "链上分析师 Wazz 指出一个团伙在 Pons V2 发 53 个币卷走 $1843 万：创作者为预批钱包免除反狙击税，70–200 个钱包 1 秒内锁走 >70% 供应。调查未指 Pons 参与，但暴露「创作者可免税白名单」是结构性漏洞。"
+      },
+      {
+        "date": "2026-08-05",
+        "title": "Uniswap Pools.trade 竞品上线",
+        "detail": "Uniswap 07-30 宣布合作，08-05 上线零发币费竞品 Pools.trade，PONS 当日跌约 49%。09-04 Uniswap Labs 宣布入股 PONS（规模未披露）。"
+      },
+      {
+        "date": "2026-09",
+        "title": "V2 审计无终稿",
+        "detail": "SB Security / Dingbats / Pashov 三家审计进行中，无已发布报告；V2 合约已承载全部新增收入。"
+      },
+      {
+        "date": "常态",
+        "title": "回购政策非合约写死",
+        "detail": "80% 回购 / 20% 团队由 Safe#1 多签人工执行（官方：not immutable yet）；splitter 实现源码未验证；无治理、无投票权。"
+      },
+      {
+        "date": "常态",
+        "title": "匿名团队 + 中心化 owner",
+        "detail": "创始人 Ozzy(@MEADGod) 匿名；Safe#1（2/3）是全部工厂/locker/hook 的 owner，可改费率与收款地址。"
+      }
+    ],
+    "structural": [
+      "收入与 Robinhood Chain meme 热度强绑定：周手续费 8 月末峰值 $51M 到 9 月末 $15M，四周跌 70%。",
+      "PONS 价格与协议收入几乎同源：回购是买盘主力，收入下滑 → 回购下滑 → 价格下滑。",
+      "流通盘集中：top2/3 非合约地址各持 4.9%/3.6%，身份不明。",
+      "无 DAO、无金库合约、无解锁表：资金全在两个多签里，团队可单方面改分配。"
+    ],
+    "dlHacks": [],
+    "dlAudits": [],
+    "feesTrend": {
+      "last4w": 144209361,
+      "prior4w": 14085134,
+      "change": 9.238408878467183,
+      "peakWeek": 59424295,
+      "drawdownFromPeak": 0.6718724723616831
+    },
+    "buybackPolicy": {
+      "hrOverRevenue28d": 0.7373089777199563,
+      "teamShare28d": null,
+      "splitterOnlyShare28d": null,
+      "policyTeamShare": 0.2,
+      "warnBelow": 0.6,
+      "splitterAlertAbove": 0.25
+    },
+    "treasuryPonsOutflows30d": null,
+    "ponsOut": [],
+    "concentration": {
+      "top10NonDeadPctOfCirc": 0.2723411228243887,
+      "unknownEoaTop20PctOfCirc": 0.35981342112572684,
+      "contractsTop20PctOfCirc": 0.16774980050112628,
+      "largestEoa": {
+        "address": "0xC882b111A75C0c657fC507C04FbFcD2cC984F071",
+        "pctOfCirc": 0.07150180401220882
+      }
+    },
+    "centralization": {
+      "safe1": {
+        "owners": [
+          "0x1320a2b04a9e9ff511c7209c9669ebfe13cc818e",
+          "0x3825e7b3ff17637b08219e99d78b6c622b73f5b7",
+          "0xfa31fe751c203a623b52fad26b4063abc2ffdf50"
+        ],
+        "threshold": 2
+      },
+      "safe2": {
+        "owners": [
+          "0x1320a2b04a9e9ff511c7209c9669ebfe13cc818e",
+          "0x3825e7b3ff17637b08219e99d78b6c622b73f5b7",
+          "0xbc3470b6f860a5ceda7e7989a11e4c8c87e4c917"
+        ],
+        "threshold": 2
+      },
+      "allContractsOwner": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd",
+      "note": "Safe#1 可改 V1/V2 费率、收款地址、发币开关；无治理投票"
+    },
+    "priceVsRevenue": {
+      "priceChange30d": 0.6498425,
+      "revenueChange30d": 2.8381212202943145
+    }
+  },
+  "governance": {
+    "params": {
+      "lockerOldShare": 10,
+      "lockerNewShare": 30,
+      "lockerOldRecipient": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd",
+      "lockerNewRecipient": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd",
+      "ponsFeeRedirect": "0xda4bcee76b29efec9697fcf663601c2042043968",
+      "hookProtocolBps": 3000,
+      "hookBuybackBps": 5000,
+      "hookRecipient": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd",
+      "hookFeeBps": 100,
+      "v2LaunchFee": 0.0005,
+      "v2MaxCreatorTax": 1000,
+      "v2SnipeStart": 9900,
+      "v2SnipeSeconds": 3,
+      "v2LaunchEnabled": true,
+      "v1LaunchEnabled": false
+    },
+    "owners": {
+      "safe1": [
+        "0x1320a2b04a9e9ff511c7209c9669ebfe13cc818e",
+        "0x3825e7b3ff17637b08219e99d78b6c622b73f5b7",
+        "0xfa31fe751c203a623b52fad26b4063abc2ffdf50"
+      ],
+      "safe1Threshold": 2,
+      "safe2": [
+        "0x1320a2b04a9e9ff511c7209c9669ebfe13cc818e",
+        "0x3825e7b3ff17637b08219e99d78b6c622b73f5b7",
+        "0xbc3470b6f860a5ceda7e7989a11e4c8c87e4c917"
+      ],
+      "safe2Threshold": 2,
+      "hookOwner": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd",
+      "v2FactoryOwner": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd",
+      "v1FactoryOwner": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd",
+      "lockerOwner": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd"
+    }
+  },
+  "chainParams": {
+    "lockerOld": {
+      "address": "0x31ca5E101941A93A7DD6d0497928700625CF54B5",
+      "protocolFeeRecipient": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd",
+      "protocolFeeShare": 10,
+      "owner": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd",
+      "ponsFeeRedirect": "0xda4bcee76b29efec9697fcf663601c2042043968",
+      "ponsProtocolShare": 10
+    },
+    "lockerNew": {
+      "address": "0x736D76699C26D0d966744cAe304C000d471f7F35",
+      "protocolFeeRecipient": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd",
+      "protocolFeeShare": 30,
+      "owner": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd",
+      "ponsFeeRedirect": "0x0000000000000000000000000000000000000000",
+      "ponsProtocolShare": 0
+    },
+    "hook": {
+      "protocolFeeRecipient": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd",
+      "protocolFeeShareBps": 3000,
+      "hookFeeBps": 100,
+      "buybackBurnBps": 5000,
+      "feeEscrow": "0xd3afeb2a57f70ef218aa82451c51b2fb0416ac9e",
+      "buybackVault": "0x42df2a798f82289e177311362e8f5ccc45c1219c",
+      "owner": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd"
+    },
+    "v1Factory": {
+      "launchFeeEth": 0.0005,
+      "launchEnabled": false,
+      "owner": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd"
+    },
+    "v2Factory": {
+      "launchFeeEth": 0.0005,
+      "maxCreatorTaxBps": 1000,
+      "snipeTaxStartBps": 9900,
+      "snipeTaxSeconds": 3,
+      "launchEnabled": true,
+      "owner": "0x263ed295dafae1d9aadd6e56c4b6f9f38ee019dd"
+    }
+  },
+  "charts": {
+    "feesWeekly": [
+      {
+        "t": 1783555200,
+        "v": 842776
+      },
+      {
+        "t": 1784160000,
+        "v": 5768871
+      },
+      {
+        "t": 1784764800,
+        "v": 7284949
+      },
+      {
+        "t": 1785369600,
+        "v": 2844152
+      },
+      {
+        "t": 1785974400,
+        "v": 3577009
+      },
+      {
+        "t": 1786579200,
+        "v": 2854222
+      },
+      {
+        "t": 1787184000,
+        "v": 4809751
+      },
+      {
+        "t": 1787788800,
+        "v": 28859681
+      },
+      {
+        "t": 1788393600,
+        "v": 59424295
+      },
+      {
+        "t": 1788998400,
+        "v": 36426638
+      },
+      {
+        "t": 1789603200,
+        "v": 19498747
+      }
+    ],
+    "revenueWeekly": [
+      {
+        "t": 1783555200,
+        "v": 98175
+      },
+      {
+        "t": 1784160000,
+        "v": 1671068
+      },
+      {
+        "t": 1784764800,
+        "v": 2035460
+      },
+      {
+        "t": 1785369600,
+        "v": 708557
+      },
+      {
+        "t": 1785974400,
+        "v": 853539
+      },
+      {
+        "t": 1786579200,
+        "v": 587160
+      },
+      {
+        "t": 1787184000,
+        "v": 941171
+      },
+      {
+        "t": 1787788800,
+        "v": 5371421
+      },
+      {
+        "t": 1788393600,
+        "v": 10697287
+      },
+      {
+        "t": 1788998400,
+        "v": 5982881
+      },
+      {
+        "t": 1789603200,
+        "v": 2963347
+      }
+    ],
+    "hrevWeekly": [
+      {
+        "t": 1783555200,
+        "v": 334092
+      },
+      {
+        "t": 1784160000,
+        "v": 417277
+      },
+      {
+        "t": 1784764800,
+        "v": 1007844
+      },
+      {
+        "t": 1785369600,
+        "v": 615963
+      },
+      {
+        "t": 1785974400,
+        "v": 472438
+      },
+      {
+        "t": 1786579200,
+        "v": 164985
+      },
+      {
+        "t": 1787184000,
+        "v": 382780
+      },
+      {
+        "t": 1787788800,
+        "v": 382226
+      },
+      {
+        "t": 1788393600,
+        "v": 7023462
+      },
+      {
+        "t": 1788998400,
+        "v": 6164402
+      },
+      {
+        "t": 1789603200,
+        "v": 2006867
+      }
+    ],
+    "supplySideWeekly": [
+      {
+        "t": 1783555200,
+        "v": 744600
+      },
+      {
+        "t": 1784160000,
+        "v": 4097803
+      },
+      {
+        "t": 1784764800,
+        "v": 5257565
+      },
+      {
+        "t": 1785369600,
+        "v": 2143218
+      },
+      {
+        "t": 1785974400,
+        "v": 2725730
+      },
+      {
+        "t": 1786579200,
+        "v": 2267060
+      },
+      {
+        "t": 1787184000,
+        "v": 3868568
+      },
+      {
+        "t": 1787788800,
+        "v": 23488260
+      },
+      {
+        "t": 1788393600,
+        "v": 48726987
+      },
+      {
+        "t": 1788998400,
+        "v": 30443736
+      },
+      {
+        "t": 1789603200,
+        "v": 16535385
+      }
+    ],
+    "v1RevenueWeekly": [
+      {
+        "t": 1783555200,
+        "v": 98175
+      },
+      {
+        "t": 1784160000,
+        "v": 1671068
+      },
+      {
+        "t": 1784764800,
+        "v": 2035460
+      },
+      {
+        "t": 1785369600,
+        "v": 691858
+      },
+      {
+        "t": 1785974400,
+        "v": 612227
+      },
+      {
+        "t": 1786579200,
+        "v": 251276
+      },
+      {
+        "t": 1787184000,
+        "v": 319239
+      },
+      {
+        "t": 1787788800,
+        "v": 551803
+      },
+      {
+        "t": 1788393600,
+        "v": 404284
+      },
+      {
+        "t": 1788998400,
+        "v": 247301
+      },
+      {
+        "t": 1789603200,
+        "v": 111767
+      }
+    ],
+    "v2RevenueWeekly": [
+      {
+        "t": 1785369600,
+        "v": 16699
+      },
+      {
+        "t": 1785974400,
+        "v": 241312
+      },
+      {
+        "t": 1786579200,
+        "v": 335884
+      },
+      {
+        "t": 1787184000,
+        "v": 621932
+      },
+      {
+        "t": 1787788800,
+        "v": 4819618
+      },
+      {
+        "t": 1788393600,
+        "v": 10293003
+      },
+      {
+        "t": 1788998400,
+        "v": 5735580
+      },
+      {
+        "t": 1789603200,
+        "v": 2851580
+      }
+    ],
+    "volumeOfficialWeekly": [
+      {
+        "t": 1783555200,
+        "v": 110198868.53995878
+      },
+      {
+        "t": 1784160000,
+        "v": 606168539.0321933
+      },
+      {
+        "t": 1784764800,
+        "v": 766977945.104181
+      },
+      {
+        "t": 1785369600,
+        "v": 378368253.9523064
+      },
+      {
+        "t": 1785974400,
+        "v": 446444168.1018038
+      },
+      {
+        "t": 1786579200,
+        "v": 243948660.37262645
+      },
+      {
+        "t": 1787184000,
+        "v": 459945525.8102576
+      },
+      {
+        "t": 1787788800,
+        "v": 2611320874.099588
+      },
+      {
+        "t": 1788393600,
+        "v": 5082108719.4367485
+      },
+      {
+        "t": 1788998400,
+        "v": 2767749097.8164244
+      },
+      {
+        "t": 1789603200,
+        "v": 1519842127.576079
+      }
+    ],
+    "volumeLlamaWeekly": [
+      {
+        "t": 1785369600,
+        "v": 1028430
+      },
+      {
+        "t": 1785974400,
+        "v": 12660655
+      },
+      {
+        "t": 1786579200,
+        "v": 34236504
+      },
+      {
+        "t": 1787184000,
+        "v": 51529301
+      },
+      {
+        "t": 1787788800,
+        "v": 491749592
+      },
+      {
+        "t": 1788393600,
+        "v": 984483182
+      },
+      {
+        "t": 1788998400,
+        "v": 608340181
+      },
+      {
+        "t": 1789603200,
+        "v": 327035101
+      }
+    ],
+    "launchesWeekly": [
+      {
+        "t": 1783555200,
+        "v": 16141
+      },
+      {
+        "t": 1784160000,
+        "v": 90250
+      },
+      {
+        "t": 1784764800,
+        "v": 98779
+      },
+      {
+        "t": 1785369600,
+        "v": 54787
+      },
+      {
+        "t": 1785974400,
+        "v": 22671
+      },
+      {
+        "t": 1786579200,
+        "v": 17553
+      },
+      {
+        "t": 1787184000,
+        "v": 24914
+      },
+      {
+        "t": 1787788800,
+        "v": 126618
+      },
+      {
+        "t": 1788393600,
+        "v": 193582
+      },
+      {
+        "t": 1788998400,
+        "v": 140929
+      },
+      {
+        "t": 1789603200,
+        "v": 81700
+      }
+    ],
+    "hrRatioWeekly": [
+      {
+        "t": 1783555200,
+        "v": 3.4030252100840337
+      },
+      {
+        "t": 1784160000,
+        "v": 0.24970677435029573
+      },
+      {
+        "t": 1784764800,
+        "v": 0.495143112613365
+      },
+      {
+        "t": 1785369600,
+        "v": 0.8693203228533484
+      },
+      {
+        "t": 1785974400,
+        "v": 0.5535048779259062
+      },
+      {
+        "t": 1786579200,
+        "v": 0.280988146331494
+      },
+      {
+        "t": 1787184000,
+        "v": 0.4067061139792875
+      },
+      {
+        "t": 1787788800,
+        "v": 0.07115919604886677
+      },
+      {
+        "t": 1788393600,
+        "v": 0.6565647906801042
+      },
+      {
+        "t": 1788998400,
+        "v": 1.0303400652628725
+      },
+      {
+        "t": 1789603200,
+        "v": 0.6772298350480048
+      }
+    ],
+    "burnWeeklyTokens": [
+      {
+        "t": 1783555200,
+        "v": 60181479.05170037
+      },
+      {
+        "t": 1784160000,
+        "v": 23751157.205199152
+      },
+      {
+        "t": 1784764800,
+        "v": 23646560.366687804
+      },
+      {
+        "t": 1785369600,
+        "v": 23038926.530131698
+      },
+      {
+        "t": 1785974400,
+        "v": 22019544.066534728
+      },
+      {
+        "t": 1786579200,
+        "v": 10227797.351734936
+      },
+      {
+        "t": 1787184000,
+        "v": 5362741.056754231
+      },
+      {
+        "t": 1787788800,
+        "v": 5405799.905403972
+      },
+      {
+        "t": 1788393600,
+        "v": 9284094.988037705
+      },
+      {
+        "t": 1788998400,
+        "v": 10208785.840885937
+      },
+      {
+        "t": 1789603200,
+        "v": 2997174.6487133503
+      }
+    ],
+    "burnWeeklyUsdChain": [
+      {
+        "t": 1783555200,
+        "v": 93490.32711696264
+      },
+      {
+        "t": 1784160000,
+        "v": 348473.50728965545
+      },
+      {
+        "t": 1784764800,
+        "v": 970565.045967418
+      },
+      {
+        "t": 1785369600,
+        "v": 686135.0504368134
+      },
+      {
+        "t": 1785974400,
+        "v": 603581.0922658164
+      },
+      {
+        "t": 1786579200,
+        "v": 368080.13504200877
+      },
+      {
+        "t": 1787184000,
+        "v": 312728.4384920349
+      },
+      {
+        "t": 1787788800,
+        "v": 1461803.0636693784
+      },
+      {
+        "t": 1788393600,
+        "v": 7131087.635785916
+      },
+      {
+        "t": 1788998400,
+        "v": 6171150.954479203
+      },
+      {
+        "t": 1789603200,
+        "v": 1845886.2495670323
+      }
+    ],
+    "burnDailyTokens": [
+      [
+        1783987200,
+        51940794.05954863
+      ],
+      [
+        1784073600,
+        8240684.992151737
+      ],
+      [
+        1784160000,
+        2892824.0448358357
+      ],
+      [
+        1784246400,
+        5996295.963470012
+      ],
+      [
+        1784332800,
+        4801767.964240074
+      ],
+      [
+        1784419200,
+        1885598.2851486802
+      ],
+      [
+        1784505600,
+        2410056.6516163945
+      ],
+      [
+        1784592000,
+        2842660.8287980855
+      ],
+      [
+        1784678400,
+        2921953.4670900702
+      ],
+      [
+        1784764800,
+        1816364.852841109
+      ],
+      [
+        1784851200,
+        5417258.389054418
+      ],
+      [
+        1784937600,
+        2904086.2664545476
+      ],
+      [
+        1785024000,
+        2429142.8781637847
+      ],
+      [
+        1785110400,
+        6320343.409391582
+      ],
+      [
+        1785196800,
+        2384912.4349719584
+      ],
+      [
+        1785283200,
+        2374452.135810405
+      ],
+      [
+        1785369600,
+        2396183.9777796865
+      ],
+      [
+        1785456000,
+        4476987.660702527
+      ],
+      [
+        1785542400,
+        530490.2514079213
+      ],
+      [
+        1785628800,
+        5316844.561311096
+      ],
+      [
+        1785715200,
+        331666.1597891748
+      ],
+      [
+        1785801600,
+        3695444.374974042
+      ],
+      [
+        1785888000,
+        6291309.54416725
+      ],
+      [
+        1785974400,
+        6622594.937098533
+      ],
+      [
+        1786060800,
+        3131237.6924634576
+      ],
+      [
+        1786147200,
+        2269245.6019102335
+      ],
+      [
+        1786233600,
+        4580737.851881564
+      ],
+      [
+        1786320000,
+        571007.7493431568
+      ],
+      [
+        1786406400,
+        3562812.054755926
+      ],
+      [
+        1786492800,
+        1281908.1790818572
+      ],
+      [
+        1786579200,
+        1324310.80752182
+      ],
+      [
+        1786665600,
+        1456698.6267127395
+      ],
+      [
+        1786752000,
+        1358171.060052812
+      ],
+      [
+        1786838400,
+        2417481.272326708
+      ],
+      [
+        1786924800,
+        2020543.1645636559
+      ],
+      [
+        1787011200,
+        883024.6285203099
+      ],
+      [
+        1787097600,
+        767567.792036891
+      ],
+      [
+        1787184000,
+        715840.9375092983
+      ],
+      [
+        1787270400,
+        617378.6897608042
+      ],
+      [
+        1787356800,
+        639139.2927643061
+      ],
+      [
+        1787443200,
+        525341.994856
+      ],
+      [
+        1787529600,
+        335414.1154308915
+      ],
+      [
+        1787616000,
+        2528448.128118396
+      ],
+      [
+        1787702400,
+        1177.8983145356178
+      ],
+      [
+        1787788800,
+        349151.1602242589
+      ],
+      [
+        1787875200,
+        1602431.9652125835
+      ],
+      [
+        1787961600,
+        287007.3280723691
+      ],
+      [
+        1788048000,
+        80788.37210577726
+      ],
+      [
+        1788134400,
+        986293.0777270794
+      ],
+      [
+        1788220800,
+        1917602.9537295103
+      ],
+      [
+        1788307200,
+        182525.04833239317
+      ],
+      [
+        1788393600,
+        128048.90891301632
+      ],
+      [
+        1788480000,
+        1689350.0763921142
+      ],
+      [
+        1788566400,
+        1486105.1252844334
+      ],
+      [
+        1788652800,
+        1268043.4546129107
+      ],
+      [
+        1788739200,
+        1796640.502298534
+      ],
+      [
+        1788825600,
+        1726301.3794884682
+      ],
+      [
+        1788912000,
+        1189605.5410482287
+      ],
+      [
+        1788998400,
+        1642598.4116158485
+      ],
+      [
+        1789084800,
+        1782625.8587979674
+      ],
+      [
+        1789171200,
+        1521227.6896574497
+      ],
+      [
+        1789257600,
+        1196894.8175210953
+      ],
+      [
+        1789344000,
+        1792404.5229789019
+      ],
+      [
+        1789430400,
+        1468115.6202577353
+      ],
+      [
+        1789516800,
+        804918.9200569391
+      ],
+      [
+        1789603200,
+        736260.8053602576
+      ],
+      [
+        1789689600,
+        301528.5296073556
+      ],
+      [
+        1789776000,
+        255943.24291080236
+      ],
+      [
+        1789862400,
+        237354.28536266088
+      ],
+      [
+        1789948800,
+        213843.63212418556
+      ],
+      [
+        1790035200,
+        1061880.023051858
+      ],
+      [
+        1790121600,
+        190364.13029623032
+      ],
+      [
+        1790208000,
+        203344.07132828236
+      ],
+      [
+        1790294400,
+        200009.21193784475
+      ],
+      [
+        1790380800,
+        199098.58067810535
+      ],
+      [
+        1790467200,
+        517470.82611203194
+      ],
+      [
+        1790553600,
+        478781.0881407261
+      ],
+      [
+        1790640000,
+        298957.5988368392
+      ]
+    ],
+    "teamWeeklyEth": [],
+    "teamWeeklyUsd": [],
+    "volumeOfficialDaily": [
+      [
+        1783900800,
+        630698.6805459645
+      ],
+      [
+        1783987200,
+        16351207.092580521
+      ],
+      [
+        1784073600,
+        93216962.76683229
+      ],
+      [
+        1784160000,
+        53228849.06868557
+      ],
+      [
+        1784246400,
+        38752999.464099035
+      ],
+      [
+        1784332800,
+        45722219.91915149
+      ],
+      [
+        1784419200,
+        55298115.25354525
+      ],
+      [
+        1784505600,
+        102582743.60910992
+      ],
+      [
+        1784592000,
+        167813084.1548294
+      ],
+      [
+        1784678400,
+        142770527.5627726
+      ],
+      [
+        1784764800,
+        138998769.63498944
+      ],
+      [
+        1784851200,
+        118532619.31032577
+      ],
+      [
+        1784937600,
+        92124965.16012533
+      ],
+      [
+        1785024000,
+        131832667.39928591
+      ],
+      [
+        1785110400,
+        117935544.6557842
+      ],
+      [
+        1785196800,
+        89750896.54563265
+      ],
+      [
+        1785283200,
+        77802482.39803782
+      ],
+      [
+        1785369600,
+        63005773.764253445
+      ],
+      [
+        1785456000,
+        64029445.90278915
+      ],
+      [
+        1785542400,
+        56014945.272065364
+      ],
+      [
+        1785628800,
+        44249932.6105432
+      ],
+      [
+        1785715200,
+        45450139.73641299
+      ],
+      [
+        1785801600,
+        53278247.765712366
+      ],
+      [
+        1785888000,
+        52339768.900529854
+      ],
+      [
+        1785974400,
+        56957219.12263677
+      ],
+      [
+        1786060800,
+        71953380.17353493
+      ],
+      [
+        1786147200,
+        65853822.822447024
+      ],
+      [
+        1786233600,
+        59629400.40400954
+      ],
+      [
+        1786320000,
+        74237805.94380067
+      ],
+      [
+        1786406400,
+        60479350.52054616
+      ],
+      [
+        1786492800,
+        57333189.114828706
+      ],
+      [
+        1786579200,
+        42139306.643587984
+      ],
+      [
+        1786665600,
+        61079198.14570387
+      ],
+      [
+        1786752000,
+        36802983.89794271
+      ],
+      [
+        1786838400,
+        26407536.208814688
+      ],
+      [
+        1786924800,
+        25268525.455283724
+      ],
+      [
+        1787011200,
+        27717481.85553458
+      ],
+      [
+        1787097600,
+        24533628.165758885
+      ],
+      [
+        1787184000,
+        22689489.614778653
+      ],
+      [
+        1787270400,
+        34650095.854752585
+      ],
+      [
+        1787356800,
+        36659951.572176345
+      ],
+      [
+        1787443200,
+        43657247.28971511
+      ],
+      [
+        1787529600,
+        73044411.07297893
+      ],
+      [
+        1787616000,
+        107304252.1381459
+      ],
+      [
+        1787702400,
+        141940078.26771015
+      ],
+      [
+        1787788800,
+        153287930.2768603
+      ],
+      [
+        1787875200,
+        143996842.027071
+      ],
+      [
+        1787961600,
+        295301025.54367745
+      ],
+      [
+        1788048000,
+        481454357.19010377
+      ],
+      [
+        1788134400,
+        468070312.2110392
+      ],
+      [
+        1788220800,
+        517111065.5373807
+      ],
+      [
+        1788307200,
+        552099341.3134555
+      ],
+      [
+        1788393600,
+        651981901.7443137
+      ],
+      [
+        1788480000,
+        860130461.5290315
+      ],
+      [
+        1788566400,
+        931746245.7625499
+      ],
+      [
+        1788652800,
+        827254670.0827552
+      ],
+      [
+        1788739200,
+        664795856.6605896
+      ],
+      [
+        1788825600,
+        629844270.1402628
+      ],
+      [
+        1788912000,
+        516355313.5172448
+      ],
+      [
+        1788998400,
+        498450151.93099844
+      ],
+      [
+        1789084800,
+        558853744.7071235
+      ],
+      [
+        1789171200,
+        382010110.32968795
+      ],
+      [
+        1789257600,
+        403452471.8255785
+      ],
+      [
+        1789344000,
+        403935741.2426315
+      ],
+      [
+        1789430400,
+        322658746.49258804
+      ],
+      [
+        1789516800,
+        198388131.28781644
+      ],
+      [
+        1789603200,
+        246688837.96313024
+      ],
+      [
+        1789689600,
+        238264141.6612999
+      ],
+      [
+        1789776000,
+        221442513.9532339
+      ],
+      [
+        1789862400,
+        150753480.22075993
+      ],
+      [
+        1789948800,
+        247884894.1052057
+      ],
+      [
+        1790035200,
+        208757127.0532526
+      ],
+      [
+        1790121600,
+        206051132.6191963
+      ],
+      [
+        1790208000,
+        134165401.25864199
+      ],
+      [
+        1790294400,
+        141640333.99707267
+      ],
+      [
+        1790380800,
+        132579535.43124868
+      ],
+      [
+        1790467200,
+        111508630.03563543
+      ],
+      [
+        1790553600,
+        125586008.30884066
+      ],
+      [
+        1790640000,
+        164556565.88303083
+      ]
+    ],
+    "launchesDaily": [
+      [
+        1783900800,
+        14
+      ],
+      [
+        1783987200,
+        438
+      ],
+      [
+        1784073600,
+        15689
+      ],
+      [
+        1784160000,
+        11547
+      ],
+      [
+        1784246400,
+        8713
+      ],
+      [
+        1784332800,
+        8017
+      ],
+      [
+        1784419200,
+        8694
+      ],
+      [
+        1784505600,
+        12953
+      ],
+      [
+        1784592000,
+        21689
+      ],
+      [
+        1784678400,
+        18637
+      ],
+      [
+        1784764800,
+        13472
+      ],
+      [
+        1784851200,
+        11476
+      ],
+      [
+        1784937600,
+        11160
+      ],
+      [
+        1785024000,
+        11937
+      ],
+      [
+        1785110400,
+        18707
+      ],
+      [
+        1785196800,
+        17276
+      ],
+      [
+        1785283200,
+        14751
+      ],
+      [
+        1785369600,
+        12515
+      ],
+      [
+        1785456000,
+        10639
+      ],
+      [
+        1785542400,
+        9082
+      ],
+      [
+        1785628800,
+        6837
+      ],
+      [
+        1785715200,
+        3750
+      ],
+      [
+        1785801600,
+        7234
+      ],
+      [
+        1785888000,
+        4730
+      ],
+      [
+        1785974400,
+        3468
+      ],
+      [
+        1786060800,
+        2850
+      ],
+      [
+        1786147200,
+        2990
+      ],
+      [
+        1786233600,
+        2497
+      ],
+      [
+        1786320000,
+        3483
+      ],
+      [
+        1786406400,
+        3798
+      ],
+      [
+        1786492800,
+        3585
+      ],
+      [
+        1786579200,
+        2609
+      ],
+      [
+        1786665600,
+        3072
+      ],
+      [
+        1786752000,
+        1878
+      ],
+      [
+        1786838400,
+        1641
+      ],
+      [
+        1786924800,
+        2233
+      ],
+      [
+        1787011200,
+        2822
+      ],
+      [
+        1787097600,
+        3298
+      ],
+      [
+        1787184000,
+        2965
+      ],
+      [
+        1787270400,
+        2373
+      ],
+      [
+        1787356800,
+        1710
+      ],
+      [
+        1787443200,
+        1476
+      ],
+      [
+        1787529600,
+        2758
+      ],
+      [
+        1787616000,
+        5495
+      ],
+      [
+        1787702400,
+        8137
+      ],
+      [
+        1787788800,
+        12642
+      ],
+      [
+        1787875200,
+        11496
+      ],
+      [
+        1787961600,
+        15957
+      ],
+      [
+        1788048000,
+        22581
+      ],
+      [
+        1788134400,
+        17909
+      ],
+      [
+        1788220800,
+        21062
+      ],
+      [
+        1788307200,
+        24971
+      ],
+      [
+        1788393600,
+        24864
+      ],
+      [
+        1788480000,
+        25145
+      ],
+      [
+        1788566400,
+        28560
+      ],
+      [
+        1788652800,
+        25762
+      ],
+      [
+        1788739200,
+        27609
+      ],
+      [
+        1788825600,
+        36449
+      ],
+      [
+        1788912000,
+        25193
+      ],
+      [
+        1788998400,
+        16884
+      ],
+      [
+        1789084800,
+        17566
+      ],
+      [
+        1789171200,
+        16553
+      ],
+      [
+        1789257600,
+        21304
+      ],
+      [
+        1789344000,
+        26622
+      ],
+      [
+        1789430400,
+        31170
+      ],
+      [
+        1789516800,
+        10830
+      ],
+      [
+        1789603200,
+        14686
+      ],
+      [
+        1789689600,
+        13602
+      ],
+      [
+        1789776000,
+        11501
+      ],
+      [
+        1789862400,
+        10113
+      ],
+      [
+        1789948800,
+        11888
+      ],
+      [
+        1790035200,
+        9542
+      ],
+      [
+        1790121600,
+        10368
+      ],
+      [
+        1790208000,
+        9989
+      ],
+      [
+        1790294400,
+        7624
+      ],
+      [
+        1790380800,
+        6057
+      ],
+      [
+        1790467200,
+        5415
+      ],
+      [
+        1790553600,
+        6583
+      ],
+      [
+        1790640000,
+        7338
+      ]
+    ]
+  },
+  "crossCheck": [
+    {
+      "metric": "PONS 价格",
+      "sourceA": "CoinGecko",
+      "sourceB": "coins.llama",
+      "valueA": 0.552218,
+      "valueB": 0.550898122308551,
+      "deviation": 0.0023901388427197846,
+      "thresholdPct": 2,
+      "status": "ok",
+      "signFlip": false,
+      "independent": false,
+      "approx": false,
+      "note": "coins.llama 的 coingecko: 键即转发 CoinGecko，只能抓停更/错版本"
+    },
+    {
+      "metric": "流通量",
+      "sourceA": "链上 总量−dead",
+      "sourceB": "CoinGecko circulating",
+      "valueA": 682246679.7531272,
+      "valueB": 682307967.9848722,
+      "deviation": 0.00008982488058290344,
+      "thresholdPct": 0.5,
+      "status": "ok",
+      "signFlip": false,
+      "independent": false,
+      "approx": false,
+      "note": "CoinGecko 同口径(总量−dead)，抓的是 CG 停更或口径被改"
+    },
+    {
+      "metric": "持有人收益(近7天 2026-09-23~2026-09-29)",
+      "sourceA": "DefiLlama holdersRevenue",
+      "sourceB": "链上销毁枚数×当日价",
+      "valueA": 1209004,
+      "valueB": 1286974.039068609,
+      "deviation": 0.060584003019234486,
+      "thresholdPct": 15,
+      "status": "ok",
+      "signFlip": false,
+      "independent": true,
+      "approx": false,
+      "note": "同窗同锚：DefiLlama 事件索引 vs dRPC 归档日差分 × CoinGecko 日价"
+    },
+    {
+      "metric": "持有人收益(近28天)",
+      "sourceA": "DefiLlama holdersRevenue",
+      "sourceB": "链上销毁枚数×当日价",
+      "valueA": 16364951,
+      "valueB": 16380639.033426406,
+      "deviation": 0.0009577180349553391,
+      "thresholdPct": 10,
+      "status": "ok",
+      "signFlip": false,
+      "independent": true,
+      "approx": false,
+      "note": "同窗同锚，28 天窗把单日价差摊平"
+    },
+    {
+      "metric": "手续费父子一致(近7天)",
+      "sourceA": "父 slug pons",
+      "sourceB": "V1+V2 子协议之和",
+      "valueA": 11952838,
+      "valueB": 11952838,
+      "deviation": 0,
+      "thresholdPct": 1,
+      "status": "ok",
+      "signFlip": false,
+      "independent": false,
+      "approx": false,
+      "note": "同窗同锚；抓的是父子适配器不一致"
+    },
+    {
+      "metric": "累计协议收入",
+      "sourceA": "官方 Dune protocolRevenueUsd",
+      "sourceB": "DefiLlama revenue allTime",
+      "valueA": 30940232.38957148,
+      "valueB": 33634174,
+      "deviation": 0.08009536997782432,
+      "thresholdPct": 15,
+      "status": "ok",
+      "signFlip": false,
+      "independent": true,
+      "approx": true,
+      "note": "口径近似：Dune 含/不含发币费与 TVL≥$200 过滤不同"
+    },
+    {
+      "metric": "ETH 价格",
+      "sourceA": "CoinGecko",
+      "sourceB": "官方 buyback-status ethUsd",
+      "valueA": 2669.25,
+      "valueB": 2669.7519441962772,
+      "deviation": 0.00018801154817712676,
+      "thresholdPct": 3,
+      "status": "ok",
+      "signFlip": false,
+      "independent": false,
+      "approx": false,
+      "note": "官方也取公开价源，基本恒真，只抓官方接口串位"
+    }
+  ],
+  "checks": [
+    {
+      "level": "OK",
+      "msg": "DefiLlama 序列覆盖到 2026-09-30（滞后 0 天）"
+    },
+    {
+      "level": "OK",
+      "msg": "官方 Dune 交易量有效数据到 2026-09-29（接口声称 2026-09-29，末尾 0 天为滚动半成品已剔；页面生成 2026-09-30T03:42Z）"
+    },
+    {
+      "level": "INFO",
+      "msg": "比率/收支/互核统一窗口：近 7 天 2026-09-23~2026-09-29、近 28 天 2026-09-02~2026-09-29（公共锚点 = 各序列有效末日最小值 +1；卡片里各口径自身的 7/30 天窗末日可能晚 1 天）"
+    },
+    {
+      "level": "WARN",
+      "msg": "Safe#2 ETH 流入 采集失败：HTTP 500 @ https://robinhoodchain.blockscout.com/api/v2/addresses/0x29B7F877FffbBC5f58c0F1D883b6E35635A115bc/internal-transactions?filter=to"
+    },
+    {
+      "level": "WARN",
+      "msg": "多签转出 采集失败：HTTP 500 @ https://robinhoodchain.blockscout.com/api/v2/addresses/0x29B7F877FffbBC5f58c0F1D883b6E35635A115bc/token-transfers?type=ERC-20&filter=from"
+    },
+    {
+      "level": "OK",
+      "msg": "dead 归档末点 2026-09-30 00:00 = 317.689M，今日已销毁 0.065M（近 7 天日均 0.298M）"
+    },
+    {
+      "level": "WARN",
+      "msg": "团队分账实测缺数据（Safe#2 ETH 流入或销毁序列未采到）—— 无法核验 80/20 政策"
+    },
+    {
+      "level": "INFO",
+      "msg": "近 200 笔送 dead 转账中协议回购钱包占 100.0%（其余为第三方机器人尘埃），dead 日差分可视为协议回购"
+    },
+    {
+      "level": "OK",
+      "msg": "近 28 天 销毁/协议收入 = 73.7%（政策 80%；差额 = 管道在途 $2.12M（含创作者未领 escrow） + 时滞）；上线以来累计 59.6%"
+    },
+    {
+      "level": "OK",
+      "msg": "PONS 自身池 90% 创作者费仍 redirect 至 V1 burner（归回购，不归团队）"
+    },
+    {
+      "level": "OK",
+      "msg": "V1 locker 分成 10%/30%、V2 hook 30%（创作者回购档 50%），收款全部为 Safe#1"
+    },
+    {
+      "level": "INFO",
+      "msg": "Safe#1 2/3 多签、Safe#2 2/3 多签，共享 2 个签名人"
+    },
+    {
+      "level": "WARN",
+      "msg": "Safe#1 转出记录未采到，PONS 直接转出告警本期不可用"
+    },
+    {
+      "level": "OK",
+      "msg": "totalSupply 恒 10 亿，无 mint；dead 累计 317.75M（31.8%，其中 ≈80.4M 为发币夜/部署者非回购销毁）"
+    },
+    {
+      "level": "INFO",
+      "msg": "上线仅 11 周：年窗口 = 上线以来累计（PE 汇总约定），年环比不可算；PE 8 周中位口径含 8 月低谷，并列\"当前速率\"口径"
+    },
+    {
+      "level": "OK",
+      "msg": "PONS 价格 同源/口径一致性一致（偏差 0.24%，CoinGecko vs coins.llama） · coins.llama 的 coingecko: 键即转发 CoinGecko，只能抓停更/错版本"
+    },
+    {
+      "level": "OK",
+      "msg": "流通量 同源/口径一致性一致（偏差 0.01%，链上 总量−dead vs CoinGecko circulating） · CoinGecko 同口径(总量−dead)，抓的是 CG 停更或口径被改"
+    },
+    {
+      "level": "OK",
+      "msg": "持有人收益(近7天 2026-09-23~2026-09-29) 独立源一致（偏差 6.06%，DefiLlama holdersRevenue vs 链上销毁枚数×当日价） · 同窗同锚：DefiLlama 事件索引 vs dRPC 归档日差分 × CoinGecko 日价"
+    },
+    {
+      "level": "OK",
+      "msg": "持有人收益(近28天) 独立源一致（偏差 0.10%，DefiLlama holdersRevenue vs 链上销毁枚数×当日价） · 同窗同锚，28 天窗把单日价差摊平"
+    },
+    {
+      "level": "OK",
+      "msg": "手续费父子一致(近7天) 同源/口径一致性一致（偏差 0.00%，父 slug pons vs V1+V2 子协议之和） · 同窗同锚；抓的是父子适配器不一致"
+    },
+    {
+      "level": "OK",
+      "msg": "累计协议收入 独立源·口径近似一致（偏差 8.01%，官方 Dune protocolRevenueUsd vs DefiLlama revenue allTime） · 口径近似：Dune 含/不含发币费与 TVL≥$200 过滤不同"
+    },
+    {
+      "level": "OK",
+      "msg": "ETH 价格 同源/口径一致性一致（偏差 0.02%，CoinGecko vs 官方 buyback-status ethUsd） · 官方也取公开价源，基本恒真，只抓官方接口串位"
+    }
+  ],
+  "coverage": [
+    {
+      "metric": "价格 / 市值",
+      "level": "同源两路",
+      "detail": "CoinGecko ↔ coins.llama（转发 CoinGecko，只抓停更）"
+    },
+    {
+      "metric": "供应 / 销毁存量",
+      "level": "链上直读",
+      "detail": "PONS.totalSupply、balanceOf(dead)；CoinGecko 同口径只抓停更；归档末点 ↔ 实时按日均销毁动态容差"
+    },
+    {
+      "metric": "交易量 / 发币数",
+      "level": "官方(Dune) 主源",
+      "detail": "ponsfamily.com 后端；DefiLlama dexs 仅 V2 curve 作副源标注"
+    },
+    {
+      "metric": "手续费 / 协议收入",
+      "level": "DefiLlama 主源 + 官方累计核对",
+      "detail": "适配器开源按事件；父子 slug 一致性；Dune 累计协议收入 ±15%"
+    },
+    {
+      "metric": "持有人收益(回购销毁)",
+      "level": "双源独立",
+      "detail": "dRPC 归档 dead 余额日差分×CoinGecko 日价 ↔ DefiLlama holdersRevenue（事件索引）"
+    },
+    {
+      "metric": "团队收入",
+      "level": "链上直读",
+      "detail": "splitter→Safe#2 ETH（Blockscout 内部交易）× 日价；Safe#1/#2 USDG 支付；PONS 直接转出"
+    },
+    {
+      "metric": "回购管道在途",
+      "level": "官方 + 链上",
+      "detail": "buyback-status（splitter/intake/escrow 估值）↔ eth_getBalance / escrow.balanceOf(Safe#1)"
+    },
+    {
+      "metric": "分成规则 / 多签",
+      "level": "链上守卫",
+      "detail": "locker/hook/factory 参数与 owner、Safe owners 每次快照比对，变动即 ALERT"
+    },
+    {
+      "metric": "风险事件",
+      "level": "人工配置",
+      "detail": "config 维护；DefiLlama hacks/audits 兜底"
+    }
+  ],
+  "sourcesMeta": {
+    "chainErrors": [],
+    "officialErrors": [],
+    "deadDays": 79,
+    "deadLastKey": "2026-09-30"
+  }
+}

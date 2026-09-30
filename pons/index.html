@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pons 监控面板</title>
+<style>
+  :root {
+    --bg: #0d1117; --card: #161b22; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+    --warn: #d29922; --alert: #f85149; --ok: #3fb950; --pending: #6e7681; --purple: #a371f7;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, "Segoe UI", "PingFang SC", Roboto, sans-serif; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 16px 60px; }
+  header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  h1 { font-size: 22px; margin: 0; }
+  .ts { color: var(--muted); font-size: 13px; }
+  h2 { font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin: 44px 0 12px; padding-top: 22px; border-top: 1px solid var(--border); font-weight: 600; }
+  h2 .sub-h { font-size: 13px; color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .toc { position: sticky; top: 0; z-index: 10; background: rgba(13,17,23,.94); backdrop-filter: blur(6px); display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 0; margin: 18px 0 2px; border-bottom: 1px solid var(--border); }
+  .toc a { font-size: 12px; color: var(--muted); text-decoration: none; padding: 4px 11px; border: 1px solid var(--border); border-radius: 999px; white-space: nowrap; }
+  .toc a:hover { color: var(--accent); border-color: var(--accent); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; margin-top: 12px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .card .label { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+  .card .val { font-size: 24px; font-weight: 700; word-break: break-word; }
+  .card .sub { color: var(--muted); font-size: 12px; margin-top: 4px; line-height: 1.5; }
+  .card.highlight { border-color: var(--alert); } .card.highlight .val { color: var(--alert); }
+  .card.caution { border-color: var(--warn); } .card.caution .val { color: var(--warn); }
+  .card.good { border-color: var(--ok); } .card.good .val { color: var(--ok); }
+  .callout { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 16px; margin-top: 12px; font-size: 14px; line-height: 1.7; }
+  .callout b { color: var(--text); }
+  .checks { list-style: none; padding: 0; margin: 12px 0 0; }
+  .checks li { padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; font-size: 13px; display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+  .tag { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+  .tag.OK { background: rgba(63,185,80,.15); color: var(--ok); }
+  .tag.WARN { background: rgba(210,153,34,.15); color: var(--warn); }
+  .tag.ALERT { background: rgba(248,81,73,.15); color: var(--alert); }
+  .tag.INFO { background: rgba(88,166,255,.15); color: var(--accent); }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin-top: 12px; }
+  .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 14px 8px; height: 300px; position: relative; }
+  .chart-box h3 { margin: 0 0 10px; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .chart-box .cv { position: relative; height: 240px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  th, td { padding: 8px 10px; text-align: right; border-bottom: 1px solid var(--border); }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  tr:last-child td { border-bottom: none; }
+  .tbl-wrap { overflow-x: auto; }
+  .notes { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 8px 16px; margin-top: 12px; }
+  .notes details { border-bottom: 1px solid var(--border); padding: 10px 0; }
+  .notes details:last-of-type { border-bottom: none; }
+  .notes summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+  .notes ul { margin: 10px 0 4px; padding-left: 20px; }
+  .notes li { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 6px; }
+  .notes li b { color: var(--text); }
+  .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+  .flow .step { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 12px; color: var(--muted); }
+  .flow .step b { display: block; color: var(--text); font-size: 16px; margin: 4px 0; }
+  .up { color: var(--ok); } .down { color: var(--alert); }
+  footer { color: var(--muted); font-size: 12px; margin-top: 40px; text-align: center; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Pons（Robinhood Chain 发币平台）监控面板</h1>
+    <span class="ts" id="ts">加载中…</span>
+  </header>
+  <nav class="toc">
+    <a href="#sec1">📊 项目情况</a>
+    <a href="#sec2">🪙 代币供应</a>
+    <a href="#sec3">🔁 持有人收益与估值</a>
+    <a href="#sec4">🏦 金库资金流</a>
+    <a href="#sec5">👥 团队收入</a>
+    <a href="#sec6">🐋 持有人结构</a>
+    <a href="#sec7">⚠️ 风险</a>
+    <a href="#sec8">✅ 核对</a>
+    <a href="#appendix">🔗 口径与附录</a>
+  </nav>
+
+  <h2 id="sec1">📊 项目情况 <span class="sub-h">· Pons 是 meme 发币平台：用户付 1% 交易税 + 0.0005 ETH 发币费 → 协议留 10%/30% → 80% 买回 PONS 销毁 / 20% 团队</span></h2>
+  <div class="grid" id="bizCards"></div>
+  <div class="tbl-wrap"><table id="incomeTable"></table></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>平台成交量（周）：官方 Dune 全口径 vs DefiLlama（仅 V2 curve）</h3><div class="cv"><canvas id="volChart"></canvas></div></div>
+    <div class="chart-box"><h3>手续费 → 协议收入 → 买回销毁（周，DefiLlama）</h3><div class="cv"><canvas id="incomeChart"></canvas></div></div>
+    <div class="chart-box"><h3>协议收入构成：V1 vs V2（周）</h3><div class="cv"><canvas id="v1v2Chart"></canvas></div></div>
+    <div class="chart-box"><h3>发币数（周，官方 Dune）</h3><div class="cv"><canvas id="launchChart"></canvas></div></div>
+  </div>
+
+  <h2 id="sec2">🪙 代币供应 <span class="sub-h">· 总量固定 10 亿、无 mint、无解锁表；唯一供应变化 = 买回送 dead（永久锁，totalSupply 不减）</span></h2>
+  <div class="grid" id="supplyCards"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>每周销毁枚数（链上 PONS→dead，协议回购钱包）</h3><div class="cv"><canvas id="burnChart"></canvas></div></div>
+    <div class="chart-box"><h3>供应构成</h3><div class="cv"><canvas id="supplyPie"></canvas></div></div>
+  </div>
+  <ul class="checks" id="supplyNotes"></ul>
+
+  <h2 id="sec3">🔁 持有人收益与估值 <span class="sub-h">· 持有人唯一收益 = 协议用收入买回 PONS 销毁；PE = 流通市值 ÷ 销毁价值年化</span></h2>
+  <div class="grid" id="vcCards"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>买回销毁价值（周）：DefiLlama vs 链上枚数×日价</h3><div class="cv"><canvas id="hrChart"></canvas></div></div>
+    <div class="chart-box"><h3>销毁 ÷ 协议收入（周，政策 80%；单周摆动 = 管道时滞）</h3><div class="cv"><canvas id="ratioChart"></canvas></div></div>
+  </div>
+  <ul class="checks" id="vcNotes"></ul>
+
+  <h2 id="sec4">🏦 金库资金流 <span class="sub-h">· 无 DAO、无金库合约：钱在两个 2/3 多签 + 回购管道三合约里</span></h2>
+  <div class="flow" id="flowSteps"></div>
+  <div class="grid" id="treasuryCards"></div>
+  <div class="tbl-wrap"><table id="flowTable"></table></div>
+
+  <h2 id="sec5">👥 团队收入 <span class="sub-h">· 团队赚的是协议收入的 20%（ETH 现金流进 Safe#2），不是增发、不是 PONS 池创作者费（已 redirect 给回购）</span></h2>
+  <div class="grid" id="teamCards"></div>
+  <div class="grid2">
+    <div class="chart-box"><h3>splitter → Safe#2 团队分账（周，ETH）</h3><div class="cv"><canvas id="teamChart"></canvas></div></div>
+    <div class="chart-box"><h3>团队分账 vs 销毁（周，美元）</h3><div class="cv"><canvas id="teamVsBurnChart"></canvas></div></div>
+  </div>
+  <div class="tbl-wrap"><table id="ponsOutTable"></table></div>
+  <div class="callout" id="teamNote"></div>
+
+  <h2 id="sec6">🐋 持有人结构 <span class="sub-h">· 无团队分配，"代币构成" = dead / 流动性合约 / 疑似大户 EOA / 其余</span></h2>
+  <div class="grid" id="holderCards"></div>
+  <div class="tbl-wrap"><table id="holdersTable"></table></div>
+
+  <h2 id="sec7">⚠️ 风险与黑历史</h2>
+  <div class="grid" id="riskCards"></div>
+  <ul class="checks" id="riskEvents"></ul>
+
+  <h2 id="sec8">✅ 核对与数据源</h2>
+  <ul class="checks" id="checks"></ul>
+  <div class="tbl-wrap"><table id="coverageTable"></table></div>
+
+  <h2 id="appendix">🔗 口径与附录</h2>
+  <div class="notes" id="notes">
+    <details open><summary>口径说明（读数前必看）</summary><ul>
+      <li><b>业务本质</b>：Pons 不是 DEX，是 Robinhood Chain 上的 meme 发币平台（类 pump.fun）。V1 直接进 Uniswap v3 池（1% 税，创作者 70/协议 30；最早期 90/10），V2 先走 bonding curve 再毕业到 Uniswap v4（协议 30%，创作者 35–70%，创作者可选把 35% 用于回购自己的 meme 币）。</li>
+      <li><b>交易量主源是官方接口（Dune）</b>：DefiLlama 的 dexs 只统计 V2 curve 内成交，不含 V1 与毕业后 v4 池，漏算约 90%；官方接口未公开文档、可能改版，图中并列两条以便发现。手续费与协议收入用 DefiLlama（适配器开源、按事件），官方累计协议收入作 ±15% 核对。</li>
+      <li><b>持有人收益 = 实际送进 dead 的 PONS × 当日价</b>（DefiLlama holdersRevenue 事件法，非 80% 推算）；链上用 dRPC 归档节点的 dead 余额日差分 × CoinGecko 日价互核（Blockscout 事件接口有小时级配额，不用）。回购由 Safe#1 人工把资产送进 intake→splitter 再 TWAP 买入，所以<b>单周「销毁 ÷ 协议收入」在 40%–97% 之间摆</b>，只有 4 周滚动值有意义。</li>
+      <li><b>PE 三口径</b>：主口径 流通市值 ÷ 销毁价值近 8 周中位×52（与另七个项目一致）；因数据只有 11 周且 8 月是低谷，并列「当前速率」（最近一整周×52）与「协议收入口径」（近 30 天协议收入年化）。<b>回购收益率</b> = 销毁价值年化 ÷ 流通市值。</li>
+      <li><b>净通缩率</b>：主数是「近 28 天销毁占流通」不年化；年化只给两个参考——美元口径（近 28 天销毁美元×365/28 ÷ 市值，价格中性，= 回购收益率）与枚数口径（同窗×365/28，附近 4 周单周×52 区间）。不用 8 周中位枚数：8 周内价格涨约 20 倍，低价期的高枚数会把中位年化到 70%+。无增发、无解锁，所以净通缩 = 销毁率。年窗口在不满一年时 = 上线以来累计（PE 汇总约定）。</li>
+      <li><b>团队收入</b> = splitter 分给 Safe#2 的 ETH（主）+ Safe#1→Safe#2 稳定币 + 多签直接 USDG 支付，全部链上、按日价折美元。「实测分账」= 三项 ÷（三项 + 销毁），政策 20%。<b>链上 splitter 只对 ETH 腿按 20% 分账</b>（2026-09-30 抽样 3 笔均为 20.00%），USDG/TAO/meme 币腿 100% 进回购，所以仅 splitter 口径 ≈ 20%×ETH 腿占比。Safe#2 的真实 ETH 转出（已剔 Safe 内部 delegatecall 回声）与 Safe#1 直接转出的 PONS 另列，那是「钱被拿走」的动作。</li>
+      <li><b>V2 BuybackVault ≠ PONS 销毁</b>：创作者开回购时买的是自己的 meme 币，进 vault 5 年线性 vest，协议与创作者分成——这是协议未来的 meme 币资产，不影响 PONS 供应。</li>
+      <li><b>疑似大户</b> = top20 里非合约、无标签的地址，不能断言归属团队；Uniswap Labs 持仓钱包未披露。</li>
+      <li><b>口径守卫</b>：每次快照读 locker/hook/factory 参数、收款地址、多签 owner，与上次比对，变动即 ALERT（80/20 与费率都不是合约常量，团队可单方面改）；参数读不到时打 WARN「未采到」，不打 OK。</li>
+      <li><b>窗口</b>：卡片里各口径的 7/30 天按自身有效末日锚定；比率、收支表、互核统一用「公共锚点」（各序列有效末日最小值 +1）的同窗 7/28 天，避免 6 天比 7 天的错位偏差。</li>
+      <li><b>累计回购均价</b>的分母 = dead − 发币夜/部署者非回购销毁（约 80.4M，config 维护），否则均价被压低一半。</li>
+    </ul></details>
+    <details><summary>数据源与端点</summary><ul>
+      <li>DefiLlama：<a href="https://defillama.com/protocol/pons" target="_blank">pons</a>（父）+ pons-v1 / pons-v2（fees/revenue/holdersRevenue/supplySideRevenue/dexs）</li>
+      <li>官方：<a href="https://www.ponsfamily.com/analytics" target="_blank">ponsfamily.com/analytics</a> 后端 pons-analytics（Dune adam_tehc/pons）与 pons-buyback-status；规则原文 <a href="https://docs.ponsfamily.com" target="_blank">docs.ponsfamily.com</a>；合约 <a href="https://github.com/ponsdotdev/ponsfamily" target="_blank">ponsdotdev/ponsfamily</a></li>
+      <li>链上：dRPC / publicnode 公共 RPC（latest 状态）；<a href="https://robinhoodchain.blockscout.com" target="_blank">Blockscout</a>（事件与地址流水索引）</li>
+      <li>价格/市值：CoinGecko ↔ coins.llama；PONS 各池深度 GeckoTerminal</li>
+    </ul></details>
+  </div>
+  <footer>Pons 监控 · 数据每周一自动更新（阶段 3 上线后）· 本页为静态页，所有数字来自 data.json</footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+if (window.Chart) { Chart.defaults.color = "#8b949e"; Chart.defaults.borderColor = "#30363d"; Chart.defaults.font.family = "-apple-system, PingFang SC, sans-serif"; }
+const C = { blue: "#58a6ff", green: "#3fb950", yellow: "#d29922", red: "#f85149", purple: "#a371f7", cyan: "#39c5cf", pink: "#db61a2", gray: "#6e7681" };
+const fmtDate = (ts) => new Date(ts * 1000).toISOString().slice(0, 10);
+const fmtUsd = (n) => { if (n == null || isNaN(n)) return "n/a"; const a = Math.abs(n); if (a >= 1e9) return "$" + (n/1e9).toFixed(2) + "B"; if (a >= 1e6) return "$" + (n/1e6).toFixed(2) + "M"; if (a >= 1e3) return "$" + (n/1e3).toFixed(1) + "K"; return "$" + n.toFixed(2); };
+const fmtPct = (x, d = 1) => x == null || isNaN(x) ? "n/a" : (x*100).toFixed(d) + "%";
+const fmtNum = (n) => n == null || isNaN(n) ? "n/a" : Math.round(n).toLocaleString("en-US");
+const fmtTok = (n) => { if (n == null || isNaN(n)) return "n/a"; const a = Math.abs(n); if (a >= 1e9) return (n/1e9).toFixed(2) + "B PONS"; if (a >= 1e6) return (n/1e6).toFixed(2) + "M PONS"; if (a >= 1e3) return (n/1e3).toFixed(1) + "K PONS"; return fmtNum(n) + " PONS"; };
+const fmtEth = (n) => n == null || isNaN(n) ? "n/a" : n.toFixed(n >= 100 ? 1 : 2) + " ETH";
+const px = (n, d = 4) => n == null || isNaN(n) ? "n/a" : "$" + Number(n).toFixed(n < 1 ? d : 2);
+const nn = (v, alt = "n/a") => v == null ? alt : v;
+const short = (a) => a ? a.slice(0, 6) + "…" + a.slice(-4) : "n/a";
+const chg = (x, d = 1) => x == null || isNaN(x) ? "" : ` <span class="${x >= 0 ? "up" : "down"}">${x >= 0 ? "▲" : "▼"}${Math.abs(x*100).toFixed(d)}%</span>`;
+const card = (label, val, sub, cls = "") => `<div class="card ${cls}"><div class="label">${label}</div><div class="val">${val}</div>${sub ? `<div class="sub">${sub}</div>` : ""}</div>`;
+const li = (level, html) => `<li><span class="tag ${level}">${level}</span><span>${html}</span></li>`;
+const usdAxis = { ticks: { callback: (v) => fmtUsd(v) } };
+const tokAxis = { ticks: { callback: (v) => fmtTok(v).replace(" PONS", "") } };
+const pctAxis = { ticks: { callback: (v) => (v*100).toFixed(0) + "%" }, min: 0 };
+const ethAxis = { ticks: { callback: (v) => v + " ETH" } };
+const link = (a) => `<a href="https://robinhoodchain.blockscout.com/address/${a}" target="_blank">${short(a)}</a>`;
+function lineChart(id, labels, datasets, yAxis = usdAxis, extra = {}) {
+  const el = document.getElementById(id); if (!el || !window.Chart) return;
+  new Chart(el, { type: "line", data: { labels, datasets: datasets.map((d, i) => ({ borderWidth: 1.6, pointRadius: 0, tension: .25, borderColor: Object.values(C)[i], backgroundColor: Object.values(C)[i] + "33", fill: false, ...d })) },
+    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: "index", intersect: false }, plugins: { legend: { display: datasets.length > 1, labels: { boxWidth: 10 } } }, scales: { x: { ticks: { maxTicksLimit: 8 } }, y: yAxis }, ...extra } });
+}
+function barChart(id, labels, datasets, yAxis = usdAxis, stacked = false) {
+  const el = document.getElementById(id); if (!el || !window.Chart) return;
+  new Chart(el, { type: "bar", data: { labels, datasets: datasets.map((d, i) => ({ backgroundColor: Object.values(C)[i] + "cc", borderWidth: 0, ...d })) },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: datasets.length > 1, labels: { boxWidth: 10 } } }, scales: { x: { stacked, ticks: { maxTicksLimit: 12 } }, y: { stacked, ...yAxis } } } });
+}
+const alignTo = (base, series) => base.map(p => { const q = (series || []).find(x => x.t === p.t); return q ? q.v : null; });
+
+fetch("./data.json").then(r => r.json()).then(d => {
+  const { token: t, income: i, valueCapture: v, supplyDynamics: sd, treasury: tr, teamRevenue: tm, holders: ho, risk: rk, charts: ch, checks } = d;
+  const bj = new Date(new Date(d.generatedAt).getTime() + 8 * 3600e3);
+  document.getElementById("ts").textContent = "更新于 " + bj.toISOString().replace("T", " ").slice(0, 16) + " (UTC+8) · 块 " + d.blockNumber;
+  const W = i.windows, R = i.ratios;
+
+  // 1 项目情况
+  document.getElementById("bizCards").innerHTML =
+    card("平台成交量（近 7 天，官方）", fmtUsd(W.volumeOfficial?.week), `环比${chg(W.volumeOfficial?.change?.week)} · 近 30 天 ${fmtUsd(W.volumeOfficial?.month)}${chg(W.volumeOfficial?.change?.month)} · 累计 ${fmtUsd(i.officialTotals?.volumeUsdAllTime)}`) +
+    card("手续费（近 7 天，用户付）", fmtUsd(W.fees?.week), `环比${chg(W.fees?.change?.week)} · 近 30 天 ${fmtUsd(W.fees?.month)}${chg(W.fees?.change?.month)} · 取费率 ${fmtPct(R.takeRateOnOfficialVolume28d, 2)}`) +
+    card("协议收入（近 7 天）", fmtUsd(W.revenue?.week), `环比${chg(W.revenue?.change?.week)} · 近 30 天 ${fmtUsd(W.revenue?.month)}${chg(W.revenue?.change?.month)} · 占手续费 ${fmtPct(R.revenueOverFees28d)}`) +
+    card("买回销毁（近 7 天）", fmtUsd(W.holdersRevenue?.week), `环比${chg(W.holdersRevenue?.change?.week)} · 近 30 天 ${fmtUsd(W.holdersRevenue?.month)} · 占协议收入 ${fmtPct(R.hrOverRevenue28d)}（同窗 28 天，政策 80%）`, R.hrOverRevenue28d != null && R.hrOverRevenue28d < 0.6 ? "caution" : "") +
+    card(`运营留存（${i.win28.from.slice(5)}~${i.win28.to.slice(5)}，自算）`, fmtUsd(R.opsRetained28d), `= 同窗协议收入 ${fmtUsd(i.win28.revenue)} − 销毁 ${fmtUsd(i.win28.holdersRevenue)} · 含管道在途 ${fmtUsd(v.buyback.pipeline?.totalUsd)} · 累计 ${fmtUsd(R.opsRetainedAllTime)}`) +
+    card("发币数（近 7 天）", fmtNum(W.launches?.week), `环比${chg(W.launches?.change?.week)} · 近 30 天 ${fmtNum(W.launches?.month)} · 累计 ${fmtNum(i.officialTotals?.launchesAllTime)} · 开发者 ${fmtNum(i.officialTotals?.uniqueDevelopers)}`) +
+    card("V2 占协议收入（同窗 28 天）", fmtPct(R.v1ShareOfRevenue28d != null ? 1 - R.v1ShareOfRevenue28d : null), `V1 ${fmtUsd(i.win28.v1Revenue)} / V2 ${fmtUsd(i.win28.v2Revenue)} · V2 审计无终稿（见风险）`) +
+    card("创作者等分成（近 30 天）", fmtUsd(W.supplySideRevenue?.month), `占手续费 ${fmtPct(R.supplySideOverFees28d)}（同窗 28 天）· 创作者份额 + 创作者税 + meme 回购 + Uniswap 分成`);
+  const rows = [["volumeOfficial", "平台成交量（官方 Dune，全口径）"], ["volume", "成交量（DefiLlama，仅 V2 curve）"], ["fees", "手续费（用户付）"], ["revenue", "协议收入"], ["holdersRevenue", "买回销毁（持有人收益）"], ["supplySideRevenue", "创作者等分成"]];
+  document.getElementById("incomeTable").innerHTML = `<tr><th>口径</th><th>近 7 天</th><th>近 30 天</th><th>年（上线以来累计）</th></tr>` +
+    rows.map(([k, n]) => { const w = W[k]; return `<tr><td>${n}</td><td>${fmtUsd(w?.week)}${chg(w?.change?.week)}</td><td>${fmtUsd(w?.month)}${chg(w?.change?.month)}</td><td>${fmtUsd(w?.year)}</td></tr>`; }).join("") +
+    `<tr><td colspan="4" style="text-align:left;color:var(--muted);font-size:12px">环比 = 与上一个同长度窗口比，各口径按自身有效末日锚定。DefiLlama 覆盖到 ${i.coverage.llama?.coveredThrough}；官方 Dune 有效到 ${i.coverage.official?.latestDay || "n/a"}。比率与收支表统一用同窗 ${i.win28.from}~${i.win28.to}。上线 ${v.valuation.weeksOfData} 周，年环比不可算。</td></tr>`;
+  const vw = ch.volumeOfficialWeekly;
+  lineChart("volChart", vw.map(p => fmtDate(p.t)), [{ label: "官方 Dune", data: vw.map(p => p.v) }, { label: "DefiLlama V2 curve", data: alignTo(vw, ch.volumeLlamaWeekly) }]);
+  const fw = ch.feesWeekly;
+  lineChart("incomeChart", fw.map(p => fmtDate(p.t)), [{ label: "手续费", data: fw.map(p => p.v) }, { label: "协议收入", data: alignTo(fw, ch.revenueWeekly) }, { label: "买回销毁", data: alignTo(fw, ch.hrevWeekly) }]);
+  barChart("v1v2Chart", ch.revenueWeekly.map(p => fmtDate(p.t)), [{ label: "V1", data: alignTo(ch.revenueWeekly, ch.v1RevenueWeekly) }, { label: "V2", data: alignTo(ch.revenueWeekly, ch.v2RevenueWeekly) }], usdAxis, true);
+  barChart("launchChart", ch.launchesWeekly.map(p => fmtDate(p.t)), [{ label: "发币数", data: ch.launchesWeekly.map(p => p.v), backgroundColor: C.purple + "cc" }], { ticks: { callback: (v) => fmtNum(v) } });
+
+  // 2 代币供应
+  document.getElementById("supplyCards").innerHTML =
+    card("总供应量（链上）", fmtTok(sd.totalSupply), "合约无 mint，恒 10 亿；销毁不减 totalSupply，看 dead 余额") +
+    card("已销毁（dead）", fmtTok(sd.dead), `占总量 ${fmtPct(sd.burnedPctOfMax)} · 近 ${v.buyback.recentSenders?.rows ?? "n/a"} 笔送 dead 转账中协议回购钱包占 ${fmtPct(v.buyback.protocolShareRecent)}`, "good") +
+    card("流通量", fmtTok(sd.circulating), `= 总量 − dead · CoinGecko ${fmtTok(t.cgCirculating)} · 持有地址 ${fmtNum(t.holdersCount)}`) +
+    card("近 28 天销毁占流通（不年化）", fmtPct(sd.burn28dPctOfCirc, 2), `${fmtTok(sd.burn28dTokens)} ÷ 流通 · 无增发无解锁，净通缩 = 销毁`, sd.burn28dPctOfCirc != null ? "good" : "") +
+    card("净通缩率（年化，仅供参考）", `${fmtPct(sd.netDeflationRateUsd28d)} <span style="font-size:13px;color:var(--muted)">美元口径</span>`, `美元口径 = 近 28 天销毁美元×365/28 ÷ 市值（价格中性）· 枚数口径 ${fmtPct(sd.netDeflationRate)}，近 4 周单周×52 区间 ${fmtPct(sd.netDeflationRateRange?.min)}–${fmtPct(sd.netDeflationRateRange?.max)}（4 周内成交价翻倍，枚数年化不稳）`) +
+    card("近 7 天销毁", `${fmtTok(sd.burn7dTokens)}`, `${v.buyback.seriesSource || "归档序列未采到"} · 窗口 ${v.buyback.window7?.from || ""}~${v.buyback.window7?.to || ""}`) +
+    card("增发 / 解锁", "无", sd.unlockNote);
+  barChart("burnChart", ch.burnWeeklyTokens.map(p => fmtDate(p.t)), [{ label: "销毁 PONS", data: ch.burnWeeklyTokens.map(p => p.v), backgroundColor: C.red + "cc" }], tokAxis);
+  const comp = (ho.composition || []).filter(x => x.tokens > 0);
+  const pie = document.getElementById("supplyPie");
+  if (pie && window.Chart && comp.length) new Chart(pie, { type: "doughnut", data: { labels: comp.map(x => x.name), datasets: [{ data: comp.map(x => x.tokens), backgroundColor: [C.red, C.yellow, C.blue, C.green], borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "right", labels: { boxWidth: 10 } }, tooltip: { callbacks: { label: (c) => `${c.label}: ${fmtTok(c.raw)} (${(c.raw / sd.totalSupply * 100).toFixed(1)}%)` } } } } });
+  document.getElementById("supplyNotes").innerHTML =
+    li("INFO", `销毁枚数主源 = dRPC 归档节点每日 00:00 UTC 读 balanceOf(dead) 的日差分（全部发送方合计；近期样本显示 ${fmtPct(v.buyback.protocolShareRecent, 0)} 来自协议回购钱包）；DefiLlama holdersRevenue 是 dead 转入事件×当日价，两者在「核对」节互核。`) +
+    li("INFO", `PONS 自身池（legacy 90/10）的 90% 创作者费 redirect 至 V1 burner 钱包 → 也买回销毁；这部分不经 splitter，不参与 80/20 分账。`);
+
+  // 3 持有人收益与估值
+  const val = v.valuation, bb = v.buyback, pp = bb.pipeline;
+  document.getElementById("vcCards").innerHTML =
+    card("销毁价值年化（8 周中位）", fmtUsd(val.holdersRevenueAnnual), `= 持有人收益 · 当前速率 ${fmtUsd(val.holdersRevenueCurrentRate)}（最近一整周×52）`) +
+    card("PE（主口径）", val.peHolders != null ? val.peHolders.toFixed(1) : "n/a", `流通市值 ${fmtUsd(t.marketCapUsd)} ÷ 销毁价值 8 周中位年化 · 中位含 8 月低谷`) +
+    card("PE（28 天 / 当前速率 / 协议收入口径）", `${val.pe28d != null ? val.pe28d.toFixed(1) : "n/a"} / ${val.peCurrentRate != null ? val.peCurrentRate.toFixed(1) : "n/a"} / ${val.peRevenue != null ? val.peRevenue.toFixed(1) : "n/a"}`, `28 天 = 市值 ÷ 近 28 天销毁×365/28；当前速率 = 最近一整周×52；协议收入口径 = 近 28 天协议收入年化（含团队 20%）`) +
+    card("回购收益率", fmtPct(val.buybackYield28d), `近 28 天销毁美元×365/28 ÷ 流通市值 · 8 周中位口径 ${fmtPct(val.buybackYield)} · 当前速率 ${fmtPct(val.buybackYieldCurrent)}`) +
+    card("累计回购", fmtUsd(bb.cumulativeUsdLlama), `可归因回购 ${fmtTok(bb.buybackTokensAttributable)}（dead ${fmtTok(bb.cumulativeTokensAll)} − 发币夜/部署者非回购 ${fmtTok(bb.nonBuybackBurnTokens)}）· 均价 ${px(bb.avgCostUsd)} · 现价浮盈 ${fmtUsd(bb.unrealizedUsd)}`) +
+    card("回购管道在途", fmtUsd(pp?.totalUsd), pp ? `splitter ${fmtUsd(pp.splitter?.valueUsd)}（${fmtEth(pp.splitter?.ethAmount)} + ${nn(pp.splitter?.assetCount, "?")} 种配对资产）· escrow 未领 ${fmtUsd(pp.escrow?.valueUsd)}（含创作者份额）· intake ${fmtUsd(pp.intake?.valueUsd ?? 0)} · 官方 ${pp.asOf.slice(0, 16)}Z` : "官方 buyback-status 未取到") +
+    card("价格", px(t.priceUsd), `7 天${chg(t.priceChange7d)} 30 天${chg(t.priceChange30d)} · ATH ${px(t.ath)} (${(t.athDate || "").slice(0, 10)}) · 24h 成交 ${fmtUsd(t.volume24hUsd)}`);
+  const hw = ch.hrevWeekly;
+  lineChart("hrChart", hw.map(p => fmtDate(p.t)), [{ label: "DefiLlama holdersRevenue", data: hw.map(p => p.v) }, { label: "链上枚数 × 日价", data: alignTo(hw, ch.burnWeeklyUsdChain), borderColor: C.red }]);
+  lineChart("ratioChart", ch.hrRatioWeekly.map(p => fmtDate(p.t)), [{ label: "销毁 ÷ 协议收入", data: ch.hrRatioWeekly.map(p => p.v), borderColor: C.yellow }, { label: "政策 80%", data: ch.hrRatioWeekly.map(() => 0.8), borderColor: C.gray, borderDash: [4, 4] }], pctAxis);
+  document.getElementById("vcNotes").innerHTML =
+    li("INFO", `${bb.executionNote}。近 28 天 销毁 ÷ 协议收入 = ${fmtPct(R.hrOverRevenue28d)}，上线以来累计 ${fmtPct(R.hrOverRevenueAllTime)}（7–8 月 V2 收入起量时回购滞后拉低了累计值）。`) +
+    li("INFO", `近 7 天：链上 ${fmtTok(bb.tokens7d)} ≈ ${fmtUsd(bb.usd7dChain)}，DefiLlama ${fmtUsd(bb.usd7dLlama)}。`);
+
+  // 4 金库
+  const h = tr.holdings, fl = tr.flows;
+  document.getElementById("flowSteps").innerHTML =
+    `<div class="step">用户付费（${i.win28.from.slice(5)}~${i.win28.to.slice(5)}）<b>${fmtUsd(i.win28.fees)}</b>手续费 + 发币费</div>` +
+    `<div class="step">→ 创作者等<b>${fmtUsd(i.win28.supplySide)}</b>70%/35% 分成 + 创作者税 + meme 回购</div>` +
+    `<div class="step">→ 协议收入（Safe#1）<b>${fmtUsd(i.win28.revenue)}</b>V1 locker 份额 + V2 escrow 30% + 发币费</div>` +
+    `<div class="step">→ intake → splitter<b>${fmtUsd(pp?.totalUsd)}</b>在途（含创作者未领 escrow）</div>` +
+    `<div class="step">→ 买 PONS → dead<b>${fmtUsd(i.win28.holdersRevenue)}</b>同窗销毁价值</div>` +
+    `<div class="step">→ ETH 腿 20% → Safe#2（团队）<b>${fmtUsd(tm.primary.usd28d)}</b>${fmtEth(tm.primary.eth28d)} 同窗</div>`;
+  document.getElementById("treasuryCards").innerHTML =
+    card("Safe#1 协议金库", fmtUsd(h.safe1.usdApprox), `${fmtEth(h.safe1.eth)} + ${fmtTok(h.safe1.pons)} + escrow 可领 ${fmtEth(h.safe1.escrowClaimableEth)} · 2/3 多签 · 全部合约 owner`) +
+    card("Safe#2 运营金库（团队）", fmtUsd(h.safe2.usdApprox), `${fmtEth(h.safe2.eth)} · 2/3 多签，与 Safe#1 共享 2 个签名人 · 收 splitter 20%`) +
+    card("splitter 在途", fmtUsd(h.pipeline.splitterUsd), `${fmtEth(h.pipeline.splitterEth)} + 配对资产 · 待 TWAP 买 PONS`) +
+    card("V2 escrow", fmtUsd(h.pipeline.escrowUsd), `合约共 ${fmtEth(h.pipeline.escrowEthTotal)}（含创作者未领）· 协议可领 ${fmtEth(h.safe1.escrowClaimableEth)}`) +
+    card("Safe#1 累计送入回购管道（稳定币部分）", fmtUsd(tr.buybackFundingStableAll), "USDG 形态转入 intake；WETH/meme 币形态另计，不在此数");
+  const fo = fl.outflows;
+  document.getElementById("flowTable").innerHTML = `<tr><th>${fl.window} 资金流</th><th>金额</th><th>来源</th></tr>` +
+    fl.inflows.map(x => `<tr><td>⬆ ${x.name}</td><td class="up">${fmtUsd(x.usd)}</td><td style="text-align:left;color:var(--muted)">${x.source || ""}</td></tr>`).join("") +
+    fo.map(x => `<tr><td>⬇ ${x.name}</td><td class="down">${fmtUsd(x.usd)}</td><td style="text-align:left;color:var(--muted)">${x.source || ""}</td></tr>`).join("") +
+    `<tr><td>＝ 余额（仍在管道/多签或时滞）</td><td>${fmtUsd(fl.residual)}</td><td style="text-align:left;color:var(--muted)">${fl.residualNote}</td></tr>`;
+
+  // 5 团队
+  const p = tm.primary, scx = tm.shareCheck, po = tm.payouts;
+  document.getElementById("teamCards").innerHTML =
+    card("团队分账（近 7 天）", fmtUsd(p.usd7d), `${fmtEth(p.eth7d)} · splitter → Safe#2 · 按日 ETH 价折算`) +
+    card("团队分账（近 28 天）", fmtUsd(p.usd28d), `${fmtEth(p.eth28d)} · 年化 ${fmtUsd(p.annualUsd)}（${p.annualBasis || "n/a"}）`) +
+    card("累计（自 " + (p.since || "n/a") + "）", fmtUsd(p.usdAll), `${fmtEth(p.ethAll)} · 历史${p.complete === false ? "不完整（翻页到上限）" : "完整"} · 另有非 splitter 流入 ${fmtEth(p.otherInflowsEth)}${(p.otherInflows || []).map(x => `（${x.date} ${fmtEth(x.eth)} ← ${x.fromLabel ? x.fromLabel.split("；")[0] : short(x.from)}）`).join("")}`) +
+    card("实测分账比例（同窗 28 天）", fmtPct(scx.d28), `三项 ÷（三项 + 销毁）· 政策 ${fmtPct(scx.policy, 0)} · 近 7 天 ${fmtPct(scx.d7)} · 仅 splitter ETH 口径 ${fmtPct(scx.splitterOnly28d)}：链上 splitter 只对 ETH 腿分 20%，USDG/TAO/meme 腿 100% 进回购`, scx.d28 > 0.25 ? "caution" : "") +
+    card("按收入推算的 20%", fmtUsd(tm.impliedFromRevenue28d), "= 同窗协议收入 × 20% · 差额 = 非 ETH 腿不分账 + 管道时滞") +
+    (po ? card("多签直接支付（USDG）", fmtUsd(po.safe1.all + po.safe2.all), `Safe#1 ${fmtUsd(po.safe1.all)}（${po.safe1.count} 笔 / ${po.safe1.recipients} 地址）· Safe#2 ${fmtUsd(po.safe2.all)}（${po.safe2.count} 笔）· Safe#1→Safe#2 ${fmtUsd(po.safe1ToSafe2Stable)} · 小额分笔形态`) : card("多签直接支付", "未采集", "")) +
+    (po ? card("Safe#2 真实 ETH 转出", fmtEth(po.safe2EthOutAll), `近 28 天 ${fmtEth(po.safe2EthOut28d)} · 已剔 Safe 内部 delegatecall 回声 · 团队把钱拿走的动作，明细见下表`, po.safe2EthOut28d > 50 ? "caution" : "") : "");
+  const tw = ch.teamWeeklyEth;
+  barChart("teamChart", tw.map(p => fmtDate(p.t)), [{ label: "团队 ETH", data: tw.map(p => p.v), backgroundColor: C.purple + "cc" }], ethAxis);
+  const tu = ch.teamWeeklyUsd;
+  barChart("teamVsBurnChart", tu.map(p => fmtDate(p.t)), [{ label: "团队分账", data: tu.map(p => p.v) }, { label: "买回销毁", data: alignTo(tu, ch.hrevWeekly), backgroundColor: C.red + "cc" }], usdAxis, true);
+  const pouts = tm.ponsOut || [];
+  document.getElementById("ponsOutTable").innerHTML = `<tr><th>Safe#1 直接转出 PONS（非回购路径）</th><th>枚数</th><th>当日价值</th><th>去向</th></tr>` +
+    (pouts.length ? pouts.slice().reverse().map(x => `<tr><td>${x.date}${x.alert ? ' <span class="tag ALERT">ALERT</span>' : ""}</td><td>${fmtTok(x.tokens)}</td><td>${fmtUsd(x.usdAtDate)}</td><td style="text-align:left">${link(x.to)}${x.toLabel ? ` <span style="color:var(--muted)">${x.toLabel}</span>` : ""}</td></tr>`).join("") : `<tr><td colspan="4">无</td></tr>`) +
+    `<tr><th>Safe#2 转出 ETH（≥1 ETH，真实转账）</th><th>数量</th><th>当日价值</th><th>去向</th></tr>` +
+    ((po?.safe2EthOutLarge || []).length ? po.safe2EthOutLarge.slice().reverse().map(x => `<tr><td>${x.date}</td><td>${fmtEth(x.eth)}</td><td>${fmtUsd(x.usdAtDate)}</td><td style="text-align:left">${link(x.to)}${x.toLabel ? ` <span style="color:var(--muted)">${x.toLabel}</span>` : ""}</td></tr>`).join("") : `<tr><td colspan="4">无</td></tr>`);
+  document.getElementById("teamNote").innerHTML = `<b>团队赚的是什么钱？</b>${tm.conclusion} ${tm.splitterNote || ""} 代币侧：${tm.tokenSide.note}；${tm.tokenSide.uniswapStake}。`;
+
+  // 6 持有人
+  const cc = ho.concentration;
+  document.getElementById("holderCards").innerHTML =
+    card("持有地址数", fmtNum(ho.holdersCount), "Blockscout") +
+    card("top10（非 dead）占流通", fmtPct(cc.top10NonDeadPctOfCirc), "") +
+    card("疑似大户 EOA（top20 内未知地址）", fmtPct(cc.unknownEoaTop20PctOfCirc), `最大单一 ${cc.largestEoa ? short(cc.largestEoa.address) + " " + fmtPct(cc.largestEoa.pctOfCirc) : "n/a"} · 非合约、无标签，不能断言归属`, cc.unknownEoaTop20PctOfCirc > 0.3 ? "caution" : "") +
+    card("流动性/合约（top20 内）", fmtPct(cc.contractsTop20PctOfCirc), "Uniswap v3/v4 池、PoolManager、其他合约");
+  document.getElementById("holdersTable").innerHTML = `<tr><th>#</th><th>地址</th><th>持仓</th><th>占流通</th><th>标签</th></tr>` +
+    ho.top.map((r, k) => `<tr><td>${k + 1}</td><td style="text-align:left">${link(r.address)}</td><td>${fmtTok(r.tokens)}</td><td>${r.kind === "dead" ? "—" : fmtPct(r.pctOfCirc)}</td><td style="text-align:left;color:${r.kind === "eoa" ? "var(--warn)" : "var(--muted)"}">${r.label}</td></tr>`).join("");
+
+  // 7 风险
+  const ft = rk.feesTrend, bp = rk.buybackPolicy;
+  document.getElementById("riskCards").innerHTML =
+    card("手续费近 4 周 vs 前 4 周", fmtPct(ft.change), `距峰值周（${fmtUsd(ft.peakWeek)}）回撤 ${fmtPct(ft.drawdownFromPeak)} · 收入与 meme 热度同源`, ft.change < -0.3 ? "caution" : "") +
+    card("回购政策执行", fmtPct(bp.hrOverRevenue28d), `销毁 ÷ 协议收入（28 天）· 政策 80% · 低于 ${fmtPct(bp.warnBelow, 0)} 告警`, bp.hrOverRevenue28d < bp.warnBelow ? "caution" : "good") +
+    card("金库直接转出 PONS（30 天）", rk.treasuryPonsOutflows30d == null ? "未采集" : `${rk.treasuryPonsOutflows30d} 笔`, "≥10 万枚的非回购路径转出（OTC/交易所/做市）", rk.treasuryPonsOutflows30d > 0 ? "caution" : "") +
+    card("中心化", `Safe#1 ${nn(rk.centralization.safe1.threshold)}/${nn(rk.centralization.safe1.owners?.length)}`, rk.centralization.note, "caution") +
+    card("V2 审计", rk.dlAudits?.length ? `${rk.dlAudits.length} 份（DefiLlama）` : "无终稿", `V2 占同窗协议收入 ${fmtPct(R.v1ShareOfRevenue28d != null ? 1 - R.v1ShareOfRevenue28d : null, 0)}；审计进展见风险事件（config 人工维护）`, rk.dlAudits?.length ? "" : "caution") +
+    card("DefiLlama hacks", rk.dlHacks.length ? `${rk.dlHacks.length} 条` : "无记录", "");
+  document.getElementById("riskEvents").innerHTML =
+    rk.historicEvents.map(e => li("WARN", `<b>${e.date} ${e.title}</b>：${e.detail}`)).join("") +
+    rk.structural.map(x => li("INFO", `结构性：${x}`)).join("") +
+    (rk.dlHacks?.length ? rk.dlHacks.map(hk => li("ALERT", `DefiLlama 记录攻击事件：${JSON.stringify(hk)}`)).join("") : "");
+
+  // 8 核对
+  document.getElementById("checks").innerHTML = checks.map(c => li(c.level, c.msg)).join("");
+  document.getElementById("coverageTable").innerHTML = `<tr><th>指标</th><th>核对强度</th><th>说明</th></tr>` + d.coverage.map(c => `<tr><td>${c.metric}</td><td>${c.level}</td><td style="text-align:left;color:var(--muted)">${c.detail}</td></tr>`).join("");
+}).catch(e => { document.getElementById("ts").textContent = "加载失败：" + e.message; console.error(e); });
+</script>
+</body>
+</html>
