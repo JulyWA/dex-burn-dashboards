@@ -32,6 +32,11 @@
   .card.good { border-color: var(--ok); } .card.good .val { color: var(--ok); }
   .callout { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 16px; margin-top: 12px; font-size: 14px; line-height: 1.7; }
   .callout b { color: var(--text); }
+  .callout .cl-lead { margin-top: 4px; }
+  .callout .cl-item { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .callout .cl-k { display: block; color: var(--muted); font-size: 12px; font-weight: 700; margin-bottom: 3px; }
+  .callout ul { margin: 4px 0 0; padding-left: 18px; }
+  .callout li { margin: 3px 0; }
   .checks { list-style: none; padding: 0; margin: 12px 0 0; }
   .checks li { padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; font-size: 13px; display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
   .tag { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
@@ -317,7 +322,10 @@ fetch("./data.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.json()).
     (pouts.length ? pouts.slice().reverse().map(x => `<tr><td>${x.date}${x.alert ? ' <span class="tag ALERT">ALERT</span>' : ""}</td><td>${fmtTok(x.tokens)}</td><td>${fmtUsd(x.usdAtDate)}</td><td style="text-align:left">${link(x.to)}${x.toLabel ? ` <span style="color:var(--muted)">${x.toLabel}</span>` : ""}</td></tr>`).join("") : `<tr><td colspan="4">无</td></tr>`) +
     `<tr><th>Safe#2 转出 ETH（≥1 ETH，真实转账）</th><th>数量</th><th>当日价值</th><th>去向</th></tr>` +
     ((po?.safe2EthOutLarge || []).length ? po.safe2EthOutLarge.slice().reverse().map(x => `<tr><td>${x.date}</td><td>${fmtEth(x.eth)}</td><td>${fmtUsd(x.usdAtDate)}</td><td style="text-align:left">${link(x.to)}${x.toLabel ? ` <span style="color:var(--muted)">${x.toLabel}</span>` : ""}</td></tr>`).join("") : `<tr><td colspan="4">无</td></tr>`);
-  document.getElementById("teamNote").innerHTML = `<b>团队赚的是什么钱？</b>${tm.conclusion} ${tm.splitterNote || ""} 代币侧：${tm.tokenSide.note}；${tm.tokenSide.uniswapStake}。`;
+  document.getElementById("teamNote").innerHTML = `<b>团队赚的是什么钱？</b>
+    <div class="cl-lead">${tm.conclusion}</div>
+    ${tm.splitterNote ? `<div class="cl-item"><span class="cl-k">分账机制（链上核实）</span>${tm.splitterNote}</div>` : ""}
+    <div class="cl-item"><span class="cl-k">代币侧</span><ul><li>${tm.tokenSide.note}</li><li>${tm.tokenSide.uniswapStake}</li></ul></div>`;
 
   // 6 持有人
   const cc = ho.concentration;
