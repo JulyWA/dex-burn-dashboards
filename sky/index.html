@@ -32,6 +32,11 @@
   .card.good { border-color: var(--ok); } .card.good .val { color: var(--ok); }
   .callout { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 16px; margin-top: 12px; font-size: 14px; line-height: 1.7; }
   .callout b { color: var(--text); }
+  .callout .cl-lead { margin-top: 4px; }
+  .callout .cl-item { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .callout .cl-k { display: block; color: var(--muted); font-size: 12px; font-weight: 700; margin-bottom: 3px; }
+  .callout ul { margin: 4px 0 0; padding-left: 18px; }
+  .callout li { margin: 3px 0; }
   .checks { list-style: none; padding: 0; margin: 12px 0 0; }
   .checks li { padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; font-size: 13px; display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
   .tag { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
@@ -316,7 +321,12 @@ fetch("./data.json").then(r => r.json()).then(d => {
     card("→ Core Council 10%", fmtUsd(tm.coreCouncilAnnualUsd), "治理运营 / 执行 Agent / 代表 / Frontier 基金会拨款") +
     card("→ Fortification 10%", fmtUsd(tm.fortificationAnnualUsd), "法律防御 / 安全 / 不可量化风险") +
     card("官方运营支出近 12 月", fmtUsd(tm.opexActualTrailing12m), "accounting/operation 实付 · 2026-04 TMF 改制前含 Genesis 期一次性拨款，高于 20% 推算属正常");
-  document.getElementById("teamNote").innerHTML = `<b>团队赚的是什么钱？</b>${tm.conclusion} 具体：${tm.basis}。Prime Agent 基金会另从各自金库拿 grant（${tm.agentFoundationGrants.map(x => `${x.agent}：${x.detail}`).join("；")}）。代币侧：${tm.tokenSide} 月度财报要点：${tm.reports.map(r => `${r.period} ${r.note}`).join("；")}。`;
+  document.getElementById("teamNote").innerHTML = `<b>团队赚的是什么钱？</b>
+    <div class="cl-lead">${tm.conclusion}</div>
+    <div class="cl-item"><span class="cl-k">TMF Step1 构成</span>${tm.basis}</div>
+    <div class="cl-item"><span class="cl-k">Prime Agent 基金会 grant（出自各自金库，不经 Sky 核心）</span><ul>${tm.agentFoundationGrants.map(x => `<li><b>${x.agent}</b>：${x.detail}</li>`).join("")}</ul></div>
+    <div class="cl-item"><span class="cl-k">代币侧</span>${tm.tokenSide}</div>
+    <div class="cl-item"><span class="cl-k">月度财报要点</span><ul>${tm.reports.map(r => `<li><b>${r.period}</b>　${r.note}</li>`).join("")}</ul></div>`;
 
   // 7 风险
   document.getElementById("riskCards").innerHTML =
