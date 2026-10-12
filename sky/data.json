@@ -1,64 +1,64 @@
 {
-  "generatedAt": "2026-10-05T02:45:16.424Z",
-  "nowSec": 1791168301,
+  "generatedAt": "2026-10-12T02:45:19.025Z",
+  "nowSec": 1791773101,
   "token": {
-    "priceUsd": 0.09565,
-    "priceLlama": 0.09574992612479352,
-    "marketCapUsd": 2241869314,
-    "fdvUsd": 2244661704,
-    "priceChange7d": 0.16906780000000002,
-    "priceChange30d": 0.4242528,
-    "volume24hUsd": 23888824,
+    "priceUsd": 0.080318,
+    "priceLlama": 0.08057603788953638,
+    "marketCapUsd": 1882041230,
+    "fdvUsd": 1884237136,
+    "priceChange7d": -0.1618704,
+    "priceChange30d": 0.2885846,
+    "volume24hUsd": 13599657,
     "totalSupply": 23459804203.605965,
-    "cgTotalSupply": 23459804203.60596,
-    "cgCirculating": 23430619877.750965,
-    "treasury": 29218622.006022815,
-    "converterHeld": 2056372770.1220284,
-    "staked": 17447952421.338367,
-    "stakedPct": 0.7437381944840133,
-    "effectiveCirculating": 21374212811.477913,
-    "effectiveCircPct": 0.9110993692007251,
+    "cgTotalSupply": 23459804203.605965,
+    "cgCirculating": 23432463949.575676,
+    "treasury": 27380964.78040619,
+    "converterHeld": 2043352267.139896,
+    "staked": 17495345290.385216,
+    "stakedPct": 0.7457583677401722,
+    "effectiveCirculating": 21389070971.68566,
+    "effectiveCircPct": 0.9117327146489136,
     "pendingRewards": {
-      "skyRewardsContract": 80060783.72470306,
-      "usdsFarmContract": 19569175.84605208
+      "skyRewardsContract": 83157284.22348584,
+      "usdsFarmContract": 19564677.1591325
     },
     "mkr": {
-      "unconverted": 84037.83473354214,
-      "potentialSky": 2016908033.6050115,
+      "unconverted": 83466.76004134334,
+      "potentialSky": 2003202240.9922402,
       "penaltyPct": 0.05,
       "rate": 24000,
-      "convertedViaV2Mkr": 572269.1532217865,
-      "convertedPctApprox": 0.9139763731148893
+      "convertedViaV2Mkr": 572840.2279139853,
+      "convertedPctApprox": 0.914560597624771
     },
-    "turnoverCirc": 0.010655761176987143,
+    "turnoverCirc": 0.007226014384392631,
     "supplyNote": "总量=链上；CoinGecko 流通=总量−金库(32.7M)，未扣转换合约里 2.06B 未领 SKY（属未转换 MKR 持有人、MKR 可交易，不算新增稀释）。有效流通=总量−金库−转换合约。"
   },
   "scale": {
-    "stableTotalOfficial": 9975214138.203848,
-    "usdsOfficial": 6046297233.68798,
-    "daiOfficial": 3928916904.5158687,
-    "usdsChain": 6853118688.821243,
-    "daiChain": 4598230312.91267,
-    "vatDebt": 12307938811.391798,
-    "vatLine": 15921835174.079012,
-    "susdsTvl": 4668734416.805532,
-    "ssr": 0.03600000425292382,
+    "stableTotalOfficial": 10246740577.073608,
+    "usdsOfficial": 6368438592.829342,
+    "daiOfficial": 3878301984.244266,
+    "usdsChain": 7096722310.965838,
+    "daiChain": 4547997982.981769,
+    "vatDebt": 12512314737.057442,
+    "vatLine": 16094686201.363634,
+    "susdsTvl": 5020068792.174973,
+    "ssr": 0.037999998803906365,
     "dsr": 0.012500001331042565,
-    "ecosystemTvl": 19259060054.710815,
-    "dlTvl": 5935964253,
-    "collateral": 13623836454.63148,
-    "collateralRatio": 1.2622344429955583,
-    "debt": 10793427901.000021,
+    "ecosystemTvl": 19388228879.181667,
+    "dlTvl": 6035126827,
+    "collateral": 13422341058.658306,
+    "collateralRatio": 1.221020954818908,
+    "debt": 10992719662.742397,
     "change": {
       "stable": {
-        "week": 0.01786480126358464,
-        "month": 0.028155401660106896,
-        "year": 0.2952993484704944
+        "week": 0.019829137559858673,
+        "month": 0.05158002996214086,
+        "year": 0.2957873468774864
       },
       "usds": {
-        "week": 0.026427447169837436,
-        "month": 0.059135759155725394,
-        "year": 0.8816534722861645
+        "week": 0.043489459820789965,
+        "month": 0.08876978781609096,
+        "year": 0.8765223600388915
       }
     },
     "note": "官方 total = DAI+USDS 去重后的稳定币总量（链上 DAI totalSupply 含锁在 DAI→USDS 迁移合约里的部分，不能直接相加）"
@@ -66,63 +66,63 @@
   "income": {
     "windows": {
       "fees": {
-        "week": 6330373,
-        "month": 26892545,
-        "year": 391573686,
+        "week": 6595086,
+        "month": 27224841,
+        "year": 390485869,
         "change": {
-          "week": 0.008736610328408077,
-          "month": -0.007802531173875467,
-          "year": -0.02378271241687513
+          "week": 0.04332932090508864,
+          "month": 0.009719361282479032,
+          "year": -0.031010685951712604
         }
       },
       "revenue": {
-        "week": 3116121,
-        "month": 13470033,
-        "year": 203492257,
+        "week": 3168716,
+        "month": 13526798,
+        "year": 201139014,
         "change": {
-          "week": -0.0215996413089961,
-          "month": -0.003083034024611281,
-          "year": -0.13239424091995666
+          "week": 0.01335970202188017,
+          "month": 0.005873744934955575,
+          "year": -0.15122900123862348
         }
       },
       "holdersRevenue": {
-        "week": 1377803,
-        "month": 5360166,
-        "year": 61038259,
+        "week": 1367558,
+        "month": 5752741,
+        "year": 59894188,
         "change": {
-          "week": -0.01545063150936992,
-          "month": 0.9089909621337015,
-          "year": -0.4339071817794528
+          "week": -0.014711338876652855,
+          "month": 0.7098536349326371,
+          "year": -0.45618029937192356
         }
       },
       "protocolRevenue": {
-        "week": 1738317,
-        "month": 8109864,
-        "year": 142453990,
+        "week": 1801157,
+        "month": 7774055,
+        "year": 141244817,
         "change": {
-          "week": -0.026419107829344136,
-          "month": -0.2423404803342951,
-          "year": 0.12415594391085337
+          "week": 0.0357655888972847,
+          "month": -0.2290201544249606,
+          "year": 0.11356105547796827
         }
       },
       "supplySideRevenue": {
-        "week": 3214252,
-        "month": 13422509,
-        "year": 188081427,
+        "week": 3426371,
+        "month": 13698041,
+        "year": 189346855,
         "change": {
-          "week": 0.03999829161155388,
-          "month": -0.01249410237374261,
-          "year": 0.12915273867411003
+          "week": 0.0726677168864573,
+          "month": 0.013545869028630402,
+          "year": 0.14060344701448158
         }
       },
       "netRevenueOfficial": {
-        "week": 2099991.3765372424,
-        "month": 8641048.574302936,
-        "year": 126259393.21088926,
+        "week": 2152608.111087176,
+        "month": 8876385.9271368,
+        "year": 124549478.35467337,
         "change": {
-          "week": 0.0046082937267084715,
-          "month": 0.07709416184204179,
-          "year": -0.10062525592049819
+          "week": 0.02534395860070254,
+          "month": 0.10374053273865848,
+          "year": -0.12470298290483259
         }
       }
     },
@@ -130,54 +130,54 @@
       "fees": {
         "trimmedDays": 0,
         "outage": false,
-        "coveredThrough": "2026-10-04",
-        "lagDays": 1
+        "coveredThrough": "2026-10-10",
+        "lagDays": 2
       },
       "revenue": {
         "trimmedDays": 0,
         "outage": false,
-        "coveredThrough": "2026-10-04",
-        "lagDays": 1
+        "coveredThrough": "2026-10-10",
+        "lagDays": 2
       },
       "holdersRevenue": {
         "trimmedDays": 0,
         "outage": false,
-        "coveredThrough": "2026-10-04",
-        "lagDays": 1
+        "coveredThrough": "2026-10-10",
+        "lagDays": 2
       },
       "protocolRevenue": {
         "trimmedDays": 0,
         "outage": false,
-        "coveredThrough": "2026-10-04",
-        "lagDays": 1
+        "coveredThrough": "2026-10-10",
+        "lagDays": 2
       },
       "supplySideRevenue": {
         "trimmedDays": 0,
         "outage": false,
-        "coveredThrough": "2026-10-04",
-        "lagDays": 1
+        "coveredThrough": "2026-10-10",
+        "lagDays": 2
       },
       "netRevenueOfficial": {
         "trimmedDays": 0,
         "outage": false,
-        "coveredThrough": "2026-10-05",
+        "coveredThrough": "2026-10-12",
         "lagDays": 0
       }
     },
     "runRate": {
-      "asOf": "2026-10-05",
-      "stabilityFee": 335018468.02627546,
-      "liquidation": 1579372.001314627,
+      "asOf": "2026-10-12",
+      "stabilityFee": 358830486.36526024,
+      "liquidation": 1507387.7629619413,
       "psm": 0,
-      "ssrCost": 170598597.26471382,
-      "daiExpenses": 53087611.18300993,
-      "netRevenue": 112911631.57986633,
-      "gross": 336597840.0275901
+      "ssrCost": 193276042.5078932,
+      "daiExpenses": 52922114.722928904,
+      "netRevenue": 114139716.89740011,
+      "gross": 360337874.12822217
     },
     "rrChange": {
-      "stabilityFee30d": 0.034079528347301435,
-      "stabilityFee1y": -0.15114940029971913,
-      "netRevenue30d": 0.12099306742935667
+      "stabilityFee30d": 0.10892316043748473,
+      "stabilityFee1y": -0.09299640624620176,
+      "netRevenue30d": 0.1627033399637432
     },
     "settlements": {
       "months": [
@@ -353,43 +353,43 @@
     "revenueByGroup": [
       {
         "name": "stablecoins",
-        "revenueAnnual": 142473172.11303976,
-        "debt": 4252930511.7878027,
-        "collateral": 4253716246.5015097,
-        "share": 0.4377312588447792,
-        "yieldOnDebt": 0.033499999992510666
+        "revenueAnnual": 160604939.5355053,
+        "debt": 4461248321.381497,
+        "collateral": 4462034056.095204,
+        "share": 0.46128663416692334,
+        "yieldOnDebt": 0.03599999999232757
       },
       {
         "name": "spark",
-        "revenueAnnual": 84669971.47613281,
-        "debt": 3681303107.657948,
-        "collateral": 3681303107.657948,
-        "share": 0.2601380502091525,
-        "yieldOnDebt": 0.023000000000000003
+        "revenueAnnual": 84443841.70492417,
+        "debt": 3671471378.4749637,
+        "collateral": 3671471378.4749637,
+        "share": 0.24253809147369065,
+        "yieldOnDebt": 0.023
       },
       {
         "name": "grove",
-        "revenueAnnual": 46079445.50604382,
-        "debt": 1826649929.59505,
-        "collateral": 1826649929.59505,
-        "share": 0.14157341616726649,
-        "yieldOnDebt": 0.025226204955570864
+        "revenueAnnual": 46126877.74646628,
+        "debt": 1828406679.240326,
+        "collateral": 1828406679.240326,
+        "share": 0.13248479306947267,
+        "yieldOnDebt": 0.025227909233864355
       },
       {
         "name": "core",
-        "revenueAnnual": 36495953.949481376,
-        "debt": 385086528.3076845,
-        "collateral": 1678173681.1551747,
-        "share": 0.11212931970358954,
-        "yieldOnDebt": 0.09477338537358823
+        "revenueAnnual": 40420976.91987178,
+        "debt": 385776361.97599643,
+        "collateral": 1567113656.2799335,
+        "share": 0.11609640679192502,
+        "yieldOnDebt": 0.10477826249599717
       },
       {
         "name": "obex",
-        "revenueAnnual": 15762375.291,
+        "revenueAnnual": 16570702.229,
         "debt": 404163469,
         "collateral": 404163469,
-        "share": 0.048427955075212255,
-        "yieldOnDebt": 0.039
+        "share": 0.0475940744979883,
+        "yieldOnDebt": 0.041
       },
       {
         "name": "keel",
@@ -400,29 +400,29 @@
         "yieldOnDebt": null
       },
       {
+        "name": "legacy-rwa",
+        "revenueAnnual": 0,
+        "debt": 81305358.99303061,
+        "collateral": 81305358.99303061,
+        "share": 0,
+        "yieldOnDebt": 0
+      },
+      {
         "name": "osero",
         "revenueAnnual": 0,
         "debt": 0,
         "collateral": 0,
         "share": 0,
         "yieldOnDebt": null
-      },
-      {
-        "name": "legacy-rwa",
-        "revenueAnnual": 0,
-        "debt": 83268353.13177632,
-        "collateral": 83268353.13177632,
-        "share": 0,
-        "yieldOnDebt": 0
       }
     ],
-    "groupsTotalRevenueAnnual": 325480918.33569777,
+    "groupsTotalRevenueAnnual": 348167338.1357675,
     "ratios": {
-      "revenueOverFees": 0.3224409548574448,
-      "ssrCostOverFees": 0.48032192592226436,
-      "holdersOverRevenue": 0.4834353900152891,
-      "protocolRetainedOverRevenue": 0.5165646099847109,
-      "holdersOverFees": 0.15587936876841108
+      "revenueOverFees": 0.31896027037709107,
+      "ssrCostOverFees": 0.4849006584665936,
+      "holdersOverRevenue": 0.48088670294902636,
+      "protocolRetainedOverRevenue": 0.5191132970509736,
+      "holdersOverFees": 0.15338375279336933
     },
     "officialNetDaily": [
       [
@@ -3463,22 +3463,50 @@
       ],
       [
         1791158400,
-        309346.93583525025
+        308756.5388725719
+      ],
+      [
+        1791244800,
+        309963.30300496443
+      ],
+      [
+        1791331200,
+        297423.99495731003
+      ],
+      [
+        1791417600,
+        317190.3497382821
+      ],
+      [
+        1791504000,
+        302383.7878957853
+      ],
+      [
+        1791590400,
+        318280.47257986816
+      ],
+      [
+        1791676800,
+        294654.64976740436
+      ],
+      [
+        1791763200,
+        312711.55314356193
       ]
     ],
     "note": "净收入主口径=官方 total_net_revenue（稳定费+清算+PSM−SSR成本−dai_expenses）年化÷365；DefiLlama revenue 不扣 dai_expenses 仅作参考；MSC 月结为实收"
   },
   "valueCapture": {
-    "holdersRevenueAnnual": 47009950,
+    "holdersRevenueAnnual": 53145560,
     "buyback": {
-      "usdsCumulative": 127252600.006,
-      "skyCumulative": 2015053063.0270884,
-      "avgCostUsd": 0.06315099207106555,
-      "unrealizedProfitUsd": 65774882.76051098,
+      "usdsCumulative": 128008300.006,
+      "skyCumulative": 2024290409.1940782,
+      "avgCostUsd": 0.0632361342150326,
+      "unrealizedProfitUsd": 35159170.9374562,
       "last24hUsd": 108900,
-      "last7dSky": 8758205.483109057,
-      "last30dSky": 41464458.66787907,
-      "last30dUsdEst": 3966075.471582633,
+      "last7dSky": 9430997.547517657,
+      "last30dSky": 43260934.45963946,
+      "last30dUsdEst": 3474631.733929322,
       "monthlyUsds": [
         {
           "month": "2025-10",
@@ -3530,13 +3558,13 @@
         },
         {
           "month": "2026-10",
-          "usds": 445500
+          "usds": 1201200
         }
       ],
-      "dailyUsdsFromSplitter": 94435.95052814983,
-      "annualUsdsFromSplitter": 34469121.94277469,
-      "annualSkyFromRecentPace": 504484247.12586194,
-      "skyBoughtPctOfSupply": 0.08589385680880313,
+      "dailyUsdsFromSplitter": 94373.42730181548,
+      "annualUsdsFromSplitter": 34446300.96516265,
+      "annualSkyFromRecentPace": 526341369.2589467,
+      "skyBoughtPctOfSupply": 0.08628760886601637,
       "burnShareOfBuyback": 0.18181818181818182,
       "splitter": {
         "burn": 0.55,
@@ -3544,20 +3572,20 @@
         "kickLot": 6000,
         "farm": "0x38e4254bd82ed5ee97cd1c4278faae748d998865",
         "flapReceiver": "0xbe8e3e3618f7474f8cb1d074a26affef007e98fb",
-        "dailyKicks": 28.616954705499946,
+        "dailyKicks": 28.598008273277415,
         "theoreticalKicks": 34.50479233226837,
         "kicksSource": "官方 farm 近7天增量反推"
       },
-      "impliedBurnAnnualUsd": 6267113.080504489,
-      "impliedBurnAnnualSky": 65521307.68953988
+      "impliedBurnAnnualUsd": 6262963.811847755,
+      "impliedBurnAnnualSky": 77977088.7204332
     },
     "usdsRewards": {
-      "cumulative": 41993431.80974864,
-      "last30d": 2357037.1726088375,
+      "cumulative": 42612702.15668443,
+      "last30d": 2566359.9208253026,
       "annualFromRate": 34004472.84345048,
-      "annualFromSplitter": 28202008.862270195,
+      "annualFromSplitter": 28183337.153314896,
       "annualFromSplitterTheoretical": 34004472.84345048,
-      "stakedInFarm": 8592699231.794342
+      "stakedInFarm": 8597514410.21551
     },
     "skyRewards": {
       "activeStreams": [
@@ -3566,13 +3594,13 @@
           "from": "2026-09-13",
           "to": "2026-12-12",
           "tot": 143208393,
-          "released": 33224347.176000003,
+          "released": 44299350.56860648,
           "perDay": 1591204.3666666667
         }
       ],
       "annualSky": 580789593.8333334,
-      "annualUsd": 55552524.65015834,
-      "onchainRateSkyPerYear": 580789557.3236201,
+      "annualUsd": 46647858.597505674,
+      "onchainRateSkyPerYear": 580789593.6254308,
       "schedule": [
         {
           "id": 10,
@@ -3639,23 +3667,23 @@
           "active": true
         }
       ],
-      "totalDistributedToDate": 1272086832.0151358,
+      "totalDistributedToDate": 1283161835.407742,
       "prevStreamPerDay": 1076707.8444444444,
       "basis": "按当前季度 vest 流外推（各季度流速差可达 3 倍）"
     },
     "valuation": {
-      "peHolders": 47.68925119043947,
-      "peHoldersFdv": 47.748651168529214,
-      "peCurrentRate": 30.995470996308917,
-      "holdersRevenueCurrentRate": 72328932,
-      "holdersYieldCurrent": 0.03226277800776393,
-      "peNetRevenueMsc12m": 13.76360851334082,
-      "peRevenueDl1y": 11.016976012016025,
-      "psFees": 5.725280819814843,
-      "holdersYield": 0.02096908580104683,
-      "buybackYield": 0.01537517005452651,
-      "stakingApyUsds": 0.04131024,
-      "stakingApySky": 0.06579127,
+      "peHolders": 35.412953217540654,
+      "peHoldersFdv": 35.45427192789012,
+      "peCurrentRate": 26.320187633933536,
+      "holdersRevenueCurrentRate": 71505616,
+      "holdersYieldCurrent": 0.03799365011785635,
+      "peNetRevenueMsc12m": 11.554499869338247,
+      "peRevenueDl1y": 9.394591727899769,
+      "psFees": 4.8332123588634355,
+      "holdersYield": 0.028238254907943756,
+      "buybackYield": 0.01830262824006393,
+      "stakingApyUsds": 0.04905664,
+      "stakingApySky": 0.06546856,
       "note": "PE 主口径=流通市值÷(回购+USDS 奖励)8 周中位×52（与六项目一致）；当前速率口径=最近一整周×52；附注 PE=市值÷MSC 近 12 月净收入(实收)"
     },
     "tmf": {
@@ -3682,10 +3710,10 @@
     "mintVestEnded": true,
     "lastMintStreamEnd": "2025-06-02",
     "emissionToStakersAnnualSky": 580789593.8333334,
-    "buybackFromMarketAnnualSky": 504484247.12586194,
-    "netCircChangeAnnualSky": 76305346.70747143,
-    "netInflationRateCirc": 0.0035699722549078204,
-    "treasuryRunwayDays": 139.7647411666119,
+    "buybackFromMarketAnnualSky": 526341369.2589467,
+    "netCircChangeAnnualSky": 54448224.57438666,
+    "netInflationRateCirc": 0.002545609608124818,
+    "treasuryRunwayDays": 183.55147891359576,
     "totalSupplyRef": 23459804203.6,
     "totalSupplyDeltaVsRef": 0.0059661865234375,
     "burnObserved": -0.0059661865234375,
@@ -3694,31 +3722,31 @@
     "note": "无增发：可增发流(MCD_VEST_SKY)已于 2025-06-02 结束；SKY 质押奖励=回购回来的 SKY 由金库再发放，不是新币。Atlas 规定 Step3 的 10% 买回后销毁，是否真烧看 totalSupply 是否下降。"
   },
   "treasury": {
-    "coreSurplusChain": -58927868.415723324,
-    "officialSkySurplus": -58927868.41572337,
-    "aggregateBackstopCapital": 98081775.7440909,
-    "aggregateCapitalBuffer": 38102171.15008192,
+    "coreSurplusChain": -52098610.7695986,
+    "officialSkySurplus": -52098610.76959865,
+    "aggregateBackstopCapital": 104908086.09791927,
+    "aggregateCapitalBuffer": 44931428.79620664,
     "agentProxies": {
       "spark": 46028943.205806285,
       "grove": 25866234.359999,
       "obex": 25134862
     },
-    "officialSurplusBuffer": 38110495.87305047,
-    "targetBackstop": 90694458.50531968,
+    "officialSurplusBuffer": 44933779.82414751,
+    "targetBackstop": 95526578.89244013,
     "turboFillFloor": 150000000,
-    "fillPctOfFloor": 0.653878504960606,
-    "fillPctOfTarget": 1.0814527961301839,
+    "fillPctOfFloor": 0.6993872406527951,
+    "fillPctOfTarget": 1.0982083448842277,
     "step2RetainPct": 0.5,
-    "backstopChange30d": 7220887.341096476,
-    "backstopChange90d": 29602651.46064645,
-    "monthsToFloorBy90d": 5.192280474707238,
+    "backstopChange30d": 6691909.370264307,
+    "backstopChange90d": 39411031.1598639,
+    "monthsToFloorBy90d": 3.3872698533291623,
     "vat": {
-      "daiVow": 654120820.4435489,
-      "sinVow": 713048688.8592722,
+      "daiVow": 665984865.1821548,
+      "sinVow": 718083475.9517534,
       "sinQueued": 228195621.86951092,
       "ash": 0,
-      "debt": 12307938811.391798,
-      "line": 15921835174.079012
+      "debt": 12512314737.057442,
+      "line": 16094686201.363634
     },
     "waterfall": {
       "period": "Aug 26",
@@ -3739,11 +3767,11 @@
     "inflows": [
       {
         "name": "稳定费（Prime Agent 借款利息 + 加密金库利息 + 稳定币抵押收益）",
-        "annual": 335018468.02627546
+        "annual": 358830486.36526024
       },
       {
         "name": "清算收入",
-        "annual": 1579372.001314627
+        "annual": 1507387.7629619413
       },
       {
         "name": "PSM 手续费",
@@ -3753,11 +3781,11 @@
     "outflows": [
       {
         "name": "Sky Savings Rate 利息（付给 sUSDS/DSR 储户）",
-        "annual": 170598597.26471382
+        "annual": 193276042.5078932
       },
       {
         "name": "DAI 相关支出（dai_expenses）",
-        "annual": 53087611.18300993
+        "annual": 52922114.722928904
       },
       {
         "name": "Step1 安全维护 20%（Core Council 10% + Fortification 10%）",
@@ -3775,7 +3803,7 @@
     "opexMonthly": [
       {
         "month": "2025-10",
-        "usd": 1640126.9610820233
+        "usd": 1335106.001001
       },
       {
         "month": "2025-11",
@@ -3822,7 +3850,7 @@
         "usd": 3149060
       }
     ],
-    "opexTrailing12m": 60176652.67178858
+    "opexTrailing12m": 59871631.71170756
   },
   "teamRevenue": {
     "basis": "TMF Step1 = 净收入 20%（Core Council 10%：治理/开发/代表；Fortification Foundation 10%：法律/安全），来源=协议收入非代币增发",
@@ -3830,11 +3858,11 @@
     "step1AnnualUsd": 32576766.649923183,
     "coreCouncilAnnualUsd": 16288383.324961592,
     "fortificationAnnualUsd": 16288383.324961592,
-    "opexActualTrailing12m": 60176652.67178858,
+    "opexActualTrailing12m": 59871631.71170756,
     "opexMonthly": [
       {
         "month": "2025-10",
-        "usd": 1640126.9610820233
+        "usd": 1335106.001001
       },
       {
         "month": "2025-11",
@@ -3914,55 +3942,55 @@
     "conclusion": "团队赚的是协议收入（20% 净收入的治理/安全拨款）与 Agent 代币/持币增值；SKY 无团队解锁、无增发，工资不来自铸币。"
   },
   "risk": {
-    "coreSurplusChain": -58927868.415723324,
+    "coreSurplusChain": -52098610.7695986,
     "coreSurplusNegative": true,
-    "unbackedDebt": 484853066.98976135,
+    "unbackedDebt": 489887854.0822425,
     "queuedLiquidationDebt": 228195621.86951092,
-    "collateralRatio": 1.2622344429955583,
-    "collateralUsd": 13623836454.63148,
-    "debtUsd": 10793427901.000021,
-    "debtCeilingUtilization": 0.7730226243912705,
+    "collateralRatio": 1.221020954818908,
+    "collateralUsd": 13422341058.658306,
+    "debtUsd": 10992719662.742397,
+    "debtCeilingUtilization": 0.7774189928597257,
     "concentration": [
       {
         "name": "stablecoins",
-        "debt": 4252930511.7878027,
-        "share": 0.39995953806614576
+        "debt": 4461248321.381497,
+        "share": 0.4118441001526904
       },
       {
         "name": "spark",
-        "debt": 3681303107.657948,
-        "share": 0.34620182162379115
+        "debt": 3671471378.4749637,
+        "share": 0.3389351403860301
       },
       {
         "name": "grove",
-        "debt": 1826649929.59505,
-        "share": 0.17178415213331988
+        "debt": 1828406679.240326,
+        "share": 0.16879098612733498
       },
       {
         "name": "obex",
         "debt": 404163469,
-        "share": 0.038008858577964086
+        "share": 0.037310709517588594
       },
       {
         "name": "core",
-        "debt": 385086528.3076845,
-        "share": 0.036214800488873336
+        "debt": 385776361.97599643,
+        "share": 0.035613287405840514
       },
       {
         "name": "legacy-rwa",
-        "debt": 83268353.13177632,
-        "share": 0.007830829109905672
+        "debt": 81305358.99303061,
+        "share": 0.007505776410515282
       }
     ],
     "top1": {
       "name": "stablecoins",
-      "debt": 4252930511.7878027,
-      "share": 0.39995953806614576
+      "debt": 4461248321.381497,
+      "share": 0.4118441001526904
     },
     "usdsDaiSupplyChange": {
-      "d30": 0.04218012737814503,
-      "d90": -0.0923961074855264,
-      "d365": 0.2900246377104454
+      "d30": 0.043921236171063915,
+      "d90": 0.024010207082353574,
+      "d365": 0.2813282164521136
     },
     "liquidations30dUsd": 0,
     "liquidations90dUsd": 0,
@@ -3972,10 +4000,10 @@
       "debtRepaid": 177447.32848413405
     },
     "ssrVsDsr": {
-      "ssr": 0.03600000425292382,
+      "ssr": 0.037999998803906365,
       "dsr": 0.012500001331042565
     },
-    "backstopVsFloor": 0.653878504960606,
+    "backstopVsFloor": 0.6993872406527951,
     "historicEvents": [
       {
         "date": "2020-03-12",
@@ -4007,10 +4035,6 @@
   },
   "charts": {
     "feesWeekly": [
-      {
-        "t": 1727913600,
-        "v": 5716652
-      },
       {
         "t": 1728518400,
         "v": 5735198
@@ -4422,13 +4446,13 @@
       {
         "t": 1790208000,
         "v": 6305151
+      },
+      {
+        "t": 1790812800,
+        "v": 6424127
       }
     ],
     "revenueWeekly": [
-      {
-        "t": 1727913600,
-        "v": 3029951
-      },
       {
         "t": 1728518400,
         "v": 3201439
@@ -4840,13 +4864,13 @@
       {
         "t": 1790208000,
         "v": 3172312
+      },
+      {
+        "t": 1790812800,
+        "v": 3113749
       }
     ],
     "netRevenueOfficialWeekly": [
-      {
-        "t": 1727913600,
-        "v": 1823182.7818815655
-      },
       {
         "t": 1728518400,
         "v": 2015410.0251284365
@@ -5258,13 +5282,13 @@
       {
         "t": 1790208000,
         "v": 2127378.7898266446
+      },
+      {
+        "t": 1790812800,
+        "v": 2095013.5538383662
       }
     ],
     "hrevWeekly": [
-      {
-        "t": 1727913600,
-        "v": 0
-      },
       {
         "t": 1728518400,
         "v": 0
@@ -5676,13 +5700,13 @@
       {
         "t": 1790208000,
         "v": 1390941
+      },
+      {
+        "t": 1790812800,
+        "v": 1375108
       }
     ],
     "protocolRevWeekly": [
-      {
-        "t": 1727913600,
-        "v": 3029951
-      },
       {
         "t": 1728518400,
         "v": 3201439
@@ -6094,13 +6118,13 @@
       {
         "t": 1790208000,
         "v": 1781369
+      },
+      {
+        "t": 1790812800,
+        "v": 1738640
       }
     ],
     "ssrCostWeekly": [
-      {
-        "t": 1727913600,
-        "v": 2686702
-      },
       {
         "t": 1728518400,
         "v": 2533759
@@ -6512,13 +6536,13 @@
       {
         "t": 1790208000,
         "v": 3132839
+      },
+      {
+        "t": 1790812800,
+        "v": 3310378
       }
     ],
     "stableSupplyWeekly": [
-      {
-        "t": 1728518400,
-        "v": 5893317994.153506
-      },
       {
         "t": 1729123200,
         "v": 5795494703.257688
@@ -6929,14 +6953,14 @@
       },
       {
         "t": 1790812800,
-        "v": 9975214138.203848
+        "v": 10197872719.295122
+      },
+      {
+        "t": 1791417600,
+        "v": 10246740577.073608
       }
     ],
     "usdsWeekly": [
-      {
-        "t": 1728518400,
-        "v": 1168009519.0615747
-      },
       {
         "t": 1729123200,
         "v": 1210312158.2493463
@@ -7347,7 +7371,11 @@
       },
       {
         "t": 1790812800,
-        "v": 6046297233.68798
+        "v": 6301653869.217883
+      },
+      {
+        "t": 1791417600,
+        "v": 6368438592.829342
       }
     ],
     "susdsWeekly": [],
@@ -7747,6 +7775,10 @@
       {
         "t": 1790208000,
         "v": 9801344.086676922
+      },
+      {
+        "t": 1790812800,
+        "v": 8588428.750427518
       }
     ],
     "buybackUsdsMonthly": [
@@ -7867,8 +7899,8 @@
       },
       {
         "month": "2026-10",
-        "usds": 445500,
-        "sky": 445500
+        "usds": 1201200,
+        "sky": 1201200
       }
     ],
     "settlementsMonthly": [
@@ -7970,10 +8002,6 @@
       }
     ],
     "backstopWeekly": [
-      {
-        "t": 1728518400,
-        "v": 0
-      },
       {
         "t": 1729123200,
         "v": 0
@@ -8384,14 +8412,14 @@
       },
       {
         "t": 1790812800,
-        "v": 98081775.7440909
+        "v": 96715379.54907675
+      },
+      {
+        "t": 1791417600,
+        "v": 104908086.09791927
       }
     ],
     "coreSurplusWeekly": [
-      {
-        "t": 1728518400,
-        "v": 38300042.324864805
-      },
       {
         "t": 1729123200,
         "v": 39814755.656904355
@@ -8802,15 +8830,15 @@
       },
       {
         "t": 1790812800,
-        "v": -58927868.41572337
+        "v": -60284620.45092326
+      },
+      {
+        "t": 1791417600,
+        "v": -52098610.76959865
       }
     ],
     "runRateWeekly": {
       "stabilityFee": [
-        {
-          "t": 1728518400,
-          "v": 294179231.12538385
-        },
         {
           "t": 1729123200,
           "v": 290470195.9055265
@@ -9221,14 +9249,14 @@
         },
         {
           "t": 1790812800,
-          "v": 335018468.02627546
+          "v": 349984010.30915713
+        },
+        {
+          "t": 1791417600,
+          "v": 358830486.36526024
         }
       ],
       "ssrCost": [
-        {
-          "t": 1728518400,
-          "v": 131627669.89966762
-        },
         {
           "t": 1729123200,
           "v": 131956979.14668134
@@ -9639,14 +9667,14 @@
         },
         {
           "t": 1790812800,
-          "v": 170598597.26471382
+          "v": 189916012.96804368
+        },
+        {
+          "t": 1791417600,
+          "v": 193276042.5078932
         }
       ],
       "netRevenue": [
-        {
-          "t": 1728518400,
-          "v": 105184997.1086701
-        },
         {
           "t": 1729123200,
           "v": 100969247.23549615
@@ -10057,50 +10085,54 @@
         },
         {
           "t": 1790812800,
-          "v": 112911631.57986633
+          "v": 108559758.15941815
+        },
+        {
+          "t": 1791417600,
+          "v": 114139716.89740011
         }
       ]
     },
     "revenueByGroup": [
       {
         "name": "stablecoins",
-        "revenueAnnual": 142473172.11303976,
-        "debt": 4252930511.7878027,
-        "collateral": 4253716246.5015097,
-        "share": 0.4377312588447792,
-        "yieldOnDebt": 0.033499999992510666
+        "revenueAnnual": 160604939.5355053,
+        "debt": 4461248321.381497,
+        "collateral": 4462034056.095204,
+        "share": 0.46128663416692334,
+        "yieldOnDebt": 0.03599999999232757
       },
       {
         "name": "spark",
-        "revenueAnnual": 84669971.47613281,
-        "debt": 3681303107.657948,
-        "collateral": 3681303107.657948,
-        "share": 0.2601380502091525,
-        "yieldOnDebt": 0.023000000000000003
+        "revenueAnnual": 84443841.70492417,
+        "debt": 3671471378.4749637,
+        "collateral": 3671471378.4749637,
+        "share": 0.24253809147369065,
+        "yieldOnDebt": 0.023
       },
       {
         "name": "grove",
-        "revenueAnnual": 46079445.50604382,
-        "debt": 1826649929.59505,
-        "collateral": 1826649929.59505,
-        "share": 0.14157341616726649,
-        "yieldOnDebt": 0.025226204955570864
+        "revenueAnnual": 46126877.74646628,
+        "debt": 1828406679.240326,
+        "collateral": 1828406679.240326,
+        "share": 0.13248479306947267,
+        "yieldOnDebt": 0.025227909233864355
       },
       {
         "name": "core",
-        "revenueAnnual": 36495953.949481376,
-        "debt": 385086528.3076845,
-        "collateral": 1678173681.1551747,
-        "share": 0.11212931970358954,
-        "yieldOnDebt": 0.09477338537358823
+        "revenueAnnual": 40420976.91987178,
+        "debt": 385776361.97599643,
+        "collateral": 1567113656.2799335,
+        "share": 0.11609640679192502,
+        "yieldOnDebt": 0.10477826249599717
       },
       {
         "name": "obex",
-        "revenueAnnual": 15762375.291,
+        "revenueAnnual": 16570702.229,
         "debt": 404163469,
         "collateral": 404163469,
-        "share": 0.048427955075212255,
-        "yieldOnDebt": 0.039
+        "share": 0.0475940744979883,
+        "yieldOnDebt": 0.041
       },
       {
         "name": "keel",
@@ -10111,97 +10143,55 @@
         "yieldOnDebt": null
       },
       {
+        "name": "legacy-rwa",
+        "revenueAnnual": 0,
+        "debt": 81305358.99303061,
+        "collateral": 81305358.99303061,
+        "share": 0,
+        "yieldOnDebt": 0
+      },
+      {
         "name": "osero",
         "revenueAnnual": 0,
         "debt": 0,
         "collateral": 0,
         "share": 0,
         "yieldOnDebt": null
-      },
-      {
-        "name": "legacy-rwa",
-        "revenueAnnual": 0,
-        "debt": 83268353.13177632,
-        "collateral": 83268353.13177632,
-        "share": 0,
-        "yieldOnDebt": 0
       }
     ],
     "debtByGroup": [
       {
         "name": "stablecoins",
-        "debt": 4252930511.7878027,
-        "share": 0.39995953806614576
+        "debt": 4461248321.381497,
+        "share": 0.4118441001526904
       },
       {
         "name": "spark",
-        "debt": 3681303107.657948,
-        "share": 0.34620182162379115
+        "debt": 3671471378.4749637,
+        "share": 0.3389351403860301
       },
       {
         "name": "grove",
-        "debt": 1826649929.59505,
-        "share": 0.17178415213331988
+        "debt": 1828406679.240326,
+        "share": 0.16879098612733498
       },
       {
         "name": "obex",
         "debt": 404163469,
-        "share": 0.038008858577964086
+        "share": 0.037310709517588594
       },
       {
         "name": "core",
-        "debt": 385086528.3076845,
-        "share": 0.036214800488873336
+        "debt": 385776361.97599643,
+        "share": 0.035613287405840514
       },
       {
         "name": "legacy-rwa",
-        "debt": 83268353.13177632,
-        "share": 0.007830829109905672
+        "debt": 81305358.99303061,
+        "share": 0.007505776410515282
       }
     ],
     "groupsDebtHistory": [
-      {
-        "t": 1759622400,
-        "debt": 8655941145.65152,
-        "collateral": 12675031599.753366,
-        "revenue": 394673065.13603985
-      },
-      {
-        "t": 1759708800,
-        "debt": 8607408838.000866,
-        "collateral": 12818620265.535553,
-        "revenue": 397046137.4991229
-      },
-      {
-        "t": 1759795200,
-        "debt": 8658860904.449753,
-        "collateral": 12673716077.99483,
-        "revenue": 402047884.4301133
-      },
-      {
-        "t": 1759881600,
-        "debt": 8672168578.67495,
-        "collateral": 12707002311.537865,
-        "revenue": 396908300.8956278
-      },
-      {
-        "t": 1759968000,
-        "debt": 8736468854.111343,
-        "collateral": 12618151054.759178,
-        "revenue": 396678700.6845122
-      },
-      {
-        "t": 1760054400,
-        "debt": 8747920313.904598,
-        "collateral": 11734947042.911413,
-        "revenue": 390367271.93401235
-      },
-      {
-        "t": 1760140800,
-        "debt": 8750941175.651451,
-        "collateral": 12035873114.000776,
-        "revenue": 381387422.60630333
-      },
       {
         "t": 1760227200,
         "debt": 8924970005.170483,
@@ -12352,15 +12342,57 @@
       },
       {
         "t": 1791158400,
-        "debt": 10793427901.000021,
-        "collateral": 13623836454.63148,
-        "revenue": 335018468.02627546
+        "debt": 10713003644.61648,
+        "collateral": 13389177841.300972,
+        "revenue": 332045503.3557831
+      },
+      {
+        "t": 1791244800,
+        "debt": 10774902622.696999,
+        "collateral": 13456800316.543343,
+        "revenue": 334078542.4346448
+      },
+      {
+        "t": 1791331200,
+        "debt": 10804112881.170174,
+        "collateral": 13213882654.732292,
+        "revenue": 349984010.30915713
+      },
+      {
+        "t": 1791417600,
+        "debt": 10735209373.23385,
+        "collateral": 13042903546.221958,
+        "revenue": 349090979.5460145
+      },
+      {
+        "t": 1791504000,
+        "debt": 10723018989.091175,
+        "collateral": 13037481018.07731,
+        "revenue": 351060415.0038244
+      },
+      {
+        "t": 1791590400,
+        "debt": 10711753276.952381,
+        "collateral": 13075017513.127508,
+        "revenue": 349514253.1573474
+      },
+      {
+        "t": 1791676800,
+        "debt": 10809024650.190609,
+        "collateral": 13236993845.562622,
+        "revenue": 352235402.83451396
+      },
+      {
+        "t": 1791763200,
+        "debt": 10992719662.742397,
+        "collateral": 13422341058.658306,
+        "revenue": 358830486.36526024
       }
     ],
     "opexMonthly": [
       {
         "month": "2025-10",
-        "usd": 1640126.9610820233
+        "usd": 1335106.001001
       },
       {
         "month": "2025-11",
@@ -12479,9 +12511,9 @@
       "metric": "SKY 价格",
       "sourceA": "CoinGecko",
       "sourceB": "coins.llama",
-      "valueA": 0.09565,
-      "valueB": 0.09574992612479352,
-      "deviation": 0.0010436156855440958,
+      "valueA": 0.080318,
+      "valueB": 0.08057603788953638,
+      "deviation": 0.0032024147165206616,
       "thresholdPct": 2,
       "status": "ok",
       "signFlip": false,
@@ -12493,8 +12525,8 @@
       "sourceA": "链上 totalSupply",
       "sourceB": "CoinGecko total_supply",
       "valueA": 23459804203.605965,
-      "valueB": 23459804203.60596,
-      "deviation": 1.626056736244478e-16,
+      "valueB": 23459804203.605965,
+      "deviation": 0,
       "thresholdPct": 0.5,
       "status": "ok",
       "signFlip": false,
@@ -12505,9 +12537,9 @@
       "metric": "Sky 核心净盈余",
       "sourceA": "链上 vat.dai−vat.sin(vow)",
       "sourceB": "官方 buffer.sky_surplus",
-      "valueA": -58927868.415723324,
-      "valueB": -58927868.41572337,
-      "deviation": 7.586136200646112e-16,
+      "valueA": -52098610.7695986,
+      "valueB": -52098610.76959865,
+      "deviation": 8.580551942016275e-16,
       "thresholdPct": 2,
       "status": "ok",
       "signFlip": false,
@@ -12518,9 +12550,9 @@
       "metric": "持有人收益(近7天)",
       "sourceA": "DefiLlama holdersRevenue",
       "sourceB": "链上 Splitter 实际频次×7",
-      "valueA": 1377803,
-      "valueB": 1201912.0976309977,
-      "deviation": 0.1276604147102324,
+      "valueA": 1367558,
+      "valueB": 1201116.3474776514,
+      "deviation": 0.12170719817539627,
       "thresholdPct": 15,
       "status": "ok",
       "signFlip": false,
@@ -12544,8 +12576,8 @@
       "metric": "质押 SKY 量",
       "sourceA": "链上 lsSKY totalSupply",
       "sourceB": "官方 lsev2.total_sky",
-      "valueA": 17447952421.338367,
-      "valueB": 17447952421.338367,
+      "valueA": 17495345290.385216,
+      "valueB": 17495345290.385216,
       "deviation": 0,
       "thresholdPct": 2,
       "status": "ok",
@@ -12557,9 +12589,9 @@
       "metric": "净收入：运行率 vs 实收",
       "sourceA": "官方净收入运行率 近90天",
       "sourceB": "MSC 近3月结算(实收)",
-      "valueA": 25159436.735205542,
+      "valueA": 25329833.224375542,
       "valueB": 44682479.186885454,
-      "deviation": 0.4369283622339834,
+      "deviation": 0.4331148654837849,
       "thresholdPct": 30,
       "status": "warn",
       "signFlip": false,
@@ -12570,9 +12602,9 @@
       "metric": "总费用运行率(同窗)",
       "sourceA": "DefiLlama fees 近7天×52",
       "sourceB": "官方 gross 年化",
-      "valueA": 329179396,
-      "valueB": 336597840.0275901,
-      "deviation": 0.022039487915258234,
+      "valueA": 342944472,
+      "valueB": 360337874.12822217,
+      "deviation": 0.048269702901207995,
       "thresholdPct": 5,
       "status": "ok",
       "signFlip": false,
@@ -12582,8 +12614,8 @@
   ],
   "checks": [
     {
-      "level": "OK",
-      "msg": "DefiLlama 序列覆盖到 2026-10-04（滞后 1 天）"
+      "level": "WARN",
+      "msg": "DefiLlama 有效数据末点滞后 2 天（覆盖到 2026-10-10）"
     },
     {
       "level": "INFO",
@@ -12607,15 +12639,11 @@
     },
     {
       "level": "WARN",
-      "msg": "核心自有盈余为负 $-58.9M，资本 $97M 在 Spark/Grove/Obex 手里（后果见看板·风险）"
+      "msg": "核心自有盈余为负 $-52.1M，资本 $97M 在 Spark/Grove/Obex 手里（后果见看板·风险）"
     },
     {
       "level": "WARN",
-      "msg": "后备资本 $98.1M 未到 $150M 地板（65%），持有人只拿净收入的 40%，约 9 个月补满"
-    },
-    {
-      "level": "WARN",
-      "msg": "USDS+DAI 供应近 90 天 -9.2%（规模缩水 = 收入基数缩水）"
+      "msg": "后备资本 $104.9M 未到 $150M 地板（70%），持有人只拿净收入的 40%，约 8 个月补满"
     },
     {
       "level": "OK",
@@ -12623,7 +12651,7 @@
     },
     {
       "level": "OK",
-      "msg": "SKY 价格 独立源一致（偏差 0.10%，CoinGecko vs coins.llama）"
+      "msg": "SKY 价格 独立源一致（偏差 0.32%，CoinGecko vs coins.llama）"
     },
     {
       "level": "OK",
@@ -12635,7 +12663,7 @@
     },
     {
       "level": "OK",
-      "msg": "持有人收益(近7天) 独立源一致（偏差 12.77%，DefiLlama holdersRevenue vs 链上 Splitter 实际频次×7）"
+      "msg": "持有人收益(近7天) 独立源一致（偏差 12.17%，DefiLlama holdersRevenue vs 链上 Splitter 实际频次×7）"
     },
     {
       "level": "OK",
@@ -12647,11 +12675,11 @@
     },
     {
       "level": "INFO",
-      "msg": "净收入：运行率 vs 实收 口径差 43.7%（官方净收入运行率 近90天=$25.16M vs MSC 近3月结算(实收)=$44.68M）—— 运行率不含 Agent 月结净额与一次性项，月结实收为准"
+      "msg": "净收入：运行率 vs 实收 口径差 43.3%（官方净收入运行率 近90天=$25.33M vs MSC 近3月结算(实收)=$44.68M）—— 运行率不含 Agent 月结净额与一次性项，月结实收为准"
     },
     {
       "level": "OK",
-      "msg": "总费用运行率(同窗) 同源换算一致（偏差 2.20%，DefiLlama fees 近7天×52 vs 官方 gross 年化）"
+      "msg": "总费用运行率(同窗) 同源换算一致（偏差 4.83%，DefiLlama fees 近7天×52 vs 官方 gross 年化）"
     }
   ],
   "coverage": [
