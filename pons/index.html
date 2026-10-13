@@ -215,16 +215,16 @@ fetch("./data.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.json()).
 
   // 1 项目情况
   document.getElementById("bizCards").innerHTML =
-    card("平台成交量（近 7 天，官方）", fmtUsd(W.volumeOfficial?.week), `环比${chg(W.volumeOfficial?.change?.week)} · 近 30 天 ${fmtUsd(W.volumeOfficial?.month)}${chg(W.volumeOfficial?.change?.month)} · 累计 ${fmtUsd(i.officialTotals?.volumeUsdAllTime)}`) +
-    card("手续费（近 7 天，用户付）", fmtUsd(W.fees?.week), `环比${chg(W.fees?.change?.week)} · 近 30 天 ${fmtUsd(W.fees?.month)}${chg(W.fees?.change?.month)} · 取费率 ${fmtPct(R.takeRateOnOfficialVolume28d, 2)}`) +
-    card("协议收入（近 7 天）", fmtUsd(W.revenue?.week), `环比${chg(W.revenue?.change?.week)} · 近 30 天 ${fmtUsd(W.revenue?.month)}${chg(W.revenue?.change?.month)} · 占手续费 ${fmtPct(R.revenueOverFees28d)}`) +
-    card("买回销毁（近 7 天）", fmtUsd(W.holdersRevenue?.week), `环比${chg(W.holdersRevenue?.change?.week)} · 近 30 天 ${fmtUsd(W.holdersRevenue?.month)} · 占协议收入 ${fmtPct(R.hrOverRevenue28d)}（同窗 28 天，政策 80%）`, R.hrOverRevenue28d != null && R.hrOverRevenue28d < 0.6 ? "caution" : "") +
+    card("平台成交量（周·自然周，官方）", fmtUsd(W.volumeOfficial?.week), `环比${chg(W.volumeOfficial?.change?.week)} · 近 30 天 ${fmtUsd(W.volumeOfficial?.month)}${chg(W.volumeOfficial?.change?.month)} · 累计 ${fmtUsd(i.officialTotals?.volumeUsdAllTime)}`) +
+    card("手续费（周·自然周，用户付）", fmtUsd(W.fees?.week), `环比${chg(W.fees?.change?.week)} · 近 30 天 ${fmtUsd(W.fees?.month)}${chg(W.fees?.change?.month)} · 取费率 ${fmtPct(R.takeRateOnOfficialVolume28d, 2)}`) +
+    card("协议收入（周·自然周）", fmtUsd(W.revenue?.week), `环比${chg(W.revenue?.change?.week)} · 近 30 天 ${fmtUsd(W.revenue?.month)}${chg(W.revenue?.change?.month)} · 占手续费 ${fmtPct(R.revenueOverFees28d)}`) +
+    card("买回销毁（周·自然周）", fmtUsd(W.holdersRevenue?.week), `环比${chg(W.holdersRevenue?.change?.week)} · 近 30 天 ${fmtUsd(W.holdersRevenue?.month)} · 占协议收入 ${fmtPct(R.hrOverRevenue28d)}（同窗 28 天，政策 80%）`, R.hrOverRevenue28d != null && R.hrOverRevenue28d < 0.6 ? "caution" : "") +
     card(`运营留存（${i.win28.from.slice(5)}~${i.win28.to.slice(5)}，自算）`, fmtUsd(R.opsRetained28d), `= 同窗协议收入 ${fmtUsd(i.win28.revenue)} − 销毁 ${fmtUsd(i.win28.holdersRevenue)} · 含管道在途 ${fmtUsd(v.buyback.pipeline?.totalUsd)} · 累计 ${fmtUsd(R.opsRetainedAllTime)}`) +
-    card("发币数（近 7 天）", fmtNum(W.launches?.week), `环比${chg(W.launches?.change?.week)} · 近 30 天 ${fmtNum(W.launches?.month)} · 累计 ${fmtNum(i.officialTotals?.launchesAllTime)} · 开发者 ${fmtNum(i.officialTotals?.uniqueDevelopers)}`) +
+    card("发币数（周·自然周）", fmtNum(W.launches?.week), `环比${chg(W.launches?.change?.week)} · 近 30 天 ${fmtNum(W.launches?.month)} · 累计 ${fmtNum(i.officialTotals?.launchesAllTime)} · 开发者 ${fmtNum(i.officialTotals?.uniqueDevelopers)}`) +
     card("V2 占协议收入（同窗 28 天）", fmtPct(R.v1ShareOfRevenue28d != null ? 1 - R.v1ShareOfRevenue28d : null), `V1 ${fmtUsd(i.win28.v1Revenue)} / V2 ${fmtUsd(i.win28.v2Revenue)} · V2 审计无终稿（见风险）`) +
     card("创作者等分成（近 30 天）", fmtUsd(W.supplySideRevenue?.month), `占手续费 ${fmtPct(R.supplySideOverFees28d)}（同窗 28 天）· 创作者份额 + 创作者税 + meme 回购 + Uniswap 分成`);
   const rows = [["volumeOfficial", "平台成交量（官方 Dune，全口径）"], ["volume", "成交量（DefiLlama，仅 V2 curve）"], ["fees", "手续费（用户付）"], ["revenue", "协议收入"], ["holdersRevenue", "买回销毁（持有人收益）"], ["supplySideRevenue", "创作者等分成"]];
-  document.getElementById("incomeTable").innerHTML = `<tr><th>口径</th><th>近 7 天</th><th>近 30 天</th><th>年（上线以来累计）</th></tr>` +
+  document.getElementById("incomeTable").innerHTML = `<tr><th>口径</th><th>周（自然周）</th><th>近 30 天</th><th>年（上线以来累计）</th></tr>` +
     rows.map(([k, n]) => { const w = W[k]; return `<tr><td>${n}</td><td>${fmtUsd(w?.week)}${chg(w?.change?.week)}</td><td>${fmtUsd(w?.month)}${chg(w?.change?.month)}</td><td>${fmtUsd(w?.year)}</td></tr>`; }).join("") +
     `<tr><td colspan="4" style="text-align:left;color:var(--muted);font-size:12px">环比 = 与上一个同长度窗口比，各口径按自身有效末日锚定。DefiLlama 覆盖到 ${i.coverage.llama?.coveredThrough}；官方 Dune 有效到 ${i.coverage.official?.latestDay || "n/a"}。比率与收支表统一用同窗 ${i.win28.from}~${i.win28.to}。上线 ${v.valuation.weeksOfData} 周，年环比不可算。</td></tr>`;
   const vw = ch.volumeOfficialWeekly;
@@ -241,7 +241,7 @@ fetch("./data.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.json()).
     card("流通量", fmtTok(sd.circulating), `= 总量 − dead · CoinGecko ${fmtTok(t.cgCirculating)} · 持有地址 ${fmtNum(t.holdersCount)}`) +
     card("近 28 天销毁占流通（不年化）", fmtPct(sd.burn28dPctOfCirc, 2), `${fmtTok(sd.burn28dTokens)} ÷ 流通 · 无增发无解锁，净通缩 = 销毁`, sd.burn28dPctOfCirc != null ? "good" : "") +
     card("净通缩率（年化）", fmtPct(sd.netDeflationRate), `近 28 天枚数×365/28 ÷ 流通，即当前烧币速度外推一年 · 近 4 周单周外推区间 ${fmtPct(sd.netDeflationRateRange?.min, 0)}–${fmtPct(sd.netDeflationRateRange?.max, 0)}（币价 4 周翻倍，同样美元买到的枚数差一倍，只能当当前速度不能当预测）· 无增发无解锁`) +
-    card("近 7 天销毁", `${fmtTok(sd.burn7dTokens)}`, `${v.buyback.seriesSource || "归档序列未采到"} · 窗口 ${v.buyback.window7?.from || ""}~${v.buyback.window7?.to || ""}`) +
+    card("周销毁（自然周）", `${fmtTok(sd.burn7dTokens)}`, `${v.buyback.seriesSource || "归档序列未采到"} · 窗口 ${v.buyback.window7?.from || ""}~${v.buyback.window7?.to || ""}`) +
     card("增发 / 解锁", "无", sd.unlockNote);
   barChart("burnChart", ch.burnWeeklyTokens.map(p => fmtDate(p.t)), [{ label: "销毁 PONS", data: ch.burnWeeklyTokens.map(p => p.v), backgroundColor: C.red + "cc" }], tokAxis);
   const comp = (ho.composition || []).filter(x => x.tokens > 0);
@@ -265,7 +265,7 @@ fetch("./data.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.json()).
   lineChart("ratioChart", ch.hrRatioWeekly.map(p => fmtDate(p.t)), [{ label: "销毁 ÷ 协议收入", data: ch.hrRatioWeekly.map(p => p.v != null && p.v > 1.5 ? null : p.v), borderColor: C.yellow, spanGaps: false }, { label: "政策 80%", data: ch.hrRatioWeekly.map(() => 0.8), borderColor: C.gray, borderDash: [4, 4] }], pctAxis);
   document.getElementById("vcNotes").innerHTML =
     li("INFO", `${bb.executionNote}。近 28 天 销毁 ÷ 协议收入 = ${fmtPct(R.hrOverRevenue28d)}，上线以来累计 ${fmtPct(R.hrOverRevenueAllTime)}（7–8 月 V2 收入起量时回购滞后拉低了累计值）。`) +
-    li("INFO", `近 7 天：链上 ${fmtTok(bb.tokens7d)} ≈ ${fmtUsd(bb.usd7dChain)}，DefiLlama ${fmtUsd(bb.usd7dLlama)}。`);
+    li("INFO", `周（自然周）：链上 ${fmtTok(bb.tokens7d)} ≈ ${fmtUsd(bb.usd7dChain)}，DefiLlama ${fmtUsd(bb.usd7dLlama)}。`);
 
   // 4 金库：流向图 + 收支表 / 存量表 / 表外事项
   const h = tr.holdings, lg = tr.ledger, pp2 = v.buyback.pipeline;
