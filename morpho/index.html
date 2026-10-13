@@ -102,7 +102,7 @@
     <div class="chart-box"><h3>存款净流入（周）</h3><div class="cv"><canvas id="depositFlowChart"></canvas></div></div>
   </div>
 
-  <h2 id="sec2">💵 收入与利率 <span class="sub-h">· 钱从哪来：资金价格（APY / 利差）+ 用户付的手续费（近7天/30天/1年滚动窗口）</span></h2>
+  <h2 id="sec2">💵 收入与利率 <span class="sub-h">· 钱从哪来：资金价格（APY / 利差）+ 用户付的手续费（周=自然周 / 近30天 / 近1年滚动窗口）</span></h2>
   <div class="grid" id="rates"></div>
   <div class="grid" id="feesPeriods"></div>
   <div class="grid2">
@@ -420,7 +420,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
       `= 借款 ${fmtPct(ap.borrowApy)} − 供给 ${fmtPct(ap.supplyApy)}（占借款 ${fmtPct(ap.spreadRatio)}）· 协议抽 0，去向 = 利用率结构 + curator 费${ap.curatorFee != null ? `（加权 ${fmtPct(ap.curatorFee)}）` : ""}`);
   // 手续费一行（近 7天 / 30天 / 1年 滚动窗口，非自然周期）
   if (pr) document.getElementById("feesPeriods").innerHTML =
-    card("近 7 天手续费", fmtUsd(pr.fees.week), "滚动窗口 · 环比前 7 天 " + wowBadge(pr.feesChange?.week)) +
+    card("周手续费（自然周）", fmtUsd(pr.fees.week), "自然周 · 环比上一周 " + wowBadge(pr.feesChange?.week)) +
     card("近 30 天手续费", fmtUsd(pr.fees.month), "滚动窗口 · 环比前 30 天 " + wowBadge(pr.feesChange?.month)) +
     card("近 1 年手续费", fmtUsd(pr.fees.year), "滚动窗口 · 环比前 1 年 " + wowBadge(pr.feesChange?.year));
 
