@@ -215,7 +215,7 @@ fetch("./data.json").then(r => r.json()).then(d => {
 
   // 2 赚钱能力
   const rows = [["fees", "总费用（用户付：稳定费+清算+PSM）"], ["netRevenueOfficial", "净收入（官方：扣 SSR 成本与 dai_expenses）"], ["revenue", "净收入（DefiLlama 口径，未扣 dai_expenses，仅参考）"], ["holdersRevenue", "持有人收益（回购+USDS 奖励）"], ["protocolRevenue", "协议留存（DefiLlama：revenue − 持有人）"], ["supplySideRevenue", "付给储户（SSR 成本）"]];
-  document.getElementById("incomeTable").innerHTML = `<tr><th>口径</th><th>近 7 天</th><th>近 30 天</th><th>近 365 天</th></tr>` +
+  document.getElementById("incomeTable").innerHTML = `<tr><th>口径</th><th>周（自然周）</th><th>近 30 天</th><th>近 365 天</th></tr>` +
     rows.map(([k, n]) => { const w = W[k]; return `<tr><td>${n}</td><td>${fmtUsd(w?.week)}${chg(w?.change?.week)}</td><td>${fmtUsd(w?.month)}${chg(w?.change?.month)}</td><td>${fmtUsd(w?.year)}${chg(w?.change?.year)}</td></tr>`; }).join("") +
     `<tr><td colspan="4" style="text-align:left;color:var(--muted);font-size:12px">环比 = 与上一个同长度窗口比。DefiLlama 口径 = 官方年化运行率 ÷365，覆盖到 ${i.coverage.fees?.coveredThrough}${i.coverage.fees?.trimmedDays ? `，末尾 ${i.coverage.fees.trimmedDays} 天占位已剔除` : ""}</td></tr>`;
   const st = i.settlements;
