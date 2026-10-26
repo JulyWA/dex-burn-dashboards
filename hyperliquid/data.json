@@ -1,215 +1,215 @@
 {
-  "generatedAt": "2026-10-19T03:00:24.690Z",
+  "generatedAt": "2026-10-26T03:00:16.894Z",
   "volume": {
-    "cumulativeAllPlatform": 5863363259734.621,
+    "cumulativeAllPlatform": 5917210651727.192,
     "daily": {
-      "allPlatform": 6735818075.08359,
-      "mainPerp": 4797444852.597126,
-      "hip3": 1791395393.4045622,
+      "allPlatform": 4967430819.486872,
+      "mainPerp": 3658528446.6188226,
+      "hip3": 1260693415.1913676,
       "hip3Top": [
         {
           "dex": "xyz",
-          "vol24h": 1730627581.3789473
+          "vol24h": 1223772225.1592426
         },
         {
           "dex": "io",
-          "vol24h": 39472609.08617601
+          "vol24h": 29502152.131337006
         },
         {
           "dex": "para",
-          "vol24h": 18955591.525731
+          "vol24h": 5303175.583841999
         }
       ],
-      "spotOfficial": 125615842.81951094,
-      "spotDefiLlama": 109598809,
-      "hip3Share24h": 0.27188326420444575,
-      "hip3ShareSmooth": 0.19754631346742466,
+      "spotOfficial": 57943325.20995116,
+      "spotDefiLlama": 43955760,
+      "hip3Share24h": 0.25627903164494675,
+      "hip3ShareSmooth": 0.21679568022127593,
       "hip3ShareSmoothPoints": 4
     },
     "windows": {
       "allPlatform": {
         "week": {
-          "value": 112267233287.79199,
-          "actualDays": 14
+          "value": 53847391992.57129,
+          "actualDays": 7
         },
         "month": {
-          "value": 296242151743.7744,
+          "value": 286282604518.70996,
           "actualDays": 35
         },
         "year": null
       },
       "perpDerived": {
         "week": {
-          "value": 110591310306.79199,
-          "actualDays": 14
+          "value": 53134702446.57129,
+          "actualDays": 7
         },
         "month": {
-          "value": 291212426635.7744,
+          "value": 281991879498.70996,
           "actualDays": 35
         },
         "year": null
       },
       "spot": {
-        "week": 931747396,
+        "week": 817185282,
         "weekRange": {
-          "start": 1791763200,
-          "end": 1792368000,
+          "start": 1792368000,
+          "end": 1792972800,
           "complete": true
         },
-        "month": 4085293172,
-        "year": 57813793253,
-        "allTime": 171366245111,
+        "month": 3649985608,
+        "year": 56889819536,
+        "allTime": 172183430393,
         "change": {
-          "week": 0.07953012099863903,
-          "month": -0.2692481686685985,
-          "year": -0.49050733951116987
+          "week": -0.12295404794455685,
+          "month": -0.28895776078533547,
+          "year": -0.5061410008284571
         },
         "yoyAvailable": true,
-        "yoy30d": -0.7585183538144372
+        "yoy30d": -0.737408151649624
       }
     },
-    "nUsers": 2782362,
+    "nUsers": 2840287,
     "note": "全平台窗口=官方累计量自建归档差分(积累中→null)；spot 有完整日序；HIP-3(xyz 股票市场)已占日成交量约一半"
   },
   "feesRevenue": {
     "fees": {
-      "week": 20800054,
+      "week": 19038894,
       "weekRange": {
-        "start": 1791763200,
-        "end": 1792368000,
+        "start": 1792368000,
+        "end": 1792972800,
         "complete": true
       },
-      "month": 84861023,
-      "year": 906686574.6899998,
-      "allTime": 1674681066.6900005,
+      "month": 79650420,
+      "year": 903269822.6899998,
+      "allTime": 1693719960.6900005,
       "change": {
-        "week": 0.16267776067055925,
-        "month": -0.1785449703551818,
+        "week": -0.08467093402738281,
+        "month": -0.15650416631265268,
         "year": null
       },
       "yoyAvailable": false,
-      "yoy30d": -0.3128662160901521
+      "yoy30d": -0.32204216472046554
     },
     "holdersRevenue": {
-      "week": 16406238,
+      "week": 14737175,
       "weekRange": {
-        "start": 1791763200,
-        "end": 1792368000,
+        "start": 1792368000,
+        "end": 1792972800,
         "complete": true
       },
-      "month": 68427801,
-      "year": 690096628,
-      "allTime": 1355010513,
+      "month": 63489564,
+      "year": 687251235,
+      "allTime": 1369747688,
       "change": {
-        "week": 0.14012848671091324,
-        "month": -0.1861919559785987,
+        "week": -0.10173343822026719,
+        "month": -0.17286023897142452,
         "year": null
       },
       "yoyAvailable": false,
-      "yoy30d": -0.2913805431759773
+      "yoy30d": -0.30918279724306225
     },
     "perpFees": {
-      "week": 19933337,
+      "week": 18384216,
       "weekRange": {
-        "start": 1791763200,
-        "end": 1792368000,
+        "start": 1792368000,
+        "end": 1792972800,
         "complete": true
       },
-      "month": 81873658,
-      "year": 869367318,
-      "allTime": 1583263379,
+      "month": 76922662,
+      "year": 866484900,
+      "allTime": 1601647595,
       "change": {
-        "week": 0.1497120981086451,
-        "month": -0.17682064694542268,
+        "week": -0.07771508603903099,
+        "month": -0.15390483932304785,
         "year": null
       },
       "yoyAvailable": false,
-      "yoy30d": -0.2819692629046139
+      "yoy30d": -0.296866861420737
     },
-    "holdersShare30d": 0.8063513563818339,
+    "holdersShare30d": 0.7971026894773436,
     "sources": {
       "m30": {
-        "perp": 81873658,
-        "spot": 2397257,
-        "other": 590108,
-        "perpShare": 0.9647969716320766,
-        "spotShare": 0.028249211655155277,
-        "otherShare": 0.006953816712768122
+        "perp": 76922662,
+        "spot": 2175036,
+        "other": 552722,
+        "perpShare": 0.965753375813963,
+        "spotShare": 0.027307275969166264,
+        "otherShare": 0.00693934821687067
       },
       "allTime": {
-        "perp": 1583263379,
-        "spot": 67825991,
-        "other": 23591696.690000534,
-        "perpShare": 0.9454118819945297,
-        "spotShare": 0.040500840637111735,
-        "otherShare": 0.01408727736835851
+        "perp": 1601647595,
+        "spot": 68344104,
+        "other": 23728261.690000534,
+        "perpShare": 0.9456389675820486,
+        "spotShare": 0.040351478158264995,
+        "otherShare": 0.014009554259686433
       }
     },
     "protocolRevenueNote": "protocolRevenue=0(协议不留存)；holdersRevenue=进AF回购部分=持币人价值捕获现金流",
     "destinations": {
-      "af": 68427801,
-      "hlpEst": 691189.9090909091,
-      "ecoEst": 15742032.090909092,
-      "afShare": 0.8063513563818339,
-      "hlpShare": 0.0081449631957761,
-      "ecoShare": 0.18550368042239004,
+      "af": 63489564,
+      "hlpEst": 641308.7272727273,
+      "ecoEst": 15519547.272727273,
+      "afShare": 0.7971026894773436,
+      "hlpShare": 0.008051542317952966,
+      "ecoShare": 0.19484576820470342,
       "note": "AF=实测；HLP 按 99:1 规则推算；生态分成=残差推断。旁路直接销毁(spot HYPE 费+gas)量级<1%未列。协议留存=0"
     }
   },
-  "tvl": 6944617852.169003,
+  "tvl": 8197299399.045999,
   "burn": {
     "onchain": {
-      "totalTokens": 1154694.7660366297,
-      "annualTokens": 1033648.8784371692,
+      "totalTokens": 1172128.4518640041,
+      "annualTokens": 1032077.3791281667,
       "rateWindowDays": 91,
-      "lifetimeAvgAnnualTokens": 611592.1200314454
+      "lifetimeAvgAnnualTokens": 614583.2589242548
     },
     "af": {
-      "tokens": 48124939.76473923,
-      "costUsd": 1374804662.7014635,
-      "valueUsd": 3820711155.3322945,
-      "annualTokensMeasured": 9937194.929365082,
-      "usdcUsd": 45649.22898328
+      "tokens": 48264656.45473923,
+      "costUsd": 1385756462.4163635,
+      "valueUsd": 3639396419.9696116,
+      "annualTokensMeasured": 9086256.350793619,
+      "usdcUsd": 4877.83008828
     },
     "buyback": {
-      "annualTokens": 9937194.929365082,
-      "annualUsd": 827853546.8469793,
+      "annualTokens": 9086256.350793619,
+      "annualUsd": 773374609.9756304,
       "basis": "AF到账实测(63天窗)",
-      "dlAnnualUsd": 832538245.5000001,
-      "dlAnnualTokens": 10486490.940465922,
-      "trailing1yUsd": 690096628,
+      "dlAnnualUsd": 772456361.9999999,
+      "dlAnnualTokens": 10244100.019892579,
+      "trailing1yUsd": 687251235,
       "note": "回购主源=AF entryNtl/持仓增量(到账口径)；DL holdersRevenue(计提制)降为互核(dlAnnual*)"
     },
-    "effectiveRemovedTotal": 49279634.53077586
+    "effectiveRemovedTotal": 49436784.90660323
   },
   "etf": {
-    "cumUsd": 325000000,
+    "cumUsd": 310000000,
     "byFundCum": {
-      "BHYP": 137900000,
-      "THYP": 34100000,
-      "HYPG": 153100000
+      "BHYP": 125500000,
+      "THYP": 31800000,
+      "HYPG": 152500000
     },
-    "last7dUsd": -15200000,
-    "last30dUsd": -14200000,
-    "cumTokensAtPrice": 4093637.2281667436,
-    "lastDate": "16 Oct 2026",
+    "last7dUsd": -15300000,
+    "last30dUsd": -38800000,
+    "cumTokensAtPrice": 4111133.213977853,
+    "lastDate": "23 Oct 2026",
     "note": "T+1 披露且最新行可能未更新；折算枚数按现价近似。需求端单列参照，不并入净通缩口径"
   },
   "token": {
-    "priceUsd": 79.3915,
+    "priceUsd": 75.405,
     "priceSources": {
-      "officialMidPx": 79.3915,
-      "coingecko": 79.42,
-      "defillama": 79.38532572870186
+      "officialMidPx": 75.405,
+      "coingecko": 75.37,
+      "defillama": 75.3360404597129
     },
     "maxSupply": 1000000000,
-    "totalSupply": 998845305.2339634,
-    "circulatingOfficial": 302061787.57890755,
+    "totalSupply": 998827871.548136,
+    "circulatingOfficial": 301994423.1248012,
     "circulatingCoinGecko": 222445714.07414138,
-    "futureEmissions": 410641806.3788798,
-    "mcapOfficial": 23981138408.570835,
-    "mcapCoinGecko": 17665329240,
-    "fdv": 79391500000,
+    "futureEmissions": 410452876.4252299,
+    "mcapOfficial": 22771889475.725636,
+    "mcapCoinGecko": 16766189995,
+    "fdv": 75405000000,
     "officialAllocation": [
       {
         "label": "创世空投",
@@ -255,25 +255,25 @@
       }
     ],
     "holders": {
-      "count": 263545,
-      "growth7d": 0.009901862730446354,
-      "growth30d": 0.023785845809604522
+      "count": 264547,
+      "growth7d": 0.008428122712856867,
+      "growth30d": 0.024192986395558558
     },
     "circNote": "流通量主口径=官方API；CoinGecko 把 AF 视同销毁另扣非流通(差约25%)，绝对值勿混用"
   },
   "unlocks": {
     "status": "ok",
     "horizonDays": 365,
-    "next12mTokens": 25693.292985746637,
-    "next12mUsd": 2039829.070077904,
-    "past12mTokens": 10405755.878722873,
+    "next12mTokens": 25679.626407377422,
+    "next12mUsd": 1936372.2292482946,
+    "past12mTokens": 10230911.044217026,
     "byCategory": [
       {
         "label": "Validator Rewards",
         "unlockedTotal": 9554905.98746366,
-        "next12mTokens": 25693.292985746637,
-        "past12mTokens": 2213414.8787228726,
-        "next12mUsd": 2039829.070077904
+        "next12mTokens": 25679.626407377422,
+        "past12mTokens": 2038570.0442170259,
+        "next12mUsd": 1936372.2292482946
       },
       {
         "label": "Hyper Foundation Budget",
@@ -320,111 +320,111 @@
     "quarters": [
       {
         "label": "26Q4",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 0,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "27Q1",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 24417063.76875,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "27Q2",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 24417063.76875,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "27Q3",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 24417063.76875,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "27Q4",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 24417063.76875,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "28Q1",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 24417063.76875,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "28Q2",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 24417063.76875,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "28Q3",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 24417063.76875,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "28Q4",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 24417063.76875,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "29Q1",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 4308893.60625,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "29Q2",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 4308893.60625,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "29Q3",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 4308893.60625,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "29Q4",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 4308893.60625,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "30Q1",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 4308893.60625,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "30Q2",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 4308893.60625,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "30Q3",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 4308893.60625,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       },
       {
         "label": "30Q4",
-        "validatorTok": 553353.7196807181,
+        "validatorTok": 509642.51105425647,
         "teamTok": 4308893.60625,
-        "buybackTok": 2484298.7323412704
+        "buybackTok": 2271564.0876984047
       }
     ],
     "peak": {
       "label": "27Q1",
-      "totalTok": 24970417.48843072,
-      "vsBuyback": 10.051294219716452
+      "totalTok": 24926706.279804256,
+      "vsBuyback": 10.973366947819864
     },
     "assumptions": "情景推演非官方排期。官方对团队 233M 仅表述'主要 2027–2028 vest，部分延至 2028 后'(hyperliquid-docs)；本情景为该表述的数字直译。验证者奖励按过去12月实测速率外推。38.888% 未来排放无任何依据，不入图仅标注。"
   },
@@ -435,9 +435,9 @@
     "unlockedTokens": 8192341,
     "unlockedPct": 0.03442160084033614,
     "remainingTokens": 229807659,
-    "remainingUsd": 18244774759.498497,
+    "remainingUsd": 17328646526.895,
     "past12mTokens": 8192341,
-    "past12mUsd": 650402240.5014999,
+    "past12mUsd": 617743473.105,
     "next12mTokens": 0,
     "next12mUsd": 0,
     "note": "团队收益=代币增值(23.8% 创世分配)，协议收入分成为 $0；解锁洪峰 2027-2028，当前年化释放远小于届时"
@@ -446,9 +446,9 @@
     "af": {
       "sourceNote": "来源=99% 协议费自动回购；2025-12-24 后为纯销毁池，仅余少量 USDC 周转",
       "expectMaxUsdcUsd": 1000000,
-      "hypeTokens": 48124939.76473923,
-      "hypeCostUsd": 1374804662.7014635,
-      "usdcUsd": 45649.22898328
+      "hypeTokens": 48264656.45473923,
+      "hypeCostUsd": 1385756462.4163635,
+      "usdcUsd": 4877.83008828
     },
     "foundation": {
       "sourceNote": "来源=创世 6% 预算(60M)+0.3% grants；流出=生态 grants、事件补偿(JELLY 非标记地址用户)、运营，无公开报表",
@@ -461,12 +461,12 @@
         "address": "0xd57ecca444a9acb7208d286be439de12dd09de5d",
         "kind": "创世 6% 预算(60M)+质押收益；流出=动用预算(grants/补偿/运营)=运营性抛压前瞻",
         "spotTok": 50000.00000044,
-        "stakedTok": 60530733.07711223,
-        "totalTok": 60580733.07711267,
-        "totalUsd": 4809595270.09159,
-        "deltaTok": 25149.95345299691,
-        "deltaUsd": 1996692.529563604,
-        "prevDate": "2026-10-12",
+        "stakedTok": 60555855.83053074,
+        "totalTok": 60605855.83053118,
+        "totalUsd": 4569984558.901204,
+        "deltaTok": 25122.753418512642,
+        "deltaUsd": 1894381.221522946,
+        "prevDate": "2026-10-19",
         "error": null
       },
       {
@@ -474,12 +474,12 @@
         "address": "0x43e9abea1910387c4292bca4b94de81462f8a251",
         "kind": "团队锁仓+未来分配托管(=供应构成'其他非流通'残差)；流出=解锁转出，实时互核 emissions 数据集",
         "spotTok": 0.00327328,
-        "stakedTok": 238015095.00468683,
-        "totalTok": 238015095.0079601,
-        "totalUsd": 18896375415.324463,
-        "deltaTok": 99234.54098072648,
-        "deltaUsd": 7878379.060271346,
-        "prevDate": "2026-10-12",
+        "stakedTok": 238114239.03661567,
+        "totalTok": 238114239.03988895,
+        "totalUsd": 17955004194.802826,
+        "deltaTok": 99144.0319288373,
+        "deltaUsd": 7475955.727593977,
+        "prevDate": "2026-10-19",
         "error": null
       }
     ],
@@ -551,65 +551,65 @@
       "38.888% 未来排放无时间表，供给端最大悬顶"
     ],
     "unstaking": {
-      "next7dTokens": 1150520.55031564,
-      "next7dUsd": 91341552.27038412,
-      "next24hTokens": 188233.33310346998,
-      "wallets": 746,
-      "top5Share": 0.30471373049175016,
-      "shareOfStaked": 0.0026023125074776648,
+      "next7dTokens": 1516506.8580128397,
+      "next7dUsd": 114352199.62845817,
+      "next24hTokens": 194140.51206899993,
+      "wallets": 672,
+      "top5Share": 0.5175161803208708,
+      "shareOfStaked": 0.003433704211319962,
       "note": "解押≠必卖，但出冷却期的币是短期可流通增量；高集中度=单一地址可制造冲击"
     },
     "hlp": {
-      "tvl": 179402915.677366,
-      "apr": 0.0335878716126739,
-      "pnlDay": 14495.826054,
-      "pnlMonth": 594737.199933,
-      "pnlAllTime": 138751052.987366,
+      "tvl": 175245047.718656,
+      "apr": 0.03803458047630917,
+      "pnlDay": 15053.342892,
+      "pnlMonth": 581342.753769,
+      "pnlAllTime": 138904655.158656,
       "note": "HLP=用户资金池(做市+清算兜底)，非协议金库；累计 PnL 为正=清算兜底业务整体盈利"
     },
     "validators": {
       "count": 35,
       "active": 27,
-      "totalStakedTokens": 442114675.7008063,
-      "top5Share": 0.5223923149428764,
+      "totalStakedTokens": 441653318.01537853,
+      "top5Share": 0.523803558341858,
       "note": "质押含基金会等非流通地址委托(质押量可大于流通量)；top5>50% = 共识由头部把持"
     }
   },
   "valuation": {
-    "priceUsd": 79.3915,
-    "circOfficial": 302061787.57890755,
-    "mcapOfficial": 23981138408.570835,
-    "fdv": 79391500000,
-    "mcapCoinGecko": 17665329240,
-    "annualHoldersRevenueUsd": 827853546.8469793,
-    "annualFeesUsd": 1032475779.8333333,
-    "pe": 28.967851258120557,
-    "peTrailing1y": 34.7504065888159,
-    "buybackYield": 0.03452102784874905,
+    "priceUsd": 75.405,
+    "circOfficial": 301994423.1248012,
+    "mcapOfficial": 22771889475.725636,
+    "fdv": 75405000000,
+    "mcapCoinGecko": 16766189995,
+    "annualHoldersRevenueUsd": 773374609.9756304,
+    "annualFeesUsd": 969080110,
+    "pe": 29.444837187560623,
+    "peTrailing1y": 33.13473780185442,
+    "buybackYield": 0.03396181115317777,
     "totalHolderReturn": {
-      "buybackAnnualUsd": 827853546.8469793,
-      "burnAnnualUsd": 82062934.93244451,
+      "buybackAnnualUsd": 773374609.9756304,
+      "burnAnnualUsd": 77823794.77315941,
       "burnBasis": "实测差分(91天窗)",
-      "annualUsd": 909916481.7794237,
-      "yieldRate": 0.0379430061357813
+      "annualUsd": 851198404.7487898,
+      "yieldRate": 0.037379349028377716
     },
-    "psFdv": 76.89429771690695,
+    "psFdv": 77.8109046113845,
     "netDeflation": {
-      "removeAnnualTokens": 10970843.80780225,
+      "removeAnnualTokens": 10118333.729921786,
       "onchainBasis": "measured",
       "isLowerBound": false,
       "unlockBasis": "全量排放:验证者官方futureEmissions周差分+其他类别DL过去12m",
-      "unlockAnnualTokens": 17670957.55270683,
-      "scheduledUnlock12mTokens": 25693.292985746637,
-      "netTokens": -6700113.74490458,
-      "rateOfCirc": -0.022181268933775047,
-      "actualNetTokens": 565087.929079378,
-      "actualRateOfCirc": 0.0018707693336806471,
+      "unlockAnnualTokens": 18043688.583172236,
+      "scheduledUnlock12mTokens": 25679.626407377422,
+      "netTokens": -7925354.8532504495,
+      "rateOfCirc": -0.026243381487794044,
+      "actualNetTokens": -112577.31429523975,
+      "actualRateOfCirc": -0.0003727794478135658,
       "actualBasis": "实际：销毁年化 − 过去12个月已发生增发/解锁（DL全类别）",
       "forwardBasis": "前瞻：销毁年化 − 官方验证者排放年化 − 其他类别排期/外推解锁",
       "overhangNote": "验证者排放已用官方futureEmissions(全量排放口径)；团队 2027-28 解锁洪峰仍是额外上行风险，届时净通胀加剧"
     },
-    "yearsToZeroFootnote": 91.0454403264409,
+    "yearsToZeroFootnote": 98.71465976600643,
     "note": "PE=流通市值(官方口径)/年化holdersRevenue；holdersRevenue=进AF回购部分，是Hyperliquid持币人价值捕获的真实现金流"
   },
   "charts": {
@@ -993,6 +993,10 @@
       [
         1792368000,
         20800054
+      ],
+      [
+        1792972800,
+        19038894
       ]
     ],
     "hrevWeekly": [
@@ -1375,6 +1379,10 @@
       [
         1792368000,
         16406238
+      ],
+      [
+        1792972800,
+        14737175
       ]
     ],
     "buybackWeekly": [
@@ -1437,6 +1445,10 @@
       [
         1792378824,
         12994566.302957937
+      ],
+      [
+        1792983616,
+        10951944.58189184
       ]
     ],
     "spotVolWeekly": [
@@ -1875,6 +1887,10 @@
       [
         1792368000,
         931747396
+      ],
+      [
+        1792972800,
+        817185282
       ]
     ],
     "srcWeekly": [
@@ -2441,6 +2457,12 @@
         19933337,
         719342,
         147375
+      ],
+      [
+        1792886400,
+        18384216,
+        518113,
+        136565
       ]
     ],
     "dstWeekly": [
@@ -3007,6 +3029,12 @@
         16406238,
         4228096.424242424,
         165719.57575757577
+      ],
+      [
+        1792886400,
+        14737175,
+        4152858.6464646463,
+        148860.35353535356
       ]
     ],
     "hypurrCumFees": [
@@ -3395,8 +3423,12 @@
         1457041473.167366
       ],
       [
-        1792377681,
-        1464574686.116469
+        1792626680,
+        1469590316.319604
+      ],
+      [
+        1792983076,
+        1476266909.011535
       ]
     ],
     "hlpPnl": [
@@ -3797,12 +3829,16 @@
         138414810.400597
       ],
       [
-        1791816853,
-        138616725.575668
+        1791849036,
+        138629198.265706
       ],
       [
-        1792378809,
-        138751052.987366
+        1792941996,
+        138894143.020979
+      ],
+      [
+        1792983609,
+        138904655.158656
       ]
     ],
     "hlpAccountValue": [
@@ -4203,12 +4239,16 @@
         182967458.650597
       ],
       [
-        1791816853,
-        181549069.475668
+        1791849036,
+        181324582.175706
       ],
       [
-        1792378809,
-        179402915.677366
+        1792941996,
+        175449145.540979
+      ],
+      [
+        1792983609,
+        175245047.718656
       ]
     ],
     "unlockCumulative": {
@@ -4610,7 +4650,11 @@
           8192341
         ],
         [
-          1792454400,
+          1792713600,
+          8192341
+        ],
+        [
+          1793059200,
           8192341
         ]
       ],
@@ -5012,31 +5056,35 @@
           9554905.98746366
         ],
         [
-          1792454400,
-          9580599.280449407
+          1792713600,
+          9554905.98746366
+        ],
+        [
+          1793059200,
+          9580585.613871038
         ]
       ]
     },
     "composition": [
       {
         "label": "流通",
-        "tokens": 302061787.57890755
+        "tokens": 301994423.1248012
       },
       {
         "label": "AF 持仓(视同销毁)",
-        "tokens": 48124939.76473923
+        "tokens": 48264656.45473923
       },
       {
         "label": "链上已销毁",
-        "tokens": 1154694.7660366297
+        "tokens": 1172128.4518640041
       },
       {
         "label": "未来排放(未排期)",
-        "tokens": 410641806.3788798
+        "tokens": 410452876.4252299
       },
       {
         "label": "HyperLabs 托管池(团队锁仓+未来分配)",
-        "tokens": 238016771.51143682
+        "tokens": 238115915.54336572
       }
     ],
     "holdersSeries": [
@@ -5919,6 +5967,10 @@
       [
         1792378824,
         263545
+      ],
+      [
+        1792983616,
+        264547
       ]
     ],
     "etfWeekly": [
@@ -5985,6 +6037,10 @@
       [
         1791763200,
         -9400000
+      ],
+      [
+        1792368000,
+        -17500000
       ]
     ]
   },
@@ -5992,10 +6048,10 @@
     {
       "metric": "价格",
       "sourceA": "CoinGecko",
-      "valueA": 79.42,
+      "valueA": 75.37,
       "sourceB": "DefiLlama",
-      "valueB": 79.38532572870186,
-      "deviation": 0.00043668902335656276,
+      "valueB": 75.3360404597129,
+      "deviation": 0.00045067258330866894,
       "thresholdPct": 1,
       "signFlip": false,
       "status": "ok",
@@ -6004,10 +6060,10 @@
     {
       "metric": "价格(官方)",
       "sourceA": "官方 midPx",
-      "valueA": 79.3915,
+      "valueA": 75.405,
       "sourceB": "CoinGecko",
-      "valueB": 79.42,
-      "deviation": 0.00035891607345825947,
+      "valueB": 75.37,
+      "deviation": 0.00046426794893048034,
       "thresholdPct": 1,
       "signFlip": false,
       "status": "ok",
@@ -6016,10 +6072,10 @@
     {
       "metric": "累计手续费",
       "sourceA": "DefiLlama",
-      "valueA": 1674681066.6900005,
+      "valueA": 1693719960.6900005,
       "sourceB": "Hypurrscan",
-      "valueB": 1464574686.116469,
-      "deviation": 0.13385744718995782,
+      "valueB": 1476266909.011535,
+      "deviation": 0.13719492263949948,
       "thresholdPct": 20,
       "signFlip": false,
       "status": "ok",
@@ -6028,10 +6084,10 @@
     {
       "metric": "总供应量(扣AF恒等)",
       "sourceA": "官方 totalSupply−AF",
-      "valueA": 950720365.4692241,
+      "valueA": 950563215.0933968,
       "sourceB": "CoinGecko total",
       "valueB": 955307079.4341414,
-      "deviation": 0.004812851963052238,
+      "deviation": 0.004978160743011748,
       "thresholdPct": 1,
       "signFlip": false,
       "status": "ok",
@@ -6040,10 +6096,10 @@
     {
       "metric": "现货24h量",
       "sourceA": "DefiLlama",
-      "valueA": 109598809,
+      "valueA": 43955760,
       "sourceB": "官方 spotCtx",
-      "valueB": 125615842.81951094,
-      "deviation": 0.13619078314731353,
+      "valueB": 57943325.20995116,
+      "deviation": 0.2745376012185275,
       "thresholdPct": 60,
       "signFlip": false,
       "status": "ok",
@@ -6052,10 +6108,10 @@
     {
       "metric": "全平台24h成交量",
       "sourceA": "官方 globalStats",
-      "valueA": 6735818075.08359,
+      "valueA": 4967430819.486872,
       "sourceB": "逐dex求和(主+HIP3+spot)",
-      "valueB": 6714456088.821199,
-      "deviation": 0.003176438785124135,
+      "valueB": 4977165187.020142,
+      "deviation": 0.0019577200575871413,
       "thresholdPct": 5,
       "signFlip": false,
       "status": "ok",
@@ -6132,7 +6188,7 @@
   "checks": [
     {
       "level": "OK",
-      "msg": "解押队列 7 天到期占质押 0.26%（<1%，常态）"
+      "msg": "解押队列 7 天到期占质押 0.34%（<1%，常态）"
     },
     {
       "level": "OK",
@@ -6140,35 +6196,35 @@
     },
     {
       "level": "OK",
-      "msg": "链上真实销毁 1,154,695 HYPE（<1% 供给，与机制预期一致）"
+      "msg": "链上真实销毁 1,172,128 HYPE（<1% 供给，与机制预期一致）"
     },
     {
       "level": "OK",
-      "msg": "AF USDC 周转余额 $45,649（<$1M，自动回购机制在跑）"
+      "msg": "AF USDC 周转余额 $4,878（<$1M，自动回购机制在跑）"
     },
     {
       "level": "OK",
-      "msg": "收入来源拆分闭合：perp 96.5% + spot 2.8% + 长尾 0.7%（30d）"
+      "msg": "收入来源拆分闭合：perp 96.6% + spot 2.7% + 长尾 0.7%（30d）"
     },
     {
       "level": "OK",
-      "msg": "holdersRevenue/fees = 80.6%（区间 50–100%，99% 进 AF 扣除 builder/deployer 分成后合理）"
+      "msg": "holdersRevenue/fees = 79.7%（区间 50–100%，99% 进 AF 扣除 builder/deployer 分成后合理）"
     },
     {
       "level": "OK",
-      "msg": "质押 44.2% 总供给（区间 10–80%）；验证者 35 个，top5 占 52.2%"
+      "msg": "质押 44.2% 总供给（区间 10–80%）；验证者 35 个，top5 占 52.4%"
     },
     {
       "level": "OK",
-      "msg": "HLP APR 3.36% 在合理区间(-50%–100%)"
+      "msg": "HLP APR 3.80% 在合理区间(-50%–100%)"
     },
     {
       "level": "OK",
-      "msg": "Hyper Foundation 金库 持仓 60.58M HYPE，自 2026-10-12 变动 +25.1K（阈值内）"
+      "msg": "Hyper Foundation 金库 持仓 60.61M HYPE，自 2026-10-19 变动 +25.1K（阈值内）"
     },
     {
       "level": "OK",
-      "msg": "HyperLabs 团队托管池 持仓 238.02M HYPE，自 2026-10-12 变动 +99.2K（阈值内）"
+      "msg": "HyperLabs 团队托管池 持仓 238.11M HYPE，自 2026-10-19 变动 +99.1K（阈值内）"
     },
     {
       "level": "OK",
@@ -6176,51 +6232,51 @@
     },
     {
       "level": "OK",
-      "msg": "供应构成恒等式闭合：非流通残差 238.0M（=HyperLabs 托管池，已链上验证；基金会 60M 在官方流通口径内）"
+      "msg": "供应构成恒等式闭合：非流通残差 238.1M（=HyperLabs 托管池，已链上验证；基金会 60M 在官方流通口径内）"
     },
     {
       "level": "OK",
-      "msg": "手续费(DefiLlama) 序列新鲜：末点 2026-10-18（滞后 1 天）"
+      "msg": "手续费(DefiLlama) 序列新鲜：末点 2026-10-25（滞后 1 天）"
     },
     {
       "level": "OK",
-      "msg": "holdersRevenue(DefiLlama) 序列新鲜：末点 2026-10-18（滞后 1 天）"
+      "msg": "holdersRevenue(DefiLlama) 序列新鲜：末点 2026-10-25（滞后 1 天）"
     },
     {
       "level": "OK",
-      "msg": "现货量(DefiLlama) 序列新鲜：末点 2026-10-18（滞后 1 天）"
+      "msg": "现货量(DefiLlama) 序列新鲜：末点 2026-10-25（滞后 1 天）"
     },
     {
       "level": "OK",
-      "msg": "perp手续费(DefiLlama) 序列新鲜：末点 2026-10-18（滞后 1 天）"
+      "msg": "perp手续费(DefiLlama) 序列新鲜：末点 2026-10-25（滞后 1 天）"
     },
     {
       "level": "OK",
-      "msg": "自建归档覆盖 102 天（全平台量周窗口需≥7天、月≥30、年≥365；不足处面板标\"积累中\"）"
+      "msg": "自建归档覆盖 109 天（全平台量周窗口需≥7天、月≥30、年≥365；不足处面板标\"积累中\"）"
     },
     {
       "level": "OK",
-      "msg": "价格 双源一致（偏差 0.04%，CoinGecko vs DefiLlama）"
+      "msg": "价格 双源一致（偏差 0.05%，CoinGecko vs DefiLlama）"
     },
     {
       "level": "OK",
-      "msg": "价格(官方) 双源一致（偏差 0.04%，官方 midPx vs CoinGecko）"
+      "msg": "价格(官方) 双源一致（偏差 0.05%，官方 midPx vs CoinGecko）"
     },
     {
       "level": "OK",
-      "msg": "累计手续费 量级互核一致（偏差 13.39%，DefiLlama vs Hypurrscan）"
+      "msg": "累计手续费 量级互核一致（偏差 13.72%，DefiLlama vs Hypurrscan）"
     },
     {
       "level": "OK",
-      "msg": "总供应量(扣AF恒等) 双源一致（偏差 0.48%，官方 totalSupply−AF vs CoinGecko total）"
+      "msg": "总供应量(扣AF恒等) 双源一致（偏差 0.50%，官方 totalSupply−AF vs CoinGecko total）"
     },
     {
       "level": "OK",
-      "msg": "现货24h量 量级互核一致（偏差 13.62%，DefiLlama vs 官方 spotCtx）"
+      "msg": "现货24h量 量级互核一致（偏差 27.45%，DefiLlama vs 官方 spotCtx）"
     },
     {
       "level": "OK",
-      "msg": "全平台24h成交量 双源一致（偏差 0.32%，官方 globalStats vs 逐dex求和(主+HIP3+spot)）"
+      "msg": "全平台24h成交量 双源一致（偏差 0.20%，官方 globalStats vs 逐dex求和(主+HIP3+spot)）"
     }
   ]
 }
