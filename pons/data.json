@@ -1,283 +1,283 @@
 {
-  "generatedAt": "2026-10-26T03:35:00.173Z",
-  "nowSec": 1792985403,
-  "blockNumber": 98105701,
+  "generatedAt": "2026-11-02T03:32:28.831Z",
+  "nowSec": 1793590204,
+  "blockNumber": 103905407,
   "token": {
-    "priceUsd": 0.235445,
-    "priceLlama": 0.23523767612316882,
-    "marketCapUsd": 158093775,
-    "fdvUsd": 158091864,
-    "priceChange7d": -0.10054199999999999,
-    "priceChange30d": -0.6373635,
-    "volume24hUsd": 19122075,
+    "priceUsd": 0.242773,
+    "priceLlama": 0.24356516652794183,
+    "marketCapUsd": 162965079,
+    "fdvUsd": 162963209,
+    "priceChange7d": 0.0342072,
+    "priceChange30d": -0.4252467,
+    "volume24hUsd": 21208807,
     "ath": 0.971034,
     "athDate": "2026-09-05T17:13:10.000Z",
     "maxSupply": 1000000000,
     "totalSupply": 1000000000,
-    "dead": 327725699.02897424,
-    "circulating": 672274300.9710257,
-    "cgCirculating": 672286201.1016548,
-    "cgTotal": 672278073.9465728,
-    "mcapFromChain": 158283622.79212314,
-    "holdersCount": 104127,
+    "dead": 328745207.53622293,
+    "circulating": 671254792.4637771,
+    "cgCirculating": 671264549.4241984,
+    "cgTotal": 671256848.8870797,
+    "mcapFromChain": 162962539.73080856,
+    "holdersCount": 105547,
     "pools": [
       {
         "name": "PONS / USDG 0.3%",
         "address": "0xf2a0be59ab76b96f957bd5e5b967f2b75e8db269",
         "dex": "ramses-v3-robinhood",
-        "volume24hUsd": 5861187.51267466,
-        "liquidityUsd": 2238724.5223,
+        "volume24hUsd": 3409107.99528061,
+        "liquidityUsd": 1904166.8862,
         "createdAt": "2026-08-11T03:34:02Z"
-      },
-      {
-        "name": "PONS / WETH 0.3%",
-        "address": "0xed50bdeea8adc232f159486192a4157281d722ff",
-        "dex": "uniswap-v3-robinhood",
-        "volume24hUsd": 469322.950035383,
-        "liquidityUsd": 1359318.0652,
-        "createdAt": "2026-07-16T15:39:37Z"
       },
       {
         "name": "PONS / WETH 1%",
         "address": "0x10cc6bd38112cac182db90b6a71d8bb5939526ba",
         "dex": "uniswap-v3-robinhood",
-        "volume24hUsd": 227319.299914543,
-        "liquidityUsd": 2480958.8123,
+        "volume24hUsd": 393430.070836541,
+        "liquidityUsd": 2391425.4845,
         "createdAt": "2026-07-13T20:42:21Z"
       },
       {
-        "name": "PONS / USDG 0.3%",
-        "address": "0x4be9657ec9002e528f4f17a5c43edc525a07f888f7b180c2afbf75e096c4f38a",
-        "dex": "uniswap-v4-robinhood",
-        "volume24hUsd": 513501.379944993,
-        "liquidityUsd": 1065067.0374,
-        "createdAt": "2026-07-18T01:42:13Z"
-      },
-      {
-        "name": "PONS / USDG",
-        "address": "0x486435a1f76cd58193f854c6e6213cd05fd58d637865d02065ff558b387fa6ea",
-        "dex": "uniswap-v4-robinhood",
-        "volume24hUsd": 571365.341279585,
-        "liquidityUsd": 888165.5823,
-        "createdAt": "2026-09-08T13:29:28Z"
+        "name": "PONS / WETH 0.3%",
+        "address": "0xed50bdeea8adc232f159486192a4157281d722ff",
+        "dex": "uniswap-v3-robinhood",
+        "volume24hUsd": 578805.833594763,
+        "liquidityUsd": 1421976.7672,
+        "createdAt": "2026-07-16T15:39:37Z"
       },
       {
         "name": "PONS / USDG 0.288%",
         "address": "0xd75790f3a3f639fedb7406df6dabb5bb8605949b",
         "dex": "aero-slipstream-robinhood",
-        "volume24hUsd": 844637.766976744,
-        "liquidityUsd": 398184.4709,
+        "volume24hUsd": 1549699.1630487,
+        "liquidityUsd": 509927.0529,
         "createdAt": "2026-10-22T03:11:20Z"
       },
       {
-        "name": "AI / PONS 0.3%",
-        "address": "0x230bc4a0fb5fb7ab27f6e72350dfa3f2489b0cdbaf34f0189d68672086ccb919",
+        "name": "PONS / USDG 0.3%",
+        "address": "0x4be9657ec9002e528f4f17a5c43edc525a07f888f7b180c2afbf75e096c4f38a",
         "dex": "uniswap-v4-robinhood",
-        "volume24hUsd": 623433.088119855,
-        "liquidityUsd": 537510.2395,
-        "createdAt": "2026-09-04T01:58:39Z"
+        "volume24hUsd": 640212.575006589,
+        "liquidityUsd": 1063928.5259,
+        "createdAt": "2026-07-18T01:42:13Z"
       },
       {
         "name": "PONS / WETH 1%",
         "address": "0x51b6ca77deae9f17c1d89edfb301ae50053c57a5",
         "dex": "ramses-v3-robinhood",
-        "volume24hUsd": 331649.118234191,
-        "liquidityUsd": 335377.4821,
+        "volume24hUsd": 1393118.46561455,
+        "liquidityUsd": 465126.0357,
         "createdAt": "2026-08-06T21:01:23Z"
+      },
+      {
+        "name": "PONS / USDG",
+        "address": "0x486435a1f76cd58193f854c6e6213cd05fd58d637865d02065ff558b387fa6ea",
+        "dex": "uniswap-v4-robinhood",
+        "volume24hUsd": 554144.700420532,
+        "liquidityUsd": 648102.5109,
+        "createdAt": "2026-09-08T13:29:28Z"
+      },
+      {
+        "name": "AI / PONS 0.3%",
+        "address": "0x230bc4a0fb5fb7ab27f6e72350dfa3f2489b0cdbaf34f0189d68672086ccb919",
+        "dex": "uniswap-v4-robinhood",
+        "volume24hUsd": 385968.322156701,
+        "liquidityUsd": 569220.4716,
+        "createdAt": "2026-09-04T01:58:39Z"
       }
     ],
-    "poolsLiquidityUsd": 9866002.129600003,
-    "poolsVolume24h": 10034966.407095034
+    "poolsLiquidityUsd": 9744787.957399998,
+    "poolsVolume24h": 9878613.052278379
   },
   "income": {
     "windows": {
       "fees": {
-        "week": 2749722,
-        "month": 22721076,
-        "year": 200186133,
+        "week": 1974432,
+        "month": 13256487,
+        "year": 202324270,
         "change": {
-          "week": -0.17769282735096717,
-          "month": -0.8461048861084802,
+          "week": -0.28195213916170436,
+          "month": -0.8930679764551691,
           "year": null
         },
         "coverage": {
           "trimmedDays": 0,
           "outage": false,
-          "coveredThrough": "2026-10-25",
-          "lagDays": 1
+          "coveredThrough": "2026-11-02",
+          "lagDays": 0
         }
       },
       "revenue": {
-        "week": 408570,
-        "month": 3415686,
-        "year": 36253748,
+        "week": 313642,
+        "month": 1939273,
+        "year": 36593399,
         "change": {
-          "week": -0.1692236367740086,
-          "month": -0.866141776101383,
+          "week": -0.23234207112612282,
+          "month": -0.9063326854502685,
           "year": null
         },
         "coverage": {
           "trimmedDays": 0,
           "outage": false,
-          "coveredThrough": "2026-10-25",
-          "lagDays": 1
+          "coveredThrough": "2026-11-02",
+          "lagDays": 0
         }
       },
       "holdersRevenue": {
-        "week": 495317,
-        "month": 4229565,
-        "year": 23531218,
+        "week": 252623,
+        "month": 3277735,
+        "year": 23783841,
         "change": {
-          "week": -0.4678256702716757,
-          "month": -0.7339293634992429,
+          "week": -0.4899771257598669,
+          "month": -0.8039471066581667,
           "year": null
         },
         "coverage": {
           "trimmedDays": 0,
           "outage": false,
-          "coveredThrough": "2026-10-25",
+          "coveredThrough": "2026-11-01",
           "lagDays": 1
         }
       },
       "supplySideRevenue": {
-        "week": 2341148,
-        "month": 19305373,
-        "year": 163950216,
+        "week": 1660786,
+        "month": 11317184,
+        "year": 165748697,
         "change": {
-          "week": -0.1791519889316993,
-          "month": -0.8419183054664151,
+          "week": -0.29061041847845587,
+          "month": -0.8904088025100537,
           "year": null
         },
         "coverage": {
           "trimmedDays": 0,
           "outage": false,
-          "coveredThrough": "2026-10-25",
-          "lagDays": 1
+          "coveredThrough": "2026-11-02",
+          "lagDays": 0
         }
       },
       "volume": {
-        "week": 42733039,
-        "month": 342429561,
-        "year": 2927446273,
+        "week": 33926892,
+        "month": 200126060,
+        "year": 2960704069,
         "change": {
-          "week": -0.07373490843123723,
-          "month": -0.8606428880440883,
+          "week": -0.20607350205072006,
+          "month": -0.9019553488568551,
           "year": null
         },
         "coverage": {
           "trimmedDays": 0,
           "outage": false,
-          "coveredThrough": "2026-10-26",
+          "coveredThrough": "2026-11-02",
           "lagDays": 0
         }
       },
       "v1Revenue": {
-        "week": 12810,
-        "month": 142047,
-        "year": 7590983,
+        "week": 12916,
+        "month": 83871,
+        "year": 7603899,
         "change": {
-          "week": -0.4016255605381166,
-          "month": -0.8943543654769103,
+          "week": 0.008274785323965653,
+          "month": -0.9029102274700469,
           "year": null
         },
         "coverage": {
           "trimmedDays": 0,
           "outage": false,
-          "coveredThrough": "2026-10-25",
+          "coveredThrough": "2026-11-01",
           "lagDays": 1
         }
       },
       "v2Revenue": {
-        "week": 395760,
-        "month": 3273639,
-        "year": 28662765,
+        "week": 300726,
+        "month": 1860714,
+        "year": 28989500,
         "change": {
-          "week": -0.15864664051787367,
-          "month": -0.8645724993692246,
+          "week": -0.24013038204972711,
+          "month": -0.9065031266723111,
           "year": null
         },
         "coverage": {
           "trimmedDays": 0,
           "outage": false,
-          "coveredThrough": "2026-10-25",
-          "lagDays": 1
+          "coveredThrough": "2026-11-02",
+          "lagDays": 0
         }
       },
       "v1Fees": {
-        "week": 65473,
-        "month": 718447,
-        "year": 30692001,
+        "week": 72567,
+        "month": 467716,
+        "year": 30764568,
         "change": {
-          "week": -0.4725321646378306,
-          "month": -0.8887738099274337,
+          "week": 0.10835000687306218,
+          "month": -0.890108454569377,
           "year": null
         },
         "coverage": {
           "trimmedDays": 0,
           "outage": false,
-          "coveredThrough": "2026-10-25",
+          "coveredThrough": "2026-11-01",
           "lagDays": 1
         }
       },
       "v2Fees": {
-        "week": 2684249,
-        "month": 22002629,
-        "year": 169494132,
+        "week": 1901865,
+        "month": 12819112,
+        "year": 171559702,
         "change": {
-          "week": -0.16632637468848843,
-          "month": -0.8441526870150416,
+          "week": -0.2914722143884565,
+          "month": -0.8931841251615473,
           "year": null
         },
         "coverage": {
           "trimmedDays": 0,
           "outage": false,
-          "coveredThrough": "2026-10-25",
-          "lagDays": 1
+          "coveredThrough": "2026-11-02",
+          "lagDays": 0
         }
       },
       "volumeOfficial": {
-        "week": 239462296.17000005,
-        "month": 2075974590.0800002,
-        "year": 17169907222.930004,
+        "week": 224482233.46000004,
+        "month": 1378480416.9100006,
+        "year": 17394360885.120003,
         "change": {
-          "week": -0.35721344312484277,
-          "month": -0.8281840470534041,
+          "week": -0.062447983943035815,
+          "month": -0.8681058250166339,
           "year": null
         },
         "coverage": {
           "trimmedDays": 0,
           "outage": false,
-          "coveredThrough": "2026-10-25",
+          "coveredThrough": "2026-11-01",
           "lagDays": 1
         }
       },
       "launches": {
-        "week": 10642,
-        "month": 95405,
-        "year": 981981,
+        "week": 9145,
+        "month": 59364,
+        "year": 991126,
         "change": {
-          "week": -0.08266528747521765,
-          "month": -0.8299991268756581,
+          "week": -0.1406690471715843,
+          "month": -0.876205848128824,
           "year": null
         },
         "coverage": {
           "trimmedDays": 0,
           "outage": false,
-          "coveredThrough": "2026-10-25",
+          "coveredThrough": "2026-11-01",
           "lagDays": 1
         }
       }
     },
     "ratios": {
-      "revenueOverFees28d": 0.1507787772917486,
-      "hrOverRevenue28d": 1.2789131357057517,
-      "hrOverRevenue7d": 1.2123185745404703,
-      "hrOverRevenueAllTime": 0.6490699389205221,
-      "opsRetained28d": -829679,
-      "opsRetainedAllTime": 12722530,
-      "v1ShareOfRevenue28d": 0.04080195355072771,
-      "takeRateOnOfficialVolume28d": 0.010765122922691188,
-      "supplySideOverFees28d": 0.8492204117115826
+      "revenueOverFees28d": 0.14620291582468706,
+      "hrOverRevenue28d": 1.522071088181888,
+      "hrOverRevenue7d": 0.8054501629246084,
+      "hrOverRevenueAllTime": 0.6499489429773933,
+      "opsRetained28d": -932408,
+      "opsRetainedAllTime": 12809558,
+      "v1ShareOfRevenue28d": 0.04125468440558372,
+      "takeRateOnOfficialVolume28d": 0.010028522856116363,
+      "supplySideOverFees28d": 0.8537947920533769
     },
     "weekly": {
       "fees": [
@@ -340,6 +340,10 @@
         {
           "t": 1792368000,
           "v": 2749722
+        },
+        {
+          "t": 1792972800,
+          "v": 1974432
         }
       ],
       "revenue": [
@@ -402,6 +406,10 @@
         {
           "t": 1792368000,
           "v": 408570
+        },
+        {
+          "t": 1792972800,
+          "v": 313642
         }
       ],
       "holdersRevenue": [
@@ -464,6 +472,10 @@
         {
           "t": 1792368000,
           "v": 495317
+        },
+        {
+          "t": 1792972800,
+          "v": 252623
         }
       ],
       "supplySide": [
@@ -526,6 +538,10 @@
         {
           "t": 1792368000,
           "v": 2341148
+        },
+        {
+          "t": 1792972800,
+          "v": 1660786
         }
       ],
       "v1Revenue": [
@@ -588,6 +604,10 @@
         {
           "t": 1792368000,
           "v": 12810
+        },
+        {
+          "t": 1792972800,
+          "v": 12916
         }
       ],
       "v2Revenue": [
@@ -638,6 +658,10 @@
         {
           "t": 1792368000,
           "v": 395760
+        },
+        {
+          "t": 1792972800,
+          "v": 300726
         }
       ],
       "volumeOfficial": [
@@ -683,7 +707,7 @@
         },
         {
           "t": 1789948800,
-          "v": 1176313797.31
+          "v": 1176313797.66
         },
         {
           "t": 1790553600,
@@ -695,11 +719,15 @@
         },
         {
           "t": 1791763200,
-          "v": 372537809.96
+          "v": 372537103.54999995
         },
         {
           "t": 1792368000,
-          "v": 239462296.17000005
+          "v": 239434430.96000004
+        },
+        {
+          "t": 1792972800,
+          "v": 224482233.46000004
         }
       ],
       "volumeLlama": [
@@ -750,6 +778,10 @@
         {
           "t": 1792368000,
           "v": 42733039
+        },
+        {
+          "t": 1792972800,
+          "v": 33926892
         }
       ],
       "launches": [
@@ -812,6 +844,10 @@
         {
           "t": 1792368000,
           "v": 10642
+        },
+        {
+          "t": 1792972800,
+          "v": 9145
         }
       ]
     },
@@ -875,143 +911,152 @@
       {
         "t": 1792368000,
         "v": 1.2123185745404703
+      },
+      {
+        "t": 1792972800,
+        "v": 0.8054501629246084
       }
     ],
-    "anchor": 1792972800,
-    "anchorOfficial": 1792972800,
+    "anchor": 1793577600,
+    "anchorOfficial": 1793577600,
     "win28": {
-      "fees": 19728811,
-      "revenue": 2974686,
-      "holdersRevenue": 3804365,
-      "supplySide": 16754109,
-      "v1Revenue": 121373,
-      "v2Revenue": 2853313,
-      "volumeOfficial": 1832660076.5900004,
-      "feesSameWindowAsOfficial": 19728811,
-      "from": "2026-09-28",
-      "to": "2026-10-25"
+      "fees": 12215755,
+      "revenue": 1785979,
+      "holdersRevenue": 2718387,
+      "supplySide": 10429748,
+      "v1Revenue": 73680,
+      "v2Revenue": 1712299,
+      "volumeOfficial": 1218101127.6800003,
+      "feesSameWindowAsOfficial": 12215755,
+      "from": "2026-10-05",
+      "to": "2026-11-01"
     },
     "win7": {
-      "fees": 2749722,
-      "revenue": 408570,
-      "holdersRevenue": 495317,
-      "feesChildren": 2749722,
-      "from": "2026-10-19",
-      "to": "2026-10-25",
+      "fees": 1974432,
+      "revenue": 313642,
+      "holdersRevenue": 252623,
+      "feesChildren": 1974432,
+      "from": "2026-10-26",
+      "to": "2026-11-01",
       "weekComplete": true
     },
     "seriesLen": {
-      "fees": 105,
-      "revenue": 105,
-      "holdersRevenue": 105
+      "fees": 113,
+      "revenue": 113,
+      "holdersRevenue": 112
     },
     "coverage": {
       "llama": {
         "trimmedDays": 0,
         "outage": false,
-        "coveredThrough": "2026-10-25",
-        "lagDays": 1
+        "coveredThrough": "2026-11-02",
+        "lagDays": 0
       },
       "official": {
-        "latestDay": "2026-10-25",
-        "claimedLatestDay": "2026-10-25",
+        "latestDay": "2026-11-01",
+        "claimedLatestDay": "2026-11-01",
         "trimmedDays": 0,
         "lagDays": 0,
-        "generatedAt": "2026-10-26T02:48:56.992Z"
+        "generatedAt": "2026-11-02T02:19:46.939Z"
       }
     },
     "officialTotals": {},
     "llamaTotals": {
-      "feesAllTime": 200186133,
-      "revenueAllTime": 36253748,
-      "hrAllTime": 23531218,
-      "volumeAllTime": 2927446273
+      "feesAllTime": 202160565,
+      "revenueAllTime": 36567390,
+      "hrAllTime": 23783841,
+      "volumeAllTime": 2957720176
     },
-    "momFees": -0.8461048861084802
+    "momFees": -0.8930679764551691
   },
   "valueCapture": {
     "valuation": {
-      "peHolders": 2.0099416697300097,
-      "peHoldersFdv": 2.0099173740325296,
-      "peCurrentRate": 6.138018488858961,
-      "peRevenue": 4.076982123099923,
-      "pe28d": 3.187849126946446,
-      "buybackYield": 0.49752687605821294,
-      "buybackYieldCurrent": 0.16291902701418826,
-      "buybackYield28d": 0.3136911315994031,
-      "holdersRevenueAnnual": 78655902,
-      "holdersRevenueCurrentRate": 25756484,
-      "holdersRevenue28dAnnual": 49592615.178571425,
-      "weeksOfData": 15
+      "peHolders": 2.6354420557515112,
+      "peHoldersFdv": 2.635411814446598,
+      "peCurrentRate": 12.40561558893322,
+      "peRevenue": 6.99976355702291,
+      "pe28d": 4.5988414150774775,
+      "buybackYield": 0.37944298483726074,
+      "buybackYieldCurrent": 0.08060865604219417,
+      "buybackYield28d": 0.2174460716826333,
+      "holdersRevenueAnnual": 61835956,
+      "holdersRevenueCurrentRate": 13136396,
+      "holdersRevenue28dAnnual": 35436116.25,
+      "weeksOfData": 16
     },
     "buyback": {
-      "cumulativeTokensAll": 327725699.02897424,
-      "protocolShareRecent": 1,
+      "cumulativeTokensAll": 328745207.53622293,
+      "protocolShareRecent": 0.9999863506994072,
       "recentSenders": {
         "rows": 200,
-        "from": 1792941195,
-        "to": 1792985411,
+        "from": 1793557937,
+        "to": 1793589948,
         "top": [
           {
             "addr": "0x5795d227dcc305afe212bef18e81b111def7c324",
-            "share": 1,
+            "share": 0.9999863506994072,
             "label": "splitter 回购/分账合约（80% 买 PONS→dead，20% ETH→Safe#2）"
+          },
+          {
+            "addr": "0x4018c12e22a2fbcbe6e016428d42a5e6d1f50bca",
+            "share": 0.000013649300592672633,
+            "label": "第三方/未知"
           }
         ]
       },
-      "cumulativeUsdLlama": 23531218,
-      "buybackTokensAttributable": 247315699.02897424,
+      "cumulativeUsdLlama": 23783841,
+      "buybackTokensAttributable": 248335207.53622293,
       "nonBuybackBurnTokens": 80410000,
-      "avgCostUsd": 0.09514647914543914,
-      "unrealizedUsd": 34698026.757876836,
-      "tokens7d": null,
-      "usd7dChain": null,
-      "usd28dChain": null,
-      "usd7dLlama": 495317,
-      "usd28dLlama": 3804365,
+      "avgCostUsd": 0.09577313356395836,
+      "unrealizedUsd": 36505242.339191444,
+      "tokens7d": 1024329.8070919514,
+      "usd7dChain": 252886.99890113578,
+      "usd28dChain": 2785675.2331025316,
+      "usd7dLlama": 252623,
+      "usd28dLlama": 2718387,
       "window7": {
-        "fees": 2749722,
-        "revenue": 408570,
-        "holdersRevenue": 495317,
-        "feesChildren": 2749722,
-        "from": "2026-10-19",
-        "to": "2026-10-25",
+        "fees": 1974432,
+        "revenue": 313642,
+        "holdersRevenue": 252623,
+        "feesChildren": 1974432,
+        "from": "2026-10-26",
+        "to": "2026-11-01",
         "weekComplete": true
       },
       "window28": {
-        "from": "2026-09-28",
-        "to": "2026-10-25"
+        "from": "2026-10-05",
+        "to": "2026-11-01"
       },
       "pipeline": {
-        "totalUsd": 248382.5297188238,
+        "totalUsd": 240839.0014596625,
         "splitter": {
-          "valueUsd": 209339.58848388752,
-          "ethAmount": 59.32228022347082,
-          "assetCount": 69,
+          "valueUsd": 173188.50567029734,
+          "ethAmount": 43.1345220404394,
+          "assetCount": 75,
           "top": [
             {
               "symbol": "ETH",
-              "valueUsd": 136779.56731451707
-            },
-            {
-              "symbol": "NVDA",
-              "valueUsd": 13393.533432797727
+              "valueUsd": 98923.39664427619
             },
             {
               "symbol": "USDG",
-              "valueUsd": 13054.347987
+              "valueUsd": 15415.614748
             },
             {
               "symbol": "INDA",
-              "valueUsd": 8258.282813273761
+              "valueUsd": 8472.169231294793
             },
             {
-              "symbol": "BULL",
-              "valueUsd": 7040.575022445358
+              "symbol": "NVDA",
+              "valueUsd": 7521.911218890782
             },
             {
               "symbol": "SKYHY",
-              "valueUsd": 6154.610038434106
+              "valueUsd": 6869.709732721619
+            },
+            {
+              "symbol": "BULL",
+              "valueUsd": 6409.879474875792
             }
           ]
         },
@@ -1022,43 +1067,43 @@
           "top": []
         },
         "escrow": {
-          "valueUsd": 39042.94123493628,
-          "ethAmount": 12.507756819290487,
-          "assetCount": 34,
+          "valueUsd": 67650.49578936519,
+          "ethAmount": 21.788157056358546,
+          "assetCount": 53,
           "top": [
             {
               "symbol": "ETH",
-              "valueUsd": 28839.17407377193
-            },
-            {
-              "symbol": "AAPL",
-              "valueUsd": 2077.782451419881
-            },
-            {
-              "symbol": "BUN",
-              "valueUsd": 1476.2012547760505
+              "valueUsd": 49968.2945510154
             },
             {
               "symbol": "SPY",
-              "valueUsd": 1442.2769027340328
+              "valueUsd": 2464.1916691601605
             },
             {
-              "symbol": "SPCX",
-              "valueUsd": 1034.7258423613007
+              "symbol": "USDG",
+              "valueUsd": 2355.328317
             },
             {
-              "symbol": "GME",
-              "valueUsd": 1013.8800065366481
+              "symbol": "AAPL",
+              "valueUsd": 2093.1448378648142
+            },
+            {
+              "symbol": "BUN",
+              "valueUsd": 1739.1713823551886
+            },
+            {
+              "symbol": "PLTR",
+              "valueUsd": 1670.6112298642747
             }
           ]
         },
-        "ethUsd": 2305.703132099098,
-        "asOf": "2026-10-26T03:22:01.469Z"
+        "ethUsd": 2293.369486082023,
+        "asOf": "2026-11-02T02:36:50.953Z"
       },
       "executionNote": "回购由 Safe#1 人工把资产送进 intake→splitter，splitter 按 TWAP 卖资产买 PONS 送 dead；周度 HR/收入 在 40%–97% 摆动是管道时滞，看 4 周滚动",
-      "eventsAsOfBlock": null,
-      "lastEventTs": 1792985411,
-      "seriesSource": null
+      "eventsAsOfBlock": 103783368,
+      "lastEventTs": 1793589948,
+      "seriesSource": "dRPC 历史 balanceOf(dead) 日差分，至 2026-11-02"
     },
     "policy": {
       "buybackShareOfProtocolRevenue": 0.8,
@@ -1074,160 +1119,166 @@
   "supplyDynamics": {
     "maxSupply": 1000000000,
     "totalSupply": 1000000000,
-    "dead": 327725699.02897424,
-    "circulating": 672274300.9710257,
-    "burnedPctOfMax": 0.32772569902897425,
+    "dead": 328745207.53622293,
+    "circulating": 671254792.4637771,
+    "burnedPctOfMax": 0.32874520753622294,
     "mintPossible": false,
     "mintNote": "合约无 mint 函数，totalSupply 恒 10 亿；销毁 = 转入 dead（永久锁，不减 totalSupply）",
-    "burn28dPctOfCirc": null,
-    "burnAnnualTokens": null,
+    "burn28dPctOfCirc": 0.013277721183624741,
+    "burnAnnualTokens": 123163565.69301236,
     "burnAnnualBasis": "完整自然周销毁枚数近 4 周中位 ×52（上线未满 8 周）",
-    "burnAnnualRange": null,
-    "burnCurrentTokens": null,
-    "netDeflationRate": null,
+    "burnAnnualRange": {
+      "min": 53265149.96878147,
+      "max": 163869885.47550178
+    },
+    "burnCurrentTokens": 53265149.96878147,
+    "netDeflationRate": 0.1834825867551011,
     "netDeflationBasis": "实际（已发生的销毁，无增发、无解锁）",
     "netDeflationForward": null,
-    "netDeflationRateRange": null,
-    "netDeflationRateCurrent": null,
-    "netDeflationRateUsd28d": 0.3136911315994031,
-    "netDeflationRateAtCurrentPrice": 0.4969301347322602,
-    "burn7dTokens": null,
-    "burn28dTokens": null,
-    "eventsCollected": false,
+    "netDeflationRateRange": {
+      "min": 0.07935161218481106,
+      "max": 0.2441247158534733
+    },
+    "netDeflationRateCurrent": 0.07935161218481106,
+    "netDeflationRateUsd28d": 0.2174460716826333,
+    "netDeflationRateAtCurrentPrice": 0.37944889728734227,
+    "burn7dTokens": 1024329.8070919514,
+    "burn28dTokens": 8912733.977505922,
+    "eventsCollected": true,
     "unlocks": null,
     "unlockNote": "无团队/投资人分配、无解锁表（PONS 以普通 v1 发币方式创建，部署者现持 0 PONS）"
   },
   "treasury": {
     "holdings": {
       "safe1": {
-        "eth": 16.326616722007344,
+        "eth": 16.35133778698735,
         "pons": 385358.5534613787,
-        "escrowClaimableEth": 0.1398921092015081,
+        "escrowClaimableEth": 2.1100957022581786,
         "tokens": {
-          "stableUsd": 154.050493,
-          "stockUsd": 1310.9907414273343,
-          "otherUsd": 66856.38420401143,
-          "unpricedCount": 151,
+          "stableUsd": 163.303709,
+          "stockUsd": 1363.5401734071581,
+          "otherUsd": 63073.42193830175,
+          "unpricedCount": 150,
           "top": [
             {
               "symbol": "DELTA",
-              "usd": 19106.609719098855
+              "usd": 16610.356884503206
             },
             {
               "symbol": "WETH",
-              "usd": 10887.089320168097
-            },
-            {
-              "symbol": "INJOH",
-              "usd": 9796.439023847628
+              "usd": 10791.26138581511
             },
             {
               "symbol": "富贵",
-              "usd": 7080.736204039115
+              "usd": 10155.294770107985
             },
             {
               "symbol": "HMM",
-              "usd": 5813.797772924474
-            },
-            {
-              "symbol": "WEBSITE",
-              "usd": 4701.38864996204
+              "usd": 5704.8107554229155
             },
             {
               "symbol": "LOCK",
-              "usd": 3542.2997828135904
+              "usd": 5463.618417685028
+            },
+            {
+              "symbol": "WEBSITE",
+              "usd": 5255.286551050653
+            },
+            {
+              "symbol": "INJOH",
+              "usd": 4436.110547041805
             },
             {
               "symbol": "NLYRA",
-              "usd": 2669.5961020847703
+              "usd": 1766.6566916143768
             }
           ],
           "morePages": true
         },
-        "usdApprox": 197062.30638849738
+        "usdApprox": 200729.38353274198
       },
       "safe2": {
-        "eth": 995.8658182057576,
+        "eth": 1012.5491465327601,
         "tokens": {
-          "stableUsd": 1391142.508747,
-          "stockUsd": 1652812.5924526597,
-          "otherUsd": 41480.24888067428,
-          "unpricedCount": 30,
+          "stableUsd": 1248316.00225,
+          "stockUsd": 1599706.4460192027,
+          "otherUsd": 40348.263140623654,
+          "unpricedCount": 31,
           "top": [
             {
               "symbol": "USDG",
-              "usd": 1391142.508747
+              "usd": 1248316.00225
             },
             {
               "symbol": "NVDA",
-              "usd": 302526.6939925742
-            },
-            {
-              "symbol": "SPCX",
-              "usd": 190676.3700363166
+              "usd": 298462.8475617929
             },
             {
               "symbol": "SPY",
-              "usd": 186935.02027401834
+              "usd": 186188.0751760044
+            },
+            {
+              "symbol": "SPCX",
+              "usd": 178455.6369420895
             },
             {
               "symbol": "GME",
-              "usd": 132459.33619809442
+              "usd": 129150.05188409115
             },
             {
               "symbol": "GOOGL",
-              "usd": 76928.73532800979
+              "usd": 67856.78063686138
             },
             {
               "symbol": "GLD",
-              "usd": 67840.20159407414
+              "usd": 67360.76878291913
             },
             {
               "symbol": "QQQ",
-              "usd": 58011.899239806145
+              "usd": 57858.96231005233
             }
           ],
           "morePages": false
         },
-        "usdApprox": 5384222.294219229
+        "usdApprox": 5223440.67470342
       },
       "pipeline": {
-        "usd": 248382.5297188238,
-        "splitterUsd": 209339.58848388752,
+        "usd": 240839.0014596625,
+        "splitterUsd": 173188.50567029734,
         "intakeUsd": null,
-        "escrowUsd": 39042.94123493628,
-        "splitterEth": 59.32228022347082,
-        "escrowEthTotal": 12.507756819290487
+        "escrowUsd": 67650.49578936519,
+        "splitterEth": 43.1345220404394,
+        "escrowEthTotal": 21.788157056358546
       },
-      "ethUsd": 2308.33,
+      "ethUsd": 2306.13,
       "note": "escrow 总 ETH 含创作者未领份额；协议可领部分 = escrowClaimableEth。pipeline 估值来自官方 buyback-status（配对资产按参考价）。"
     },
     "flows": {
-      "window": "近 28 天（2026-09-28 ~ 2026-10-25）",
+      "window": "近 28 天（2026-10-05 ~ 2026-11-01）",
       "inflows": [
         {
           "name": "协议收入（V1 10%/30% + V2 30% + 发币费）",
-          "usd": 2974686,
+          "usd": 1785979,
           "source": "DefiLlama revenue"
         },
         {
           "name": "  其中 V1",
-          "usd": 121373
+          "usd": 73680
         },
         {
           "name": "  其中 V2",
-          "usd": 2853313
+          "usd": 1712299
         }
       ],
       "outflows": [
         {
           "name": "买回 PONS 销毁（持有人）",
-          "usd": 3804365,
+          "usd": 2718387,
           "source": "DefiLlama holdersRevenue = 链上 dead 事件"
         },
         {
           "name": "团队 20%（splitter → Safe#2 ETH + 代币）",
-          "usd": 602630.0701263492,
+          "usd": 388626.5674930477,
           "source": "链上 Safe#2 内部转入 + ERC-20 转入"
         },
         {
@@ -1237,7 +1288,7 @@
         },
         {
           "name": "Safe#1/Safe#2 直接支付（USDG）",
-          "usd": 548503.502799,
+          "usd": 243425.456979,
           "source": "链上 ERC-20 转出"
         },
         {
@@ -1246,106 +1297,106 @@
           "source": "链上，见告警"
         }
       ],
-      "residual": -1742512.5729253492,
+      "residual": -1409560.0244720476,
       "residualNote": "余额 = 收入 − 销毁 − 团队三项，为正即仍在管道/多签里（配对资产未变现、escrow 未领）或统计时滞",
       "passThrough": {
-        "creatorsAndOthers": 16754109,
-        "fees": 19728811
+        "creatorsAndOthers": 10429748,
+        "fees": 12215755
       }
     },
     "ledger": {
       "window": {
-        "from": "2026-09-28",
-        "to": "2026-10-25"
+        "from": "2026-10-05",
+        "to": "2026-11-01"
       },
       "upstream": {
-        "fees": 19728811,
-        "creators": 16754109,
-        "revenue": 2974686,
-        "revenuePctOfFees": 0.1507787772917486
+        "fees": 12215755,
+        "creators": 10429748,
+        "revenue": 1785979,
+        "revenuePctOfFees": 0.14620291582468706
       },
       "income": [
         {
           "name": "V2（curve + Uniswap v4 hook，协议份额 30%）",
-          "usd": 2853313,
-          "pct": 0.9591980464492723
+          "usd": 1712299,
+          "pct": 0.9587453155944163
         },
         {
           "name": "V1（Uniswap v3 池，协议份额 10%/30%）+ 发币费",
-          "usd": 121373,
-          "pct": 0.04080195355072771
+          "usd": 73680,
+          "pct": 0.04125468440558372
         }
       ],
       "uses": [
         {
           "key": "burn",
           "name": "① 给持有人：买回 PONS 销毁",
-          "usd": 3804365,
-          "pct": 1.2789131357057517,
+          "usd": 2718387,
+          "pct": 1.522071088181888,
           "policy": 0.8,
           "detail": "splitter TWAP 买入 → dead"
         },
         {
           "key": "team",
           "name": "② 给团队：回购合约按 20% 实物分账",
-          "usd": 602630.0701263492,
-          "pct": 0.202586111652238,
+          "usd": 388626.5674930477,
+          "pct": 0.21759862097653315,
           "policy": 0.2,
           "detail": "splitter → 团队多签 Safe#2，下列四项之和",
           "items": [
             {
               "name": "ETH",
-              "usd": 437133.9242613587,
-              "pct": 0.1469512830131848
+              "usd": 296685.38597295794,
+              "pct": 0.16611919063603656
             },
             {
               "name": "USDG",
-              "usd": 71445.46373999998,
-              "pct": 0.0240178169191639
+              "usd": 30828.243848,
+              "pct": 0.017261257746031728
             },
             {
               "name": "股票代币（NVDA/SPY/GME 等，ERC-8056，官方参考现价）",
-              "usd": 79004.25846305233,
-              "pct": 0.026558856451757373
+              "usd": 56977.16308799008,
+              "pct": 0.03190248210532715
             },
             {
               "name": "其他代币（现价近似）",
-              "usd": 15046.423661938228,
-              "pct": 0.005058155268131906
+              "usd": 4135.774584099694,
+              "pct": 0.002315690489137719
             }
           ]
         },
         {
           "key": "residual",
           "name": "③ 尚未分配（留在协议多签与回购管道）",
-          "usd": -1432309.070126349,
-          "pct": -0.48149924735798977,
-          "detail": "= 收入 − ① − ②：本期新增、还留在回购合约与协议多签里的部分（回购合约 ETH 同期 n/a）；含计价时点差"
+          "usd": -1321034.5674930476,
+          "pct": -0.739669709158421,
+          "detail": "= 收入 − ① − ②：本期新增、还留在回购合约与协议多签里的部分（回购合约 ETH 同期 -361 ETH）；含计价时点差"
         }
       ],
       "stocks": [
         {
           "name": "协议多签 Safe#1",
           "owner": "待分配",
-          "usd": 197062.30638849738,
-          "detail": "16.3 ETH + 385K PONS + V2 escrow 可领 0.1 ETH + 稳定币 $0K + 股票代币 $1K + 其他代币约 $67K（参考现价；无价的 meme 尘埃不计）"
+          "usd": 200729.38353274198,
+          "detail": "16.4 ETH + 385K PONS + V2 escrow 可领 2.1 ETH + 稳定币 $0K + 股票代币 $1K + 其他代币约 $63K（参考现价；无价的 meme 尘埃不计）"
         },
         {
           "name": "回购合约 splitter（在途）",
           "owner": "待回购（80%）/ 待分团队（20%）",
-          "usd": 209339.58848388752,
-          "detail": "59.3 ETH + 配对资产，等 TWAP 执行"
+          "usd": 173188.50567029734,
+          "detail": "43.1 ETH + 配对资产，等 TWAP 执行"
         },
         {
           "name": "团队多签 Safe#2",
           "owner": "团队",
-          "usd": 5384222.294219229,
-          "detail": "995.9 ETH + 稳定币 $1391K + 股票代币 $1653K + 其他代币约 $41K（参考现价；无价的 meme 尘埃不计）"
+          "usd": 5223440.67470342,
+          "detail": "1012.5 ETH + 稳定币 $1248K + 股票代币 $1600K + 其他代币约 $40K（参考现价；无价的 meme 尘埃不计）"
         }
       ],
-      "onchainThroughput28": null,
-      "splitterEthDelta28": null,
-      "stocksUnallocated": 406401.8948723849,
+      "onchainThroughput28": 2273429.5998749584,
+      "splitterEthDelta28": -361.4644307207698,
+      "stocksUnallocated": 373917.88920303935,
       "offBalance": [
         {
           "name": "协议多签 Safe#1 直接划稳定币给团队多签 Safe#2（不经回购合约，动用多签期初存量）",
@@ -1355,9 +1406,9 @@
         },
         {
           "name": "协议多签 Safe#1 直接付 USDG 给个人地址",
-          "usd": 310203.502799,
+          "usd": 88525.456979,
           "level": "INFO",
-          "detail": "3 笔"
+          "detail": "4 笔"
         },
         {
           "name": "协议多签 Safe#1 直接转出 PONS（处置存量资产，不是本期收入分配）",
@@ -1373,9 +1424,9 @@
         },
         {
           "name": "团队多签 Safe#2 付 USDG 给个人地址（团队花自己的钱）",
-          "usd": 238300,
+          "usd": 154900,
           "level": "INFO",
-          "detail": "10 笔"
+          "detail": "9 笔"
         },
         {
           "name": "团队多签 Safe#2 收到的非 splitter 来源资金（来源不明，未计入团队收入）",
@@ -1390,20 +1441,20 @@
   "teamRevenue": {
     "primary": {
       "label": "splitter 按 20% 实物分给 Safe#2（ETH + USDG + 其他配对资产）",
-      "tokens28dUsd": 165496.14586499054,
-      "tokens7dUsd": 11713.579898292397,
-      "tokensAllUsd": 2313260.855764029,
-      "tokensStable28d": 71445.46373999998,
-      "tokensStock28dUsd": 79004.25846305233,
+      "tokens28dUsd": 91941.18152008977,
+      "tokens7dUsd": 24669.87329209241,
+      "tokensAllUsd": 2297124.6045244993,
+      "tokensStable28d": 30828.243848,
+      "tokensStock28dUsd": 56977.16308799008,
       "tokensUnpriced28d": 0,
-      "splitterAll28dUsd": 602630.0701263492,
-      "splitterAll7dUsd": 73231.18768717455,
+      "splitterAll28dUsd": 388626.5674930477,
+      "splitterAll7dUsd": 66723.1657093201,
       "otherTokenInflows": [
         {
           "date": "2026-09-06",
           "symbol": "SPY",
           "amount": 60.106587603383225,
-          "usd": 45823.25777837322,
+          "usd": 45574.10087633641,
           "from": "0xfdde5a1e3cdf791da71e49f817d70c7ced72cc36",
           "fromLabel": "EOA：V2 escrow/vault 部署者；09-06 向 Safe#2 直转 147.45 ETH（疑似团队侧）"
         },
@@ -1411,7 +1462,7 @@
           "date": "2026-09-06",
           "symbol": "SPCX",
           "amount": 236.95636041275355,
-          "usd": 35008.06729342165,
+          "usd": 32706.451577132662,
           "from": "0xfdde5a1e3cdf791da71e49f817d70c7ced72cc36",
           "fromLabel": "EOA：V2 escrow/vault 部署者；09-06 向 Safe#2 直转 147.45 ETH（疑似团队侧）"
         },
@@ -1419,7 +1470,7 @@
           "date": "2026-09-06",
           "symbol": "GME",
           "amount": 422.88367836763575,
-          "usd": 10488.57790523236,
+          "usd": 10189.200279200693,
           "from": "0xfdde5a1e3cdf791da71e49f817d70c7ced72cc36",
           "fromLabel": "EOA：V2 escrow/vault 部署者；09-06 向 Safe#2 直转 147.45 ETH（疑似团队侧）"
         },
@@ -1443,7 +1494,7 @@
           "date": "2026-09-06",
           "symbol": "NVDA",
           "amount": 34.60082002942201,
-          "usd": 7328.8923023546095,
+          "usd": 7158.332021058942,
           "from": "0xfdde5a1e3cdf791da71e49f817d70c7ced72cc36",
           "fromLabel": "EOA：V2 escrow/vault 部署者；09-06 向 Safe#2 直转 147.45 ETH（疑似团队侧）"
         },
@@ -1451,7 +1502,7 @@
           "date": "2026-09-06",
           "symbol": "TTWO",
           "amount": 31.07850200857659,
-          "usd": 6354.788942904627,
+          "usd": 6297.436861997874,
           "from": "0xfdde5a1e3cdf791da71e49f817d70c7ced72cc36",
           "fromLabel": "EOA：V2 escrow/vault 部署者；09-06 向 Safe#2 直转 147.45 ETH（疑似团队侧）"
         },
@@ -1467,7 +1518,7 @@
           "date": "2026-09-06",
           "symbol": "AAPL",
           "amount": 5.426486390438287,
-          "usd": 1879.6971826162346,
+          "usd": 1870.9993957467889,
           "from": "0xfdde5a1e3cdf791da71e49f817d70c7ced72cc36",
           "fromLabel": "EOA：V2 escrow/vault 部署者；09-06 向 Safe#2 直转 147.45 ETH（疑似团队侧）"
         },
@@ -1506,13 +1557,13 @@
       ],
       "collected": true,
       "annualBasis": "8 周中位×52",
-      "usd7d": 61517.60778888215,
-      "usd28d": 437133.9242613587,
-      "eth7d": 25.43702435075837,
-      "eth28d": 170.57317809877665,
-      "ethAll": 1073.2623442458198,
-      "usdAll": 2710006.8902769065,
-      "annualUsd": 17839502.67188244,
+      "usd7d": 42053.29241722769,
+      "usd28d": 296685.38597295794,
+      "eth7d": 18.249737698787374,
+      "eth28d": 120.89959540440515,
+      "ethAll": 1089.945672572822,
+      "usdAll": 2748445.0860623224,
+      "annualUsd": 8065895.87007526,
       "since": "2026-09-03",
       "complete": true,
       "otherInflowsEth": 147.4534739599375,
@@ -1532,32 +1583,32 @@
       ]
     },
     "shareCheck": {
-      "d28": 0.19351179705781593,
-      "d7": 0.14507977335988625,
-      "splitterOnly28d": 0.13674398553594747,
-      "splitterOnly7d": 0.12880383628532058,
+      "d28": 0.14931816536049988,
+      "d7": 0.2524599067859651,
+      "splitterOnly28d": 0.12508042177833756,
+      "splitterOnly7d": 0.20893679922887765,
       "policy": 0.2,
       "components28d": {
-        "splitterEthUsd": 437133.9242613587,
-        "splitterTokensUsd": 165496.14586499054,
+        "splitterEthUsd": 296685.38597295794,
+        "splitterTokensUsd": 91941.18152008977,
         "safe1ToSafe2Stable": 0,
-        "safe1DirectPayouts": 310203.502799,
-        "total": 912833.5729253492
+        "safe1DirectPayouts": 88525.456979,
+        "total": 477152.0244720477
       }
     },
-    "impliedFromRevenue28d": 594937.2000000001,
+    "impliedFromRevenue28d": 357195.80000000005,
     "payouts": {
       "safe1": {
-        "all": 516837.736316,
-        "d28": 310203.502799,
-        "count": 17,
+        "all": 528046.401888,
+        "d28": 88525.456979,
+        "count": 18,
         "recipients": 11
       },
       "safe2": {
-        "all": 317015,
-        "d28": 238300,
-        "count": 14,
-        "recipients": 9
+        "all": 465915,
+        "d28": 154900,
+        "count": 22,
+        "recipients": 12
       },
       "safe1ToSafe2Stable": 1000000,
       "safe2EthOutAll": 224.85,
@@ -1664,194 +1715,194 @@
     "conclusion": "团队赚的是协议收入（政策 20%，以 ETH、USDG、股票代币等实物形态进团队多签 Safe#2+ 未来 V2 BuybackVault 里 meme 币回购的协议份额（5 年 vest）；不是代币增发，也不是 PONS 池创作者费（该费已 redirect 给回购）。"
   },
   "holders": {
-    "holdersCount": 104127,
+    "holdersCount": 105547,
     "top": [
       {
         "address": "0x000000000000000000000000000000000000dEaD",
-        "tokens": 327725699.02897424,
-        "pctOfMax": 0.32772569902897425,
-        "pctOfCirc": 0.48748806633781894,
+        "tokens": 328745207.53622293,
+        "pctOfMax": 0.32874520753622294,
+        "pctOfCirc": 0.4897472781231026,
         "kind": "dead",
         "label": "销毁地址 (dead)"
       },
       {
         "address": "0xB995B91882F5990e5aB3Cc4700b66b20A66C4C79",
-        "tokens": 75363397.71658754,
-        "pctOfMax": 0.07536339771658754,
-        "pctOfCirc": 0.11210215474209481,
+        "tokens": 77464397.1022012,
+        "pctOfMax": 0.0774643971022012,
+        "pctOfCirc": 0.11540237473445139,
         "kind": "eoa",
         "label": "未知地址（疑似大户）"
       },
       {
         "address": "0xC882b111A75C0c657fC507C04FbFcD2cC984F071",
-        "tokens": 45248023.3825189,
-        "pctOfMax": 0.045248023382518904,
-        "pctOfCirc": 0.06730589480687146,
+        "tokens": 37597229.40108564,
+        "pctOfMax": 0.03759722940108564,
+        "pctOfCirc": 0.05601037016523722,
         "kind": "eoa",
         "label": "未知地址（疑似大户）"
       },
       {
         "address": "0xa64723bFdc2805c4Ad09c509983cfd85362298BA",
-        "tokens": 30033149.668210775,
-        "pctOfMax": 0.030033149668210773,
-        "pctOfCirc": 0.04467395172600116,
+        "tokens": 27927726.089019787,
+        "pctOfMax": 0.027927726089019788,
+        "pctOfCirc": 0.04160525392528479,
         "kind": "eoa",
         "label": "未知地址（疑似大户）"
       },
       {
         "address": "0x295C2684FE7D5d583A8AbA9Aac012442D3E0AA36",
-        "tokens": 18988767.058808967,
-        "pctOfMax": 0.018988767058808968,
-        "pctOfCirc": 0.028245564394447024,
+        "tokens": 17105919.76993313,
+        "pctOfMax": 0.017105919769933132,
+        "pctOfCirc": 0.02548349741705005,
         "kind": "eoa",
         "label": "未知地址（疑似大户）"
       },
       {
         "address": "0xc0E17AD342AFABD36b3971F8305fF147006962ae",
-        "tokens": 15267504.60750984,
-        "pctOfMax": 0.01526750460750984,
-        "pctOfCirc": 0.022710230906428555,
+        "tokens": 16742682.492812963,
+        "pctOfMax": 0.016742682492812962,
+        "pctOfCirc": 0.024942365672147433,
         "kind": "eoa",
         "label": "未知地址（疑似大户）"
       },
       {
         "address": "0x73D8bD54F7Cf5FAb43fE4Ef40A62D390644946Db",
-        "tokens": 12538215.304009723,
-        "pctOfMax": 0.012538215304009722,
-        "pctOfCirc": 0.01865044563788867,
+        "tokens": 13209371.681178164,
+        "pctOfMax": 0.013209371681178163,
+        "pctOfCirc": 0.01967862550775156,
         "kind": "contract",
         "label": "合约 ERC1967Proxy"
       },
       {
-        "address": "0xED9Ab5BC05A0152B9dC2f7902e8369Af7bC18771",
-        "tokens": 11505262.55485195,
-        "pctOfMax": 0.01150526255485195,
-        "pctOfCirc": 0.017113940750425643,
+        "address": "0xa4856E07D14045014B2c3FEce5460bD37B310F10",
+        "tokens": 12218744.632320879,
+        "pctOfMax": 0.01221874463232088,
+        "pctOfCirc": 0.0182028415580813,
         "kind": "eoa",
         "label": "未知地址（疑似大户）"
       },
       {
         "address": "0x0a6EBEd0155EDB4b21D92AD02897A626CD90119E",
-        "tokens": 10958913.388391113,
-        "pctOfMax": 0.010958913388391113,
-        "pctOfCirc": 0.016301252885261533,
+        "tokens": 10958919.905351495,
+        "pctOfMax": 0.010958919905351496,
+        "pctOfCirc": 0.01632602110016648,
         "kind": "contract",
         "label": "合约（未命名）"
       },
       {
         "address": "0x2dBAf98620aC5Bbe3441f756fEfF82702D095b1a",
-        "tokens": 9882620.087628761,
-        "pctOfMax": 0.009882620087628762,
-        "pctOfCirc": 0.014700279444498194,
+        "tokens": 10075571.381707752,
+        "pctOfMax": 0.010075571381707752,
+        "pctOfCirc": 0.01501005504143415,
         "kind": "eoa",
         "label": "未知地址（疑似大户）"
       },
       {
         "address": "0x88D25C861938a91AF4ad57aD964a8fCc6c6351d3",
-        "tokens": 9788388.031266628,
-        "pctOfMax": 0.009788388031266628,
-        "pctOfCirc": 0.014560110385193047,
+        "tokens": 9791947.51458435,
+        "pctOfMax": 0.00979194751458435,
+        "pctOfCirc": 0.014587527157376315,
         "kind": "eoa",
         "label": "未知地址（疑似大户）"
-      },
-      {
-        "address": "0x8366a39CC670B4001A1121B8F6A443A643e40951",
-        "tokens": 9630242.391777493,
-        "pctOfMax": 0.009630242391777493,
-        "pctOfCirc": 0.014324870633709597,
-        "kind": "known",
-        "label": "Uniswap v4 PoolManager（流动性）"
       },
       {
         "address": "0xDE52C75041371b5E08d8a50b82C63734850628C1",
         "tokens": 8999999.980473917,
         "pctOfMax": 0.008999999980473917,
-        "pctOfCirc": 0.013387392567995557,
+        "pctOfCirc": 0.013407725474018995,
         "kind": "eoa",
         "label": "未知地址（疑似大户）"
       },
       {
-        "address": "0xf2A0bE59AB76b96f957bd5E5b967F2B75e8dB269",
-        "tokens": 8178340.941571989,
-        "pctOfMax": 0.00817834094157199,
-        "pctOfCirc": 0.012165184553030336,
-        "kind": "contract",
-        "label": "合约 RamsesV3Pool"
+        "address": "0x8366a39CC670B4001A1121B8F6A443A643e40951",
+        "tokens": 8797968.856112456,
+        "pctOfMax": 0.008797968856112457,
+        "pctOfCirc": 0.013106750156405358,
+        "kind": "known",
+        "label": "Uniswap v4 PoolManager（流动性）"
+      },
+      {
+        "address": "0x0D0707963952f2fBA59dD06f2b425ace40b492Fe",
+        "tokens": 8184891.483326058,
+        "pctOfMax": 0.008184891483326058,
+        "pctOfCirc": 0.012193419809017959,
+        "kind": "eoa",
+        "label": "未知地址（疑似大户）"
       },
       {
         "address": "0xF376dC73F048766a85f88d3B5C62393d66aC3A7b",
-        "tokens": 7216885.6655520005,
-        "pctOfMax": 0.007216885665552001,
-        "pctOfCirc": 0.010735031303633069,
+        "tokens": 7939005.751776022,
+        "pctOfMax": 0.007939005751776022,
+        "pctOfCirc": 0.011827112209711985,
         "kind": "eoa",
         "label": "未知地址（疑似大户）"
       },
       {
         "address": "0x33d35d84372a97dA6Bbd32D101bDcC48074cC102",
-        "tokens": 6699297.511773747,
-        "pctOfMax": 0.006699297511773747,
-        "pctOfCirc": 0.009965125101610094,
+        "tokens": 7070870.484647586,
+        "pctOfMax": 0.007070870484647586,
+        "pctOfCirc": 0.010533810058464724,
         "kind": "contract",
         "label": "合约（未命名）"
       },
       {
         "address": "0x58E0D6ca88845dd8F5B73251883C4B76a94f0590",
-        "tokens": 6339347.189436421,
-        "pctOfMax": 0.006339347189436421,
-        "pctOfCirc": 0.009429703292658869,
+        "tokens": 6564389.518498412,
+        "pctOfMax": 0.006564389518498412,
+        "pctOfCirc": 0.009779281417722835,
         "kind": "eoa",
         "label": "未知地址（疑似大户）"
+      },
+      {
+        "address": "0xf2A0bE59AB76b96f957bd5E5b967F2B75e8dB269",
+        "tokens": 6508249.68858985,
+        "pctOfMax": 0.006508249688589851,
+        "pctOfCirc": 0.00969564725892226,
+        "kind": "contract",
+        "label": "合约 RamsesV3Pool"
+      },
+      {
+        "address": "0x10CC6BD38112cAc182db90B6a71d8Bb5939526bA",
+        "tokens": 5601759.951017061,
+        "pctOfMax": 0.0056017599510170615,
+        "pctOfCirc": 0.008345206639726672,
+        "kind": "known",
+        "label": "Uniswap v3 PONS/WETH 1% 池（PONS 发行池，legacy 90/10）"
       },
       {
         "address": "0xFF5D8D4e19017f411f81Ef3A682e242A3278C9Ad",
         "tokens": 5497138.310168918,
         "pctOfMax": 0.005497138310168918,
-        "pctOfCirc": 0.00817692763538471,
+        "pctOfCirc": 0.008189346835040377,
         "kind": "eoa",
         "label": "未知地址（疑似大户）"
-      },
-      {
-        "address": "0x10CC6BD38112cAc182db90B6a71d8Bb5939526bA",
-        "tokens": 5369598.022907492,
-        "pctOfMax": 0.005369598022907492,
-        "pctOfCirc": 0.00798721298010604,
-        "kind": "known",
-        "label": "Uniswap v3 PONS/WETH 1% 池（PONS 发行池，legacy 90/10）"
-      },
-      {
-        "address": "0xb86ee70587143bB4AEB440b7e41e41Bb58FF0d09",
-        "tokens": 5142227.006372844,
-        "pctOfMax": 0.005142227006372844,
-        "pctOfCirc": 0.007649001306379653,
-        "kind": "contract",
-        "label": "合约 SafeProxy"
       }
     ],
     "concentration": {
-      "top10NonDeadPctOfCirc": 0.3563638256791102,
-      "unknownEoaTop20PctOfCirc": 0.44332017298870774,
-      "contractsTop20PctOfCirc": 0.1578363701852178,
+      "top10NonDeadPctOfCirc": 0.3472489322789807,
+      "unknownEoaTop20PctOfCirc": 0.44519469242834725,
+      "contractsTop20PctOfCirc": 0.14719651820825222,
       "largestEoa": {
         "address": "0xB995B91882F5990e5aB3Cc4700b66b20A66C4C79",
-        "pctOfCirc": 0.11210215474209481
+        "pctOfCirc": 0.11540237473445139
       }
     },
     "composition": [
       {
         "name": "已销毁（dead）",
-        "tokens": 327725699.02897424
+        "tokens": 328745207.53622293
       },
       {
         "name": "疑似大户 EOA（top20 内未知地址）",
-        "tokens": 298032759.4023377
+        "tokens": 298839070.8719653
       },
       {
         "name": "流动性/合约（top20 内）",
-        "tokens": 106109335.43407133
+        "tokens": 98806368.28127092
       },
       {
         "name": "其余流通",
-        "tokens": 268132206.1346166
+        "tokens": 273609353.3105408
       }
     ],
     "note": "疑似 = 非合约、无标签、持仓进 top20；不能断言归属团队。Uniswap Labs 持仓钱包未披露，无法单列。"
@@ -1893,16 +1944,16 @@
     "dlHacks": [],
     "dlAudits": [],
     "feesTrend": {
-      "last4w": 19728811,
-      "prior4w": 137188388,
-      "change": -0.8561918301715157,
+      "last4w": 12215755,
+      "prior4w": 95629210,
+      "change": -0.8722591664199673,
       "peakWeek": 51046666,
-      "drawdownFromPeak": 0.9461331715571787
+      "drawdownFromPeak": 0.9613210390664887
     },
     "buybackPolicy": {
-      "hrOverRevenue28d": 1.2789131357057517,
-      "teamShare28d": 0.19351179705781593,
-      "splitterOnlyShare28d": 0.13674398553594747,
+      "hrOverRevenue28d": 1.522071088181888,
+      "teamShare28d": 0.14931816536049988,
+      "splitterOnlyShare28d": 0.12508042177833756,
       "policyTeamShare": 0.2,
       "warnBelow": 0.6,
       "splitterAlertAbove": 0.25
@@ -1965,12 +2016,12 @@
       }
     ],
     "concentration": {
-      "top10NonDeadPctOfCirc": 0.3563638256791102,
-      "unknownEoaTop20PctOfCirc": 0.44332017298870774,
-      "contractsTop20PctOfCirc": 0.1578363701852178,
+      "top10NonDeadPctOfCirc": 0.3472489322789807,
+      "unknownEoaTop20PctOfCirc": 0.44519469242834725,
+      "contractsTop20PctOfCirc": 0.14719651820825222,
       "largestEoa": {
         "address": "0xB995B91882F5990e5aB3Cc4700b66b20A66C4C79",
-        "pctOfCirc": 0.11210215474209481
+        "pctOfCirc": 0.11540237473445139
       }
     },
     "centralization": {
@@ -1978,7 +2029,7 @@
         "owners": [
           "0x1320a2b04a9e9ff511c7209c9669ebfe13cc818e",
           "0x3825e7b3ff17637b08219e99d78b6c622b73f5b7",
-          "0xfa31fe751c203a623b52fad26b4063abc2ffdf50"
+          "0xa3fdd3a2e9a537c9e84c1661283fd8efb0bff0b8"
         ],
         "threshold": 2
       },
@@ -1994,8 +2045,8 @@
       "note": "Safe#1 可改 V1/V2 费率、收款地址、发币开关；无治理投票"
     },
     "priceVsRevenue": {
-      "priceChange30d": -0.6373635,
-      "revenueChange30d": -0.866141776101383
+      "priceChange30d": -0.4252467,
+      "revenueChange30d": -0.9063326854502685
     }
   },
   "governance": {
@@ -2020,7 +2071,7 @@
       "safe1": [
         "0x1320a2b04a9e9ff511c7209c9669ebfe13cc818e",
         "0x3825e7b3ff17637b08219e99d78b6c622b73f5b7",
-        "0xfa31fe751c203a623b52fad26b4063abc2ffdf50"
+        "0xa3fdd3a2e9a537c9e84c1661283fd8efb0bff0b8"
       ],
       "safe1Threshold": 2,
       "safe2": [
@@ -2136,6 +2187,10 @@
       {
         "t": 1792368000,
         "v": 2749722
+      },
+      {
+        "t": 1792972800,
+        "v": 1974432
       }
     ],
     "revenueWeekly": [
@@ -2198,6 +2253,10 @@
       {
         "t": 1792368000,
         "v": 408570
+      },
+      {
+        "t": 1792972800,
+        "v": 313642
       }
     ],
     "hrevWeekly": [
@@ -2260,6 +2319,10 @@
       {
         "t": 1792368000,
         "v": 495317
+      },
+      {
+        "t": 1792972800,
+        "v": 252623
       }
     ],
     "supplySideWeekly": [
@@ -2322,6 +2385,10 @@
       {
         "t": 1792368000,
         "v": 2341148
+      },
+      {
+        "t": 1792972800,
+        "v": 1660786
       }
     ],
     "v1RevenueWeekly": [
@@ -2384,6 +2451,10 @@
       {
         "t": 1792368000,
         "v": 12810
+      },
+      {
+        "t": 1792972800,
+        "v": 12916
       }
     ],
     "v2RevenueWeekly": [
@@ -2434,6 +2505,10 @@
       {
         "t": 1792368000,
         "v": 395760
+      },
+      {
+        "t": 1792972800,
+        "v": 300726
       }
     ],
     "volumeOfficialWeekly": [
@@ -2479,7 +2554,7 @@
       },
       {
         "t": 1789948800,
-        "v": 1176313797.31
+        "v": 1176313797.66
       },
       {
         "t": 1790553600,
@@ -2491,11 +2566,15 @@
       },
       {
         "t": 1791763200,
-        "v": 372537809.96
+        "v": 372537103.54999995
       },
       {
         "t": 1792368000,
-        "v": 239462296.17000005
+        "v": 239434430.96000004
+      },
+      {
+        "t": 1792972800,
+        "v": 224482233.46000004
       }
     ],
     "volumeLlamaWeekly": [
@@ -2546,6 +2625,10 @@
       {
         "t": 1792368000,
         "v": 42733039
+      },
+      {
+        "t": 1792972800,
+        "v": 33926892
       }
     ],
     "launchesWeekly": [
@@ -2608,6 +2691,10 @@
       {
         "t": 1792368000,
         "v": 10642
+      },
+      {
+        "t": 1792972800,
+        "v": 9145
       }
     ],
     "hrRatioWeekly": [
@@ -2670,11 +2757,590 @@
       {
         "t": 1792368000,
         "v": 1.2123185745404703
+      },
+      {
+        "t": 1792972800,
+        "v": 0.8054501629246084
       }
     ],
-    "burnWeeklyTokens": [],
-    "burnWeeklyUsdChain": [],
-    "burnDailyTokens": [],
+    "burnWeeklyTokens": [
+      {
+        "t": 1783900800,
+        "v": 75757965.30939497
+      },
+      {
+        "t": 1784505600,
+        "v": 20741523.33401841
+      },
+      {
+        "t": 1785110400,
+        "v": 23800214.431375176
+      },
+      {
+        "t": 1785715200,
+        "v": 26922236.162284255
+      },
+      {
+        "t": 1786320000,
+        "v": 11972389.74979502
+      },
+      {
+        "t": 1786924800,
+        "v": 6168836.500011265
+      },
+      {
+        "t": 1787529600,
+        "v": 5184418.967478812
+      },
+      {
+        "t": 1788134400,
+        "v": 7657968.644991457
+      },
+      {
+        "t": 1788739200,
+        "v": 10855894.200427592
+      },
+      {
+        "t": 1789344000,
+        "v": 5596525.926534653
+      },
+      {
+        "t": 1789948800,
+        "v": 2586010.475528538
+      },
+      {
+        "t": 1790553600,
+        "v": 2898494.705111563
+      },
+      {
+        "t": 1791158400,
+        "v": 2855212.277257204
+      },
+      {
+        "t": 1791763200,
+        "v": 3151343.951451957
+      },
+      {
+        "t": 1792368000,
+        "v": 1881847.9417048097
+      },
+      {
+        "t": 1792972800,
+        "v": 1024329.8070919514
+      }
+    ],
+    "burnWeeklyUsdChain": [
+      {
+        "t": 1783900800,
+        "v": 230324.027276301
+      },
+      {
+        "t": 1784505600,
+        "v": 658357.7794819018
+      },
+      {
+        "t": 1785110400,
+        "v": 952890.2384908339
+      },
+      {
+        "t": 1785715200,
+        "v": 651029.3018043733
+      },
+      {
+        "t": 1786320000,
+        "v": 471401.55528126797
+      },
+      {
+        "t": 1786924800,
+        "v": 199663.3517143573
+      },
+      {
+        "t": 1787529600,
+        "v": 513115.15483148425
+      },
+      {
+        "t": 1788134400,
+        "v": 4602018.300897828
+      },
+      {
+        "t": 1788739200,
+        "v": 7431661.598247673
+      },
+      {
+        "t": 1789344000,
+        "v": 3373406.2946273554
+      },
+      {
+        "t": 1789948800,
+        "v": 1623109.8543590219
+      },
+      {
+        "t": 1790553600,
+        "v": 1414448.1583722644
+      },
+      {
+        "t": 1791158400,
+        "v": 1048882.4621649901
+      },
+      {
+        "t": 1791763200,
+        "v": 991471.7672073074
+      },
+      {
+        "t": 1792368000,
+        "v": 492434.00482909824
+      },
+      {
+        "t": 1792972800,
+        "v": 252886.99890113578
+      }
+    ],
+    "burnDailyTokens": [
+      [
+        1783987200,
+        51940794.05954863
+      ],
+      [
+        1784073600,
+        8240684.992151737
+      ],
+      [
+        1784160000,
+        2892824.0448358357
+      ],
+      [
+        1784246400,
+        5996295.963470012
+      ],
+      [
+        1784332800,
+        4801767.964240074
+      ],
+      [
+        1784419200,
+        1885598.2851486802
+      ],
+      [
+        1784505600,
+        2410056.6516163945
+      ],
+      [
+        1784592000,
+        2842660.8287980855
+      ],
+      [
+        1784678400,
+        2921953.4670900702
+      ],
+      [
+        1784764800,
+        1816364.852841109
+      ],
+      [
+        1784851200,
+        5417258.389054418
+      ],
+      [
+        1784937600,
+        2904086.2664545476
+      ],
+      [
+        1785024000,
+        2429142.8781637847
+      ],
+      [
+        1785110400,
+        6320343.409391582
+      ],
+      [
+        1785196800,
+        2384912.4349719584
+      ],
+      [
+        1785283200,
+        2374452.135810405
+      ],
+      [
+        1785369600,
+        2396183.9777796865
+      ],
+      [
+        1785456000,
+        4476987.660702527
+      ],
+      [
+        1785542400,
+        530490.2514079213
+      ],
+      [
+        1785628800,
+        5316844.561311096
+      ],
+      [
+        1785715200,
+        331666.1597891748
+      ],
+      [
+        1785801600,
+        3695444.374974042
+      ],
+      [
+        1785888000,
+        6291309.54416725
+      ],
+      [
+        1785974400,
+        6622594.937098533
+      ],
+      [
+        1786060800,
+        3131237.6924634576
+      ],
+      [
+        1786147200,
+        2269245.6019102335
+      ],
+      [
+        1786233600,
+        4580737.851881564
+      ],
+      [
+        1786320000,
+        571007.7493431568
+      ],
+      [
+        1786406400,
+        3562812.054755926
+      ],
+      [
+        1786492800,
+        1281908.1790818572
+      ],
+      [
+        1786579200,
+        1324310.80752182
+      ],
+      [
+        1786665600,
+        1456698.6267127395
+      ],
+      [
+        1786752000,
+        1358171.060052812
+      ],
+      [
+        1786838400,
+        2417481.272326708
+      ],
+      [
+        1786924800,
+        2020543.1645636559
+      ],
+      [
+        1787011200,
+        883024.6285203099
+      ],
+      [
+        1787097600,
+        767567.792036891
+      ],
+      [
+        1787184000,
+        715840.9375092983
+      ],
+      [
+        1787270400,
+        617378.6897608042
+      ],
+      [
+        1787356800,
+        639139.2927643061
+      ],
+      [
+        1787443200,
+        525341.994856
+      ],
+      [
+        1787529600,
+        335414.1154308915
+      ],
+      [
+        1787616000,
+        2528448.128118396
+      ],
+      [
+        1787702400,
+        1177.8983145356178
+      ],
+      [
+        1787788800,
+        349151.1602242589
+      ],
+      [
+        1787875200,
+        1602431.9652125835
+      ],
+      [
+        1787961600,
+        287007.3280723691
+      ],
+      [
+        1788048000,
+        80788.37210577726
+      ],
+      [
+        1788134400,
+        986293.0777270794
+      ],
+      [
+        1788220800,
+        1917602.9537295103
+      ],
+      [
+        1788307200,
+        182525.04833239317
+      ],
+      [
+        1788393600,
+        128048.90891301632
+      ],
+      [
+        1788480000,
+        1689350.0763921142
+      ],
+      [
+        1788566400,
+        1486105.1252844334
+      ],
+      [
+        1788652800,
+        1268043.4546129107
+      ],
+      [
+        1788739200,
+        1796640.502298534
+      ],
+      [
+        1788825600,
+        1726301.3794884682
+      ],
+      [
+        1788912000,
+        1189605.5410482287
+      ],
+      [
+        1788998400,
+        1642598.4116158485
+      ],
+      [
+        1789084800,
+        1782625.8587979674
+      ],
+      [
+        1789171200,
+        1521227.6896574497
+      ],
+      [
+        1789257600,
+        1196894.8175210953
+      ],
+      [
+        1789344000,
+        1792404.5229789019
+      ],
+      [
+        1789430400,
+        1468115.6202577353
+      ],
+      [
+        1789516800,
+        804918.9200569391
+      ],
+      [
+        1789603200,
+        736260.8053602576
+      ],
+      [
+        1789689600,
+        301528.5296073556
+      ],
+      [
+        1789776000,
+        255943.24291080236
+      ],
+      [
+        1789862400,
+        237354.28536266088
+      ],
+      [
+        1789948800,
+        213843.63212418556
+      ],
+      [
+        1790035200,
+        1061880.023051858
+      ],
+      [
+        1790121600,
+        190364.13029623032
+      ],
+      [
+        1790208000,
+        203344.07132828236
+      ],
+      [
+        1790294400,
+        200009.21193784475
+      ],
+      [
+        1790380800,
+        199098.58067810535
+      ],
+      [
+        1790467200,
+        517470.82611203194
+      ],
+      [
+        1790553600,
+        478781.0881407261
+      ],
+      [
+        1790640000,
+        298957.5988368392
+      ],
+      [
+        1790726400,
+        251618.58230370283
+      ],
+      [
+        1790812800,
+        242020.8864773512
+      ],
+      [
+        1790899200,
+        255234.86354506016
+      ],
+      [
+        1790985600,
+        965951.0412653089
+      ],
+      [
+        1791072000,
+        405930.6445425749
+      ],
+      [
+        1791158400,
+        221200.72847515345
+      ],
+      [
+        1791244800,
+        217693.77805387974
+      ],
+      [
+        1791331200,
+        205841.28812509775
+      ],
+      [
+        1791417600,
+        209771.48958426714
+      ],
+      [
+        1791504000,
+        597859.7919585109
+      ],
+      [
+        1791590400,
+        698532.6025413871
+      ],
+      [
+        1791676800,
+        704312.598518908
+      ],
+      [
+        1791763200,
+        782928.5665596128
+      ],
+      [
+        1791849600,
+        845918.263644278
+      ],
+      [
+        1791936000,
+        248327.61159700155
+      ],
+      [
+        1792022400,
+        105534.18422847986
+      ],
+      [
+        1792108800,
+        319698.7185357213
+      ],
+      [
+        1792195200,
+        400527.0528154373
+      ],
+      [
+        1792281600,
+        448409.5540714264
+      ],
+      [
+        1792368000,
+        463830.3303664923
+      ],
+      [
+        1792454400,
+        447118.6783810854
+      ],
+      [
+        1792540800,
+        212840.61399173737
+      ],
+      [
+        1792627200,
+        179603.37497788668
+      ],
+      [
+        1792713600,
+        183785.5086236
+      ],
+      [
+        1792800000,
+        199264.3521823883
+      ],
+      [
+        1792886400,
+        195405.08318161964
+      ],
+      [
+        1792972800,
+        154350.04662418365
+      ],
+      [
+        1793059200,
+        147578.87146818638
+      ],
+      [
+        1793145600,
+        126730.00414133072
+      ],
+      [
+        1793232000,
+        133760.2617996335
+      ],
+      [
+        1793318400,
+        149698.90311461687
+      ],
+      [
+        1793404800,
+        156984.49632769823
+      ],
+      [
+        1793491200,
+        155227.223616302
+      ]
+    ],
     "teamWeeklyEth": [
       {
         "t": 1788134400,
@@ -2707,40 +3373,48 @@
       {
         "t": 1792368000,
         "v": 25.43702435075837
+      },
+      {
+        "t": 1792972800,
+        "v": 18.249737698787374
       }
     ],
     "teamWeeklyUsd": [
       {
         "t": 1788134400,
-        "v": 1674460.7413868746
+        "v": 1664496.0571362989
       },
       {
         "t": 1788739200,
-        "v": 1182197.1378445888
+        "v": 1176579.9830950745
       },
       {
         "t": 1789344000,
-        "v": 829572.6944624907
+        "v": 827165.7077869558
       },
       {
         "t": 1789948800,
-        "v": 722465.5841036262
+        "v": 716313.5455126413
       },
       {
         "t": 1790553600,
-        "v": 278581.9792362097
+        "v": 271329.84773698775
       },
       {
         "t": 1791158400,
-        "v": 76526.41267079794
+        "v": 75147.38255844513
       },
       {
         "t": 1791763200,
-        "v": 174290.49053216696
+        "v": 173696.58599811973
       },
       {
         "t": 1792368000,
-        "v": 73231.18768717452
+        "v": 73059.4332271625
+      },
+      {
+        "t": 1792972800,
+        "v": 66723.16570932009
       }
     ],
     "volumeOfficialDaily": [
@@ -3030,7 +3704,7 @@
       ],
       [
         1790035200,
-        206509901.99
+        206509902.33999997
       ],
       [
         1790121600,
@@ -3130,7 +3804,7 @@
       ],
       [
         1792195200,
-        31776154.24
+        31775447.83
       ],
       [
         1792281600,
@@ -3150,19 +3824,47 @@
       ],
       [
         1792627200,
-        33531252.02
+        33524187.84
       ],
       [
         1792713600,
-        32388797.67
+        32381356.61
       ],
       [
         1792800000,
-        25276773.43
+        25263413.3
       ],
       [
         1792886400,
-        24227031.520000003
+        24227031.68
+      ],
+      [
+        1792972800,
+        32305528.380000003
+      ],
+      [
+        1793059200,
+        34986895.27
+      ],
+      [
+        1793145600,
+        51741793.81
+      ],
+      [
+        1793232000,
+        40178834.760000005
+      ],
+      [
+        1793318400,
+        27179310.64
+      ],
+      [
+        1793404800,
+        17969789.46
+      ],
+      [
+        1793491200,
+        20120081.14
       ]
     ],
     "launchesDaily": [
@@ -3585,6 +4287,34 @@
       [
         1792886400,
         1045
+      ],
+      [
+        1792972800,
+        1430
+      ],
+      [
+        1793059200,
+        1452
+      ],
+      [
+        1793145600,
+        1938
+      ],
+      [
+        1793232000,
+        1477
+      ],
+      [
+        1793318400,
+        1112
+      ],
+      [
+        1793404800,
+        894
+      ],
+      [
+        1793491200,
+        842
       ]
     ]
   },
@@ -3593,9 +4323,9 @@
       "metric": "PONS 价格",
       "sourceA": "CoinGecko",
       "sourceB": "coins.llama",
-      "valueA": 0.235445,
-      "valueB": 0.23523767612316882,
-      "deviation": 0.0008805618162678014,
+      "valueA": 0.242773,
+      "valueB": 0.24356516652794183,
+      "deviation": 0.0032523802119748617,
       "thresholdPct": 2,
       "status": "ok",
       "signFlip": false,
@@ -3607,9 +4337,9 @@
       "metric": "流通量",
       "sourceA": "链上 总量−dead",
       "sourceB": "CoinGecko circulating",
-      "valueA": 672274300.9710257,
-      "valueB": 672286201.1016548,
-      "deviation": 0.00001770098896803515,
+      "valueA": 671254792.4637771,
+      "valueB": 671264549.4241984,
+      "deviation": 0.00001453519395548769,
       "thresholdPct": 0.5,
       "status": "ok",
       "signFlip": false,
@@ -3618,31 +4348,39 @@
       "note": "CoinGecko 同口径(总量−dead)，抓的是 CG 停更或口径被改"
     },
     {
-      "metric": "持有人收益(周=自然周 2026-10-19~2026-10-25)",
+      "metric": "持有人收益(周=自然周 2026-10-26~2026-11-01)",
       "sourceA": "DefiLlama holdersRevenue",
       "sourceB": "链上销毁枚数×当日价",
-      "valueA": 495317,
-      "valueB": null,
-      "status": "missing",
+      "valueA": 252623,
+      "valueB": 252886.99890113578,
+      "deviation": 0.0010439401878425203,
+      "thresholdPct": 15,
+      "status": "ok",
+      "signFlip": false,
       "independent": true,
+      "approx": false,
       "note": "同窗同锚：DefiLlama 事件索引 vs dRPC 归档日差分 × CoinGecko 日价"
     },
     {
       "metric": "持有人收益(近28天)",
       "sourceA": "DefiLlama holdersRevenue",
       "sourceB": "链上销毁枚数×当日价",
-      "valueA": 3804365,
-      "valueB": null,
-      "status": "missing",
+      "valueA": 2718387,
+      "valueB": 2785675.2331025316,
+      "deviation": 0.024155088971943694,
+      "thresholdPct": 10,
+      "status": "ok",
+      "signFlip": false,
       "independent": true,
+      "approx": false,
       "note": "同窗同锚，28 天窗把单日价差摊平"
     },
     {
       "metric": "手续费父子一致(周)",
       "sourceA": "父 slug pons",
       "sourceB": "V1+V2 子协议之和",
-      "valueA": 2749722,
-      "valueB": 2749722,
+      "valueA": 1974432,
+      "valueB": 1974432,
       "deviation": 0,
       "thresholdPct": 1,
       "status": "ok",
@@ -3656,7 +4394,7 @@
       "sourceA": "官方 Dune protocolRevenueUsd",
       "sourceB": "DefiLlama revenue allTime",
       "valueA": null,
-      "valueB": 36253748,
+      "valueB": 36567390,
       "status": "missing",
       "independent": true,
       "note": "口径近似：Dune 含/不含发币费与 TVL≥$200 过滤不同"
@@ -3665,19 +4403,23 @@
       "metric": "协议收入(近28天)：DefiLlama vs 链上吞吐",
       "sourceA": "DefiLlama revenue",
       "sourceB": "链上 销毁+团队分账+回购合约ETH存量变化",
-      "valueA": 2974686,
-      "valueB": null,
-      "status": "missing",
+      "valueA": 1785979,
+      "valueB": 2273429.5998749584,
+      "deviation": 0.21441200550119027,
+      "thresholdPct": 15,
+      "status": "warn",
+      "signFlip": false,
       "independent": true,
+      "approx": true,
       "note": "链上口径不含回购合约里非 ETH 资产的存量变化与协议多签存量变化；股票代币按官方参考现价"
     },
     {
       "metric": "ETH 价格",
       "sourceA": "CoinGecko",
       "sourceB": "官方 buyback-status ethUsd",
-      "valueA": 2308.33,
-      "valueB": 2305.703132099098,
-      "deviation": 0.0011379949577840877,
+      "valueA": 2306.13,
+      "valueB": 2293.369486082023,
+      "deviation": 0.005533302076629365,
       "thresholdPct": 3,
       "status": "ok",
       "signFlip": false,
@@ -3689,23 +4431,23 @@
   "checks": [
     {
       "level": "OK",
-      "msg": "DefiLlama 序列覆盖到 2026-10-25（滞后 1 天）"
+      "msg": "DefiLlama 序列覆盖到 2026-11-02（滞后 0 天）"
     },
     {
       "level": "OK",
-      "msg": "官方 Dune 交易量有效数据到 2026-10-25（接口声称 2026-10-25，末尾 0 天为滚动半成品已剔；页面生成 2026-10-26T02:48Z）"
+      "msg": "官方 Dune 交易量有效数据到 2026-11-01（接口声称 2026-11-01，末尾 0 天为滚动半成品已剔；页面生成 2026-11-02T02:19Z）"
     },
     {
       "level": "INFO",
-      "msg": "比率/收支/互核统一窗口：周（自然周）2026-10-19~2026-10-25、近 28 天 2026-09-28~2026-10-25（公共锚点 = 各序列有效末日最小值 +1；卡片里各口径自身的 7/30 天窗末日可能晚 1 天）"
-    },
-    {
-      "level": "WARN",
-      "msg": "dead 日序列(dRPC 归档) 采集失败：eth_call 失败: Archive requests require a personal token. Get one at: https://www.allnodes.com/publicnode"
+      "msg": "比率/收支/互核统一窗口：周（自然周）2026-10-26~2026-11-01、近 28 天 2026-10-05~2026-11-01（公共锚点 = 各序列有效末日最小值 +1；卡片里各口径自身的 7/30 天窗末日可能晚 1 天）"
     },
     {
       "level": "OK",
-      "msg": "回购合约实物分账 13.7%（近 28 天：ETH + USDG + 股票代币 + 其他，团队 ÷ 团队+销毁），政策 20%；股票代币按参考现价、销毁按当日价，有 1–2pp 计价误差"
+      "msg": "dead 归档末点 2026-11-02 00:00 = 328.722M，今日已销毁 0.023M（近 7 天日均 0.146M）"
+    },
+    {
+      "level": "OK",
+      "msg": "回购合约实物分账 12.5%（近 28 天：ETH + USDG + 股票代币 + 其他，团队 ÷ 团队+销毁），政策 20%；股票代币按参考现价、销毁按当日价，有 1–2pp 计价误差"
     },
     {
       "level": "INFO",
@@ -3717,7 +4459,7 @@
     },
     {
       "level": "OK",
-      "msg": "近 28 天 销毁/协议收入 = 127.9%（政策 80%；差额 = 管道在途 $0.25M（含创作者未领 escrow） + 时滞）；上线以来累计 64.9%"
+      "msg": "近 28 天 销毁/协议收入 = 152.2%（政策 80%；差额 = 管道在途 $0.24M（含创作者未领 escrow） + 时滞）；上线以来累计 65.0%"
     },
     {
       "level": "OK",
@@ -3728,36 +4470,40 @@
       "msg": "协议费收款地址变动：0x31ea5b453a6cd60f36203830de046ff32dec2cdb / 0x31ea5b453a6cd60f36203830de046ff32dec2cdb / 0x31ea5b453a6cd60f36203830de046ff32dec2cdb（原全部为 Safe#1）"
     },
     {
+      "level": "ALERT",
+      "msg": "owner/多签变动 safe1: [\"0x1320a2b04a9e9ff511c7209c9669ebfe13cc818e\",\"0x3825e7b3ff17637b08219e99d78b6c622b73f5b7\",\"0xfa31fe751c203a623b52fad26b4063abc2ffdf50\"] → [\"0x1320a2b04a9e9ff511c7209c9669ebfe13cc818e\",\"0x3825e7b3ff17637b08219e99d78b6c622b73f5b7\",\"0xa3fdd3a2e9a537c9e84c1661283fd8efb0bff0b8\"]"
+    },
+    {
       "level": "INFO",
       "msg": "Safe#1 2/3 多签、Safe#2 2/3 多签，共享 2 个签名人"
     },
     {
       "level": "OK",
-      "msg": "totalSupply 恒 10 亿，无 mint；dead 累计 327.73M（32.8%，其中 ≈80.4M 为发币夜/部署者非回购销毁）"
+      "msg": "totalSupply 恒 10 亿，无 mint；dead 累计 328.75M（32.9%，其中 ≈80.4M 为发币夜/部署者非回购销毁）"
     },
     {
       "level": "WARN",
-      "msg": "手续费近 4 周 vs 前 4 周 -86%，距峰值周回撤 95%（meme 周期退潮）"
+      "msg": "手续费近 4 周 vs 前 4 周 -87%，距峰值周回撤 96%（meme 周期退潮）"
     },
     {
       "level": "INFO",
-      "msg": "上线仅 15 周：年窗口 = 上线以来累计（PE 汇总约定），年环比不可算；PE 8 周中位口径含 8 月低谷，并列\"当前速率\"口径"
+      "msg": "上线仅 16 周：年窗口 = 上线以来累计（PE 汇总约定），年环比不可算；PE 8 周中位口径含 8 月低谷，并列\"当前速率\"口径"
     },
     {
       "level": "OK",
-      "msg": "PONS 价格 同源/口径一致性一致（偏差 0.09%，CoinGecko vs coins.llama） · coins.llama 的 coingecko: 键即转发 CoinGecko，只能抓停更/错版本"
+      "msg": "PONS 价格 同源/口径一致性一致（偏差 0.33%，CoinGecko vs coins.llama） · coins.llama 的 coingecko: 键即转发 CoinGecko，只能抓停更/错版本"
     },
     {
       "level": "OK",
       "msg": "流通量 同源/口径一致性一致（偏差 0.00%，链上 总量−dead vs CoinGecko circulating） · CoinGecko 同口径(总量−dead)，抓的是 CG 停更或口径被改"
     },
     {
-      "level": "WARN",
-      "msg": "持有人收益(周=自然周 2026-10-19~2026-10-25) 互核缺源（DefiLlama holdersRevenue=495,317 / 链上销毁枚数×当日价=n/a）"
+      "level": "OK",
+      "msg": "持有人收益(周=自然周 2026-10-26~2026-11-01) 独立源一致（偏差 0.10%，DefiLlama holdersRevenue vs 链上销毁枚数×当日价） · 同窗同锚：DefiLlama 事件索引 vs dRPC 归档日差分 × CoinGecko 日价"
     },
     {
-      "level": "WARN",
-      "msg": "持有人收益(近28天) 互核缺源（DefiLlama holdersRevenue=3.80M / 链上销毁枚数×当日价=n/a）"
+      "level": "OK",
+      "msg": "持有人收益(近28天) 独立源一致（偏差 2.42%，DefiLlama holdersRevenue vs 链上销毁枚数×当日价） · 同窗同锚，28 天窗把单日价差摊平"
     },
     {
       "level": "OK",
@@ -3765,15 +4511,15 @@
     },
     {
       "level": "WARN",
-      "msg": "累计协议收入 互核缺源（官方 Dune protocolRevenueUsd=n/a / DefiLlama revenue allTime=36.25M）"
+      "msg": "累计协议收入 互核缺源（官方 Dune protocolRevenueUsd=n/a / DefiLlama revenue allTime=36.57M）"
     },
     {
-      "level": "WARN",
-      "msg": "协议收入(近28天)：DefiLlama vs 链上吞吐 互核缺源（DefiLlama revenue=2.97M / 链上 销毁+团队分账+回购合约ETH存量变化=n/a）"
+      "level": "INFO",
+      "msg": "协议收入(近28天)：DefiLlama vs 链上吞吐 独立源·口径近似偏差 21.4% > 15%（DefiLlama revenue=1.79M vs 链上 销毁+团队分账+回购合约ETH存量变化=2.27M） · 链上口径不含回购合约里非 ETH 资产的存量变化与协议多签存量变化；股票代币按官方参考现价"
     },
     {
       "level": "OK",
-      "msg": "ETH 价格 同源/口径一致性一致（偏差 0.11%，CoinGecko vs 官方 buyback-status ethUsd） · 官方也取公开价源，基本恒真，只抓官方接口串位"
+      "msg": "ETH 价格 同源/口径一致性一致（偏差 0.55%，CoinGecko vs 官方 buyback-status ethUsd） · 官方也取公开价源，基本恒真，只抓官方接口串位"
     }
   ],
   "coverage": [
@@ -3826,7 +4572,7 @@
   "sourcesMeta": {
     "chainErrors": [],
     "officialErrors": [],
-    "deadDays": null,
-    "deadLastKey": null
+    "deadDays": 112,
+    "deadLastKey": "2026-11-02"
   }
 }
