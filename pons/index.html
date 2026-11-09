@@ -151,9 +151,9 @@
     <details open><summary>口径说明（读数前必看）</summary><ul>
       <li><b>业务本质</b>：Pons 不是 DEX，是 Robinhood Chain 上的 meme 发币平台（类 pump.fun）。V1 直接进 Uniswap v3 池（1% 税，创作者 70/协议 30；最早期 90/10），V2 先走 bonding curve 再毕业到 Uniswap v4（协议 30%，创作者 35–70%，创作者可选把 35% 用于回购自己的 meme 币）。</li>
       <li><b>交易量主源是官方接口（Dune）</b>：DefiLlama 的 dexs 只统计 V2 curve 内成交，不含 V1 与毕业后 v4 池，漏算约 90%；官方接口未公开文档、可能改版，图中并列两条以便发现。手续费与协议收入用 DefiLlama（适配器开源、按事件），官方累计协议收入作 ±15% 核对。</li>
-      <li><b>持有人收益 = 实际送进 dead 的 PONS × 当日价</b>（DefiLlama holdersRevenue 事件法，非 80% 推算）；链上用 dRPC 归档节点的 dead 余额日差分 × CoinGecko 日价互核（Blockscout 事件接口有小时级配额，不用）。回购由 Safe#1 人工把资产送进 intake→splitter 再 TWAP 买入，所以<b>单周「销毁 ÷ 协议收入」在 40%–97% 之间摆</b>，只有 4 周滚动值有意义。</li>
+      <li><b>持有人收益 = 实际送进 dead 的 PONS × 当日价</b>（DefiLlama holdersRevenue 事件法，非 80% 推算）；链上用归档节点（publicnode）的 dead 余额日差分 × CoinGecko 日价互核（Blockscout 事件接口有小时级配额，不用）。回购由 Safe#1 人工把资产送进 intake→splitter 再 TWAP 买入，所以<b>单周「销毁 ÷ 协议收入」在 40%–97% 之间摆</b>，只有 4 周滚动值有意义。</li>
       <li><b>PE</b>：主口径 流通市值 ÷ 销毁价值近 8 周中位×52（与另七个项目一致）；数据只有 11 周且 8 月是低谷，中位偏高，故并列「当前速率」口径（最近一整周×52，偏低），真值在两者之间。协议收入口径（含团队 20%）只作附注。<b>回购收益率</b> = 销毁价值年化 ÷ 流通市值，与 PE 同分子。</li>
-      <li><b>净通缩率</b> = 近 28 天销毁枚数×365/28 ÷ 流通（与其他项目同口径），旁边给「近 28 天已烧流通的 x%」这个不外推的事实数，以及近 4 周单周外推区间作敏感度。美元口径不在此重复，它就是估值板块的回购收益率。不用 8 周中位枚数：8 周内价格涨约 20 倍，低价期的高枚数会把中位年化到 70%+。无增发、无解锁，所以净通缩 = 销毁率。年窗口在不满一年时 = 上线以来累计（PE 汇总约定）。</li>
+      <li><b>净通缩率</b> = 完整自然周销毁枚数近 8 周中位 ×52 ÷ 流通（与其他项目同口径），旁边给「近 28 天已烧流通的 x%」这个不外推的事实数，以及近 4 周单周外推区间作敏感度。美元口径不在此重复，它就是估值板块的回购收益率。枚数对币价敏感，要和美元口径一起看。无增发、无解锁，所以净通缩 = 销毁率。年窗口在不满一年时 = 上线以来累计（PE 汇总约定）。</li>
       <li><b>团队收入</b> = 回购合约 splitter 按 20% 实物分给团队多签 Safe#2 的全部资产：ETH（内部交易）、USDG、股票代币、其他代币（代币转入）。链上核实：每种资产都是 20.00%。「实物分账比例」= 团队 ÷（团队 + 销毁），政策 20%。ETH 按日价、USDG 按面值、股票代币按官方参考现价、其他按现价近似。协议多签直接划给团队多签的稳定币动用的是期初存量，不在本期收入分配里，列在表外事项。Safe#2 的 ETH 与 USDG 流水已与链上余额对账。</li>
       <li><b>股票代币是 ERC-8056 类型</b>：Robinhood Chain 上 NVDA、SPY、GME 等不是 ERC-20。V2 大量池子以它们计价，协议分成、回购进料、团队分账里都有。只按 ERC-20 查流水会漏掉约三成资金（2026-09-30 对账发现）。</li>
       <li><b>协议收入的链上互证</b>：DefiLlama 协议收入 ↔ 链上「销毁 + 团队实物分账 + 回购合约 ETH 存量变化」，同窗 28 天，偏差在「核对」节。</li>
@@ -240,7 +240,7 @@ fetch("./data.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.json()).
     card("已销毁（dead）", fmtTok(sd.dead), `占总量 ${fmtPct(sd.burnedPctOfMax)} · 近 ${v.buyback.recentSenders?.rows ?? "n/a"} 笔送 dead 转账中协议回购钱包占 ${fmtPct(v.buyback.protocolShareRecent)}`, "good") +
     card("流通量", fmtTok(sd.circulating), `= 总量 − dead · CoinGecko ${fmtTok(t.cgCirculating)} · 持有地址 ${fmtNum(t.holdersCount)}`) +
     card("近 28 天销毁占流通（不年化）", fmtPct(sd.burn28dPctOfCirc, 2), `${fmtTok(sd.burn28dTokens)} ÷ 流通 · 无增发无解锁，净通缩 = 销毁`, sd.burn28dPctOfCirc != null ? "good" : "") +
-    card("净通缩率（年化）", fmtPct(sd.netDeflationRate), `近 28 天枚数×365/28 ÷ 流通，即当前烧币速度外推一年 · 近 4 周单周外推区间 ${fmtPct(sd.netDeflationRateRange?.min, 0)}–${fmtPct(sd.netDeflationRateRange?.max, 0)}（币价 4 周翻倍，同样美元买到的枚数差一倍，只能当当前速度不能当预测）· 无增发无解锁`) +
+    card("净通缩率（年化）", fmtPct(sd.netDeflationRate), `近 8 周中位枚数×52 ÷ 流通 · 近 4 周单周外推区间 ${fmtPct(sd.netDeflationRateRange?.min, 0)}–${fmtPct(sd.netDeflationRateRange?.max, 0)}（币价 4 周翻倍，同样美元买到的枚数差一倍，只能当当前速度不能当预测）· 无增发无解锁`) +
     card("周销毁（自然周）", `${fmtTok(sd.burn7dTokens)}`, `${v.buyback.seriesSource || "归档序列未采到"} · 窗口 ${v.buyback.window7?.from || ""}~${v.buyback.window7?.to || ""}`) +
     card("增发 / 解锁", "无", sd.unlockNote);
   barChart("burnChart", ch.burnWeeklyTokens.map(p => fmtDate(p.t)), [{ label: "销毁 PONS", data: ch.burnWeeklyTokens.map(p => p.v), backgroundColor: C.red + "cc" }], tokAxis);
@@ -248,7 +248,7 @@ fetch("./data.json?t=" + Date.now(), { cache: "no-store" }).then(r => r.json()).
   const pie = document.getElementById("supplyPie");
   if (pie && window.Chart && comp.length) new Chart(pie, { type: "doughnut", data: { labels: comp.map(x => x.name), datasets: [{ data: comp.map(x => x.tokens), backgroundColor: [C.red, C.yellow, C.blue, C.green], borderWidth: 0 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "right", labels: { boxWidth: 10 } }, tooltip: { callbacks: { label: (c) => `${c.label}: ${fmtTok(c.raw)} (${(c.raw / sd.totalSupply * 100).toFixed(1)}%)` } } } } });
   document.getElementById("supplyNotes").innerHTML =
-    li("INFO", `销毁枚数主源 = dRPC 归档节点每日 00:00 UTC 读 balanceOf(dead) 的日差分（全部发送方合计；近期样本显示 ${fmtPct(v.buyback.protocolShareRecent, 0)} 来自协议回购钱包）；DefiLlama holdersRevenue 是 dead 转入事件×当日价，两者在「核对」节互核。`) +
+    li("INFO", `销毁枚数主源 = 归档节点每日 00:00 UTC 读 balanceOf(dead) 的日差分（全部发送方合计；近期样本显示 ${fmtPct(v.buyback.protocolShareRecent, 0)} 来自协议回购钱包）；DefiLlama holdersRevenue 是 dead 转入事件×当日价，两者在「核对」节互核。`) +
     li("INFO", `PONS 自身池（legacy 90/10）的 90% 创作者费 redirect 至 V1 burner 钱包 → 也买回销毁；这部分不经 splitter，不参与 80/20 分账。`);
 
   // 3 持有人收益与估值
