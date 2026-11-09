@@ -213,7 +213,7 @@
   <details class="fold gloss"><summary>争议项与歧义澄清（外部数字对不上/容易误读的点，先看这里）</summary>
     <dl>
       <dt>"HYPE 是通缩币"——本面板结论相反</dt>
-      <dd>按实际口径（年回购+链上销毁 − 年实际解锁），当前是<b>净通胀</b>。hl.eco 的 Real Inflation 页用独立口径（仅计质押增发）同样得出净通胀结论，两套数据链路方向一致。市场叙事只看回购/销毁，漏掉了验证者奖励等持续解锁。且两大悬顶（38.888% 未来排放、团队 2027-28 洪峰）均未计入——计入只会更通胀。</dd>
+      <dd>按前瞻口径（年回购+链上销毁 − 年解锁），当前是<b>净通胀</b>。hl.eco 的 Real Inflation 页用独立口径（仅计质押增发）同样得出净通胀结论，两套数据链路方向一致。市场叙事只看回购/销毁，漏掉了验证者奖励等持续解锁。且两大悬顶（38.888% 未来排放、团队 2027-28 洪峰）均未计入——计入只会更通胀。</dd>
       <dt>为什么各站的"销毁总量"对不上</dt>
       <dd>取决于是否把 AF 持仓算作销毁：hypeburn.fun 只算链上真实销毁（~0.1% 量级）；hl.eco / CoinGecko 把 AF 计入（~4.7% 量级）。本面板双口径分开展示，"合计移出流通"= 两者之和。对外引用先说口径。</dd>
       <dt>为什么"99% 回购"实际只到 ~7 成</dt>
@@ -340,11 +340,11 @@ async function main() {
     tile("年回购速率", fmtTok(b?.buyback.annualTokens) + " HYPE/年", `${fmtUsd(b?.buyback.annualUsd)}/年 按当前30d速率`) +
     // netTokens 可为 null（链上销毁缺源）；null >= 0 在 JS 里为 true，必须先判 null，否则缺源会显示成绿色"净通缩"
     (val ? (val.netDeflation.netTokens == null
-      ? tile("净通缩率（实际口径）", "暂缺", "链上销毁速率缺源 —— 不按 0 计，不出结论", "caution")
+      ? tile("净通缩率（前瞻口径）", "暂缺", "链上销毁速率缺源 —— 不按 0 计，不出结论", "caution")
       // 2026-09-14（D4-A）：|rate| < 0.3pp（≈14 期序列 1σ）判"≈持平"，与周报卡片同口径
       : (() => { const nd0 = val.netDeflation, flat = nd0.rateOfCirc != null && Math.abs(nd0.rateOfCirc) < 0.003;
-          return tile("净通缩率（实际口径）", fmtPct(nd0.rateOfCirc), `${flat ? "≈持平（在估计噪声内）" : nd0.netTokens >= 0 ? "净通缩" : "净通胀"} ${fmtTok(nd0.netTokens)} HYPE/年${nd0.isLowerBound ? "（链上销毁按均值兜底，为下界）" : ""}`, flat ? "" : nd0.netTokens >= 0 ? "good" : "caution"); })()) : "") +
-    (s.etf ? tile("ETF 累计净流入", fmtUsd(s.etf.cumUsd), `单源 Farside·待复核 · ≈${fmtTok(s.etf.cumTokensAtPrice)} HYPE(按现价) · 近7d ${fmtUsd(s.etf.last7dUsd)} · 截至 ${esc(s.etf.lastDate)}`, "good")
+          return tile("净通缩率（前瞻口径）", fmtPct(nd0.rateOfCirc), `${nd0.actualRateOfCirc != null ? `实际 ${fmtPct(nd0.actualRateOfCirc)}（官方流通 ${nd0.actualWindowDays} 天差分）· ` : ""}${flat ? "≈持平（在估计噪声内）" : nd0.netTokens >= 0 ? "净通缩" : "净通胀"} ${fmtTok(nd0.netTokens)} HYPE/年${nd0.isLowerBound ? "（链上销毁按均值兜底，为下界）" : ""}`, flat ? "" : nd0.netTokens >= 0 ? "good" : "caution"); })()) : "") +
+    (s.etf ? tile("ETF 累计净流入", fmtUsd(s.etf.cumUsd), `单源 Farside·待复核 · ≈${fmtTok(s.etf.cumTokensAtPrice)} HYPE(按现价) · 上周 ${fmtUsd(s.etf.last7dUsd)} · 截至 ${esc(s.etf.lastDate)}`, "good")
            : tile("ETF 累计净流入", "源降级", "Farside 代理不可用，勿当零流入解读", "caution"));
   if (val) {
     const nd = val.netDeflation;
