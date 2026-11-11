@@ -43,7 +43,7 @@ main>p:nth-of-type(2){font-size:18px;line-height:1.7;padding:16px 18px;border-le
 </li></ul>
 <p><strong>补上成本、8 个池一起看（第 6–7 节）</strong></p>
 <ul><li>±5%：8 池合计每天 −$18。
-</li><li>±10%：8 池合计每天 +$49，10-05 之后 +$111。平均每池每天 $6，本金约 $12,300。
+</li><li>±10%（十笔）：8 池合计每天 +$48，10-05 之后 +$110。平均每池每天 $6，本金约 $12,300。
 </li></ul>
 <p><strong>六个调整（第 9 节）</strong></p>
 <ul><li>有效的只有一个：区间加宽。
@@ -51,8 +51,8 @@ main>p:nth-of-type(2){font-size:18px;line-height:1.7;padding:16px 18px;border-le
 </li></ul>
 <p><strong>把时间拉长到三年（第 11 节）</strong></p>
 <ul><li>池子只有 110 天历史，手续费没法往前推。掉头亏损只取决于股价，可以用正股三年的小时线算。
-</li><li>MSTR 这 110 天每天亏 $9，三年平均每天亏 $51。NVDA、CRCL 也只有长期均值的三到六成。
-</li><li>用现在的手续费减去三年平均的掉头亏损，8 池合计约每天 −$66。只有 META 和 SPY 为正。
+</li><li>MSTR 这 110 天每天亏 $9，三年平均每天亏 $50。NVDA、CRCL 也只有长期均值的三到六成。
+</li><li>用现在的手续费减去三年平均的掉头亏损，8 池合计约每天 −$67。只有 META 和 SPY 为正。
 </li></ul>
 <p><strong>这份数字经过独立核查（第 12 节）</strong></p>
 <ul><li>对冲逻辑无误：独立重写后 26 个周期全部对上。
@@ -140,14 +140,14 @@ main>p:nth-of-type(2){font-size:18px;line-height:1.7;padding:16px 18px;border-le
 <ul><li>区间要按池子的 tick 向外对齐。名义 ±5% 实际约 −5.3% / +5.3%，名义 ±10% 实际约 −10.2% / +10.3%。
 </li></ul>
 <p><strong>格距</strong></p>
-<ul><li>设计是每格 1%。±5% 是五笔，±10% 是十笔。
-</li><li>第 7、9、10、11 节里 ±10% 和更宽区间的数字，是按「固定五笔、格距 = 半宽 ÷ 5」跑的。
-</li><li>按每格 1% 复核过，8 池合计相差不到 $1/天，结论不变。对比在第 8 节末尾。
+<ul><li>设计是每格 1%。±5% 是五笔，±10% 是十笔，±15% 是十五笔。本文所有数字都按每格 1% 算。
+</li><li>±7.5% 不能被 1% 整除，按八笔算，每格约 0.94%。
+</li><li>11-10 的版本曾按「固定五笔、格距 = 半宽 ÷ 5」跑过 ±10% 和更宽的区间。8 池合计相差不到 $1/天，对比在第 8 节末尾。
 </li></ul>
 <h2 id="s7">7. 八个池的结果</h2>
 <h3>7.1 合计</h3>
 <p>8 池合计每天净值（美元）。括号里是 7 个起点中的最低和最高。</p>
-<div class="tw"><table><thead><tr><th>区间</th><th>全期</th><th>10-05 之后</th><th>去掉 CRCL V4，10-05 之后</th><th>同上，不计资金费</th><th>周期数</th><th>向上出区间</th><th>最差单周期</th></tr></thead><tbody><tr><td>±5%（原设计）</td><td class="neg">−$18（−46 ~ +1）</td><td class="neg">−$17</td><td class="neg">−$27</td><td class="neg">−$41</td><td>190</td><td>78</td><td class="neg">−$489</td></tr><tr><td>±7.5%</td><td>+$18（+4 ~ +32）</td><td>+$52</td><td>+$43</td><td>+$28</td><td>91</td><td>34</td><td class="neg">−$726</td></tr><tr><td>±10%</td><td>+$49（+38 ~ +62）</td><td>+$111</td><td>+$84</td><td>+$69</td><td>46</td><td>14</td><td class="neg">−$979</td></tr><tr><td>±15%</td><td>+$64（+47 ~ +85）</td><td>+$130</td><td>+$104</td><td>+$89</td><td>25</td><td>6</td><td class="neg">−$1,505</td></tr><tr><td>±20%</td><td>+$54（+42 ~ +64）</td><td>+$124</td><td>+$96</td><td>+$82</td><td>18</td><td>3</td><td class="neg">−$2,090</td></tr><tr><td>±5%，收盘价成交</td><td class="neg">−$33</td><td class="neg">−$52</td><td class="neg">−$47</td><td class="neg">−$62</td><td>190</td><td>78</td><td class="neg">−$695</td></tr><tr><td>±10%，收盘价成交</td><td>+$45</td><td>+$104</td><td>+$78</td><td>+$63</td><td>46</td><td>14</td><td class="neg">−$1,039</td></tr><tr><td>±15%，收盘价成交</td><td>+$62</td><td>+$128</td><td>+$102</td><td>+$87</td><td>25</td><td>6</td><td class="neg">−$1,814</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>区间（都是每格 1%）</th><th>全期</th><th>10-05 之后</th><th>去掉 CRCL V4，10-05 之后</th><th>同上，不计资金费</th><th>周期数</th><th>向上出区间</th><th>最差单周期</th></tr></thead><tbody><tr><td>±5%（原设计，五笔）</td><td class="neg">−$18（−46 ~ +1）</td><td class="neg">−$17</td><td class="neg">−$27</td><td class="neg">−$41</td><td>190</td><td>78</td><td class="neg">−$489</td></tr><tr><td>±7.5%（八笔）</td><td>+$19（+6 ~ +31）</td><td>+$54</td><td>+$44</td><td>+$29</td><td>91</td><td>34</td><td class="neg">−$757</td></tr><tr><td>±10%（十笔）</td><td>+$48（+35 ~ +62）</td><td>+$110</td><td>+$82</td><td>+$67</td><td>46</td><td>14</td><td class="neg">−$1,033</td></tr><tr><td>±15%（十五笔）</td><td>+$64（+46 ~ +85）</td><td>+$131</td><td>+$105</td><td>+$91</td><td>25</td><td>6</td><td class="neg">−$1,632</td></tr><tr><td>±20%（二十笔）</td><td>+$53（+40 ~ +63）</td><td>+$122</td><td>+$94</td><td>+$80</td><td>18</td><td>3</td><td class="neg">−$2,301</td></tr><tr><td>±5%，收盘价成交</td><td class="neg">−$33</td><td class="neg">−$52</td><td class="neg">−$47</td><td class="neg">−$62</td><td>190</td><td>78</td><td class="neg">−$695</td></tr><tr><td>±10%，收盘价成交</td><td>+$46</td><td>+$105</td><td>+$78</td><td>+$63</td><td>46</td><td>14</td><td class="neg">−$1,058</td></tr><tr><td>±15%，收盘价成交</td><td>+$62</td><td>+$127</td><td>+$103</td><td>+$89</td><td>25</td><td>6</td><td class="neg">−$1,965</td></tr></tbody></table></div>
 <ul><li><strong>原设计 ±5% 是亏的。</strong> 波动大的股票很快打穿 ±5%，8 个池合计 190 个周期。每个周期都要付换仓成本，78 次掉头每次再亏 $150–$490。
 </li><li><strong>加宽后转正。</strong> ±10% 只有 46 个周期、14 次掉头。手续费也降，但降得比成本慢。
 </li><li>±10% 到 ±20% 之间分不出高下。越宽周期越少，样本越不可靠，单次最坏亏损也越大。
@@ -161,7 +161,7 @@ main>p:nth-of-type(2){font-size:18px;line-height:1.7;padding:16px 18px;border-le
 </li><li>MSTR、MU 的价格亏损已经超过手续费。
 </li></ul>
 <h3>7.3 各池拆开：±10%</h3>
-<div class="tw"><table><thead><tr><th>池</th><th>手续费</th><th>价格盈亏</th><th>资金费</th><th>交易费</th><th>换仓</th><th>净</th><th>10-05 后净</th><th>周期数</th><th>其中掉头</th></tr></thead><tbody><tr><td>NVDA 0.05% V3</td><td>+8.6</td><td class="neg">−5.9</td><td>+2.6</td><td class="neg">−0.3</td><td class="neg">−0.3</td><td>+4.7</td><td>+13.3</td><td>4</td><td>1</td></tr><tr><td>NVDA 0.3% V4</td><td>+12.2</td><td class="neg">−8.6</td><td>+2.9</td><td class="neg">−0.2</td><td class="neg">−0.9</td><td>+5.4</td><td>+19.6</td><td>4</td><td>1</td></tr><tr><td>META 0.3% V4</td><td>+20.4</td><td class="neg">−17.4</td><td>+2.7</td><td class="neg">−0.4</td><td class="neg">−3.2</td><td>+2.1</td><td>+11.5</td><td>7</td><td>3</td></tr><tr><td>CRCL 0.3% V3</td><td>+36.3</td><td class="neg">−26.4</td><td>+3.5</td><td class="neg">−0.9</td><td class="neg">−2.7</td><td>+9.8</td><td>+1.0</td><td>9</td><td>3</td></tr><tr><td>CRCL 0.3% V4</td><td>+45.1</td><td class="neg">−15.6</td><td>+3.6</td><td class="neg">−0.8</td><td class="neg">−16.1</td><td>+16.2</td><td>+27.5</td><td>5</td><td>1</td></tr><tr><td>MSTR 0.24% V4</td><td>+28.0</td><td class="neg">−9.3</td><td>+2.2</td><td class="neg">−0.9</td><td class="neg">−3.0</td><td>+17.1</td><td>+20.1</td><td>5</td><td>1</td></tr><tr><td>MU 0.3% V3</td><td>+28.8</td><td class="neg">−23.2</td><td>+3.2</td><td class="neg">−0.8</td><td class="neg">−5.0</td><td>+3.0</td><td>+14.0</td><td>10</td><td>4</td></tr><tr><td>SPY 0.3% V4</td><td>+3.6</td><td class="neg">−0.1</td><td>+1.2</td><td>0</td><td class="neg">−0.2</td><td>+4.5</td><td>+4.3</td><td>1</td><td>0</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>池</th><th>手续费</th><th>价格盈亏</th><th>资金费</th><th>交易费</th><th>换仓</th><th>净</th><th>10-05 后净</th><th>周期数</th><th>其中掉头</th></tr></thead><tbody><tr><td>NVDA 0.05% V3</td><td>+8.6</td><td class="neg">−6.1</td><td>+2.7</td><td class="neg">−0.3</td><td class="neg">−0.3</td><td>+4.6</td><td>+13.7</td><td>4</td><td>1</td></tr><tr><td>NVDA 0.3% V4</td><td>+12.2</td><td class="neg">−8.6</td><td>+2.9</td><td class="neg">−0.3</td><td class="neg">−0.9</td><td>+5.4</td><td>+19.4</td><td>4</td><td>1</td></tr><tr><td>META 0.3% V4</td><td>+20.4</td><td class="neg">−16.8</td><td>+2.6</td><td class="neg">−0.4</td><td class="neg">−3.2</td><td>+2.6</td><td>+11.5</td><td>7</td><td>3</td></tr><tr><td>CRCL 0.3% V3</td><td>+36.3</td><td class="neg">−27.0</td><td>+3.5</td><td class="neg">−0.9</td><td class="neg">−2.7</td><td>+9.2</td><td class="neg">−0.3</td><td>9</td><td>3</td></tr><tr><td>CRCL 0.3% V4</td><td>+45.1</td><td class="neg">−15.5</td><td>+3.6</td><td class="neg">−0.8</td><td class="neg">−16.1</td><td>+16.3</td><td>+27.9</td><td>5</td><td>1</td></tr><tr><td>MSTR 0.24% V4</td><td>+28.0</td><td class="neg">−9.2</td><td>+2.2</td><td class="neg">−0.9</td><td class="neg">−3.0</td><td>+17.1</td><td>+20.1</td><td>5</td><td>1</td></tr><tr><td>MU 0.3% V3</td><td>+28.8</td><td class="neg">−24.1</td><td>+3.2</td><td class="neg">−0.8</td><td class="neg">−5.0</td><td>+2.1</td><td>+13.1</td><td>10</td><td>4</td></tr><tr><td>SPY 0.3% V4</td><td>+3.6</td><td>0.0</td><td>+1.2</td><td>0</td><td class="neg">−0.2</td><td>+4.5</td><td>+4.2</td><td>1</td><td>0</td></tr></tbody></table></div>
 <ul><li>8 个池都为正，但每个池只有 1–10 个周期、0–4 次掉头。这个样本量不足以估计掉头的频率。
 </li><li>SPY 全期只有 1 个没结束的周期。这 111 天 SPY 始终在 $727–$782 之间，总幅度 7.5%。它的结果只说明「低波动期纯收手续费」，不说明策略有效。
 </li></ul>
@@ -182,29 +182,29 @@ main>p:nth-of-type(2){font-size:18px;line-height:1.7;padding:16px 18px;border-le
 </li><li>按 ±10% 全期每池每天 $6 算，年化约 18%。这个数只用来和别的宽度比较，第 11 节说明它不能当成预期。
 </li></ul>
 <p><strong>十笔 × 1% 和五笔 × 2% 的结果几乎一样</strong></p>
-<p>第 7、9、10、11 节的 ±10% 数字，最初是按「五笔、每格 2%」跑的。按设计原意「十笔、每格 1%」复核如下（8 池合计，每天）：</p>
+<p>11-10 的版本里，±10% 是按「五笔、每格 2%」跑的。和设计原意「十笔、每格 1%」对比如下（8 池合计，每天）：</p>
 <div class="tw"><table><thead><tr><th>方案</th><th>全期</th><th>10-05 之后</th><th>价格盈亏</th><th>交易费</th><th>周期数</th><th>掉头次数</th><th>最差单周期</th></tr></thead><tbody><tr><td>±10%，五笔 × 2%</td><td>+$49.2</td><td>+$111</td><td class="neg">−$101.4</td><td class="neg">−$3.6</td><td>46</td><td>14</td><td class="neg">−$979</td></tr><tr><td>±10%，十笔 × 1%</td><td>+$48.3</td><td>+$110</td><td class="neg">−$102.3</td><td class="neg">−$3.7</td><td>46</td><td>14</td><td class="neg">−$1,033</td></tr><tr><td>±15%，五笔 × 3%</td><td>+$64.3</td><td>+$130</td><td class="neg">−$47.6</td><td class="neg">−$1.7</td><td>25</td><td>6</td><td class="neg">−$1,505</td></tr><tr><td>±15%，十五笔 × 1%</td><td>+$63.7</td><td>+$131</td><td class="neg">−$48.3</td><td class="neg">−$1.7</td><td>25</td><td>6</td><td class="neg">−$1,632</td></tr></tbody></table></div>
 <ul><li>相邻两笔在同一价位一平一开，实际等于一笔持续加仓的空头。分成五段还是十段，只是加仓的台阶粗细不同。
 </li><li>周期什么时候结束由区间决定，和格距无关。所以周期数、掉头次数完全一样。
 </li><li>交易费只对加仓的差额收，笔数多了也不多付。
 </li><li>唯一的差别：最坏单次亏损略大。每格 1% 时最后一笔的股数更大，在最底下掉头时亏得多一点。
-</li><li>合计相差不到 $1/天，所以其他章节没有全部重跑。下文凡是 ±10% 的合计数，按每格 1% 算会低约 $1。
+</li><li>合计相差不到 $1/天。11-11 起，其他章节的表也已全部按每格 1% 重跑。
 </li></ul>
 <h2 id="s9">9. 测过的六个调整</h2>
 <p>8 池合计每天净值（美元），口径同第 6 节。</p>
-<div class="tw"><table><thead><tr><th>调整</th><th>全期</th><th>10-05 之后</th><th>和基准比</th><th>结论</th></tr></thead><tbody><tr><td>基准：±5%</td><td class="neg">−$18</td><td class="neg">−$17</td><td></td><td></td></tr><tr><td>基准：±10%</td><td>+$49</td><td>+$111</td><td></td><td></td></tr><tr><td>① 区间加宽（±5% → ±10%）</td><td>+$49</td><td>+$111</td><td>全期 +$67</td><td>有效，采纳</td></tr><tr><td>② 上行止损（±10%，涨回 1 格就平）</td><td class="neg">−$51</td><td class="neg">−$218</td><td>全期 −$100</td><td>更差</td></tr><tr><td>② 上行止损（±10%，涨回 2 格就平）</td><td class="neg">−$37</td><td class="neg">−$188</td><td>全期 −$86</td><td>更差</td></tr><tr><td>③ 第 1 笔减半（±10%）</td><td>+$28</td><td>+$83</td><td>全期 −$21</td><td>更差</td></tr><tr><td>③ 第 1 笔不开（±10%）</td><td>+$7</td><td>+$55</td><td>全期 −$42</td><td>更差</td></tr><tr><td>④ 按波动定宽度（2.5 / 3.5 / 5 倍日波动）</td><td>+$41 / +$56 / +$69</td><td>+$67 / +$103 / +$128</td><td>和固定 ±10%–15% 同一水平</td><td>不比固定宽度好</td></tr><tr><td>⑤ 不对称区间 −10% / +5%</td><td>+$31</td><td>+$51</td><td>全期 −$18</td><td>更差</td></tr><tr><td>⑤ 不对称区间 −10% / +3%</td><td>+$17</td><td>+$30</td><td>全期 −$32</td><td>更差</td></tr><tr><td>⑥ 放量期过滤，只管进场（4 组参数）</td><td>+$7 ~ +$26</td><td class="neg">−$5 ~ +$57</td><td>全期 −$23 ~ −$42</td><td>更差</td></tr><tr><td>⑥ 放量期过滤，进出都管（4 组参数）</td><td class="neg">−$31 ~ $0</td><td class="neg">−$55 ~ −$4</td><td>全期 −$49 ~ −$80</td><td>更差</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>调整</th><th>全期</th><th>10-05 之后</th><th>和基准比</th><th>结论</th></tr></thead><tbody><tr><td>基准：±5%（五笔）</td><td class="neg">−$18</td><td class="neg">−$17</td><td></td><td></td></tr><tr><td>基准：±10%（十笔）</td><td>+$48</td><td>+$110</td><td></td><td></td></tr><tr><td>① 区间加宽（±5% → ±10%）</td><td>+$48</td><td>+$110</td><td>全期 +$66</td><td>有效，采纳</td></tr><tr><td>② 上行止损（±10%，涨回 1% 就平）</td><td class="neg">−$38</td><td class="neg">−$213</td><td>全期 −$87</td><td>更差</td></tr><tr><td>② 上行止损（±10%，涨回 2% 就平）</td><td class="neg">−$48</td><td class="neg">−$199</td><td>全期 −$96</td><td>更差</td></tr><tr><td>③ 第 1 笔减半（±10%）</td><td>+$37</td><td>+$94</td><td>全期 −$11</td><td>更差</td></tr><tr><td>③ 第 1 笔不开（±10%）</td><td>+$26</td><td>+$79</td><td>全期 −$22</td><td>更差</td></tr><tr><td>④ 按波动定宽度（2.5 / 3.5 / 5 倍日波动）</td><td>+$44 / +$57 / +$71</td><td>+$67 / +$105 / +$128</td><td>和固定 ±10%–15% 同一水平</td><td>不比固定宽度好</td></tr><tr><td>⑤ 不对称区间 −10% / +5%</td><td>+$32</td><td>+$56</td><td>全期 −$16</td><td>更差</td></tr><tr><td>⑤ 不对称区间 −10% / +3%</td><td>+$16</td><td>+$28</td><td>全期 −$33</td><td>更差</td></tr><tr><td>⑥ 放量期过滤，只管进场（4 组参数）</td><td>+$8 ~ +$26</td><td class="neg">−$6 ~ +$56</td><td>全期 −$22 ~ −$40</td><td>更差</td></tr><tr><td>⑥ 放量期过滤，进出都管（4 组参数）</td><td class="neg">−$31 ~ $0</td><td class="neg">−$57 ~ −$7</td><td>全期 −$48 ~ −$79</td><td>更差</td></tr></tbody></table></div>
 <p>六个调整里只有「加宽」成立。它成立的原因是减少了操作次数，和对冲规则本身无关。</p>
 <h3>9.1 加宽为什么有效</h3>
 <ul><li>周期数从 190 降到 46，掉头从 78 次降到 14 次。
 </li><li>换仓成本、交易费、掉头亏损都跟着周期数降。
 </li><li>手续费也降，因为同样 $10,000 摊在更宽的区间里。但只降约一半，成本降得更多。
-</li><li>代价：单次掉头亏损翻倍（最差 −$489 → −$979）。从「频繁小亏」变成「偶尔大亏」。
+</li><li>代价：单次掉头亏损翻倍（最差 −$489 → −$1,033）。从「频繁小亏」变成「偶尔大亏」。
 </li></ul>
 <h3>9.2 上行止损为什么更差</h3>
 <ul><li>规则：开仓后价格涨回一格就平掉，本周期不再开这一笔。
 </li><li>它确实救了掉头的周期。但最后走完的周期里，价格中途也常常涨回一格。
 </li><li>每次止损亏两遍：止损时亏一格；价格回落时这一格已经没有对冲，再亏一格。
-</li><li>±10% 下 8 个池共止损 88 次。±5% 下 314 次。
+</li><li>±10% 下 8 个池共止损 161 次。±5% 下 314 次。
 </li><li>这和「格子规则」（涨回去就减仓、再跌再开）的来回磨损是同一个问题。
 </li></ul>
 <h3>9.3 第 1 笔不开为什么不行</h3>
@@ -219,7 +219,7 @@ main>p:nth-of-type(2){font-size:18px;line-height:1.7;padding:16px 18px;border-le
 </li></ul>
 <h3>9.5 不对称区间</h3>
 <ul><li>想法：下方的格子不变，把上沿拉近，空头要扛的距离短，掉头亏损应该变小。
-</li><li>单次最坏亏损只降了 27%（−$979 → −$715）。区间变窄后流动性更集中，每笔空头的股数变大，抵掉了一部分。
+</li><li>单次最坏亏损只降了 25%（−$1,033 → −$772）。区间变窄后流动性更集中，每笔空头的股数变大，抵掉了一部分。
 </li><li>向上出区间从 14 次变成 48 次。每次亏得少，次数多了三倍，还要多付换仓成本。
 </li></ul>
 <h3>9.6 放量期过滤</h3>
@@ -235,7 +235,7 @@ main>p:nth-of-type(2){font-size:18px;line-height:1.7;padding:16px 18px;border-le
 </li></ul>
 <p>对冲规则对这两个量都没有影响。</p>
 <p>各池（±10%，每天）：</p>
-<div class="tw"><table><thead><tr><th>池</th><th>费率</th><th>股票日波动</th><th>池日成交（10-05 前 → 后）</th><th>我们的份额（前 → 后）</th><th>手续费</th><th>价格盈亏</th><th>手续费 ÷ 价格亏损</th></tr></thead><tbody><tr><td>MSTR 0.24% V4</td><td>0.24%</td><td>3.8%</td><td>$0.75M → $0.55M</td><td>1.1% → 2.2%</td><td>+$28.0</td><td class="neg">−$9.3</td><td>3.0</td></tr><tr><td>CRCL 0.3% V4</td><td>0.30%</td><td>3.9%</td><td>$0.17M → $0.30M</td><td>1.7% → 6.0%</td><td>+$45.1</td><td class="neg">−$15.6</td><td>2.9</td></tr><tr><td>NVDA 0.05% V3</td><td>0.05%（协议抽 25%）</td><td>1.9%</td><td>$16.4M → $4.6M</td><td>0.14% → 0.47%</td><td>+$8.6</td><td class="neg">−$5.9</td><td>1.5</td></tr><tr><td>NVDA 0.3% V4</td><td>0.30%</td><td>1.9%</td><td>$0.57M → $0.14M</td><td>0.8% → 2.4%</td><td>+$12.2</td><td class="neg">−$8.6</td><td>1.4</td></tr><tr><td>CRCL 0.3% V3</td><td>0.30%（协议抽 17%）</td><td>4.1%</td><td>$1.6M → $2.0M</td><td>1.1% → 0.5%</td><td>+$36.3</td><td class="neg">−$26.4</td><td>1.4</td></tr><tr><td>META 0.3% V4</td><td>0.30%</td><td>2.5%</td><td>$1.6M → $1.0M</td><td>0.5% → 0.4%</td><td>+$20.4</td><td class="neg">−$17.4</td><td>1.2</td></tr><tr><td>MU 0.3% V3</td><td>0.30%（协议抽 17%）</td><td>3.5%</td><td>$0.87M → $0.65M</td><td>1.3% → 1.8%</td><td>+$28.8</td><td class="neg">−$23.2</td><td>1.2</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>池</th><th>费率</th><th>股票日波动</th><th>池日成交（10-05 前 → 后）</th><th>我们的份额（前 → 后）</th><th>手续费</th><th>价格盈亏</th><th>手续费 ÷ 价格亏损</th></tr></thead><tbody><tr><td>MSTR 0.24% V4</td><td>0.24%</td><td>3.8%</td><td>$0.75M → $0.55M</td><td>1.1% → 2.2%</td><td>+$28.0</td><td class="neg">−$9.2</td><td>3.0</td></tr><tr><td>CRCL 0.3% V4</td><td>0.30%</td><td>3.9%</td><td>$0.17M → $0.30M</td><td>1.7% → 6.0%</td><td>+$45.1</td><td class="neg">−$15.5</td><td>2.9</td></tr><tr><td>NVDA 0.05% V3</td><td>0.05%（协议抽 25%）</td><td>1.9%</td><td>$16.4M → $4.6M</td><td>0.14% → 0.47%</td><td>+$8.6</td><td class="neg">−$6.1</td><td>1.4</td></tr><tr><td>NVDA 0.3% V4</td><td>0.30%</td><td>1.9%</td><td>$0.57M → $0.14M</td><td>0.8% → 2.4%</td><td>+$12.2</td><td class="neg">−$8.6</td><td>1.4</td></tr><tr><td>CRCL 0.3% V3</td><td>0.30%（协议抽 17%）</td><td>4.1%</td><td>$1.6M → $2.0M</td><td>1.1% → 0.5%</td><td>+$36.3</td><td class="neg">−$27.0</td><td>1.3</td></tr><tr><td>META 0.3% V4</td><td>0.30%</td><td>2.5%</td><td>$1.6M → $1.0M</td><td>0.5% → 0.4%</td><td>+$20.4</td><td class="neg">−$16.8</td><td>1.2</td></tr><tr><td>MU 0.3% V3</td><td>0.30%（协议抽 17%）</td><td>3.5%</td><td>$0.87M → $0.65M</td><td>1.3% → 1.8%</td><td>+$28.8</td><td class="neg">−$24.1</td><td>1.2</td></tr></tbody></table></div>
 <p>份额 = 我们收到的手续费 ÷ 池子分给全体 LP 的手续费。SPY 只有 1 个周期，不列。</p>
 <p><strong>收入端：手续费 = 池成交 × 费率 ×（1 − 协议抽成）× 份额</strong></p>
 <ol><li>成交量最大的池最不赚。NVDA 0.05% 每天成交 $16.4M，是别的池的 10–100 倍。但费率只有 0.05%，协议再抽走 25%，我们的份额只有 0.14%，一天只收 $8.6。
@@ -261,29 +261,29 @@ main>p:nth-of-type(2){font-size:18px;line-height:1.7;padding:16px 18px;border-le
 </li></ul>
 <h3>11.2 这个数据可不可靠</h3>
 <p>用最近 110 天做校验：同一段时间，正股数据和 Arcus 数据各算一遍（±10%，每天价格盈亏）。</p>
-<div class="tw"><table><thead><tr><th>股票</th><th>正股数据</th><th>Arcus 数据</th></tr></thead><tbody><tr><td>NVDA</td><td class="neg">−$7.1</td><td class="neg">−$6.4</td></tr><tr><td>META</td><td class="neg">−$15.3</td><td class="neg">−$16.3</td></tr><tr><td>MSTR</td><td class="neg">−$34.7</td><td class="neg">−$38.0</td></tr><tr><td>MU</td><td class="neg">−$27.8</td><td class="neg">−$36.0</td></tr><tr><td>CRCL</td><td class="neg">−$32.3</td><td class="neg">−$43.9</td></tr><tr><td>SPY</td><td class="neg">−$0.2</td><td class="neg">−$0.1</td></tr></tbody></table></div>
-<ul><li>正股数据算出来的亏损偏小 0–25%。原因：正股只有交易时段，盘后和周末的波动看不到。
+<div class="tw"><table><thead><tr><th>股票</th><th>正股数据</th><th>Arcus 数据</th></tr></thead><tbody><tr><td>NVDA</td><td class="neg">−$6.9</td><td class="neg">−$6.5</td></tr><tr><td>META</td><td class="neg">−$15.1</td><td class="neg">−$16.0</td></tr><tr><td>MSTR</td><td class="neg">−$35.5</td><td class="neg">−$36.5</td></tr><tr><td>MU</td><td class="neg">−$27.3</td><td class="neg">−$36.8</td></tr><tr><td>CRCL</td><td class="neg">−$31.5</td><td class="neg">−$45.6</td></tr><tr><td>SPY</td><td class="neg">−$0.2</td><td>$0.0</td></tr></tbody></table></div>
+<ul><li>正股数据算出来的亏损偏小 0–30%。原因：正股只有交易时段，盘后和周末的波动看不到。
 </li><li>所以下面的三年数字是偏乐观的估计。
 </li><li>±5% 下偏差更大（30%–50%），所以这一节只用 ±10%。
 </li><li>含盘前盘后的正股数据试过，坏点太多（NVDA 有 310 根 K 线的最高最低价偏离 8% 以上），弃用。
 </li></ul>
 <h3>11.3 三年的结果（±10%）</h3>
-<div class="tw"><table><thead><tr><th>股票</th><th>每 30 天周期数</th><th>每 30 天掉头次数</th><th>三年掉头总次数</th><th>每次掉头平均亏</th><th>每天价格亏损（线价成交）</th><th>每天价格亏损（收盘价成交）</th><th>这 110 天池回放里的</th></tr></thead><tbody><tr><td>NVDA</td><td>1.4</td><td>0.9</td><td>约 32</td><td class="neg">−$532</td><td class="neg">−$16.3</td><td class="neg">−$16.7</td><td class="neg">−$5.9 / −$8.6</td></tr><tr><td>META</td><td>1.1</td><td>0.6</td><td>约 21</td><td class="neg">−$518</td><td class="neg">−$11.1</td><td class="neg">−$13.3</td><td class="neg">−$17.4</td></tr><tr><td>MSTR</td><td>5.3</td><td>2.8</td><td>约 98</td><td class="neg">−$492</td><td class="neg">−$46.0</td><td class="neg">−$50.7</td><td class="neg">−$9.3</td></tr><tr><td>MU</td><td>3.2</td><td>2.0</td><td>约 70</td><td class="neg">−$519</td><td class="neg">−$34.2</td><td class="neg">−$38.2</td><td class="neg">−$23.2</td></tr><tr><td>CRCL（17 个月）</td><td>5.1</td><td>2.4</td><td>约 41</td><td class="neg">−$568</td><td class="neg">−$45.4</td><td class="neg">−$48.3</td><td class="neg">−$26.4 / −$15.6</td></tr><tr><td>SPY</td><td>0.2</td><td>0.2</td><td>约 7</td><td class="neg">−$505</td><td class="neg">−$2.9</td><td class="neg">−$2.9</td><td class="neg">−$0.1</td></tr></tbody></table></div>
-<ul><li><strong>这 110 天是偏幸运的样本。</strong> MSTR 池回放里每天只亏 $9，三年平均是 $46–$51。NVDA、CRCL 只有长期均值的三到六成。只有 META 这段比长期差。
+<div class="tw"><table><thead><tr><th>股票</th><th>每 30 天周期数</th><th>每 30 天掉头次数</th><th>三年掉头总次数</th><th>每次掉头平均亏</th><th>每天价格亏损（线价成交）</th><th>每天价格亏损（收盘价成交）</th><th>这 110 天池回放里的</th></tr></thead><tbody><tr><td>NVDA</td><td>1.4</td><td>0.9</td><td>约 32</td><td class="neg">−$535</td><td class="neg">−$16.4</td><td class="neg">−$16.9</td><td class="neg">−$6.1 / −$8.6</td></tr><tr><td>META</td><td>1.1</td><td>0.6</td><td>约 21</td><td class="neg">−$504</td><td class="neg">−$10.9</td><td class="neg">−$13.1</td><td class="neg">−$16.8</td></tr><tr><td>MSTR</td><td>5.3</td><td>2.8</td><td>约 98</td><td class="neg">−$489</td><td class="neg">−$45.7</td><td class="neg">−$50.1</td><td class="neg">−$9.2</td></tr><tr><td>MU</td><td>3.2</td><td>2.0</td><td>约 70</td><td class="neg">−$515</td><td class="neg">−$34.0</td><td class="neg">−$37.9</td><td class="neg">−$24.1</td></tr><tr><td>CRCL（17 个月）</td><td>5.1</td><td>2.4</td><td>约 41</td><td class="neg">−$570</td><td class="neg">−$45.6</td><td class="neg">−$49.1</td><td class="neg">−$27.0 / −$15.5</td></tr><tr><td>SPY</td><td>0.2</td><td>0.2</td><td>约 7</td><td class="neg">−$510</td><td class="neg">−$3.0</td><td class="neg">−$2.9</td><td>$0.0</td></tr></tbody></table></div>
+<ul><li><strong>这 110 天是偏幸运的样本。</strong> MSTR 池回放里每天只亏 $9，三年平均是 $46–$50。NVDA、CRCL 只有长期均值的三到六成。只有 META 这段比长期差。
 </li><li>掉头的样本够了。NVDA 三年约 32 次，MSTR 约 98 次，每次平均亏 $500 左右。池回放里每个池只有 0–4 次。
-</li><li>按半年分段看，每天价格亏损的范围：NVDA −$5 ~ −$28，META −$5 ~ −$18，MU −$15 ~ −$57，MSTR −$13 ~ −$82。没有哪个半年是正的。
-</li><li>大涨的半年最伤。MSTR 2024 年下半年涨 140%，每天亏 $82。这个设计在 n 以上是净做空的（第 13 节问题 1）。
+</li><li>按半年分段看，每天价格亏损的范围：NVDA −$5 ~ −$28，META −$5 ~ −$17，MU −$15 ~ −$56，MSTR −$14 ~ −$81。没有哪个半年是正的。
+</li><li>大涨的半年最伤。MSTR 2024 年下半年涨 140%，每天亏 $81。这个设计在 n 以上是净做空的（第 13 节问题 1）。
 </li></ul>
 <h3>11.4 拿现在的手续费和三年的价格亏损比</h3>
-<figure><svg viewBox="0 0 760 470" role="img" aria-label="8 个池里 6 个：三年平均的掉头亏损超过现在的手续费"><text x="20" y="28" class="ct">8 个池里 6 个：三年平均的掉头亏损超过现在的手续费</text><text x="20" y="50" class="cs">±10% 区间，每天美元。</text><rect x="20" y="62" width="12" height="12" class="mut"/><text x="38" y="73" class="cs">现在每天收的手续费</text><rect x="200" y="62" width="12" height="12" class="acc"/><text x="218" y="73" class="cs">三年平均每天的掉头亏损</text><text x="20" y="116" class="cl">META 0.3% V4</text><rect x="170" y="96" width="173.0" height="14" class="mut"><title>META 0.3% V4：手续费 $20.4</title></rect><text x="349.0" y="107" class="cs">$20.4</text><rect x="170" y="113" width="112.8" height="14" class="acc"><title>META 0.3% V4：掉头亏损 $13.3</title></rect><text x="288.8" y="124" class="cl">$13.3</text><text x="20" y="160" class="cl">SPY 0.3% V4</text><rect x="170" y="140" width="30.5" height="14" class="mut"><title>SPY 0.3% V4：手续费 $3.6</title></rect><text x="206.5" y="151" class="cs">$3.6</text><rect x="170" y="157" width="24.6" height="14" class="acc"><title>SPY 0.3% V4：掉头亏损 $2.9</title></rect><text x="200.6" y="168" class="cl">$2.9</text><text x="20" y="204" class="cl">NVDA 0.3% V4</text><rect x="170" y="184" width="103.5" height="14" class="mut"><title>NVDA 0.3% V4：手续费 $12.2</title></rect><text x="279.5" y="195" class="cs">$12.2</text><rect x="170" y="201" width="141.6" height="14" class="acc"><title>NVDA 0.3% V4：掉头亏损 $16.7</title></rect><text x="317.6" y="212" class="cl">$16.7</text><text x="20" y="248" class="cl">NVDA 0.05% V3</text><rect x="170" y="228" width="72.9" height="14" class="mut"><title>NVDA 0.05% V3：手续费 $8.6</title></rect><text x="248.9" y="239" class="cs">$8.6</text><rect x="170" y="245" width="141.6" height="14" class="acc"><title>NVDA 0.05% V3：掉头亏损 $16.7</title></rect><text x="317.6" y="256" class="cl">$16.7</text><text x="20" y="292" class="cl">MU 0.3% V3</text><rect x="170" y="272" width="244.3" height="14" class="mut"><title>MU 0.3% V3：手续费 $28.8</title></rect><text x="420.3" y="283" class="cs">$28.8</text><rect x="170" y="289" width="324.0" height="14" class="acc"><title>MU 0.3% V3：掉头亏损 $38.2</title></rect><text x="500.0" y="300" class="cl">$38.2</text><text x="20" y="336" class="cl">CRCL 0.3% V3</text><rect x="170" y="316" width="307.9" height="14" class="mut"><title>CRCL 0.3% V3：手续费 $36.3</title></rect><text x="483.9" y="327" class="cs">$36.3</text><rect x="170" y="333" width="409.6" height="14" class="acc"><title>CRCL 0.3% V3：掉头亏损 $48.3</title></rect><text x="585.6" y="344" class="cl">$48.3</text><text x="20" y="380" class="cl">CRCL 0.3% V4</text><rect x="170" y="360" width="382.5" height="14" class="mut"><title>CRCL 0.3% V4：手续费 $45.1</title></rect><text x="558.5" y="371" class="cs">$45.1</text><rect x="170" y="377" width="409.6" height="14" class="acc"><title>CRCL 0.3% V4：掉头亏损 $48.3</title></rect><text x="585.6" y="388" class="cl">$48.3</text><text x="20" y="424" class="cl">MSTR 0.24% V4</text><rect x="170" y="404" width="237.5" height="14" class="mut"><title>MSTR 0.24% V4：手续费 $28.0</title></rect><text x="413.5" y="415" class="cs">$28.0</text><rect x="170" y="421" width="430.0" height="14" class="acc"><title>MSTR 0.24% V4：掉头亏损 $50.7</title></rect><text x="606.0" y="432" class="cl">$50.7</text><line x1="170" x2="170" y1="90" y2="440" class="axis"/></svg><figcaption>掉头亏损按正股三年小时线（2023-12 至 2026-11，CRCL 自 2025-06）、收盘价成交算，偏小 0–25%。手续费取这 110 天的水平（7 个起点平均）。</figcaption></figure>
+<figure><svg viewBox="0 0 760 470" role="img" aria-label="8 个池里 6 个：三年平均的掉头亏损超过现在的手续费"><text x="20" y="28" class="ct">8 个池里 6 个：三年平均的掉头亏损超过现在的手续费</text><text x="20" y="50" class="cs">±10% 区间，每天美元。</text><rect x="20" y="62" width="12" height="12" class="mut"/><text x="38" y="73" class="cs">现在每天收的手续费</text><rect x="200" y="62" width="12" height="12" class="acc"/><text x="218" y="73" class="cs">三年平均每天的掉头亏损</text><text x="20" y="116" class="cl">META 0.3% V4</text><rect x="170" y="96" width="175.1" height="14" class="mut"><title>META 0.3% V4：手续费 $20.4</title></rect><text x="351.1" y="107" class="cs">$20.4</text><rect x="170" y="113" width="112.4" height="14" class="acc"><title>META 0.3% V4：掉头亏损 $13.1</title></rect><text x="288.4" y="124" class="cl">$13.1</text><text x="20" y="160" class="cl">SPY 0.3% V4</text><rect x="170" y="140" width="30.9" height="14" class="mut"><title>SPY 0.3% V4：手续费 $3.6</title></rect><text x="206.9" y="151" class="cs">$3.6</text><rect x="170" y="157" width="24.9" height="14" class="acc"><title>SPY 0.3% V4：掉头亏损 $2.9</title></rect><text x="200.9" y="168" class="cl">$2.9</text><text x="20" y="204" class="cl">NVDA 0.3% V4</text><rect x="170" y="184" width="104.7" height="14" class="mut"><title>NVDA 0.3% V4：手续费 $12.2</title></rect><text x="280.7" y="195" class="cs">$12.2</text><rect x="170" y="201" width="145.0" height="14" class="acc"><title>NVDA 0.3% V4：掉头亏损 $16.9</title></rect><text x="321.0" y="212" class="cl">$16.9</text><text x="20" y="248" class="cl">NVDA 0.05% V3</text><rect x="170" y="228" width="73.8" height="14" class="mut"><title>NVDA 0.05% V3：手续费 $8.6</title></rect><text x="249.8" y="239" class="cs">$8.6</text><rect x="170" y="245" width="145.0" height="14" class="acc"><title>NVDA 0.05% V3：掉头亏损 $16.9</title></rect><text x="321.0" y="256" class="cl">$16.9</text><text x="20" y="292" class="cl">MU 0.3% V3</text><rect x="170" y="272" width="247.2" height="14" class="mut"><title>MU 0.3% V3：手续费 $28.8</title></rect><text x="423.2" y="283" class="cs">$28.8</text><rect x="170" y="289" width="325.3" height="14" class="acc"><title>MU 0.3% V3：掉头亏损 $37.9</title></rect><text x="501.3" y="300" class="cl">$37.9</text><text x="20" y="336" class="cl">CRCL 0.3% V3</text><rect x="170" y="316" width="311.6" height="14" class="mut"><title>CRCL 0.3% V3：手续费 $36.3</title></rect><text x="487.6" y="327" class="cs">$36.3</text><rect x="170" y="333" width="421.4" height="14" class="acc"><title>CRCL 0.3% V3：掉头亏损 $49.1</title></rect><text x="597.4" y="344" class="cl">$49.1</text><text x="20" y="380" class="cl">CRCL 0.3% V4</text><rect x="170" y="360" width="387.1" height="14" class="mut"><title>CRCL 0.3% V4：手续费 $45.1</title></rect><text x="563.1" y="371" class="cs">$45.1</text><rect x="170" y="377" width="421.4" height="14" class="acc"><title>CRCL 0.3% V4：掉头亏损 $49.1</title></rect><text x="597.4" y="388" class="cl">$49.1</text><text x="20" y="424" class="cl">MSTR 0.24% V4</text><rect x="170" y="404" width="240.3" height="14" class="mut"><title>MSTR 0.24% V4：手续费 $28.0</title></rect><text x="416.3" y="415" class="cs">$28.0</text><rect x="170" y="421" width="430.0" height="14" class="acc"><title>MSTR 0.24% V4：掉头亏损 $50.1</title></rect><text x="606.0" y="432" class="cl">$50.1</text><line x1="170" x2="170" y1="90" y2="440" class="axis"/></svg><figcaption>掉头亏损按正股三年小时线（2023-12 至 2026-11，CRCL 自 2025-06）、收盘价成交算，偏小 0–30%。手续费取这 110 天的水平（7 个起点平均）。</figcaption></figure>
 <p>每天，美元，±10%。手续费和其他成本取第 7.3 节；价格亏损取三年均值（收盘价成交）。</p>
-<div class="tw"><table><thead><tr><th>池</th><th>现在的手续费</th><th>三年平均价格亏损</th><th>资金费 − 交易费 − 换仓</th><th>合计</th></tr></thead><tbody><tr><td>META 0.3% V4</td><td>+$20.4</td><td class="neg">−$13.3</td><td class="neg">−$0.9</td><td>+$6.2</td></tr><tr><td>SPY 0.3% V4</td><td>+$3.6</td><td class="neg">−$2.9</td><td>+$1.0</td><td>+$1.7</td></tr><tr><td>NVDA 0.3% V4</td><td>+$12.2</td><td class="neg">−$16.7</td><td>+$1.8</td><td class="neg">−$2.7</td></tr><tr><td>NVDA 0.05% V3</td><td>+$8.6</td><td class="neg">−$16.7</td><td>+$2.0</td><td class="neg">−$6.1</td></tr><tr><td>MU 0.3% V3</td><td>+$28.8</td><td class="neg">−$38.2</td><td class="neg">−$2.6</td><td class="neg">−$12.0</td></tr><tr><td>CRCL 0.3% V3</td><td>+$36.3</td><td class="neg">−$48.3</td><td class="neg">−$0.1</td><td class="neg">−$12.1</td></tr><tr><td>CRCL 0.3% V4</td><td>+$45.1</td><td class="neg">−$48.3</td><td class="neg">−$13.3</td><td class="neg">−$16.5</td></tr><tr><td>MSTR 0.24% V4</td><td>+$28.0</td><td class="neg">−$50.7</td><td class="neg">−$1.7</td><td class="neg">−$24.4</td></tr><tr><td>8 池合计</td><td>+$183.0</td><td class="neg">−$235.1</td><td class="neg">−$13.8</td><td class="neg">−$65.9</td></tr></tbody></table></div>
-<ul><li>8 个池里 6 个为负。合计从第 7 节的每天 +$49 变成约 −$66。
+<div class="tw"><table><thead><tr><th>池</th><th>现在的手续费</th><th>三年平均价格亏损</th><th>资金费 − 交易费 − 换仓</th><th>合计</th></tr></thead><tbody><tr><td>META 0.3% V4</td><td>+$20.4</td><td class="neg">−$13.1</td><td class="neg">−$1.0</td><td>+$6.3</td></tr><tr><td>SPY 0.3% V4</td><td>+$3.6</td><td class="neg">−$2.9</td><td>+$1.0</td><td>+$1.7</td></tr><tr><td>NVDA 0.3% V4</td><td>+$12.2</td><td class="neg">−$16.9</td><td>+$1.7</td><td class="neg">−$3.0</td></tr><tr><td>NVDA 0.05% V3</td><td>+$8.6</td><td class="neg">−$16.9</td><td>+$2.1</td><td class="neg">−$6.2</td></tr><tr><td>MU 0.3% V3</td><td>+$28.8</td><td class="neg">−$37.9</td><td class="neg">−$2.6</td><td class="neg">−$11.7</td></tr><tr><td>CRCL 0.3% V3</td><td>+$36.3</td><td class="neg">−$49.1</td><td class="neg">−$0.1</td><td class="neg">−$12.9</td></tr><tr><td>CRCL 0.3% V4</td><td>+$45.1</td><td class="neg">−$49.1</td><td class="neg">−$13.3</td><td class="neg">−$17.3</td></tr><tr><td>MSTR 0.24% V4</td><td>+$28.0</td><td class="neg">−$50.1</td><td class="neg">−$1.7</td><td class="neg">−$23.8</td></tr><tr><td>8 池合计</td><td>+$183.0</td><td class="neg">−$236.0</td><td class="neg">−$13.9</td><td class="neg">−$66.9</td></tr></tbody></table></div>
+<ul><li>8 个池里 6 个为负。合计从第 7 节的每天 +$48 变成约 −$67。
 </li><li>为正的 META 和 SPY 都是波动偏小的标的，而且金额很小：每天 $2–$6，本金约 $12,000。
 </li></ul>
 <p>这张表要打的折扣：</p>
 <ol><li>它把两段不同时期的数拼在一起。股价波动大的时候成交通常也多，手续费会更高。所以它可能偏悲观。
-</li><li>正股数据低估了 0–25% 的价格亏损。这一点让它偏乐观。
+</li><li>正股数据低估了 0–30% 的价格亏损。这一点让它偏乐观。
 </li><li>这三年美股整体大涨（NVDA +265%，MU +786%），对这个设计不利。横盘或下跌的三年结果会好一些。
 </li><li>手续费用的是这 110 天的水平，其中前 76 天有机器人刷量。
 </li></ol>
@@ -298,9 +298,9 @@ main>p:nth-of-type(2){font-size:18px;line-height:1.7;padding:16px 18px;border-le
 </li><li>SPY 只有 1 个周期属实，但很脆：7 个起点里有 1 个是 3 个周期。
 </li></ul>
 <h3>12.2 查出来并已修正的</h3>
-<div class="tw"><table><thead><tr><th>问题</th><th>修正前的影响</th><th>怎么改的</th></tr></thead><tbody><tr><td>手续费份额只用小时末的池流动性。流动性很薄的小时，份额被算到 20%–78%</td><td>高估。±10% 合计每天多算约 $51，其中 CRCL V4 占 $33</td><td>取小时初和小时末较大的流动性</td></tr><tr><td>LP 换仓只算 0.02% 滑点。薄池里换 $5,000 的实际冲击是它的几倍到几百倍</td><td>高估。±10% 每天约 $15，±5% 约 $62</td><td>滑点按换仓额相对池流动性算</td></tr><tr><td>「10-05 之前」一列把各池的每天净值直接相加。有的池 10-05 前只有几天历史，分母很小</td><td>高估。报 +$176，实际约 +$49 ~ +$68</td><td>改成按池·天数加权；正文不再单列这一列</td></tr><tr><td>第一次进场没算换仓成本</td><td>高估，每天约 $1.5</td><td>补上</td></tr><tr><td>相邻两笔空头在同一价位一平一开，交易费收了两次全额</td><td>低估。±10% 每天约 $10，±5% 约 $42</td><td>只对股数差额收费</td></tr><tr><td>「按格线价成交」让走完的周期价格盈亏恒为 0，这是假设出来的</td><td>高估，量级原来没测</td><td>加了「收盘价成交」对照：±10% 每天少 $4，±5% 少 $16</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>问题</th><th>修正前的影响</th><th>怎么改的</th></tr></thead><tbody><tr><td>手续费份额只用小时末的池流动性。流动性很薄的小时，份额被算到 20%–78%</td><td>高估。±10% 合计每天多算约 $51，其中 CRCL V4 占 $33</td><td>取小时初和小时末较大的流动性</td></tr><tr><td>LP 换仓只算 0.02% 滑点。薄池里换 $5,000 的实际冲击是它的几倍到几百倍</td><td>高估。±10% 每天约 $15，±5% 约 $62</td><td>滑点按换仓额相对池流动性算</td></tr><tr><td>「10-05 之前」一列把各池的每天净值直接相加。有的池 10-05 前只有几天历史，分母很小</td><td>高估。报 +$176，实际约 +$49 ~ +$68</td><td>改成按池·天数加权；正文不再单列这一列</td></tr><tr><td>第一次进场没算换仓成本</td><td>高估，每天约 $1.5</td><td>补上</td></tr><tr><td>相邻两笔空头在同一价位一平一开，交易费收了两次全额</td><td>低估。±10% 每天约 $10，±5% 约 $42</td><td>只对股数差额收费</td></tr><tr><td>「按格线价成交」让走完的周期价格盈亏恒为 0，这是假设出来的</td><td>高估，量级原来没测</td><td>加了「收盘价成交」对照：±10% 每天少 $3，±5% 少 $16</td></tr></tbody></table></div>
 <p>修正前后对比（8 池合计每天净值）：</p>
-<div class="tw"><table><thead><tr><th>区间</th><th>修正前（11-10 白天的版本）</th><th>修正后</th><th>修正后，手续费仍用旧算法</th></tr></thead><tbody><tr><td>±5%</td><td>+$63</td><td class="neg">−$18</td><td>+$40</td></tr><tr><td>±10%</td><td>+$123</td><td>+$49</td><td>+$86</td></tr><tr><td>±15%</td><td>+$124</td><td>+$64</td><td>+$92</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>区间</th><th>修正前（11-10 白天的版本）</th><th>修正后</th><th>修正后，手续费仍用旧算法</th></tr></thead><tbody><tr><td>±5%</td><td>+$63</td><td class="neg">−$18</td><td>+$40</td></tr><tr><td>±10%</td><td>+$123</td><td>+$48</td><td>+$85</td></tr><tr><td>±15%</td><td>+$124</td><td>+$64</td><td>+$92</td></tr></tbody></table></div>
 <p>手续费算法这一项的影响最大。真实值在新旧两种算法之间，正文用保守的一端。</p>
 <h3>12.3 指出但没有解决的</h3>
 <ol><li><strong>手续费集中在少数薄流动性的小时。</strong> 旧算法下，SPY 池 1% 的小时贡献了 35% 的手续费。保守算法缓解了这一点，但没有验证哪个时点的流动性才对。
@@ -336,7 +336,7 @@ main>p:nth-of-type(2){font-size:18px;line-height:1.7;padding:16px 18px;border-le
 </li></ul>
 </li><li><strong>「按格线价成交」是理想假设。</strong>
 <ul><li>平仓可以预先挂限价单。开仓只能用触发单，跳空时会成交在更低的价位。
-</li><li>用小时收盘价成交做对照，平均影响不大（±10% 每天少 $4），但单次最坏亏损变大：池回放里 −$979 → −$1,039，三年正股里出现过 −$1,100 至 −$1,870。
+</li><li>用小时收盘价成交做对照，平均影响不大（±10% 每天少 $3），但单次最坏亏损变大：池回放里 −$1,033 → −$1,058，三年正股里出现过 −$1,050 至 −$1,970。
 </li><li>Arcus 盘外有价格带，大跌时可能开不了仓。这一点没有模拟。
 </li></ul>
 </li><li><strong>LP 实际按池价计值，空头在 Arcus 上。</strong>
@@ -350,8 +350,8 @@ main>p:nth-of-type(2){font-size:18px;line-height:1.7;padding:16px 18px;border-le
 <h2 id="s14">14. 结论</h2>
 <p><strong>不建议实盘。</strong></p>
 <ol><li>原设计（±5%、每格 1%）扣完成本是亏的：8 池合计每天 −$18。
-</li><li>最好的形态是「规则不动（每跌 1% 开一笔），区间加宽到 ±10% 左右，也就是十笔」。这 110 天里 8 池合计每天 +$49，平均每池每天 $6，本金约 $12,300。
-</li><li>这个正收益站不住。这 110 天的掉头亏损只有三年均值的一半左右。换成三年均值，8 个池里 6 个为负，合计约每天 −$66。
+</li><li>最好的形态是「规则不动（每跌 1% 开一笔），区间加宽到 ±10% 左右，也就是十笔」。这 110 天里 8 池合计每天 +$48，平均每池每天 $6，本金约 $12,300。
+</li><li>这个正收益站不住。这 110 天的掉头亏损只有三年均值的一半左右。换成三年均值，8 个池里 6 个为负，合计约每天 −$67。
 </li><li>剩下为正的两个池（META、SPY）每天只有 $2–$6。扣掉没算的 gas 和资金占用，没有做的价值。
 </li><li>对冲规则本身调不动。收益取决于池子有多薄和股票波动多大，这两样规则都控制不了。
 </li></ol>
@@ -376,7 +376,7 @@ main>p:nth-of-type(2){font-size:18px;line-height:1.7;padding:16px 18px;border-le
 <p>回放代码和结果文件（未随本页公开）：</p>
 <ul><li>原口径（第 3–5 节）：<code>oneshot.py</code>，结果 <code>out/oneshot-NVDA-arcus-2026-11-10.json</code>。
 </li><li>核心回放（第 6 节的口径）：<code>oneshot2.py</code>。
-</li><li>第 7、9、10 节的全部数字：<code>oneshot2_all.py</code>，结果 <code>out/oneshot2-all-2026-11-10.json</code>，文字汇总 <code>out/oneshot2-all-report-2026-11-10.txt</code>。
+</li><li>第 7、9、10 节的全部数字（运行时加参数 step1 = 每格 1%，结果文件名带 1pct）：<code>oneshot2_all.py</code>，结果 <code>out/oneshot2-all-2026-11-10.json</code>，文字汇总 <code>out/oneshot2-all-report-2026-11-10.txt</code>。
 </li><li>放量期过滤：<code>oneshot2_regime.py</code>。
 </li><li>第 11 节：<code>oneshot2_longhist.py</code>，正股数据 <code>data/yahoo/</code>，结果 <code>out/oneshot2-longhist-2026-11-10.json</code>。
 </li><li>独立验证的脚本和输出在会话临时目录，没有进仓库。
