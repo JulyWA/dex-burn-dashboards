@@ -131,7 +131,7 @@ footer{margin-top:64px;color:var(--mut);font-size:13px;border-top:1px solid var(
 <h2 id="h4">4. 进度和阶段安排</h2>
 <h3>4.1 四个阶段</h3>
 <p>全程约 7 个工作日。每个阶段结束停下来等验收，通过再进下一个。</p>
-<div class="tw"><table><thead><tr><th>阶段</th><th>做什么</th><th>周期</th><th>状态（11-12）</th></tr></thead><tbody><tr><td>0 数据源核实</td><td>6 个协议逐个核实数据源；找股票名单；定性 Robinhood 非股票池</td><td>1 天</td><td>已完成。11-11 → 11-12 六个源跨期比对全部通过；消失大池增加按地址上游复核。</td></tr><tr><td>1 第一步采集</td><td>Aerodrome、Curve、Robinhood 主流对；2.0 候选池发现修复；meme 存档</td><td>2 天</td><td>已上线。首次完整生产采集成功；等待连续 3 天自动运行验收，见 4.2</td></tr><tr><td>2 第二步采集</td><td>Orca、Raydium、Meteora；meme 和假 TVL 过滤</td><td>3 天</td><td>进行中。11-12 三家首轮采集已跑通：Orca 81.8%、Raydium 115.1%、Meteora 62.8%；过滤阈值待确认</td></tr><tr><td>3 收尾</td><td>覆盖率每天自动重算；整理给第二阶段的字段清单</td><td>1 天</td><td>未开始</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>阶段</th><th>做什么</th><th>周期</th><th>状态（11-12）</th></tr></thead><tbody><tr><td>0 数据源核实</td><td>6 个协议逐个核实数据源；找股票名单；定性 Robinhood 非股票池</td><td>1 天</td><td>已完成。11-11 → 11-12 六个源跨期比对全部通过；消失大池增加按地址上游复核。</td></tr><tr><td>1 第一步采集</td><td>Aerodrome、Curve、Robinhood 主流对；2.0 候选池发现修复；meme 存档</td><td>2 天</td><td>已上线。首次完整生产采集成功；等待连续 3 天自动运行验收，见 4.2</td></tr><tr><td>2 第二步采集</td><td>Orca、Raydium、Meteora；meme 和假 TVL 过滤</td><td>3 天</td><td>进行中。11-12 三家首轮采集已跑通；0.01% 阈值已用于 Orca、Raydium，Meteora 等真实 7 天历史；尚待连续运行验收</td></tr><tr><td>3 收尾</td><td>覆盖率每天自动重算；整理给第二阶段的字段清单</td><td>1 天</td><td>未开始</td></tr></tbody></table></div>
 <h3>4.2 阶段 1 现状</h3>
 <p>11-11 在本地跑了一遍，只写文件：</p>
 <div class="tw"><table><thead><tr><th>源</th><th>TVL ≥ $50 万的池</th><th>过门槛</th><th>还差什么</th></tr></thead><tbody><tr><td>Curve · Ethereum</td><td>139</td><td>134（119 个有 7 天 APY）</td><td>11-11 晚已查清，见附录 B.3。Yield Basis 池 11-11 定不进 APY 榜（决策 #17）</td></tr><tr><td>Aerodrome · Base</td><td>101</td><td>99（其中股票池 10 个）</td><td>没有池级手续费，只展示 TVL 和成交，不进 APY 榜</td></tr><tr><td>Robinhood 主流对</td><td>10</td><td>10</td><td>另存 meme 池 105 个</td></tr></tbody></table></div>
@@ -222,7 +222,7 @@ footer{margin-top:64px;color:var(--mut);font-size:13px;border-top:1px solid var(
           Robinhood：
         </strong> 既不是股票、也不是主流币（WETH、USDG、USDC、USDT、WBTC 等）的池，按 meme 处理。</p></li><li><p><strong>
           Solana：
-        </strong> ① 任一侧代币带 CoinGecko meme 标签，排除并存档。② 任一侧 CoinGecko 没收录，并且 7 天手续费 ÷ TVL 低于阈值，列为假 TVL / meme 排除候选。11-12 首轮对比：候选阈值 0.01% 时，Orca 0/3、Raydium 53/57、Meteora 2/4 个未收录池低于阈值；当前只标记，尚未写入生产筛选。</p></li><li><p><strong>
+        </strong> ① 任一侧代币带 CoinGecko meme 标签，排除并存档。② 任一侧 CoinGecko 没收录，并且 7 天手续费 ÷ TVL 低于 0.01%，列为假 TVL / meme 并排除。11-12 已批：Orca、Raydium 应用该阈值；首轮分别排除 0/3、53/57 个未收录池。Meteora 缺真实 7 天字段，暂不自动套阈值，等积累 7 天历史后再定。</p></li><li><p><strong>
           原定的「至少一侧是稳定币或 SOL」拦不住。
         </strong> Meteora 45 个大池全部满足这条，包括 YZY、MELANIA、TRUMP。</p></li><li><p><strong>
           没收录的不一定是 meme，但可能是假 TVL。
